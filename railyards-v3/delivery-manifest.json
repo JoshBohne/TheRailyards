@@ -1,0 +1,380 @@
+{
+  "created_utc": "2026-09-06T07:45:06.474937+00:00",
+  "scene": "railyards-v3.blend",
+  "source_modules": [
+    "add_interior_cameras",
+    "build_blockout",
+    "build_detail",
+    "finalize_scene",
+    "r2_context",
+    "r2_geometry",
+    "r2_landscape",
+    "r2_lighting",
+    "r2_materials",
+    "r2_seating",
+    "r3_adjacent_buildings",
+    "r3_bowl_details",
+    "r3_bridge_approach_park",
+    "r3_bridges",
+    "r3_envelope",
+    "r3_environment",
+    "r3_field",
+    "r3_fireworks",
+    "r3_medical",
+    "r3_outfield",
+    "r3_outfield_context",
+    "r3_players",
+    "r3_public_realm",
+    "r3_reference_projection",
+    "r3_restaurant",
+    "r3_scoreboards",
+    "r3_skyline",
+    "r3_soccer_context",
+    "r3_south_blocks",
+    "r3_south_rail_context",
+    "r3_window_tones",
+    "render_interior",
+    "render_scene",
+    "render_southern_rail",
+    "verify_scene"
+  ],
+  "files": [
+    {
+      "file": "add_interior_cameras.py",
+      "bytes": 1324,
+      "sha256": "010463f6d8cd0db20a2ba98f90b2ae1fe8d80b37907a67080e6d6a078d9bc0a7"
+    },
+    {
+      "file": "adjacent-building-spec.json",
+      "bytes": 3748,
+      "sha256": "228c0a28d13be23b7988fec01028b628d3ac5d754e55652abdf2a36445885d2c"
+    },
+    {
+      "file": "adjacent-pixel-traces.json",
+      "bytes": 1451,
+      "sha256": "e0b42da0db0118f940d63eadf6bc1257e45ac4352fe846a69131c3ebbebb1538"
+    },
+    {
+      "file": "blender-projections.json",
+      "bytes": 4616,
+      "sha256": "4ad69d580be3467c78b2fbf8175520129123314adb059571554ae80d686bb572"
+    },
+    {
+      "file": "bridge-spec.json",
+      "bytes": 3699,
+      "sha256": "a48a7b3183112287e52502a5c349313a4075abb49ed0ed2ae7960543e203db36"
+    },
+    {
+      "file": "build_blockout.py",
+      "bytes": 10020,
+      "sha256": "74f21360042817616756aa5dc60b023ac50c810a67c094d8e9828bfa203b7e75"
+    },
+    {
+      "file": "build_detail.py",
+      "bytes": 5307,
+      "sha256": "feb90b40b4d67b6718b231b684ef34cc23a8314e2d83a4c059530cae9053f531"
+    },
+    {
+      "file": "detail-renders.json",
+      "bytes": 857,
+      "sha256": "bd8bc928b4740da790beec916bf85d716ad64847b8fa0ddc5b43b78c0445471b"
+    },
+    {
+      "file": "envelope-spec.json",
+      "bytes": 4288,
+      "sha256": "6adea5f64dfc49de2bf21dede443b476710c6f3fb5eaf20b872d9d5d436a968a"
+    },
+    {
+      "file": "final-renders.json",
+      "bytes": 833,
+      "sha256": "36ce0ee5eb2214458ca58eba261a4ad767bdedba5520521f76de8b535bad1c20"
+    },
+    {
+      "file": "finalize_scene.py",
+      "bytes": 2774,
+      "sha256": "906a0547a61acf9bd20a56e8234f6c2de23b9b9a83705d6664aadc33af6d1701"
+    },
+    {
+      "file": "interior-cameras.json",
+      "bytes": 621,
+      "sha256": "c640671a5da02bde918328300612409252d6d4dcbb56b27868fcf0ae638ef2d8"
+    },
+    {
+      "file": "interior-renders.json",
+      "bytes": 969,
+      "sha256": "2d43495697baddf73fe0866b62f0cef67749f558477f98dbaf51823cddc0d628"
+    },
+    {
+      "file": "lighting-renders.json",
+      "bytes": 287,
+      "sha256": "ac11dee3a7aea1e7d5a0112a59b0b710aeec5933a635551c55153dbb11e504e2"
+    },
+    {
+      "file": "outfield-context.json",
+      "bytes": 164328,
+      "sha256": "e64e51e8f9f46b6e03ed9d814bdee5a29c8de06ed7cabdd6a7e63b33a9370dc9"
+    },
+    {
+      "file": "public-realm-spec.json",
+      "bytes": 2518,
+      "sha256": "7fc56bc1b0da0e01ab5a9993e770939fbe5a9145fb240a58682a3feffa8cf8d7"
+    },
+    {
+      "file": "r2_context.py",
+      "bytes": 3490,
+      "sha256": "c6435122add69aa4d3c3dd755f42a6312bbd8ad37c26f724168395b591ef7959"
+    },
+    {
+      "file": "r2_geometry.py",
+      "bytes": 6685,
+      "sha256": "85a22792291b7fec9668e36322b271692c5ccc0b7f22b9dd43cec374fd529415"
+    },
+    {
+      "file": "r2_landscape.py",
+      "bytes": 4517,
+      "sha256": "bc898c088d9931f634170a82dbf6e3b969e3e603f9a3f37c7b3458eaa14617d8"
+    },
+    {
+      "file": "r2_lighting.py",
+      "bytes": 3740,
+      "sha256": "465fb7b715bfb40c19b54a6859183c8282b35cc3601fb92bde19026126785fb2"
+    },
+    {
+      "file": "r2_materials.py",
+      "bytes": 5144,
+      "sha256": "37eeca035267d371b93136a13d2d8212af621182c06f600d8f9725bddbe6e043"
+    },
+    {
+      "file": "r2_seating.py",
+      "bytes": 3910,
+      "sha256": "69b1b2fde2e2b2b6d0300dfffcaca9520979b0981d6e671b759c265cd7e56274"
+    },
+    {
+      "file": "r3_adjacent_buildings.py",
+      "bytes": 20007,
+      "sha256": "968c0f76d40c8368bcb6b5a786acc3a79a9961807ea63b1547d77884738c34c5"
+    },
+    {
+      "file": "r3_bowl_details.py",
+      "bytes": 4749,
+      "sha256": "73ed8b12c9078b7c27552516cc34e74894f4020212112ef2011699d31c3c122d"
+    },
+    {
+      "file": "r3_bridge_approach_park.py",
+      "bytes": 2002,
+      "sha256": "e78551deab6f2326dae39c160002853dd43006e1731361ba6cb2756302c47748"
+    },
+    {
+      "file": "r3_bridges.py",
+      "bytes": 15350,
+      "sha256": "9bb57333d11307b13624465e07e1bb1e151559b8f2ebb3c0737e50170cbf37cf"
+    },
+    {
+      "file": "r3_envelope.py",
+      "bytes": 29208,
+      "sha256": "568419c1c7089782c941ecb22bea59d2db94f2588329a5e7e173508447bef0d8"
+    },
+    {
+      "file": "r3_environment.py",
+      "bytes": 4637,
+      "sha256": "8ef26cf3350abab6dea80032d04acd457e9f6e9890aa2b8b3c481e44f88e793a"
+    },
+    {
+      "file": "r3_field.py",
+      "bytes": 16608,
+      "sha256": "e3f8e1d352fe1aedabb6f63b0154af0e9d5a570d18d5697c4dc8635d4e060038"
+    },
+    {
+      "file": "r3_fireworks.py",
+      "bytes": 1831,
+      "sha256": "b0daa0916e657e0a3b93ebde48ee83a468006c68fbb73fb4207ecc19f4aec4f7"
+    },
+    {
+      "file": "r3_medical.py",
+      "bytes": 7996,
+      "sha256": "7f80972e49d2be739d7d2f50702dd33d620165cc8822adc092dfeb7f134bbec8"
+    },
+    {
+      "file": "r3_outfield.py",
+      "bytes": 9171,
+      "sha256": "c7ff8cbc0353c846818bdce44e41fedf1f055068e48e433beca83e9fdc867972"
+    },
+    {
+      "file": "r3_outfield_context.py",
+      "bytes": 2960,
+      "sha256": "ce4c8737e3500b3a0eb964006d3832b6cc20adcfde4bc2ab020e42c2a9e28f64"
+    },
+    {
+      "file": "r3_players.py",
+      "bytes": 3570,
+      "sha256": "da556c682318108ba422de311a9dcb5c640f74f1e9dced2b8c1448f1c1dfac7e"
+    },
+    {
+      "file": "r3_public_realm.py",
+      "bytes": 9697,
+      "sha256": "c92701af4eda2df8e92f49fa8dd19775ed054d2b022513b92ae3ae1a6a555e15"
+    },
+    {
+      "file": "r3_reference_projection.py",
+      "bytes": 2087,
+      "sha256": "3a1b3254b3e368fbe47d083cbc65b339a225faa3f317803b8ee1435cfc62f1f2"
+    },
+    {
+      "file": "r3_restaurant.py",
+      "bytes": 7016,
+      "sha256": "5f2f9bbca6a2178fc0cd39d4a350b1481bb9c047a74cc93ec6450f7fc221fc16"
+    },
+    {
+      "file": "r3_scoreboards.py",
+      "bytes": 5856,
+      "sha256": "f3990c41b42559c8d5acc0af53b5811a4464d7a06537bdd22b16bb3f82709644"
+    },
+    {
+      "file": "r3_skyline.py",
+      "bytes": 15394,
+      "sha256": "6ac4e2aa43e5179d3dab5e2ed01b28d503878a420709b06d6d2e7925453fdb22"
+    },
+    {
+      "file": "r3_soccer_context.py",
+      "bytes": 11510,
+      "sha256": "2b691d0329318832a0283b909d01204d3037eadac0ae54ecd8dc25cfed937f4b"
+    },
+    {
+      "file": "r3_south_blocks.py",
+      "bytes": 4336,
+      "sha256": "6f5606f9d3618845db321ae7312664df3ecb550e6d8741edb98228da6ae64759"
+    },
+    {
+      "file": "r3_south_rail_context.py",
+      "bytes": 4677,
+      "sha256": "b7203979ea2953b6f8614a3d7b281fc4ba5470aafa8b1ecab95701e33db4bf20"
+    },
+    {
+      "file": "r3_window_tones.py",
+      "bytes": 3290,
+      "sha256": "da6c40b06f5763f08bf86ab41c3906b194da32fb312e225aec8e8d31bf4f7dad"
+    },
+    {
+      "file": "railyards-v3.blend",
+      "bytes": 28829249,
+      "sha256": "eb1a19150aeb749f9ad01f6c0238c40e0fe3ebd53a82d16adb86202d7779d893"
+    },
+    {
+      "file": "render_interior.py",
+      "bytes": 1581,
+      "sha256": "c870a619748928a901da62ee9687013cef576f3268983b589be6737023e58f45"
+    },
+    {
+      "file": "render_scene.py",
+      "bytes": 1351,
+      "sha256": "2d5c09168897842ed094c9bde83704116ac0b262b567808552e87243aa4ec166"
+    },
+    {
+      "file": "render_southern_rail.py",
+      "bytes": 874,
+      "sha256": "2c5d01bfbc012fd56ddfc98f1b004291e00828cc2cc4928c112d56a91d859168"
+    },
+    {
+      "file": "saved-scene-verification.json",
+      "bytes": 9343,
+      "sha256": "838e5efbe7bc4af1ff26fd5db05ce392b4bebacf4cc012450df697bfb6a4cfdf"
+    },
+    {
+      "file": "scene-spec.json",
+      "bytes": 53096,
+      "sha256": "b22d0e67dfe9a6cf10a65ac5f3523fa773ce8f97ceace03d57db955509090f5d"
+    },
+    {
+      "file": "site-context.json",
+      "bytes": 577619,
+      "sha256": "ecf5250b3f2b36299a232a4ffada0fcbba44295e6c2ac3e77202981859d84551"
+    },
+    {
+      "file": "site-roads.json",
+      "bytes": 866870,
+      "sha256": "ed3d5269c8b38c2cdb0f1a81f5f67dfa9d1c6bf3da6ba8434b8dc09af073f48c"
+    },
+    {
+      "file": "skyline-buildings.json",
+      "bytes": 24418,
+      "sha256": "bdf52717f0fc7f58da32c580ca04101115404ef5a0a0451bf55b143da00062a7"
+    },
+    {
+      "file": "soccer-context-spec.json",
+      "bytes": 2154,
+      "sha256": "888ba35cd747419a2eb75adff628b020d97f44d30a5c9360b068a5994d8e64ca"
+    },
+    {
+      "file": "south-blocks-spec.json",
+      "bytes": 7001,
+      "sha256": "0aa6f4ac14efd6b38f332e37161da10612991fad432446b661647dcab8e61f88"
+    },
+    {
+      "file": "south-bridge-evidence.json",
+      "bytes": 5966,
+      "sha256": "fe80164333934d09cdff668d8ca9c051bc8ad087df074189fc6156b8f9c4a714"
+    },
+    {
+      "file": "southern-rail-render.json",
+      "bytes": 284,
+      "sha256": "51e90784f146fdb62d544087bab3df07a71df4b0188283c4ff9547dc1538b225"
+    },
+    {
+      "file": "verify_scene.py",
+      "bytes": 3976,
+      "sha256": "d881f95ae7c371afa7b56664a622e947d7267b29bb7faa172966fb766f6c43ae"
+    }
+  ],
+  "images": [
+    {
+      "file": "final-north.png",
+      "width": 1800,
+      "height": 1198,
+      "sha256": "fa996804affedb31d1ef3844f421464da1c6d366e895f06b30a6b458d18a0a4a"
+    },
+    {
+      "file": "final-south.png",
+      "width": 1800,
+      "height": 1200,
+      "sha256": "1449205004138d8529f9be240f1b637a991ec72646f12547bf27bf1348b8070f"
+    },
+    {
+      "file": "final-bridge.png",
+      "width": 1800,
+      "height": 1199,
+      "sha256": "5a8a074fbf2b28e50704e60d2ddf2dc898f28bd8262f1a7d19affcc21dbb4b1d"
+    },
+    {
+      "file": "interior-home_plate.png",
+      "width": 1800,
+      "height": 1125,
+      "sha256": "066bc9d14af2ac26d340e95d58862e427e095bff14edbd5eba1fec9c3d386818"
+    },
+    {
+      "file": "interior-home_upper_deck.png",
+      "width": 1800,
+      "height": 1125,
+      "sha256": "13ac29b3244e928c8230db9c946a535efdc4b6e4e64e08df12d084c28c17c0bc"
+    },
+    {
+      "file": "interior-third_base_seats.png",
+      "width": 1800,
+      "height": 1125,
+      "sha256": "ba6e0c3dbc4e1cd4f07617d11ab0b5bb6792aa9ae160329cab996db28fc417f1"
+    },
+    {
+      "file": "interior-left_field_skyline.png",
+      "width": 1800,
+      "height": 1125,
+      "sha256": "47ca43d86adc2c657dbd7ec5d2e58ca1ee7e32aa95b1f9036059c4bddce420e0"
+    },
+    {
+      "file": "southern-rail-detail.png",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "7d951b6aaeca8c09dae6bf0c2f09702031eccf13cffd6d7544f3d5d7bd4c3ae6"
+    }
+  ],
+  "verification": "Clean CLI rebuild; saved-file re-open through Blender MCP; actual native renders reviewed in browser. Whole-scene photographic equivalence is not asserted.",
+  "source_variants": "North and B6 covered links remain documented interpretation variants."
+}

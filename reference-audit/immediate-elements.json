@@ -1,0 +1,318 @@
+{
+  "audit": "Immediate area around proposed September 2026 White Sox Railyards stadium",
+  "scope": "Stadium first, immediate surroundings second, skyline only where it frames the outfield",
+  "review_date": "2026-09-06",
+  "review_method": {
+    "browser_surface": "http://127.0.0.1:8849/",
+    "source_pages": [
+      "reference-inspector.html?view=north",
+      "reference-inspector.html?view=south",
+      "reference-inspector.html?view=bridge",
+      "reconstruction-references/railyards-site-plan.png"
+    ],
+    "model_pages": [
+      "railyards-v2/index.html",
+      "railyards-v2/final-north.png",
+      "railyards-v2/final-south.png",
+      "railyards-v2/final-bridge.png",
+      "railyards-v2/facade-detail.png",
+      "railyards-v2/site-registration.html",
+      "railyards-v2/site-top.png"
+    ],
+    "interaction": "Dedicated Chrome tab; source and detailed-v2 render viewed side by side and with opacity overlay",
+    "coordinate_note": "Source boxes are approximate native-pixel regions for review targeting, not surveyed geometry. Native sizes: north 1944x1294, south 5000x3333, bridge 1440x959, plan 1948x1190.",
+    "calibration_evidence": {
+      "north_rms_px_per_coordinate": 2.9,
+      "north_max_selected_error_px": 5.6,
+      "south_rms_px_per_coordinate": 34.2,
+      "south_max_selected_error_px": 111.2,
+      "bridge_rms_px_per_coordinate": 8.2,
+      "bridge_max_selected_error_px": 22.7,
+      "interpretation": "Selected-control fit only; it is not a whole-scene fidelity score."
+    }
+  },
+  "evidence_boundaries": {
+    "reference_backed": [
+      "Visible silhouettes, roof corners, facade bay rhythms, sign placement, river/rail/road relationships, bridge presence, public-realm levels and visible planting/furniture patterns in the supplied images.",
+      "North aerial roof-corner footprints for the four named adjacent masses, as recorded in scene-spec.json."
+    ],
+    "inferred_or_unverified": [
+      "Absolute building heights, construction assemblies, hidden elevations, exact capacity, exact pavement widths, planting species, below-grade structure and future-development phasing.",
+      "The site plan is schematic; its stadium glyph is not a dimensioned footprint. The model records a 3.7-4.7 m affine registration residual and an additional inferred 33 m east-west adjustment."
+    ]
+  },
+  "priority_order": [
+    "P0: Re-establish source silhouette and facade/cornice identity of the stadium, including the CF rounded frontage and the tower/canopy junction.",
+    "P0: Replace generic adjacent masses with the four visible reference buildings and their roof/terrace rhythms.",
+    "P1: Build the riverwalk, public stairs, park levels, paths, planting and furniture as a connected public realm.",
+    "P1: Correct rail crossings and Roosevelt bridge structure so crossings read as infrastructure rather than thin bars.",
+    "P2: Match warm lighting and reduce generic skyline detail until immediate geometry is stable."
+  ],
+  "elements": [
+    {
+      "id": "stadium-envelope-and-cornice",
+      "label": "Stadium envelope, upper canopy, facade rhythm and tower junction",
+      "reference_backed": "Visible in all three perspective renderings; north bowl outline is the strongest constrained view.",
+      "source_regions": {
+        "north": {"box": [120, 80, 1080, 850], "focus": "Full bowl, left-field tower, canopy and river-facing frontage"},
+        "south": {"box": [1450, 1050, 3500, 2850], "focus": "River-facing brick facade, continuous dark cornice and rail-adjacent bowl"},
+        "bridge": {"box": [400, 330, 1080, 700], "focus": "Bowl silhouette, tower, canopy and external concourse"}
+      },
+      "source_contract": [
+        "Asymmetric baseball bowl with a broad, continuous dark canopy wrapping the upper decks.",
+        "River-facing exterior uses tall, repeated brick bays, a strong horizontal cornice/cap and a lower arcade/glazed concourse.",
+        "Clock tower is a legible stacked brick/stone vertical marker with multiple clock faces and a lantern-like top; its base meets the bowl/canopy at a visible corner.",
+        "Canopy reads as a structural roof plane with repeated ribs/seams, not a smooth generic band."
+      ],
+      "current_v2": [
+        "North field/bowl alignment is visually close in the overlay, but the facade is a procedural repetitive shell and the roof is too smooth and uniformly light.",
+        "South and bridge views show the bowl and river-facing frontage as smaller/less dominant than the source; the current context competes with the stadium.",
+        "Tower exists and reads at a distance, but its stack, roof junction and adjacent lantern lack the source's architectural weight."
+      ],
+      "correction_spec": [
+        "Lock field and north bowl footprint first; treat the calibrated north result as the anchor and fit south/bridge camera or shared geometry only after the anchor survives.",
+        "Add a measured facade module: tall brick piers, recessed dark glazing, a distinct upper cornice band, and a lower glazed/arched arcade. Vary bay widths at corners and around entries instead of repeating one bay.",
+        "Break the canopy into a visible ribbed surface with a darker underside and a sharper roof-to-wall edge; retain the four separated decks.",
+        "Widen/step the tower shaft and make the lantern/cap connection explicit in the silhouette."
+      ],
+      "confidence": "high for silhouette/rhythm; medium for dimensions"
+    },
+    {
+      "id": "medical-main-and-wing",
+      "label": "Northwestern Medicine medical main and wing",
+      "reference_backed": "North aerial provides a distinctive purple Northwestern Medicine sign and roof/wing relationship; south view repeats the sign building in the rail-side context.",
+      "source_regions": {
+        "north": {"box": [990, 120, 1530, 430], "focus": "Purple Northwestern Medicine sign, long lit facade, roof garden/terrace and wing"},
+        "south": {"box": [620, 1450, 1550, 2500], "focus": "White/stone medical mass with purple sign beside the rail corridor"},
+        "bridge": {"box": [30, 350, 290, 640], "focus": "Left-side river context where the medical/rail-side mass is visible only in part"}
+      },
+      "source_contract": [
+        "Long, horizontally composed clinical building with a legible purple sign band; glazing is finer-grained than the entertainment buildings.",
+        "Main and wing masses step in plan and height; roof contains visible planted or mechanical zones rather than one undifferentiated slab.",
+        "Building sits across/along the rail and pedestrian connection, so its ground edge participates in the crossing sequence."
+      ],
+      "current_v2": [
+        "The named Medical main/wing footprints exist in scene-spec.json, but the detailed render reads as generic gridded blocks; the sign is not legible at comparison scale.",
+        "Roof treatment and mass hierarchy do not reproduce the source sign building's stepped, institutional identity; current glazing is too evenly distributed."
+      ],
+      "correction_spec": [
+        "Preserve the recorded footprints as the plan prior, then split the mass into a taller main bar and lower wing with a visible step at their joint.",
+        "Reserve a high-contrast purple sign panel on the source-facing facade; make it readable in north and south cameras without inventing extra branding.",
+        "Use narrower vertical medical curtain-wall bays, stone/aluminum spandrels and a roof garden/mechanical setback; suppress generic rooftop boxes where they do not appear in the source."
+      ],
+      "confidence": "high for sign and mass relationship; medium for roof depth/height"
+    },
+    {
+      "id": "left-field-pavilion",
+      "label": "Left-field pavilion",
+      "reference_backed": "North aerial roof corners and visible south/bridge roof silhouette; exact footprint is explicitly marked inferred in scene-spec.json.",
+      "source_regions": {
+        "north": {"box": [790, 360, 1130, 700], "focus": "Dark-roof pavilion between bowl, rail crossing and adjacent hall"},
+        "south": {"box": [1250, 1150, 2300, 2100], "focus": "Rail-side pavilion/roof anchor; selected LF roof control is the largest south residual"},
+        "bridge": {"box": [760, 430, 1010, 660], "focus": "Pavilion mass immediately right of bowl in bridge view"}
+      },
+      "source_contract": [
+        "A low-to-mid-rise, elongated pavilion mass with a dark, stepped or sloped roof and a strong edge along the rail/crossing zone.",
+        "The pavilion mediates between stadium seating, pedestrian deck and the larger hall; it should not read as a free-standing square box."
+      ],
+      "current_v2": [
+        "Current render shows a near-cube gridded block at the anchor, with a flat roof and weak connection to the stadium/rail landing.",
+        "The LF pavilion selected control has 111.2 px reference error in the south fit, the largest selected residual; this is a useful correction target, not proof of a camera-only error."
+      ],
+      "correction_spec": [
+        "Rebuild as an elongated bar aligned to the source roof corners, with a lower concourse base and a darker stepped roof volume.",
+        "Add a visible covered landing/bridge connection and keep its height below the medical tower and stadium tower in all three views.",
+        "Recheck the south camera after moving the shared mass; the north and bridge images should preserve the roof corner alignment."
+      ],
+      "confidence": "medium; roof corners are visible but elevation and hidden footprint are inferred"
+    },
+    {
+      "id": "north-entertainment-hall",
+      "label": "North entertainment hall",
+      "reference_backed": "North aerial roof corners and the long lit hall facade are clear; bridge/south views show its brick hall and active roof edge.",
+      "source_regions": {
+        "north": {"box": [930, 470, 1730, 1090], "focus": "Long brick/glass hall, rooftop terrace, garden furniture and active park edge"},
+        "south": {"box": [2500, 1320, 3900, 2480], "focus": "Long hall mass immediately beyond stadium/right riverwalk"},
+        "bridge": {"box": [800, 430, 1170, 690], "focus": "Brick hall in stadium's right foreground"}
+      },
+      "source_contract": [
+        "Long, 4-5 story brick/glass hall with a strong vertical bay cadence, deep roof terrace, visible planting and activity.",
+        "Hall forms one edge of the park and connects to the stadium concourse; its ground plane is porous and lit.",
+        "Its roof/terrace is a horizontal counterweight to the curved stadium frontage."
+      ],
+      "current_v2": [
+        "Current v2 has the named footprint and a generic rectangular block, but the flat slab roof, uniform window grid and blank lawn edge erase the terrace/park relationship.",
+        "Current lighting is cold and broad; the hall does not carry the warm window/terrace emphasis seen in the source."
+      ],
+      "correction_spec": [
+        "Keep the inferred footprint but model a stepped podium, taller central hall bar and setback rooftop terrace with low parapet.",
+        "Use larger vertical bays at the public-facing facade, recessed dark glazing and a brick base; introduce only the visible terrace planting/furniture patterns.",
+        "Connect the hall directly to the park path and stadium concourse with a legible threshold and stair/ramp sequence."
+      ],
+      "confidence": "high for visible facade/terrace relationship; medium for exact height"
+    },
+    {
+      "id": "centerfield-rounded-restaurant",
+      "label": "Centerfield rounded restaurant / river-facing terrace",
+      "reference_backed": "Distinctive curved, river-facing frontage below the centerfield board is visible in north, south and bridge views.",
+      "source_regions": {
+        "north": {"box": [500, 700, 1030, 1110], "focus": "Rounded glazed frontage below THE RAILYARDS/CF screen with terrace activity"},
+        "south": {"box": [1900, 1350, 3100, 2450], "focus": "Curved front facade and sign/board relationship"},
+        "bridge": {"box": [520, 470, 780, 650], "focus": "Bright rounded river-side terrace immediately below CF board"}
+      },
+      "source_contract": [
+        "Broad rounded or semicircular river-facing frontage with a dark curved roof/board assembly above it.",
+        "Glazing and vertical structure wrap the curve; upper terrace furniture and people make it an active venue.",
+        "The building anchors the riverwalk and the stadium's public front, rather than sitting as a small detached object."
+      ],
+      "current_v2": [
+        "The current cylinder is recognizable but underscaled, isolated and too white/bright; its dark canopy/board relationship and upper terrace are weak.",
+        "Facade-detail render shows a procedural low cylinder and sparse furniture where the source reads as a broad active frontage."
+      ],
+      "correction_spec": [
+        "Increase the curved frontage to the source's visible width relative to the CF board; keep a short straight wing only where the source indicates one.",
+        "Wrap a consistent dark canopy/cornice over the curve, add glazed vertical mullion rhythm and a readable lower arcade/entry band.",
+        "Place a compact upper terrace with visible tables/umbrellas and connect it to the river promenade with steps and a broad landing; avoid arbitrary extra floors."
+      ],
+      "confidence": "high for silhouette and placement; medium for exact radius"
+    },
+    {
+      "id": "rail-corridor-and-pedestrian-crossings",
+      "label": "Rail corridor, visible rail crossings and covered pedestrian decks",
+      "reference_backed": "Rail tracks and multiple cross-rail decks are visible in all aerial references and in the plan; exact operating rail geometry is outside the supplied evidence.",
+      "source_regions": {
+        "north": {"box": [80, 0, 1160, 730], "focus": "Rail yard, multiple covered crossings and stadium-side landings"},
+        "south": {"box": [650, 850, 2700, 3150], "focus": "Long parallel tracks, repeated road/pedestrian bridges and underpasses"},
+        "bridge": {"box": [180, 350, 580, 650], "focus": "Rail corridor and crossing structures behind/left of stadium"},
+        "plan": {"box": [520, 250, 1030, 1000], "focus": "Rail corridor west of stadium and repeated cross-site connections"}
+      },
+      "source_contract": [
+        "Several parallel tracks form a deep corridor west of the stadium; crossings occur at repeated intervals and have substantial deck width, guard/roof edges and landings.",
+        "Pedestrian decks are covered or visually substantial, linking the stadium concourse to the medical/pavilion/hall side.",
+        "Road and rail crossings are layered; the source does not read as a few isolated horizontal bars."
+      ],
+      "current_v2": [
+        "Four crossing objects are present in r2_district.py at y=-113,-48,73,150, but current renders show thin, repetitive gray decks with weak landings and little depth.",
+        "Track bed is a dark straight trench; the source has denser track/bridge layering and richer edge conditions."
+      ],
+      "correction_spec": [
+        "Keep the four crossings as a count prior, then give each a source-like covered deck, opaque side/roof edge, guardrails and widened concourse landing.",
+        "Tie deck elevation to the rail trench and stadium ground levels; show at least one clear stair/ramp drop at each public landing.",
+        "Retain simplified rails, but add visible parallel tracks, sleepers and road/bridge hierarchy before adding distant buildings."
+      ],
+      "confidence": "high for crossing presence/count class; medium for exact widths and levels"
+    },
+    {
+      "id": "riverwalk-quays-and-levels",
+      "label": "River edge, riverwalk width and level changes",
+      "reference_backed": "River edge is visible in the three perspectives and the site plan; level widths are visual estimates.",
+      "source_regions": {
+        "north": {"box": [0, 470, 1380, 1294], "focus": "River-facing promenade, quay wall, stairs and boats"},
+        "south": {"box": [2700, 1450, 4550, 3333], "focus": "River channel, linear promenade and crossings"},
+        "bridge": {"box": [250, 470, 1200, 900], "focus": "Both banks, water-level structure and foreground public realm"},
+        "plan": {"box": [820, 180, 1080, 1050], "focus": "River alignment and bends around the site"}
+      },
+      "source_contract": [
+        "Promenade is broad enough for crowds and terraces; river edge includes a hard quay plus lower/water-adjacent level in places.",
+        "Stairs descend from upper plaza/park levels to the lower walk; railings follow the edge but are subordinate to the public space.",
+        "River channel and banks bend toward the 18th Street area in the plan/source context; width is not uniform."
+      ],
+      "current_v2": [
+        "Current model uses straight parallel quays, a largely single-level riverwalk and narrow strips; the source's stepped depth and active width are absent.",
+        "Current railings and stairs are present in code but are too subtle or hidden in perspective renders; the lower edge does not read as a deliberate public level."
+      ],
+      "correction_spec": [
+        "Build upper concourse, intermediate terrace and lower riverwalk as separate slabs with a visible 1.5-3 m level difference as an inferred visual prior.",
+        "Widen the stadium-side walk and vary it at the rounded restaurant/park edge; add broad stair flights at the visible source locations, with ramps where a continuous route is implied.",
+        "Keep the river simplified, but introduce the source's bend/variable bank alignment south of Roosevelt and avoid a constant-width canal abstraction."
+      ],
+      "confidence": "high for multi-level/width relationship; medium for absolute dimensions"
+    },
+    {
+      "id": "park-paths-planting-furniture",
+      "label": "Park shape, paths, stairs, planting and furniture",
+      "reference_backed": "North aerial and bridge view clearly show the central lawn/park, paths, tree clusters, seating and crowd zones; site plan supports the public-realm placement.",
+      "source_regions": {
+        "north": {"box": [760, 610, 1780, 1220], "focus": "Large lawn, diagonal paths, tree clusters, benches/tables and hall edge"},
+        "south": {"box": [2050, 1850, 3900, 2900], "focus": "Stadium-side plazas, lawns, linear planting and crowd paths"},
+        "bridge": {"box": [650, 500, 1140, 780], "focus": "Lit lawn/park between hall, stadium and Roosevelt bridge"},
+        "plan": {"box": [610, 360, 920, 940], "focus": "Open-space bands and connections around the stadium glyph"}
+      },
+      "source_contract": [
+        "Park is an irregular connected lawn/plaza system with diagonal and orthogonal paths, not one blank rectangle.",
+        "Planting is grouped along edges and in loose clusters; trees vary in spacing and are integrated with seating/crowd zones.",
+        "Source shows tables, benches, umbrellas, lights and dense pedestrian activity near the hall, restaurant and river edge.",
+        "Stairs and broad landings visibly stitch upper park and lower riverwalk levels."
+      ],
+      "current_v2": [
+        "Current park is a large blank green rectangle with a grid of evenly spaced trees and little furniture; path hierarchy is hard to read from north or bridge views.",
+        "Procedural benches, lights and two simple stair bands exist but do not establish the source's park shape or level sequence.",
+        "Current visitor placements are dense in some linear bands but lack the source's clear event/courtyard clustering."
+      ],
+      "correction_spec": [
+        "Replace the single rectangular lawn with 2-4 connected lawn and paved rooms, using the hall and river edges as hard boundaries.",
+        "Lay out one primary diagonal walk, one river-parallel walk and short cross-links; widen entries at the rounded restaurant, hall and bridge landings.",
+        "Use irregular tree clusters and continuous planted edges with varied spacing; add a small, repeated furniture kit only in visible source zones.",
+        "Make the stair/landing geometry legible in north and bridge cameras before increasing pedestrian count."
+      ],
+      "confidence": "high for public-realm pattern; medium for exact planting/furniture inventory"
+    },
+    {
+      "id": "roosevelt-bridge",
+      "label": "Roosevelt bridge structure and nearby context",
+      "reference_backed": "Bridge view gives the clearest source evidence; plan confirms Roosevelt crossing north of the stadium.",
+      "source_regions": {
+        "north": {"box": [0, 0, 420, 450], "focus": "Roosevelt/upper rail-side approach only partly visible"},
+        "south": {"box": [0, 500, 2200, 1500], "focus": "Road/rail crossing context near the upper site"},
+        "bridge": {"box": [120, 540, 1230, 840], "focus": "Broad multi-lane foreground deck, paired towers/pylons, under-span and riverwalk"},
+        "plan": {"box": [500, 300, 1100, 550], "focus": "Roosevelt Rd crossing and river bridge north of site"}
+      },
+      "source_contract": [
+        "Broad multi-lane road deck spans the river in the foreground; source shows traffic, lane rhythm and substantial parapets.",
+        "Two prominent bridge-edge tower/pylon or tender-house forms with rounded/ornamental tops are visible, one on each bank/road edge.",
+        "Under-span structure includes a clearly visible lower arch/steel assembly and water-level relationship; adjacent riverwalk continues below/along the bridge.",
+        "Bridge context includes dense park lighting and trees on the near/right bank."
+      ],
+      "current_v2": [
+        "Current bridge renders as a narrow/simple deck with repetitive thin truss members, box piers and small tender houses; the source's paired ornamental forms and under-span depth are missing.",
+        "Current road/traffic scale is subdued and the adjacent riverwalk lawn is too blank to support the bridge composition."
+      ],
+      "correction_spec": [
+        "Match deck width and height first, then add two source-facing tower/pylon silhouettes at the bank/road-edge positions; keep their ornament simple but unmistakable.",
+        "Model a separate under-span steel/arch assembly and bank abutments so the river opening reads as layered structure.",
+        "Add lane markings, parapets, traffic and bridge lighting at source density; connect the right-bank park and lower walk beneath the bridge."
+      ],
+      "confidence": "high for bridge width/tower/under-span presence; medium for structural type"
+    },
+    {
+      "id": "outfield-framing-context",
+      "label": "Skyline and future-development context beyond the outfield",
+      "reference_backed": "South and bridge references show a dense future skyline; north reference is primarily stadium/low-rise context.",
+      "source_regions": {
+        "north": {"box": [1050, 0, 1944, 430], "focus": "Low-rise context beyond the outfield and medical district"},
+        "south": {"box": [0, 0, 5000, 1550], "focus": "Dense warm skyline framing stadium from south"},
+        "bridge": {"box": [0, 250, 1440, 500], "focus": "Low horizon and a few towers behind outfield"}
+      },
+      "source_contract": [
+        "Skyline is a framing layer beyond the stadium; its density and height differ by source view.",
+        "Immediate adjacent buildings remain legible in front of the skyline and should carry the near-field identity."
+      ],
+      "current_v2": [
+        "South current render is dominated by generic procedural high-rises and a pale horizon; the current blocks do not match the source's warm density.",
+        "Bridge current render leaves excessive empty sky and generic low-rise context, while the stadium and bridge are still underfit.",
+        "The gallery correctly labels future development and distant city as inferred; these layers should not drive near-field corrections."
+      ],
+      "correction_spec": [
+        "Freeze skyline work until P0/P1 immediate geometry is stable. Keep future development separable and view-specific.",
+        "When revisited, use broad height/density silhouettes and source warm value structure only beyond the outfield; avoid claiming building identities from the concept art."
+      ],
+      "confidence": "high for priority/deprioritization; low for skyline identity"
+    }
+  ],
+  "overall_assessment": {
+    "stadium": "North bowl and field placement are the strongest part of v2, but facade/cornice, tower junction, canopy ribs and rounded CF frontage remain visibly schematic.",
+    "immediate_area": "The four adjacent masses, riverwalk levels, park geometry, rail crossings and Roosevelt bridge are the main fidelity gap; current geometry reads as generic blocks and straight infrastructure.",
+    "skyline": "Current skyline is sufficient as an inferred placeholder and should remain third priority until near-field elements are corrected.",
+    "do_not_overclaim": "The audit is a visual reconstruction review against concept renderings and a schematic plan. It does not establish surveyed dimensions, engineering structure, official phasing or recognition accuracy."
+  }
+}

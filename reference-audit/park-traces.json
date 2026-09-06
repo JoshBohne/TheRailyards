@@ -1,0 +1,710 @@
+{
+  "schema_version": "1.0",
+  "subject": "North-source public park and elevated roof / public-realm edges",
+  "units": "source pixels only",
+  "world_coordinates": false,
+  "coordinate_convention": {
+    "source_origin": "top-left",
+    "x_direction": "right",
+    "y_direction": "down",
+    "polygon_order": "clockwise as viewed in the source image unless noted",
+    "line_order": "ordered along the visible feature; endpoints are not world-space anchors",
+    "trace_precision_px": "approximately ±10–25 px depending on crowd, trees, lighting and perspective occlusion"
+  },
+  "source": {
+    "file": "outputs/reconstruction-references/aecom-north-aerial.png",
+    "native_size": [
+      1944,
+      1294
+    ],
+    "high_resolution_cross_check": {
+      "file": "outputs/reconstruction-references/additional/cbs-aecom-chicago-v-b4-aerial-final-v7-footer-joe-smith.jpg",
+      "native_size": [
+        5000,
+        3333
+      ],
+      "relationship": "same north/B4 proposal view; use the original source above for the coordinates in this file"
+    },
+    "inspection_roi": [
+      650,
+      600,
+      1250,
+      694
+    ],
+    "inspection_note": "The park edge is clearest between the stadium entry plaza, the large east hall, the lower riverfront retail edge and the road-side corner. The far east roof garden is not part of these public-park traces."
+  },
+  "traces": {
+    "park_roof_including_paved_edges": {
+      "geometry": "polygon",
+      "semantic": "compact outer hard boundary of the elevated park roof / public deck, including the paved perimeter around lawn rooms; excludes the lower riverfront retail walk",
+      "vertices": [
+        [
+          780,
+          780
+        ],
+        [
+          860,
+          735
+        ],
+        [
+          1010,
+          700
+        ],
+        [
+          1240,
+          720
+        ],
+        [
+          1450,
+          770
+        ],
+        [
+          1550,
+          840
+        ],
+        [
+          1570,
+          950
+        ],
+        [
+          1510,
+          1040
+        ],
+        [
+          1400,
+          1100
+        ],
+        [
+          1260,
+          1080
+        ],
+        [
+          1090,
+          1015
+        ],
+        [
+          920,
+          960
+        ],
+        [
+          800,
+          900
+        ]
+      ],
+      "confidence": "medium",
+      "uncertainty": {
+        "occluded_segments": [
+          "north-west stadium-side edge behind entry crowd and score-board pavilion",
+          "north edge at hall thresholds and tree beds",
+          "south-east corner behind road-side crowd and art/plaza gathering"
+        ],
+        "interpretation": "Trace follows the visible roof/deck and paved edge enclosing the lawn rooms. It deliberately stops at the upper edge of the lower retail facade/walk; that lower level is recorded separately."
+      }
+    },
+    "lawn_zones": [
+      {
+        "name": "northwest_event_lawn",
+        "geometry": "polygon",
+        "semantic": "upper lawn room nearest stadium entry and west hall landing",
+        "vertices": [
+          [
+            790,
+            800
+          ],
+          [
+            850,
+            760
+          ],
+          [
+            930,
+            770
+          ],
+          [
+            970,
+            810
+          ],
+          [
+            930,
+            855
+          ],
+          [
+            850,
+            875
+          ],
+          [
+            790,
+            845
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "West tip merges into stadium crowd paving; tree shadow softens the north edge."
+      },
+      {
+        "name": "central_event_lawn",
+        "geometry": "polygon",
+        "semantic": "central lawn room bounded by the diagonal spine and short cross-links",
+        "vertices": [
+          [
+            950,
+            840
+          ],
+          [
+            1050,
+            800
+          ],
+          [
+            1150,
+            840
+          ],
+          [
+            1200,
+            900
+          ],
+          [
+            1150,
+            950
+          ],
+          [
+            1040,
+            930
+          ],
+          [
+            980,
+            880
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Furniture and trees obscure short north/east segments; preserve the visible white path separators."
+      },
+      {
+        "name": "east_hall_lawn",
+        "geometry": "polygon",
+        "semantic": "lawn room directly below the east hall frontage and entry canopies",
+        "vertices": [
+          [
+            1200,
+            830
+          ],
+          [
+            1320,
+            805
+          ],
+          [
+            1440,
+            850
+          ],
+          [
+            1510,
+            910
+          ],
+          [
+            1460,
+            990
+          ],
+          [
+            1360,
+            1010
+          ],
+          [
+            1260,
+            960
+          ],
+          [
+            1200,
+            900
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Projecting canopies, crowds and trees interrupt the hall-side boundary; use paved thresholds at those interruptions."
+      },
+      {
+        "name": "south_central_lawn",
+        "geometry": "polygon",
+        "semantic": "lower lawn room above the retail facade / river-parallel walk",
+        "vertices": [
+          [
+            1040,
+            930
+          ],
+          [
+            1150,
+            950
+          ],
+          [
+            1260,
+            980
+          ],
+          [
+            1360,
+            1010
+          ],
+          [
+            1320,
+            1080
+          ],
+          [
+            1200,
+            1050
+          ],
+          [
+            1090,
+            1000
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Lower edge is read from the continuous paved band above the retail facade; facade joints are occluded."
+      },
+      {
+        "name": "southeast_corner_lawn",
+        "geometry": "polygon",
+        "semantic": "small corner lawn around the circular art / gathering point at the road-side entry",
+        "vertices": [
+          [
+            1430,
+            980
+          ],
+          [
+            1520,
+            950
+          ],
+          [
+            1570,
+            1010
+          ],
+          [
+            1510,
+            1070
+          ],
+          [
+            1430,
+            1060
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Crowd mass hides the road-side edge; circular art object is an interior landmark, not an outline vertex."
+      }
+    ],
+    "major_path_edges": [
+      {
+        "name": "river_parallel_upper_walk",
+        "geometry": "line",
+        "semantic": "continuous upper walk along the lower edge of the lawn roof, above the retail facade",
+        "vertices": [
+          [
+            800,
+            900
+          ],
+          [
+            960,
+            950
+          ],
+          [
+            1130,
+            1000
+          ],
+          [
+            1300,
+            1050
+          ],
+          [
+            1450,
+            1080
+          ],
+          [
+            1530,
+            1060
+          ]
+        ],
+        "confidence": "high",
+        "uncertainty": "Crowds and trees soften the stadium-side and east-corner junctions."
+      },
+      {
+        "name": "primary_diagonal_walk_northwest_to_southeast",
+        "geometry": "line",
+        "semantic": "dominant diagonal walk crossing the lawn rooms",
+        "vertices": [
+          [
+            820,
+            800
+          ],
+          [
+            960,
+            860
+          ],
+          [
+            1100,
+            920
+          ],
+          [
+            1260,
+            980
+          ],
+          [
+            1430,
+            1040
+          ]
+        ],
+        "confidence": "high",
+        "uncertainty": "Central segment is intermittently covered by furniture and trees; points preserve the aligned visible path pieces."
+      },
+      {
+        "name": "east_hall_frontage_walk",
+        "geometry": "line",
+        "semantic": "hall-side walk connecting entry canopies and lawn thresholds",
+        "vertices": [
+          [
+            1030,
+            740
+          ],
+          [
+            1160,
+            770
+          ],
+          [
+            1300,
+            810
+          ],
+          [
+            1440,
+            850
+          ],
+          [
+            1510,
+            900
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Door courts and planted pockets break the paving into rooms."
+      },
+      {
+        "name": "west_cross_link",
+        "geometry": "line",
+        "semantic": "short stadium-side cross-link into the northwest lawn",
+        "vertices": [
+          [
+            930,
+            780
+          ],
+          [
+            900,
+            840
+          ],
+          [
+            860,
+            900
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Upper landing is merged with the stadium entry crowd."
+      },
+      {
+        "name": "central_cross_link",
+        "geometry": "line",
+        "semantic": "cross-link dividing the central lawn rooms",
+        "vertices": [
+          [
+            1100,
+            800
+          ],
+          [
+            1080,
+            880
+          ],
+          [
+            1060,
+            960
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Tree clusters obscure the middle portion."
+      },
+      {
+        "name": "east_cross_link",
+        "geometry": "line",
+        "semantic": "cross-link from hall frontage to the lower upper-walk edge",
+        "vertices": [
+          [
+            1300,
+            810
+          ],
+          [
+            1300,
+            900
+          ],
+          [
+            1320,
+            1000
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "The path disappears behind the central tree group."
+      },
+      {
+        "name": "road_side_entry_path",
+        "geometry": "line",
+        "semantic": "short entry path from east hall / corner lawn toward the road-side plaza",
+        "vertices": [
+          [
+            1500,
+            870
+          ],
+          [
+            1530,
+            950
+          ],
+          [
+            1490,
+            1040
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": "Crowds and the circular art object obscure exact junctions."
+      }
+    ],
+    "grandstairs": [
+      {
+        "name": "roosevelt_corner_grandstairs",
+        "geometry": "polygon",
+        "semantic": "broad stepped descent from the upper park roof edge toward the lower riverfront plaza at the south-east corner",
+        "vertices": [
+          [
+            1130,
+            1110
+          ],
+          [
+            1240,
+            1140
+          ],
+          [
+            1320,
+            1250
+          ],
+          [
+            1200,
+            1220
+          ]
+        ],
+        "top_edge": [
+          [
+            1130,
+            1110
+          ],
+          [
+            1240,
+            1140
+          ]
+        ],
+        "bottom_edge": [
+          [
+            1200,
+            1220
+          ],
+          [
+            1320,
+            1250
+          ]
+        ],
+        "confidence": "medium",
+        "uncertainty": {
+          "occluded_segments": [
+            "lower flight reaches the original image boundary/footer",
+            "right cheek merges into the road-side crowd and plaza"
+          ],
+          "note": "Use top and bottom edges for direction and projected width; the aerial does not resolve metric riser count."
+        }
+      }
+    ],
+    "under_lawn_east_facade_edge": {
+      "geometry": "line",
+      "semantic": "east hall facade line directly behind / above the park lawn, separating building entries from the lawn frontage",
+      "vertices": [
+        [
+          1050,
+          710
+        ],
+        [
+          1180,
+          730
+        ],
+        [
+          1320,
+          770
+        ],
+        [
+          1450,
+          820
+        ],
+        [
+          1520,
+          880
+        ]
+      ],
+      "confidence": "medium",
+      "uncertainty": "Projecting entry canopies, trees and crowd bands hide short pieces; treat it as a segmented facade alignment with openings."
+    },
+    "under_lawn_riverfront_retail_edge": {
+      "geometry": "line",
+      "semantic": "upper edge of the lower riverfront retail facade beneath the park roof; opposite boundary to the upper river-parallel walk",
+      "vertices": [
+        [
+          820,
+          930
+        ],
+        [
+          980,
+          980
+        ],
+        [
+          1170,
+          1030
+        ],
+        [
+          1350,
+          1080
+        ],
+        [
+          1510,
+          1120
+        ]
+      ],
+      "confidence": "high",
+      "uncertainty": "Shopfront bays and crowds hide individual joints; this is the continuous upper facade edge, not the lower waterside curb."
+    }
+  },
+  "integration_guidance": {
+    "use": "Inverse-project the roof/deck traces through the calibrated north camera only at a candidate intermediate public-realm plane, then validate against a fresh detail-north render. Keep the Roosevelt road/sidewalk and the covered rail links as separate datum hypotheses until a camera-fit and connectivity check resolves their relationship.",
+    "do_not": [
+      "Do not use the vertices as surveyed world coordinates.",
+      "Do not fill the roof polygon as one blank lawn; preserve the four lawn rooms and hard paved/path separators.",
+      "Do not force hidden facade or stair geometry where the source is occluded."
+    ],
+    "primary_correction": "The source reads as a compact irregular roof/deck with connected lawn rooms and deliberate paths. The current v3 outline is too large and rectangular; shrink to the traced envelope first, then add paths, stairs and planting within it."
+  },
+  "revision": "3-source-edge-retrace-datum-boundary",
+  "trace_status": "Supersedes revision 2 for elevation interpretation. The source-edge traces are unchanged; the public road/sidewalk is separated from the private covered rail links, and no upper public plaza is assigned the implementation z=22 datum.",
+  "elevation_evidence": {
+    "source_read": [
+      {
+        "feature": "lower riverfront walk / retail",
+        "relation": "below the park roof; the source exposes a continuous lower facade and active walk beneath the upper lawn edge",
+        "confidence": "high"
+      },
+      {
+        "feature": "park lawn / roof deck",
+        "relation": "a raised public deck between the lower retail level and the hall/stadium-facing entries; the image establishes ordering, not a surveyed absolute height",
+        "confidence": "medium"
+      },
+      {
+        "feature": "outfield entrance / upper landing",
+        "relation": "The quoted entry is interpreted as the Roosevelt road/viaduct sidewalk approaching directly above the outfield bleachers. The source supports a public entry relationship and an above-bleacher visual ordering, but does not resolve an independent pedestrian viaduct or an absolute upper world elevation.",
+        "confidence": "low"
+      },
+      {
+        "feature": "Roosevelt vehicle road and sidewalk versus covered rail links",
+        "relation": "Roosevelt road and its sidewalk are the public transport/entry edge in this interpretation. The covered rail crossings are separate private east-west links over the tracks; they must not define the public plaza datum. Their world-level relationship to the park roof is unresolved in the aerial.",
+        "confidence": "medium"
+      }
+    ],
+    "current_scene_datums": {
+      "water_z": 0,
+      "ground_z": 8,
+      "park_upper_lawn_z": 8.65,
+      "park_intermediate_terrace_z": 6.8,
+      "park_lower_waterside_walk_z": 4.8,
+      "field_z": 12,
+      "roosevelt_vehicle_road_z": 14.1,
+      "roosevelt_bridge_deck_z": 14.25,
+      "outfield_terrace_bases_z": [
+        13.65,
+        15.05,
+        16.45
+      ],
+      "outfield_terrace_top_approx_z": 17.3,
+      "covered_pedestrian_crossing_deck_z": 22,
+      "covered_pedestrian_crossing_roof_z": 26.2
+    },
+    "constrained_relations": [
+      "lower_waterside_walk_z < park_lawn_or_roof_deck_z",
+      "park_lawn_or_roof_deck_z should connect to the hall/stadium public realm through a visible short transition; the source does not justify assigning it the vehicle-road datum by itself",
+      "the Roosevelt road/sidewalk edge is a candidate public entry datum above or alongside the outfield edge; exact grade, ramp and stair geometry remain unresolved",
+      "covered pedestrian rail-link decks are private crossings and do not establish the public Roosevelt plaza datum",
+      "a plaza described as entering directly above the bleachers must be modeled as a separate upper landing/entrance relationship, not by lifting every lawn polygon"
+    ],
+    "interpretation_for_integration": {
+      "lower_level": "Keep the lower waterside walk as the lower public level candidate; its absolute z remains inferred.",
+      "park_level": "Treat the compact lawn roof as an intermediate public deck. Current z=8.65 is an implementation prior only; it must not be reused for a Roosevelt road-level plaza without a camera-fit and continuity check.",
+      "upper_entry": "Do not use covered-crossing z=22 as a public upper-entry datum. The source-backed candidate is the Roosevelt road plus sidewalk at the east edge, but its world z and its connection to the outfield entrance are unresolved. Keep any separate upper landing as explicitly inferred.",
+      "vehicle_viaduct": "Keep road/bridge deck z=14.1–14.25 as the existing implementation prior for Roosevelt transport geometry. Test a public grade transition to the park/stadium entry only where the source edge aligns; do not connect it automatically to the private rail-crossing deck."
+    },
+    "datum_provenance": {
+      "status": "all_current_scene_datums_are_implementation_priors",
+      "source_support": "The source establishes visible ordering, adjacency and access relationships. It does not provide survey elevations or enough orthographic control to recover world z values.",
+      "covered_pedestrian_crossing_deck_z": "private rail-link integration prior only; not evidence for a Roosevelt public plaza",
+      "roosevelt_vehicle_road_z": "existing road/bridge implementation prior; public-edge candidate, not source-measured"
+    },
+    "source_grade_correspondences": {
+      "coordinate_basis": "Approximate image-plane paths in the canonical original north source; points locate visible edges and do not encode world elevation.",
+      "canonical_source": {
+        "file": "outputs/reconstruction-references/aecom-north-aerial.png",
+        "native_size": [1944, 1294]
+      },
+      "high_resolution_cross_check": {
+        "file": "outputs/reconstruction-references/additional/cbs-aecom-chicago-v-b4-aerial-final-v7-footer-joe-smith.jpg",
+        "native_size": [5000, 3333],
+        "mapping_from_canonical": {
+          "scale_x": 2.572016,
+          "scale_y": 2.575734,
+          "method": "derived resize correspondence; use for inspection only"
+        }
+      },
+      "features": [
+        {
+          "name": "roosevelt_road_carriageway_band",
+          "geometry": "line",
+          "canonical_points": [[1605, 570], [1650, 700], [1710, 850], [1770, 1000], [1830, 1150], [1885, 1290]],
+          "high_resolution_points": [[4128, 1468], [4244, 1803], [4398, 2189], [4552, 2576], [4707, 2962], [4848, 3323]],
+          "confidence": "low",
+          "evidence": "Visible multi-lane roadway along the far east image edge; perspective, crop and lighting make the inner/outer curb edges approximate.",
+          "grade_claim": "Locates the public road corridor only; no absolute or shared z is implied."
+        },
+        {
+          "name": "roosevelt_sidewalk_inner_edge",
+          "geometry": "line",
+          "canonical_points": [[1575, 620], [1625, 760], [1680, 900], [1730, 1060], [1800, 1230]],
+          "high_resolution_points": [[4051, 1597], [4180, 1958], [4321, 2318], [4450, 2730], [4630, 3168]],
+          "confidence": "low",
+          "evidence": "Bright pedestrian strip between the east hall/park edge and the road; trees, crowds and the image boundary occlude several junctions.",
+          "grade_claim": "Candidate public entry edge for connectivity tests; its world elevation remains unresolved."
+        },
+        {
+          "name": "east_park_to_road_public_edge",
+          "geometry": "line",
+          "canonical_points": [[1510, 900], [1570, 950], [1630, 1000], [1690, 1060]],
+          "high_resolution_points": [[3884, 2318], [4038, 2447], [4192, 2576], [4347, 2730]],
+          "confidence": "low",
+          "evidence": "Approximate path/plaza continuation from the southeast lawn and crowd gathering toward the east sidewalk; exact tie-in is hidden by people and planting.",
+          "grade_claim": "Supports testing a public continuity relationship only; it does not prove a ramp, stair or level match."
+        },
+        {
+          "name": "park_roof_east_edge",
+          "geometry": "line",
+          "canonical_points": [[1450, 770], [1550, 840], [1570, 950], [1510, 1040], [1400, 1100]],
+          "high_resolution_points": [[3729, 1983], [3987, 2164], [4038, 2447], [3884, 2679], [3601, 2833]],
+          "confidence": "medium",
+          "evidence": "Existing traced roof/deck boundary around the east lawn rooms, with the lower retail edge excluded.",
+          "grade_claim": "Confirms the park boundary in image space; no relationship to Roosevelt road z is proven."
+        },
+        {
+          "name": "covered_private_rail_links",
+          "geometry": "line_group",
+          "canonical_roi": [1120, 500, 1660, 760],
+          "high_resolution_roi": [2881, 1288, 4270, 1958],
+          "confidence": "medium",
+          "evidence": "Covered east-west links visibly cross the tracks behind the hall; they are distinct enclosed/private circulation pieces.",
+          "grade_claim": "Do not use these links as evidence for the public Roosevelt plaza elevation."
+        }
+      ],
+      "interpretation_boundary": "These correspondences are for tracing and camera-fit tests. They establish candidate edge continuity and feature separation, not a surveyed grade profile."
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "left_field_skyline": {
+    "position": [
+      -28,
+      -33,
+      39
+    ],
+    "target": [
+      19,
+      1574,
+      180
+    ],
+    "lens_mm": 22
+  },
+  "home_plate": {
+    "position": [
+      0,
+      0,
+      13.75
+    ],
+    "target": [
+      70,
+      70,
+      16
+    ],
+    "lens_mm": 22
+  },
+  "home_upper_deck": {
+    "position": [
+      -36,
+      -41,
+      41
+    ],
+    "target": [
+      70,
+      70,
+      24
+    ],
+    "lens_mm": 25
+  },
+  "third_base_seats": {
+    "position": [
+      -25,
+      58,
+      31.3
+    ],
+    "target": [
+      78,
+      74,
+      23
+    ],
+    "lens_mm": 26
+  }
+}

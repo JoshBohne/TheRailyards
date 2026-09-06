@@ -1,0 +1,96 @@
+{
+  "version": "source-led bridge pass 2026-09-06",
+  "units": "meters",
+  "coordinate_frame": "Existing Railyards v3 frame: X east, Y north, Z up; rail cutting centered near X=-119; river west/east edges near X=128/191.",
+  "sources": [
+    {
+      "file": "outputs/reconstruction-references/additional/cbs-aecom-chicago-v-a3-north-final-v5-footer-joe-smith.jpg",
+      "role": "Bridge-facing A3 view; resolves enclosed pedestrian bridge glazing and the foreground Roosevelt bridge silhouette."
+    },
+    {
+      "file": "outputs/reconstruction-references/additional/cbs-aecom-chicago-v-b4-aerial-final-v7-footer-joe-smith.jpg",
+      "role": "North B4 aerial; resolves the primary rail crossings, landing direction, and rail/transit relationship."
+    },
+    {
+      "file": "outputs/reconstruction-references/aecom-south-aerial.jpg",
+      "role": "South B6 aerial; resolves three total rail crossings including the southern district crossing."
+    }
+  ],
+  "pedestrian_crossings": [
+    {
+      "name": "south district crossing",
+      "y": -113,
+      "x_start": -176,
+      "x_end": -64,
+      "width": 7,
+      "deck_z": 22,
+      "evidence": "B6 south view shows the southern covered rail crossing; west landing is a source-inferred district concourse because no west-side building footprint is modeled at this Y.",
+      "confidence": "medium"
+    },
+    {
+      "name": "medical main crossing",
+      "y": 73,
+      "x_start": -176,
+      "x_end": -64,
+      "width": 7,
+      "deck_z": 22,
+      "evidence": "B4 north view; west end is buried into the Medical main footprint and east end into the stadium concourse.",
+      "confidence": "high"
+    },
+    {
+      "name": "medical wing crossing",
+      "y": 198,
+      "x_start": -145,
+      "x_end": -25,
+      "width": 7,
+      "deck_z": 22,
+      "evidence": "North source bridge roof pixels (1400,437),(1390,452),(1240,553) intersect z26.2 at Y195-200; replacement Y198 bridges the source-projected wing and pavilion/hall landing.",
+      "confidence": "medium"
+    }
+  ],
+  "roosevelt": {
+    "river_west_x": 128,
+    "river_east_x": 192,
+    "side_y": [
+      301.5,
+      330.5
+    ],
+    "deck_z": 14.25,
+    "underarch_spring_z": 4.5,
+    "underarch_crown_z": 13.7,
+    "evidence": "A3 foreground and existing Roosevelt registration resolve a dark closed road deck, a large pale under-deck arch springing near the water-side banks, thin upper rail, paired bank tender houses, and center seam.",
+    "inferred": [
+      "Exact arch section, structural member spacing, and hinge machinery are schematic.",
+      "Bridge remains closed because no source view resolves an open/raised state."
+    ]
+  },
+  "southern_rail_bridges": {
+    "primary": {
+      "name": "B&OCT Bridge",
+      "y": -374.0,
+      "x_start": 145.0,
+      "x_end": 198.0,
+      "status": "abandoned railroad bascule",
+      "source_osm_ways": [1013544161, 1013544162, 1025324121],
+      "confidence": "medium"
+    },
+    "secondary": {
+      "name": "St. Charles Air Line Bridge",
+      "y": -393.0,
+      "x_start": 136.0,
+      "x_end": 207.0,
+      "status": "disused railroad bascule",
+      "source_osm_ways": [56179928, 56179943],
+      "confidence": "medium"
+    },
+    "evidence": "AECOM south aerial foreground structure projects to the B&OCT span; LOC HAER IL-67 documents the B&OCT bridge with the adjacent St. Charles Air Line bridge beyond.",
+    "source_urls": [
+      "https://www.loc.gov/item/il0633/",
+      "https://www.loc.gov/item/il0837/"
+    ]
+  },
+  "excluded": [
+    "The old four-copy baseline at Y=-113,-48,73,150 is not retained.",
+    "No additional crossings are added where the September proposal views do not resolve one."
+  ]
+}

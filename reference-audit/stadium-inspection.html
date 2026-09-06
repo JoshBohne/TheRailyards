@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Railyards stadium inspection</title>
+  <style>
+    :root { color-scheme: dark; --bg:#101419; --panel:#181e25; --line:#303b46; --ink:#eef3f7; --muted:#aab7c2; --accent:#a7d7d1; --warn:#f1c27d; }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:32px; background:var(--bg); color:var(--ink); font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    main { max-width:1440px; margin:auto; }
+    h1 { margin:0 0 8px; font-size:clamp(28px,4vw,48px); letter-spacing:-.04em; }
+    h2 { margin:34px 0 12px; font-size:22px; letter-spacing:-.02em; }
+    p { max-width:930px; color:var(--muted); }
+    a { color:var(--accent); }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 26px; }
+    .pill { border:1px solid var(--line); border-radius:999px; color:var(--muted); padding:5px 10px; font-size:12px; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(360px,1fr)); gap:18px; }
+    figure { margin:0; padding:12px; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
+    figure img { display:block; width:100%; height:250px; object-fit:contain; background:#090c0f; border-radius:9px; cursor:zoom-in; }
+    figcaption { padding:12px 2px 2px; color:var(--muted); }
+    figcaption strong { display:block; color:var(--ink); margin-bottom:4px; }
+    code { color:#dce8ee; font-size:.9em; }
+    table { width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+    th,td { padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top; text-align:left; }
+    th { color:var(--accent); font-size:12px; text-transform:uppercase; letter-spacing:.07em; }
+    tr:last-child td { border-bottom:0; }
+    .priority { color:var(--warn); font-weight:700; }
+    .callout { padding:16px 18px; border-left:3px solid var(--accent); background:var(--panel); color:var(--muted); }
+    dialog { max-width:min(96vw,1500px); max-height:96vh; padding:12px; border:1px solid var(--line); border-radius:12px; background:#07090b; }
+    dialog::backdrop { background:rgba(0,0,0,.82); }
+    dialog img { max-width:92vw; max-height:88vh; display:block; }
+    @media (max-width:700px) { body { padding:18px; } .grid { grid-template-columns:1fr; } figure img { height:210px; } th,td { padding:8px; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Railyards stadium inspection</h1>
+  <p>Source/current crop board for the White Sox September 2026 Railyards concept. Click any image to enlarge. The source coordinates and full discrepancy inventory live in <a href="./stadium-inventory.md">stadium-inventory.md</a>; the machine-readable record is <a href="./stadium-elements.json">stadium-elements.json</a>.</p>
+  <div class="meta"><span class="pill">28 tracked elements</span><span class="pill">B4 / A3 CBS sources at 5000×3333</span><span class="pill">B6 south at 5000×3333</span><span class="pill">No model edits in this audit</span></div>
+
+  <div class="callout"><strong>Read the comparisons in this order:</strong> bowl silhouette and tier breaks, south facade height and outfield banks, clock lantern, then bridge and river edge relationships. Missing masses are geometry findings; color and exposure findings are listed separately.</div>
+
+  <h2>Stadium comparisons</h2>
+  <section class="grid">
+    <figure><img src="./crops/north-bowl-focus.png" alt="North source bowl crop"><figcaption><strong>North source · bowl and roof</strong> Deep horseshoe, four deck strata, ribs, tower, boards, field edge.</figcaption></figure>
+    <figure><img src="./crops/current-north-bowl.png" alt="Current north bowl crop"><figcaption><strong>Current v2 · bowl and roof</strong> Silhouette is recognizable; deck fascia is smooth, field edge is weak, and tower/boards under-articulated.</figcaption></figure>
+    <figure><img src="./crops/south-stadium-focus.jpg" alt="South source stadium crop"><figcaption><strong>South source · facade envelope</strong> Tall lower arches, dark upper fascia, deep canopy, independent outfield banks, clock lantern.</figcaption></figure>
+    <figure><img src="./crops/current-south-stadium.png" alt="Current south stadium crop"><figcaption><strong>Current v2 · facade envelope</strong> Facade reads thin, canopy pale, outfield gap empty, clock faces too bright.</figcaption></figure>
+    <figure><img src="./crops/south-outfield-source.jpg" alt="South source outfield crop"><figcaption><strong>South source · outfield</strong> Separate bleacher/terrace masses sit behind the wall and boards.</figcaption></figure>
+    <figure><img src="./crops/current-outfield.png" alt="Current outfield crop"><figcaption><strong>Current v2 · outfield</strong> Main bowl and boards remain, but the independent banks and wall depth are missing.</figcaption></figure>
+    <figure><img src="./crops/bridge-stadium-focus.png" alt="Bridge source stadium crop"><figcaption><strong>A3 source · bridge view</strong> Broad low roof, prominent tower, dark edge, stadium mass behind river.</figcaption></figure>
+    <figure><img src="./crops/current-bridge-stadium.png" alt="Current bridge stadium crop"><figcaption><strong>Current v2 · bridge view</strong> Bowl is flatter/smaller; roof, bleacher masses, and foreground relationships underfit.</figcaption></figure>
+  </section>
+
+  <h2>Immediate context comparisons</h2>
+  <section class="grid">
+    <figure><img src="./crops/bridge-foreground-source.png" alt="Bridge source foreground crop"><figcaption><strong>A3 source · Roosevelt bridge</strong> Masonry towers, caps, bascule leaves, and opening over the river.</figcaption></figure>
+    <figure><img src="./crops/bridge-foreground-current.png" alt="Current bridge foreground crop"><figcaption><strong>Current v2 · Roosevelt bridge</strong> Flat deck and small generic trusses lose the source silhouette.</figcaption></figure>
+    <figure><img src="./crops/north-stadium-wide.png" alt="North source wide crop"><figcaption><strong>North source · stadium and public realm</strong> Riverwalk, entry lawn, covered links, and adjacent blocks frame the bowl.</figcaption></figure>
+    <figure><img src="./crops/current-north-wide.png" alt="Current north wide crop"><figcaption><strong>Current v2 · stadium and public realm</strong> Hardscape and bridge rhythm are present but disconnected and under-programmed.</figcaption></figure>
+  </section>
+
+  <h2>Highest impact checks</h2>
+  <table>
+    <thead><tr><th>IDs</th><th>Check</th><th>Preserve / correct</th></tr></thead>
+    <tbody>
+      <tr><td class="priority">STAD-001–004</td><td>Bowl, tiers, canopy</td><td>Preserve calibrated horseshoe and four t/z bands: 0–.34 / 14–24, .40–.49 / 27–30, .55–.65 / 33–36, .70–.93 / 39–47. Add fascia, ribs, aisles, and asymmetric ends.</td></tr>
+      <tr><td class="priority">STAD-005–006, 016</td><td>River facade</td><td>Restore tall lower arches and deep brick mass, then dark glazed upper fascia and two-level arcade. Do not raise the roof to compensate for missing edge depth.</td></tr>
+      <tr><td class="priority">STAD-007–008</td><td>Clock tower</td><td>Keep roof anchor [81.54, -76.38, 68]. Widen stepped masonry shaft; use glowing lantern glazing with dark clock faces.</td></tr>
+      <tr><td class="priority">STAD-003, 009–012, 017–018</td><td>Outfield and roof structures</td><td>Add independent bleacher banks, structural scoreboard backs/supports, and floodlight gantries. Keep materials secondary to massing.</td></tr>
+      <tr><td class="priority">STAD-020–024</td><td>Bridge / river relationships</td><td>Make links visibly land in concourses, rebuild the foreground drawbridge silhouette, and layer promenade, water steps, plaza, and lawn.</td></tr>
+    </tbody>
+  </table>
+
+  <p><a href="./additional-sources.md">Source ledger and provenance</a> · <a href="./parent-stadium-closeup.html">Envelope close-up page</a></p>
+</main>
+<dialog id="viewer"><form method="dialog"><button autofocus>Close</button></form><img alt="Expanded comparison"></dialog>
+<script>
+  const viewer = document.querySelector('#viewer');
+  const expanded = viewer.querySelector('img');
+  document.querySelectorAll('figure img').forEach((img) => img.addEventListener('click', () => { expanded.src = img.src; expanded.alt = img.alt; viewer.showModal(); }));
+</script>
+</body>
+</html>

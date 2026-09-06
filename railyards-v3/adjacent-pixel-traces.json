@@ -1,0 +1,22 @@
+{
+  "version": "north source pixel traces, adjacent building correction",
+  "source": "reconstruction-references/aecom-north-aerial.png",
+  "source_size_px": [1944, 1294],
+  "coordinate_convention": "origin top-left; x right; y down",
+  "method": "Manual vertex trace against the original north aerial, checked with the red/cyan/green/yellow overlay. These are image-space observations for camera inverse projection, not world XY coordinates.",
+  "left_field_pavilion": {
+    "full_exterior_cornice_px": [[850, 515], [1110, 450], [1190, 480], [1100, 565], [875, 595]],
+    "full_exterior_cornice_plane": "lower hall roof/cornice; elevation is an inferred plane around z=29",
+    "upper_dark_gable_roof_planes_px": [
+      [[870, 458], [1000, 420], [1065, 457], [950, 515]],
+      [[935, 395], [1080, 365], [1140, 405], [1030, 450]]
+    ],
+    "upper_dark_gable_plane": "separate roof masses above the cornice; eaves around z=31 and ridge/upper datum around z=34",
+    "confidence": "medium; roof edges are softened by lighting and occlusion, but the full cornice is visibly larger than the current 40x30 rooftop footprint"
+  },
+  "north_entertainment_hall": {
+    "full_outline_at_roof_30_px": [[1180, 552], [1720, 682], [1668, 781], [1156, 645]],
+    "plane": "outer roof/cornice at inferred z=30",
+    "confidence": "high; the four corners follow the visible roof and facade break lines and agree with the existing rough footprint projection"
+  }
+}

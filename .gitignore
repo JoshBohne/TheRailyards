@@ -1,0 +1,15 @@
+# Generated scenes, renders and receipts
+*.blend
+*.blend[0-9]*
+*.zip
+__pycache__/
+*.pyc
+.DS_Store
+work/
+railyards-v*/final-*.png
+railyards-v*/interior-*.png
+railyards-v*/southern-rail-detail.png
+railyards-v*/blender-mcp-viewport.png
+railyards-v*/*render*.json
+railyards-v*/saved-scene-verification.json
+*.log

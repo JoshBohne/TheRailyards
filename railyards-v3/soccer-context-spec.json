@@ -1,0 +1,69 @@
+{
+  "version": "v3 proposed soccer context",
+  "units": "meters",
+  "status": "explicitly inferred future phase",
+  "sources": [
+    {
+      "file": "../reconstruction-references/aecom-south-aerial.jpg",
+      "view": "south aerial concept artwork",
+      "roi_pixels_native": [
+        3900,
+        1100,
+        1000,
+        850
+      ],
+      "use": "rectangular venue silhouette, dark continuous roof, red seating, green pitch, roof lettering, warm low frontage",
+      "confidence": "high for visible silhouette and color blocks; medium for structure"
+    },
+    {
+      "file": "../reference-audit/stadium-inventory.md",
+      "view": "STAD-026",
+      "use": "scope boundary and across-river future-phase classification",
+      "confidence": "high"
+    }
+  ],
+  "registration": {
+    "center_xy": [
+      424.0,
+      51.0
+    ],
+    "axis": "field long axis follows local Y",
+    "source_basis": "existing r2_context.py registration retained"
+  },
+  "dimensions": {
+    "field_width": 74.0,
+    "field_length": 112.0,
+    "field_z": 16.05,
+    "base_z": 12.0,
+    "roof_inner_x": 49.0,
+    "roof_outer_x": 82.0,
+    "roof_inner_y": 67.0,
+    "roof_outer_y": 104.0,
+    "roof_inner_z": 38.6,
+    "roof_outer_z": 34.3,
+    "seat_rows": 12,
+    "basis": "image-derived massing; not a surveyed or published venue plan"
+  },
+  "scope": {
+    "owned": [
+      "field markings and goals",
+      "red seating banks with connected corners",
+      "sloped continuous dark roof ring",
+      "roof eave beams and angled supports",
+      "CHICAGO FIRE roof lettering",
+      "low west river-facing facade bays and entry canopy",
+      "river-facing paving apron"
+    ],
+    "excluded": [
+      "baseball stadium geometry",
+      "river and bridges",
+      "distant future towers",
+      "unresolved soccer venue interiors and program"
+    ]
+  },
+  "notes": [
+    "Keep this collection separate and visible only in south/future-phase views.",
+    "The bridge artwork does not clearly resolve this venue; no bridge-specific claim is made.",
+    "Do not treat the generated facade bays, entry, or roof structure as verified architectural documentation."
+  ]
+}

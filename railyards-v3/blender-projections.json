@@ -1,0 +1,170 @@
+{
+  "north": [
+    {
+      "name": "home_plate",
+      "native_projected_pixel": [
+        538.106686592102,
+        418.5723350048065
+      ],
+      "python_projection_difference_px": 0.0002584735905297932,
+      "reference_error_px": 4.347769785102652
+    },
+    {
+      "name": "first_base",
+      "native_projected_pixel": [
+        457.24969124794006,
+        454.28656828403473
+      ],
+      "python_projection_difference_px": 0.0002712799799632692,
+      "reference_error_px": 5.568786667605387
+    },
+    {
+      "name": "second_base",
+      "native_projected_pixel": [
+        530.2730827331543,
+        485.04159903526306
+      ],
+      "python_projection_difference_px": 0.00026403570471866475,
+      "reference_error_px": 0.9965473337256566
+    },
+    {
+      "name": "third_base",
+      "native_projected_pixel": [
+        610.4956820011139,
+        447.03796315193176
+      ],
+      "python_projection_difference_px": 0.0002594125798708112,
+      "reference_error_px": 3.8788233949045607
+    }
+  ],
+  "south": [
+    {
+      "name": "tower_roof",
+      "native_projected_pixel": [
+        3039.2995476722717,
+        1595.2837441563606
+      ],
+      "python_projection_difference_px": 0.0005201886935684128,
+      "reference_error_px": 8.812601209874664
+    },
+    {
+      "name": "west_roof_lantern",
+      "native_projected_pixel": [
+        1723.335087299347,
+        1682.9234107732773
+      ],
+      "python_projection_difference_px": 0.0005572115758067265,
+      "reference_error_px": 39.51459613615709
+    },
+    {
+      "name": "cf_scoreboard_top",
+      "native_projected_pixel": [
+        2388.197183609009,
+        1458.9606935977936
+      ],
+      "python_projection_difference_px": 0.0005961058195710855,
+      "reference_error_px": 26.690123580873276
+    },
+    {
+      "name": "rf_scoreboard_top",
+      "native_projected_pixel": [
+        2738.6659383773804,
+        1604.8987998962402
+      ],
+      "python_projection_difference_px": 0.0005119500613532229,
+      "reference_error_px": 31.926684062603847
+    },
+    {
+      "name": "lf_pavilion_roof",
+      "native_projected_pixel": [
+        1727.2761464118958,
+        1534.8592207431793
+      ],
+      "python_projection_difference_px": 0.0005970201408610456,
+      "reference_error_px": 111.16977113347208
+    },
+    {
+      "name": "roosevelt_west_bank",
+      "native_projected_pixel": [
+        2146.0579335689545,
+        1319.543478012085
+      ],
+      "python_projection_difference_px": 0.0005754184482153672,
+      "reference_error_px": 9.330201063153279
+    },
+    {
+      "name": "roosevelt_east_bank",
+      "native_projected_pixel": [
+        2440.533936023712,
+        1288.0513345599174
+      ],
+      "python_projection_difference_px": 0.0004900990412387824,
+      "reference_error_px": 23.18374486356113
+    }
+  ],
+  "bridge": [
+    {
+      "name": "tower_roof",
+      "native_projected_pixel": [
+        490.4559516906738,
+        453.9328644275665
+      ],
+      "python_projection_difference_px": 0.00010608031988939946,
+      "reference_error_px": 10.227885913445881
+    },
+    {
+      "name": "west_roof_lantern",
+      "native_projected_pixel": [
+        779.4615268707275,
+        474.89426416158676
+      ],
+      "python_projection_difference_px": 0.00011608888090910952,
+      "reference_error_px": 12.24718044815922
+    },
+    {
+      "name": "cf_scoreboard_top",
+      "native_projected_pixel": [
+        614.7379732131958,
+        540.6910089552402
+      ],
+      "python_projection_difference_px": 5.529140537982652e-05,
+      "reference_error_px": 11.738086261439534
+    },
+    {
+      "name": "rf_scoreboard_top",
+      "native_projected_pixel": [
+        519.4408893585205,
+        520.3015035688877
+      ],
+      "python_projection_difference_px": 6.660218029951654e-05,
+      "reference_error_px": 5.725859436347971
+    },
+    {
+      "name": "lf_pavilion_roof",
+      "native_projected_pixel": [
+        852.0462226867676,
+        536.3022557199001
+      ],
+      "python_projection_difference_px": 7.791077569709086e-05,
+      "reference_error_px": 22.67487266720056
+    },
+    {
+      "name": "roosevelt_west_bank",
+      "native_projected_pixel": [
+        776.634521484375,
+        714.8660768568516
+      ],
+      "python_projection_difference_px": 9.51317059016729e-05,
+      "reference_error_px": 2.3692665565854356
+    },
+    {
+      "name": "roosevelt_east_bank",
+      "native_projected_pixel": [
+        497.26301193237305,
+        753.5906693637371
+      ],
+      "python_projection_difference_px": 9.809335913929184e-05,
+      "reference_error_px": 2.338827335080636
+    }
+  ]
+}

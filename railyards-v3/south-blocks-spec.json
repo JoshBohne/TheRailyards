@@ -1,0 +1,413 @@
+{
+  "version": "v3 south future-development discrete masses",
+  "units": "meters",
+  "status": "explicitly inferred future phase",
+  "source": {
+    "file": "../reconstruction-references/aecom-south-aerial.jpg",
+    "image_size_native": [
+      5000,
+      3333
+    ],
+    "view": "south aerial concept artwork",
+    "grid": "../reference-audit/south-blocks-grid.html",
+    "use": "individual roof polygons, roof setbacks, brick masses, parapets, warm window rhythm",
+    "confidence": "medium: roof edge traces from the gridded native source; heights and hidden depth inferred"
+  },
+  "projection": {
+    "camera": "R2_south",
+    "method": "r3_reference_projection.source_to_plane",
+    "roof_plane": "one inferred elevation per source roof outline",
+    "limits": "perspective projection establishes registration only; hidden depth and heights remain inferred"
+  },
+  "complexes": {
+    "west_pair": "tall west block plus adjacent rear low roof",
+    "middle_connected": "three nearby slabs plus front taller tower",
+    "east_steps": "four eastern stepped blocks",
+    "standalone_towers": "two northern standalone towers"
+  },
+  "masses": [
+    {
+      "name": "West tall block",
+      "complex": "west_pair",
+      "roof_pixels": [
+        [
+          2515,
+          2465
+        ],
+        [
+          2750,
+          2425
+        ],
+        [
+          2950,
+          2600
+        ],
+        [
+          2760,
+          2640
+        ]
+      ],
+      "roof_z": 40
+    },
+    {
+      "name": "West rear low block",
+      "complex": "west_pair",
+      "roof_pixels": [
+        [
+          2950,
+          2600
+        ],
+        [
+          3110,
+          2545
+        ],
+        [
+          3200,
+          2610
+        ],
+        [
+          2990,
+          2675
+        ]
+      ],
+      "roof_z": 24
+    },
+    {
+      "name": "Middle tall street block",
+      "complex": "middle_connected",
+      "roof_pixels": [
+        [
+          2850,
+          2705
+        ],
+        [
+          3130,
+          2670
+        ],
+        [
+          3200,
+          2720
+        ],
+        [
+          2930,
+          2790
+        ]
+      ],
+      "roof_z": 35
+    },
+    {
+      "name": "Middle long east wing",
+      "complex": "middle_connected",
+      "roof_pixels": [
+        [
+          3190,
+          2700
+        ],
+        [
+          3260,
+          2690
+        ],
+        [
+          3560,
+          2890
+        ],
+        [
+          3400,
+          2940
+        ]
+      ],
+      "roof_z": 25
+    },
+    {
+      "name": "Middle low street wing",
+      "complex": "middle_connected",
+      "roof_pixels": [
+        [
+          3030,
+          2940
+        ],
+        [
+          3250,
+          2890
+        ],
+        [
+          3340,
+          2960
+        ],
+        [
+          3140,
+          3020
+        ]
+      ],
+      "roof_z": 24
+    },
+    {
+      "name": "East upper tower",
+      "complex": "east_steps",
+      "roof_pixels": [
+        [
+          3760,
+          2660
+        ],
+        [
+          3850,
+          2630
+        ],
+        [
+          3950,
+          2700
+        ],
+        [
+          3860,
+          2740
+        ]
+      ],
+      "roof_z": 28
+    },
+    {
+      "name": "East upper rear wing",
+      "complex": "east_steps",
+      "roof_pixels": [
+        [
+          3670,
+          2650
+        ],
+        [
+          3750,
+          2630
+        ],
+        [
+          3940,
+          2770
+        ],
+        [
+          3850,
+          2800
+        ]
+      ],
+      "roof_z": 22
+    },
+    {
+      "name": "East low street wing",
+      "complex": "east_steps",
+      "roof_pixels": [
+        [
+          3550,
+          2800
+        ],
+        [
+          3730,
+          2750
+        ],
+        [
+          3820,
+          2820
+        ],
+        [
+          3650,
+          2865
+        ]
+      ],
+      "roof_z": 18
+    },
+    {
+      "name": "Far east top tower",
+      "complex": "east_steps",
+      "roof_pixels": [
+        [
+          4020,
+          2890
+        ],
+        [
+          4110,
+          2870
+        ],
+        [
+          4310,
+          3010
+        ],
+        [
+          4180,
+          3050
+        ]
+      ],
+      "roof_z": 28
+    },
+    {
+      "name": "Far east lower street wing",
+      "complex": "east_steps",
+      "roof_pixels": [
+        [
+          3910,
+          3100
+        ],
+        [
+          4050,
+          3060
+        ],
+        [
+          4200,
+          3170
+        ],
+        [
+          4050,
+          3220
+        ]
+      ],
+      "roof_z": 16
+    },
+    {
+      "name": "Far east lower east wing",
+      "complex": "east_steps",
+      "roof_pixels": [
+        [
+          4200,
+          3080
+        ],
+        [
+          4320,
+          3040
+        ],
+        [
+          4380,
+          3110
+        ],
+        [
+          4250,
+          3150
+        ]
+      ],
+      "roof_z": 16
+    },
+    {
+      "name": "North standalone tower west",
+      "complex": "standalone_towers",
+      "roof_pixels": [
+        [
+          3260,
+          2335
+        ],
+        [
+          3340,
+          2320
+        ],
+        [
+          3460,
+          2400
+        ],
+        [
+          3375,
+          2420
+        ]
+      ],
+      "roof_z": 46
+    },
+    {
+      "name": "North standalone tower east",
+      "complex": "standalone_towers",
+      "roof_pixels": [
+        [
+          3370,
+          2515
+        ],
+        [
+          3450,
+          2490
+        ],
+        [
+          3520,
+          2540
+        ],
+        [
+          3440,
+          2560
+        ]
+      ],
+      "roof_z": 27
+    },
+    {
+      "name": "Southern lower rear wing",
+      "complex": "southernmost",
+      "roof_pixels": [
+        [
+          3280,
+          3095
+        ],
+        [
+          3390,
+          3070
+        ],
+        [
+          3520,
+          3170
+        ],
+        [
+          3400,
+          3210
+        ]
+      ],
+      "roof_z": 17
+    },
+    {
+      "name": "Southern raised middle wing",
+      "complex": "southernmost",
+      "roof_pixels": [
+        [
+          3470,
+          3110
+        ],
+        [
+          3540,
+          3090
+        ],
+        [
+          3680,
+          3200
+        ],
+        [
+          3610,
+          3220
+        ]
+      ],
+      "roof_z": 25
+    },
+    {
+      "name": "Southern low right wing",
+      "complex": "southernmost",
+      "roof_pixels": [
+        [
+          3690,
+          3240
+        ],
+        [
+          3800,
+          3200
+        ],
+        [
+          3910,
+          3280
+        ],
+        [
+          3790,
+          3320
+        ]
+      ],
+      "roof_z": 17
+    }
+  ],
+  "scope": {
+    "owned": [
+      "four southern future-development complexes",
+      "individual brick roof prisms",
+      "roof parapets",
+      "source-scale window rhythm"
+    ],
+    "excluded": [
+      "distant towers",
+      "river and park",
+      "rail corridor",
+      "baseball stadium",
+      "other context buildings"
+    ]
+  }
+}

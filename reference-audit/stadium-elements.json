@@ -1,0 +1,1753 @@
+{
+  "schema_version": "1.0",
+  "audit_scope": "White Sox September 2026 west-bank Railyards concept, stadium and immediate stadium-facing public realm",
+  "sources": {
+    "north": {
+      "file": "outputs/reconstruction-references/additional/cbs-aecom-chicago-v-b4-aerial-final-v7-footer-joe-smith.jpg",
+      "width": 5000,
+      "height": 3333,
+      "source_label": "AECOM B4 aerial/dusk (CBS Chicago high resolution)",
+      "aliases": [
+        "outputs/reconstruction-references/aecom-north-aerial.png",
+        "outputs/reconstruction-references/additional/fox32-aecom-chicago-v-b4-aerial.jpg"
+      ],
+      "legacy_dimensions": {
+        "width": 1944,
+        "height": 1294
+      },
+      "legacy_scale": {
+        "x": 2.57201646090535,
+        "y": 2.5757341576506954
+      }
+    },
+    "south": {
+      "file": "outputs/reconstruction-references/aecom-south-aerial.jpg",
+      "width": 5000,
+      "height": 3333,
+      "source_label": "AECOM B6 south-day aerial (preferred 5000 px copy)",
+      "aliases": [
+        "outputs/reconstruction-references/additional/fox32-aecom-chicago-v-b6-south-day.jpg",
+        "outputs/reconstruction-references/additional/soxon35th-2026-09-05-10-31-43.png"
+      ]
+    },
+    "bridge": {
+      "file": "outputs/reconstruction-references/additional/cbs-aecom-chicago-v-a3-north-final-v5-footer-joe-smith.jpg",
+      "width": 5000,
+      "height": 3333,
+      "source_label": "AECOM A3 north bridge-facing view (CBS Chicago high resolution)",
+      "aliases": [
+        "outputs/reconstruction-references/user-bridge-view.png",
+        "outputs/reconstruction-references/additional/fox32-aecom-chicago-v-a3-north.jpg"
+      ],
+      "legacy_dimensions": {
+        "width": 1440,
+        "height": 959
+      },
+      "legacy_scale": {
+        "x": 3.4722222222222223,
+        "y": 3.475495307612096
+      }
+    },
+    "site_plan": {
+      "file": "outputs/reconstruction-references/railyards-site-plan.png",
+      "width": 1948,
+      "height": 1190,
+      "source_label": "AECOM / Railyards site plan",
+      "aliases": [
+        "outputs/reconstruction-references/additional/soxon35th-2026-09-05-10-37-58.png",
+        "outputs/reconstruction-references/additional/fox32-railyard-site-map.png"
+      ]
+    }
+  },
+  "current_renders": {
+    "north": {
+      "file": "outputs/railyards-v2/final-north.png",
+      "width": 1800,
+      "height": 1198
+    },
+    "south": {
+      "file": "outputs/railyards-v2/final-south.png",
+      "width": 1800,
+      "height": 1200
+    },
+    "bridge": {
+      "file": "outputs/railyards-v2/final-bridge.png",
+      "width": 1800,
+      "height": 1199
+    }
+  },
+  "measurement_conventions": {
+    "region": "[x, y, width, height] in native source pixels",
+    "confidence": "high means directly resolved in more than one view; medium means clear in one view or partly occluded; inferred means concept-art interpretation rather than a surveyed dimension",
+    "selected_control_warning": "The v2 gallery reports camera-control fits, not whole-scene fidelity. North RMS 2.9 px/max 5.6 px; south RMS 34.2 px/max 111.2 px at the left-field pavilion; bridge RMS 8.2 px/max 22.7 px.",
+    "source_coordinate_note": "Canonical source regions use the high-resolution CBS B4/A3 files for north/bridge and the 5000x3333 B6 south-day file. legacy_xywh preserves the prior derivative coordinates for cross-checking.",
+    "source_alias_note": "The old north and bridge files remain documented as aliases/legacy derivatives; do not mix their pixel boxes with canonical high-resolution coordinates."
+  },
+  "elements": [
+    {
+      "id": "STAD-001",
+      "priority": "P0",
+      "category": "bowl_topology",
+      "name": "Asymmetric horseshoe bowl footprint",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            180,
+            438,
+            2418,
+            1005
+          ],
+          "observation": "The bowl is a deep horseshoe open toward the river, with the left and right field ends terminating at visibly different angles.",
+          "confidence": "high",
+          "legacy_xywh": [
+            70,
+            170,
+            940,
+            390
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1450,
+            1350,
+            2250,
+            1250
+          ],
+          "observation": "The south aerial confirms the open outfield and the long front river facade wrapping around the bowl.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1406,
+            1408,
+            2431,
+            1077
+          ],
+          "observation": "The bridge view confirms the bowl reads as a broad low arc behind the riverfront edge.",
+          "confidence": "high",
+          "legacy_xywh": [
+            405,
+            405,
+            700,
+            310
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The v2 outline is recognizable and north-traced, but in south and bridge views the bowl reads as a smaller, smoother symmetric arc. The outfield end geometry and public-facing front volume do not carry the same asymmetry.",
+      "proposed_geometric_correction": "Keep the calibrated north `bowl_front`/`bowl_back` traces as the hard silhouette. Add explicit left/right end wedges and a longer river-facing front envelope around those traces; do not globally scale the bowl. Recheck the same outline in all three cameras after every change.",
+      "evidence_basis": "scene-spec.json bowl_source arrays plus three direct rendered comparisons",
+      "status": "high-impact structural mismatch"
+    },
+    {
+      "id": "STAD-002",
+      "priority": "P0",
+      "category": "tier_topology",
+      "name": "Four separated seating decks and setbacks",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            231,
+            515,
+            2225,
+            811
+          ],
+          "observation": "Three bright/dark horizontal concourse breaks separate a steep lower bowl from a middle deck, upper deck, and top deck; the breaks widen and change slope toward both ends.",
+          "confidence": "high",
+          "legacy_xywh": [
+            90,
+            200,
+            865,
+            315
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1600,
+            1480,
+            1500,
+            620
+          ],
+          "observation": "The high back bowl shows stacked seating bands with deep white concourse ledges and nonuniform side terminations.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1545,
+            1512,
+            2118,
+            712
+          ],
+          "observation": "At low elevation the four horizontal seating strata remain visible beneath the roof.",
+          "confidence": "high",
+          "legacy_xywh": [
+            445,
+            435,
+            610,
+            205
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The v2 row ranges are already explicit: t/z bands (0-.34/14-24), (.40-.49/27-30), (.55-.65/33-36), (.70-.93/39-47). Visually they are too clean and concentric, with broad dark rails replacing the source's ledges, aisle cuts, and side-specific setbacks.",
+      "proposed_geometric_correction": "Preserve those calibrated t/z bands and row counts. Replace the uninterrupted ribbon fascia with deck slabs 1.5–2.5 m deep, radial aisle voids every 8–12 seating bays, and wedge-shaped end caps whose outer edges follow the source bands. Keep the lower bowl steep; do not add a fifth tier or move the traced back curve.",
+      "evidence_basis": "north trace, repeated south/bridge tier edges, and current r2_seating.py tier constants",
+      "status": "measured topology present; edge articulation underfit"
+    },
+    {
+      "id": "STAD-003",
+      "priority": "P0",
+      "category": "outfield_seating",
+      "name": "Independent outfield bleacher banks and terraces",
+      "source_regions": [
+        {
+          "source": "south",
+          "xywh": [
+            1500,
+            1500,
+            1450,
+            700
+          ],
+          "observation": "Separate left/center outfield seating banks sit behind the wall, with open terrace floors, dark canopies, and a visible notch between the banks and the main bowl.",
+          "confidence": "high"
+        },
+        {
+          "source": "north",
+          "xywh": [
+            360,
+            1005,
+            1775,
+            567
+          ],
+          "observation": "The field ends show independent seating blocks and concourse edges outside the continuous back bowl.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            140,
+            390,
+            690,
+            220
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1736,
+            1703,
+            1667,
+            608
+          ],
+          "observation": "The low bridge view shows the field-facing terrace/bleacher blocks as a separate lower mass.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            500,
+            490,
+            480,
+            175
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The current v2 has the main traced bowl plus a small centerfield terrace, but no independent outfield bleacher banks. The south render therefore has an empty, overly smooth gap around the scoreboards.",
+      "proposed_geometric_correction": "Add two to four explicit wedge banks outside the outfield wall: left bank about 34 m wide × 16 m deep with 3 stepped levels at z≈17, 21, 25; center/left terrace about 28 m × 14 m with a 2-level concourse and dark roof; right bank about 24 m × 12 m where visible. Use the south view to place the pads, then verify their occlusion and end angles in north/bridge.",
+      "evidence_basis": "direct south close-up and corroborating field-end masses in north/bridge",
+      "status": "missing geometry"
+    },
+    {
+      "id": "STAD-004",
+      "priority": "P0",
+      "category": "canopy",
+      "name": "Continuous barrel canopy profile",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            185,
+            440,
+            2392,
+            577
+          ],
+          "observation": "Outer and inner roof traces are preserved from the registered scene-spec points; the canonical ROI is in the high-resolution B4 source and trace_points_native gives the migrated pixel points.",
+          "confidence": "high",
+          "legacy_xywh": [
+            72,
+            171,
+            930,
+            224
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source.",
+          "trace_points_legacy": {
+            "outer": [
+              [
+                72,
+                262
+              ],
+              [
+                160,
+                231
+              ],
+              [
+                265,
+                201
+              ],
+              [
+                370,
+                179
+              ],
+              [
+                470,
+                171
+              ],
+              [
+                560,
+                177
+              ],
+              [
+                637,
+                196
+              ],
+              [
+                705,
+                226
+              ],
+              [
+                782,
+                264
+              ],
+              [
+                862,
+                305
+              ],
+              [
+                935,
+                345
+              ],
+              [
+                1000,
+                375
+              ]
+            ],
+            "inner": [
+              [
+                97,
+                300
+              ],
+              [
+                210,
+                267
+              ],
+              [
+                320,
+                236
+              ],
+              [
+                425,
+                214
+              ],
+              [
+                530,
+                207
+              ],
+              [
+                604,
+                216
+              ],
+              [
+                671,
+                241
+              ],
+              [
+                742,
+                271
+              ],
+              [
+                820,
+                313
+              ],
+              [
+                894,
+                351
+              ],
+              [
+                948,
+                382
+              ],
+              [
+                976,
+                394
+              ]
+            ]
+          },
+          "trace_points_native": {
+            "outer": [
+              [
+                185,
+                675
+              ],
+              [
+                412,
+                595
+              ],
+              [
+                682,
+                518
+              ],
+              [
+                952,
+                461
+              ],
+              [
+                1209,
+                440
+              ],
+              [
+                1440,
+                456
+              ],
+              [
+                1638,
+                505
+              ],
+              [
+                1813,
+                582
+              ],
+              [
+                2011,
+                680
+              ],
+              [
+                2217,
+                786
+              ],
+              [
+                2405,
+                889
+              ],
+              [
+                2572,
+                966
+              ]
+            ],
+            "inner": [
+              [
+                249,
+                773
+              ],
+              [
+                540,
+                688
+              ],
+              [
+                823,
+                608
+              ],
+              [
+                1093,
+                551
+              ],
+              [
+                1363,
+                533
+              ],
+              [
+                1553,
+                556
+              ],
+              [
+                1726,
+                621
+              ],
+              [
+                1908,
+                698
+              ],
+              [
+                2109,
+                806
+              ],
+              [
+                2299,
+                904
+              ],
+              [
+                2438,
+                984
+              ],
+              [
+                2510,
+                1015
+              ]
+            ]
+          }
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1550,
+            1500,
+            1800,
+            610
+          ],
+          "observation": "The front canopy is deep and visibly segmented, with a dark outer fascia/truss and ribs from the left end through the clock-tower end.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1493,
+            1460,
+            2326,
+            469
+          ],
+          "observation": "The roof silhouette and dark lower edge remain legible at distant scale.",
+          "confidence": "high",
+          "legacy_xywh": [
+            430,
+            420,
+            670,
+            135
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The v2 3.1 m barrel rise and traced north inner/outer contours are directionally correct. The rendered roof reads as a pale narrow band because its edge depth, dark fascia, and support truss are visually missing; this is primarily a detail/material distinction rather than permission to change the measured silhouette.",
+      "proposed_geometric_correction": "Retain the 13 canopy rows, the 3.1 m barrel rise, and all north traced points. Add a 0.6–0.9 m deep outer edge fascia, a 0.4–0.6 m inner fascia, and exposed transverse ribs at the existing 7-sample support cadence. Give each rib a visible base-to-edge diagonal or portal frame. Tune material/lighting separately so the panels read dark bronze/transparent like the source.",
+      "evidence_basis": "exact north `bowl_source` pixels, south close-up, and current r2_architecture.py canopy construction",
+      "status": "silhouette constrained; support/fascia underfit"
+    },
+    {
+      "id": "STAD-005",
+      "priority": "P0",
+      "category": "facade_envelope",
+      "name": "River-facing brick facade with tall lower arches",
+      "source_regions": [
+        {
+          "source": "south",
+          "xywh": [
+            1400,
+            1850,
+            2150,
+            1450
+          ],
+          "observation": "The dominant front wall has a deep brick/terracotta body, a dark glazed/metal band below the canopy, very tall rounded lower arches, and repeated vertical upper bays.",
+          "confidence": "high"
+        },
+        {
+          "source": "north",
+          "xywh": [
+            1903,
+            927,
+            1209,
+            1082
+          ],
+          "observation": "The right river-facing mass shows the same brick frame, bright vertical glazing, and deep public edge.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            740,
+            360,
+            470,
+            420
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            2257,
+            1825,
+            1215,
+            712
+          ],
+          "observation": "The broad front mass is a readable horizontal datum under the bowl, not a thin wall.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            650,
+            525,
+            350,
+            205
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The v2 facade has the right curved location and brick palette, but the main front reads thin and repetitive. Its lower arches stop too low relative to the source's tall arch openings, and added intermediate bands interrupt the vertical proportion.",
+      "proposed_geometric_correction": "Restore one continuous tall arch run on the central front bays. Use bottom z≈8.0, spring/top target z≈31–34 (roughly 22–26 m opening height depending on bay width), with the upper glazed/metal fascia beginning around z≈34–36. Keep the outer brick wall top near the existing z≈47–48 and retain the river-side lower arcade as a separate layer. Remove the visually dominant extra low horizontal band.",
+      "evidence_basis": "south close-up ROI and north facade crop; south resolves the arch-to-wall proportion most clearly",
+      "status": "wrong vertical proportion"
+    },
+    {
+      "id": "STAD-006",
+      "priority": "P1",
+      "category": "facade_envelope",
+      "name": "River-side glazed concourse and lower arcade",
+      "source_regions": [
+        {
+          "source": "south",
+          "xywh": [
+            2500,
+            2150,
+            1250,
+            900
+          ],
+          "observation": "A dark glazed two-level concourse projects along the river-facing right side and terminates in a regular series of large lower arches.",
+          "confidence": "high"
+        },
+        {
+          "source": "north",
+          "xywh": [
+            1080,
+            1610,
+            1209,
+            902
+          ],
+          "observation": "The river edge has a lit lower public strip below the scoreboard terrace.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            420,
+            625,
+            470,
+            350
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The v2 right wing contains a low arcade, but its glazing is a single dark plane and the canopy/arcade junction lacks the source's deep two-level section.",
+      "proposed_geometric_correction": "Keep the existing wing footprint. Split it into a lower 8–19 m arched arcade and an upper 20–27 m glazed concourse with a 2.5–3.5 m outward projection, continuous mullions, and a distinct dark roof slab. Match the south crop's long run of arches before adding furniture or lights.",
+      "evidence_basis": "south facade close-up",
+      "status": "partial geometry"
+    },
+    {
+      "id": "STAD-007",
+      "priority": "P0",
+      "category": "tower",
+      "name": "Stepped brick clock tower shaft",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            21,
+            541,
+            437,
+            1352
+          ],
+          "observation": "The tower is fully visible at the left end, with a broad articulated brick shaft, repeated stone bands, and a projecting base along the river edge.",
+          "confidence": "high",
+          "legacy_xywh": [
+            8,
+            210,
+            170,
+            525
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            3020,
+            1420,
+            260,
+            760
+          ],
+          "observation": "The tower is a tall independent vertical anchor beside the right end of the bowl.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1458,
+            1373,
+            503,
+            869
+          ],
+          "observation": "The low view confirms the shaft rises materially above the seating roof.",
+          "confidence": "high",
+          "legacy_xywh": [
+            420,
+            395,
+            145,
+            250
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 has a tall box tower at the calibrated anchor, but the north render clips much of it and the shaft reads as a narrow stack of lit panels rather than the source's stepped masonry anchor.",
+      "proposed_geometric_correction": "Keep the existing tower roof anchor [81.54, -76.38, 68]. Widen the lower shaft/base by about 2–3 m in each visible direction, add 4–5 stepped stone belt courses and a projecting river-side plinth, and taper or setback the shaft at the lantern transition. Do not move the roof anchor until all three projections are rechecked.",
+      "evidence_basis": "three views and existing scene-spec tower anchor",
+      "status": "anchor correct; mass articulation underfit"
+    },
+    {
+      "id": "STAD-008",
+      "priority": "P0",
+      "category": "tower",
+      "name": "Large dark clock lantern and faces",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            39,
+            567,
+            360,
+            464
+          ],
+          "observation": "A dark clock face sits inside a broad glowing lantern above the shaft.",
+          "confidence": "high",
+          "legacy_xywh": [
+            15,
+            220,
+            140,
+            180
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            3040,
+            1500,
+            190,
+            330
+          ],
+          "observation": "The lantern has dark circular faces on illuminated glazing, a strong cap, and a larger proportion than the current white discs.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1545,
+            1460,
+            330,
+            434
+          ],
+          "observation": "The lantern remains a dark-faced square signal at distance.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            445,
+            420,
+            95,
+            125
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 renders large pale white discs on a peach/stone block. The source's face is dark and the lit lantern glazing carries the glow; the current face/cap contrast and lantern proportion are reversed.",
+      "proposed_geometric_correction": "On all four tower faces, add an opaque dark dial disc about 6.5–7.5 m diameter at the upper lantern level, thin light hands, and a 0.5–0.8 m stone/metal surround. Keep the illuminated glazing behind the dial and enlarge the lantern bay/cap depth by roughly 10–15% only if the south and bridge projections still under-read it.",
+      "evidence_basis": "south close-up plus north/bridge distance views",
+      "status": "wrong face treatment"
+    },
+    {
+      "id": "STAD-009",
+      "priority": "P0",
+      "category": "lighting_structures",
+      "name": "Floodlight banks on steel gantries",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            141,
+            399,
+            2443,
+            477
+          ],
+          "observation": "Multiple tall light banks sit on visible steel frames above the canopy, with bright horizontal arrays at the bowl crown and ends.",
+          "confidence": "high",
+          "legacy_xywh": [
+            55,
+            155,
+            950,
+            185
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1600,
+            1500,
+            1800,
+            600
+          ],
+          "observation": "Raised gantries and their diagonal supports punctuate the canopy front edge.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1458,
+            1442,
+            2188,
+            539
+          ],
+          "observation": "The lights form a repeated high roofline rhythm.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            420,
+            415,
+            630,
+            155
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 exposes small light boxes and short posts that read as fixtures sitting on the roof. The source reads as substantial gantries with a structural silhouette.",
+      "proposed_geometric_correction": "Keep the existing light-bank locations. Raise each bank to roughly 7–9 m above the canopy surface, add paired vertical legs, a 12–16 m horizontal truss, and diagonal braces; place two staggered rows of lamp heads on the truss. Treat brightness as a separate lighting pass after the frame silhouettes match.",
+      "evidence_basis": "north/south roof close-ups and current r2_architecture.py light placement",
+      "status": "missing structural depth"
+    },
+    {
+      "id": "STAD-010",
+      "priority": "P0",
+      "category": "scoreboards",
+      "name": "Two large angled outfield scoreboards",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            386,
+            1108,
+            1569,
+            863
+          ],
+          "observation": "A left-field board and a front/center board have distinct orientations, heavy frames, and large black display faces.",
+          "confidence": "high",
+          "legacy_xywh": [
+            150,
+            430,
+            610,
+            335
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            2050,
+            1330,
+            1350,
+            760
+          ],
+          "observation": "The center board is high over the river-facing outfield terrace and a second board stands at the right field edge.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1736,
+            1738,
+            1528,
+            660
+          ],
+          "observation": "Both screens read as large independent vertical objects in front of the bowl.",
+          "confidence": "high",
+          "legacy_xywh": [
+            500,
+            500,
+            440,
+            190
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 includes both slabs at roughly the right anchors, but the boards are visually generic and the distinct support/terrace relationships are absent. The south selected screen/pavilion controls also drift relative to the artwork.",
+      "proposed_geometric_correction": "Retain the current anchor positions and approximate widths (31 m center/39 m river-field) until the support frames are added. Give each board a 2–3 m deep steel perimeter, two or three exposed columns, and a shallow cantilever/terrace base. Use source face orientations from north and south rather than one global rotation.",
+      "evidence_basis": "three view screen placement and scene-spec anchors",
+      "status": "placement present; supporting mass missing"
+    },
+    {
+      "id": "STAD-011",
+      "priority": "P0",
+      "category": "scoreboards",
+      "name": "Opaque backs, headers, and display framing",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            399,
+            1146,
+            1505,
+            811
+          ],
+          "observation": "Screens have solid black faces, bright top header lettering, and visible frame edges; no reverse lettering is visible through the boards.",
+          "confidence": "high",
+          "legacy_xywh": [
+            155,
+            445,
+            585,
+            315
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            2080,
+            1370,
+            1250,
+            650
+          ],
+          "observation": "The center board clearly carries a front-facing THE RAILYARDS header and scoreboard content.",
+          "confidence": "high"
+        }
+      ],
+      "current_mismatch": "v2 uses two-sided screen faces and independent headers; the reverse header can read backward or show through when the back is visible. Screen content is also only a Sox mark at render scale.",
+      "proposed_geometric_correction": "Insert an opaque black/charcoal backing slab between the two display faces, then place each header text only on the face normal pointing toward its source camera. Add a 0.4–0.7 m top/bottom frame and a thin lower score strip. Keep logos as signage detail after the opaque construction is fixed.",
+      "evidence_basis": "direct source faces and current architecture module behavior",
+      "status": "known display construction issue"
+    },
+    {
+      "id": "STAD-012",
+      "priority": "P0",
+      "category": "outfield_edge",
+      "name": "Continuous dark outfield wall and fence cap",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            617,
+            1223,
+            1543,
+            258
+          ],
+          "observation": "A dark green wall traces the outfield edge beneath the seating and boards, with a crisp top cap.",
+          "confidence": "high",
+          "legacy_xywh": [
+            240,
+            475,
+            600,
+            100
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1750,
+            1840,
+            1550,
+            440
+          ],
+          "observation": "The wall is a continuous dark band around the striped field, interrupted only by board/terrace structures.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1736,
+            1929,
+            1597,
+            400
+          ],
+          "observation": "The low view retains a strong dark wall line.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            500,
+            555,
+            460,
+            115
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 technically creates a z=16 outfield fence, but it reads as a low green rim in north and largely disappears in south/bridge. The wall lacks visible panel depth and cap detail.",
+      "proposed_geometric_correction": "Retain the current z=16 base/top intent and field trace. Give the wall a 0.3–0.5 m thick dark-green/charcoal fascia with a 0.4 m cap, add short vertical panel joints, and preserve openings only where scoreboard supports/terraces actually interrupt it. Verify visibility under the source lighting before changing height.",
+      "evidence_basis": "field-end source bands and existing blockout fence construction",
+      "status": "present but visually lost"
+    },
+    {
+      "id": "STAD-013",
+      "priority": "P1",
+      "category": "field",
+      "name": "Regulation diamond, warning track, and foul geometry",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            630,
+            1030,
+            1517,
+            477
+          ],
+          "observation": "The source resolves a tan infield, tan warning track/foul-line zones, white diamond markings, and yellow foul poles.",
+          "confidence": "high",
+          "legacy_xywh": [
+            245,
+            400,
+            590,
+            185
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1750,
+            1640,
+            1350,
+            650
+          ],
+          "observation": "The warning track is a broad tan ring between the striped grass and the dark outfield wall.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            1788,
+            1859,
+            1632,
+            591
+          ],
+          "observation": "The field material zones remain visible behind the front board.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            515,
+            535,
+            470,
+            170
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 has a correctly scaled 90-foot baseline prior, infield clay/grass, and foul poles, but the warning track is too thin or absent around the outfield and white foul/diamond markings are almost invisible in the final renders.",
+      "proposed_geometric_correction": "Keep the current 27.432 m baseline. Add a continuous 4–6 m tan warning-track ribbon between the field polygon and wall, use a darker clay infield than the track, and add thin white baselines/plates plus visible yellow poles at the two foul corners. Treat exact field dimensions as a scale prior, not survey truth.",
+      "evidence_basis": "north and south field close-ups",
+      "status": "material zone underfit"
+    },
+    {
+      "id": "STAD-014",
+      "priority": "P1",
+      "category": "field",
+      "name": "Outfield mowing pattern and playable field shape",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            643,
+            1108,
+            1466,
+            335
+          ],
+          "observation": "Alternating broad mowing stripes follow the irregular field shape and converge toward the infield.",
+          "confidence": "high",
+          "legacy_xywh": [
+            250,
+            430,
+            570,
+            130
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1780,
+            1850,
+            1300,
+            400
+          ],
+          "observation": "The stripes run across the outfield and terminate at the angular warning track.",
+          "confidence": "high"
+        }
+      ],
+      "current_mismatch": "v2 includes clipped mowing bands, but they are much more prominent and evenly spaced in north than in the source, while the absent warning track makes the field read as a polygonal green pad.",
+      "proposed_geometric_correction": "Keep the existing clipped-band approach. Reduce stripe contrast and use 8–12 m field-direction bands that stop at the warning track, then add the track/wall boundary so the irregular playable shape reads through materials rather than extra geometry.",
+      "evidence_basis": "north/south source field regions and r2_seating.py clipping logic",
+      "status": "mostly present; boundary hierarchy wrong"
+    },
+    {
+      "id": "STAD-015",
+      "priority": "P1",
+      "category": "signage",
+      "name": "THE RAILYARDS front fascia sign",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            1286,
+            1610,
+            566,
+            258
+          ],
+          "observation": "Bright THE RAILYARDS lettering sits on the black fascia above the rounded front scoreboard building.",
+          "confidence": "high",
+          "legacy_xywh": [
+            500,
+            625,
+            220,
+            100
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1980,
+            1870,
+            620,
+            250
+          ],
+          "observation": "Large white THE RAILYARDS text is centered on the dark upper facade band.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            2257,
+            1894,
+            833,
+            348
+          ],
+          "observation": "The front sign is a high-contrast horizontal identity cue.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            650,
+            545,
+            240,
+            100
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 includes a small sign, but it sits low and reads as a thin white label against the brick. The source sign is larger, brighter, and anchored to the dark fascia below the canopy.",
+      "proposed_geometric_correction": "Place the sign on a continuous 2–3 m dark fascia band centered on the river-facing curve, enlarge the lettering to roughly 2.5–3.2 m cap height in world scale, and add a slight outward projection/backlight. Keep signage secondary to the facade geometry.",
+      "evidence_basis": "all three stadium views and current `Main sign` placement",
+      "status": "identity cue under-scaled"
+    },
+    {
+      "id": "STAD-016",
+      "priority": "P1",
+      "category": "roof_facade_transition",
+      "name": "Dark canopy edge to facade transition",
+      "source_regions": [
+        {
+          "source": "south",
+          "xywh": [
+            1650,
+            1700,
+            1750,
+            500
+          ],
+          "observation": "A dark glazed/metal fascia sits directly below the barrel canopy before the brick wall and sign band.",
+          "confidence": "high"
+        },
+        {
+          "source": "north",
+          "xywh": [
+            244,
+            708,
+            2315,
+            399
+          ],
+          "observation": "The roof edge has a dark lower line separating roof panels from the upper seating/facade.",
+          "confidence": "high",
+          "legacy_xywh": [
+            95,
+            275,
+            900,
+            155
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "The v2 silver canopy transitions directly into seating and a narrow brick strip; the source has a distinct deep dark edge that gives the roof mass and hides services.",
+      "proposed_geometric_correction": "Add a continuous 1.5–2.5 m tall dark glazed/metal fascia immediately under the outer canopy edge, with vertical mullions aligned to the existing ribs. Preserve the traced roof profile and avoid raising the roof to compensate for the missing edge.",
+      "evidence_basis": "south close-up and north canopy edge",
+      "status": "missing section"
+    },
+    {
+      "id": "STAD-017",
+      "priority": "P1",
+      "category": "field_ends",
+      "name": "Foul-corner end stands and field-end terminations",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            347,
+            1017,
+            463,
+            695
+          ],
+          "observation": "Left field terminates in a low board/terrace and tower-side seating wedge; the opposite field end has a distinct stepped termination near the adjacent hall.",
+          "confidence": "high",
+          "legacy_xywh": [
+            135,
+            395,
+            180,
+            270
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1450,
+            1500,
+            1650,
+            650
+          ],
+          "observation": "Independent end stands and canopies flank the outfield rather than ending as one smooth oval.",
+          "confidence": "high"
+        }
+      ],
+      "current_mismatch": "v2 end seating follows the same smooth interpolated curves on both sides, making the field corners and board-side end masses look generic.",
+      "proposed_geometric_correction": "Break the two field ends into asymmetric wedges. Keep the left/tower end lower and more terrace-like, add a deeper right/river-end pavilion mass, and terminate each seating deck with a visible vertical return instead of a continuous rounded ribbon.",
+      "evidence_basis": "north field-end crop and south outfield close-up",
+      "status": "asymmetry missing"
+    },
+    {
+      "id": "STAD-018",
+      "priority": "P1",
+      "category": "outfield_pavilion",
+      "name": "River/left-field pavilion and roof terrace",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            1955,
+            863,
+            1209,
+            927
+          ],
+          "observation": "A large adjacent brick/glass pavilion with a dark roof sits immediately beyond the right field end and anchors the bridge connection.",
+          "confidence": "high",
+          "legacy_xywh": [
+            760,
+            335,
+            470,
+            360
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1400,
+            1250,
+            1000,
+            650
+          ],
+          "observation": "The left/outfield pavilion has a broad roof, an upper terrace, and a lower covered concourse behind the field-end seating.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            2431,
+            1755,
+            1042,
+            626
+          ],
+          "observation": "A pavilion mass sits beside the field and balances the clock tower across the bowl.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            700,
+            505,
+            300,
+            180
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2's `Left field pavilion` is a simple box and the centerfield terrace is small; the south selected pavilion control is displaced 111.2 px, the largest gallery control error.",
+      "proposed_geometric_correction": "Use the source roof corners as the footprint constraint. Rebuild a 2–3 level pavilion with a broad dark roof terrace, upper open rail/bleacher deck, and lower glazed concourse; keep its roof anchor aligned to the existing `lf_pavilion_roof` control before adding facade windows. Resolve this as a geometry/placement task before lighting.",
+      "evidence_basis": "south/north pavilion roofs and scene-spec selected control",
+      "status": "largest measured drift"
+    },
+    {
+      "id": "STAD-019",
+      "priority": "P1",
+      "category": "seating_detail",
+      "name": "Radial aisles, seat density, and concourse rails",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            463,
+            631,
+            1955,
+            721
+          ],
+          "observation": "Dark radial aisle cuts repeat around each deck, with bright thin rails and dense but irregular seat texture.",
+          "confidence": "high",
+          "legacy_xywh": [
+            180,
+            245,
+            760,
+            280
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1550,
+            1500,
+            1500,
+            650
+          ],
+          "observation": "The independent outfield banks show wide aisle voids and varied density rather than one continuous speckle field.",
+          "confidence": "medium"
+        }
+      ],
+      "current_mismatch": "v2's crowds and seats provide texture, but the aisle cadence is too regular and the dark horizontal ribbons dominate the seating read.",
+      "proposed_geometric_correction": "Keep the procedural seat instances. Add explicit aisle voids at alternating angular positions (roughly 8–12 bays), narrow stair runs, and deck-edge rails; lower crowd density at concourses and independent outfield terraces so the source's structural cuts remain visible.",
+      "evidence_basis": "north close-up and current r2_seating.py placement loop",
+      "status": "texture present; circulation pattern underfit"
+    },
+    {
+      "id": "STAD-020",
+      "priority": "P1",
+      "category": "stadium_connections",
+      "name": "Stadium-facing rail bridge attachments",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            1955,
+            979,
+            1800,
+            850
+          ],
+          "observation": "Covered pedestrian bridges land at visible stadium/district edges and frame the rail corridor.",
+          "confidence": "high",
+          "legacy_xywh": [
+            760,
+            380,
+            700,
+            330
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1200,
+            2100,
+            1200,
+            800
+          ],
+          "observation": "Multiple covered links cross the tracks and terminate at active building edges around the stadium.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            417,
+            1460,
+            1215,
+            1008
+          ],
+          "observation": "The left background contains a dark rail/bridge structure connected to the stadium approach.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            120,
+            420,
+            350,
+            290
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 has four repeated 112 m spans at y=-113,-48,73,150, but several read as freestanding bars ending in open space. Their landing geometry is generic and disconnected from the pavilion/facade masses.",
+      "proposed_geometric_correction": "Retain only the spans visible in each reference phase, then shorten/rotate each landing so its glass box visibly intersects a stadium or adjacent pavilion concourse. Use 7–9 m bridge width, 4 m glazed side height, and a real roof/threshold volume rather than a floating slab.",
+      "evidence_basis": "north/south covered-link alignments and current r2_district.py bridge loop",
+      "status": "relationship mismatch"
+    },
+    {
+      "id": "STAD-021",
+      "priority": "P1",
+      "category": "stadium_connections",
+      "name": "Covered bridge rhythm and rail corridor clearance",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            2006,
+            1082,
+            1672,
+            773
+          ],
+          "observation": "The bridges are slender glazed tubes with dark framing, aligned across the rail tracks and separated by open rail views.",
+          "confidence": "high",
+          "legacy_xywh": [
+            780,
+            420,
+            650,
+            300
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            0,
+            2250,
+            2050,
+            850
+          ],
+          "observation": "The south image shows a small number of substantial covered crossings, not a dense field of identical bars.",
+          "confidence": "high"
+        }
+      ],
+      "current_mismatch": "The current north/south renders show a repeated bridge kit with flat roof slabs and uniform spacing, visually competing with the stadium bowl.",
+      "proposed_geometric_correction": "Use two primary stadium-facing crossings plus secondary crossings only where a building landing is evidenced. Give the primary tubes a 0.8–1.2 m roof overhang, dark vertical mullions every 3 m, and visible support piers outside the rail clearance envelope.",
+      "evidence_basis": "source bridge counts and current repeated geometry",
+      "status": "too repetitive"
+    },
+    {
+      "id": "STAD-022",
+      "priority": "P2",
+      "category": "immediate_bridge",
+      "name": "Roosevelt road bridge and drawbridge foreground",
+      "source_regions": [
+        {
+          "source": "bridge",
+          "xywh": [
+            0,
+            2120,
+            5000,
+            1164
+          ],
+          "observation": "The foreground bridge has paired ornate masonry towers, two dark bascule leaves, guardrails, and a distinct opening over the river.",
+          "confidence": "high",
+          "legacy_xywh": [
+            0,
+            610,
+            1440,
+            335
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            900,
+            1050,
+            2200,
+            600
+          ],
+          "observation": "A road bridge with tower piers crosses the river above the stadium district.",
+          "confidence": "medium"
+        }
+      ],
+      "current_mismatch": "v2's foreground bridge is a flat gray deck with small square houses and thin trusses; it lacks the source's stone towers, cap shapes, and drawbridge leaf silhouette.",
+      "proposed_geometric_correction": "Keep the registered Roosevelt y≈316 centerline and river banks. Replace the generic edge with four masonry tower piers 7–9 m wide, 18–24 m tall, stepped caps/conical lanterns, and two dark bascule leaves with visible arch/truss profiles over the channel. Preserve the roadway deck height while adding the tower silhouettes.",
+      "evidence_basis": "bridge foreground close-up and site registration",
+      "status": "immediate-area priority after stadium"
+    },
+    {
+      "id": "STAD-023",
+      "priority": "P1",
+      "category": "river_edge",
+      "name": "Riverfront promenade, quay, and water-side stadium edge",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            0,
+            1339,
+            1183,
+            1983
+          ],
+          "observation": "A narrow, active riverwalk hugs the stadium edge with trees, railings, boats, and continuous warm lighting.",
+          "confidence": "high",
+          "legacy_xywh": [
+            0,
+            520,
+            460,
+            770
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            0,
+            1800,
+            1650,
+            1400
+          ],
+          "observation": "The stadium facade and promenade sit directly against the river, with a broad public edge and boat access.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            0,
+            1425,
+            2431,
+            1494
+          ],
+          "observation": "The river separates the camera from the stadium and carries the primary arrival composition.",
+          "confidence": "high",
+          "legacy_xywh": [
+            0,
+            410,
+            700,
+            430
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 has a straight dark channel, repetitive trees, and a narrow hard quay. The riverfront edge lacks the source's layered promenade, crowd activity, and varied landing/terrace steps.",
+      "proposed_geometric_correction": "Keep the registered river channel and quay positions. Add a 6–10 m pedestrian promenade band, stepped water landings at board/pavilion fronts, low railings, and localized boat docks; vary tree spacing near entries instead of using a uniform line. Resolve stadium edge geometry before increasing crowd count.",
+      "evidence_basis": "all three views and site-plan river alignment",
+      "status": "public realm underfit"
+    },
+    {
+      "id": "STAD-024",
+      "priority": "P2",
+      "category": "immediate_public_realm",
+      "name": "Stadium entry plaza and event lawn",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            1415,
+            1417,
+            1800,
+            1545
+          ],
+          "observation": "The curved front board/pavilion opens onto a bright hard plaza and a large programmed lawn with paths, trees, furniture, and crowds.",
+          "confidence": "high",
+          "legacy_xywh": [
+            550,
+            550,
+            700,
+            600
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            2222,
+            1981,
+            1632,
+            660
+          ],
+          "observation": "The stadium-facing lawn and plaza are visibly layered between the river and surrounding buildings.",
+          "confidence": "high",
+          "legacy_xywh": [
+            640,
+            570,
+            470,
+            190
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2's north render has a large empty green rectangle and broad unprogrammed paving beside the stadium; the source has a connected entry sequence with multiple paths and active gathering zones.",
+      "proposed_geometric_correction": "Replace the single lawn slab with 2–3 lawn rooms separated by 4–6 m walks, terraces, and entry thresholds aligned to the facade/board. Add low pavilions and seating only after the bridge and facade landings are fixed; preserve open sightlines to the stadium.",
+      "evidence_basis": "north event-lawn close-up and bridge public-realm view",
+      "status": "immediate-area priority"
+    },
+    {
+      "id": "STAD-025",
+      "priority": "P2",
+      "category": "adjacent_buildings",
+      "name": "North medical/entertainment blocks framing the bowl",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            2109,
+            309,
+            2778,
+            1545
+          ],
+          "observation": "Low brick/glass blocks and the Northwestern Medicine building form a close stadium edge, with green roofs, terraces, and a continuous rail-side pedestrian route.",
+          "confidence": "high",
+          "legacy_xywh": [
+            820,
+            120,
+            1080,
+            600
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            0,
+            0,
+            5000,
+            1450
+          ],
+          "observation": "The south artwork shows larger inferred district blocks behind and beside the stadium.",
+          "confidence": "medium"
+        }
+      ],
+      "current_mismatch": "v2 context is a procedural grid of generic flat-roof blocks. It captures massing but misses the source's selected roof terraces, facade hierarchy, and stadium-adjacent scale transitions.",
+      "proposed_geometric_correction": "Keep OSM footprints and the four north source building footprints as registration anchors. Prioritize roof terraces, bridge landing blocks, and a few source-resolved facade masses around the stadium; leave distant generic blocks low detail. Do not let inferred context obscure the bowl.",
+      "evidence_basis": "north source roof corners and current scene-spec building evidence",
+      "status": "context secondary"
+    },
+    {
+      "id": "STAD-026",
+      "priority": "P3",
+      "category": "future_context",
+      "name": "Across-river soccer stadium and future development",
+      "source_regions": [
+        {
+          "source": "south",
+          "xywh": [
+            3900,
+            1100,
+            1000,
+            850
+          ],
+          "observation": "A large rectangular soccer venue with red seating and a dark roof sits across the river to the east of the baseball stadium.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            3785,
+            1633,
+            1042,
+            1147
+          ],
+          "observation": "The bridge view contains a large right-side tower/context mass but no clear soccer venue.",
+          "confidence": "inferred",
+          "legacy_xywh": [
+            1090,
+            470,
+            300,
+            330
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 includes a simplified red soccer field/stand mass in the south view, but its context scale and roof edge are schematic.",
+      "proposed_geometric_correction": "Keep this collection separate and hidden in north. In south, match only the source-visible rectangle, red seating blocks, roof plane, and river-side plaza; avoid spending stadium-fidelity time on unresolvable future details.",
+      "evidence_basis": "south source only; explicitly inferred phase layer in SOURCE-AND-ASSUMPTIONS.md",
+      "status": "third priority context"
+    },
+    {
+      "id": "STAD-027",
+      "priority": "P3",
+      "category": "skyline",
+      "name": "Only skyline/background masses visible beyond outfield",
+      "source_regions": [
+        {
+          "source": "south",
+          "xywh": [
+            0,
+            0,
+            5000,
+            1450
+          ],
+          "observation": "Dense downtown skyline and warm high-rises fill the horizon behind the stadium.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            0,
+            0,
+            5000,
+            1633
+          ],
+          "observation": "A hazy low skyline sits behind the bowl; a few taller blocks frame the left and right edges.",
+          "confidence": "medium",
+          "legacy_xywh": [
+            0,
+            0,
+            1440,
+            470
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "north",
+          "xywh": [
+            0,
+            0,
+            5000,
+            1005
+          ],
+          "observation": "Only low existing industrial/medical roofs are visible beyond the bowl; no high-rise phase is shown.",
+          "confidence": "high",
+          "legacy_xywh": [
+            0,
+            0,
+            1944,
+            390
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2's south/bridge horizon is a dense generic block field with many similarly lit boxes, while the north view can be overfilled by context. This is visually secondary once the stadium silhouette is correct.",
+      "proposed_geometric_correction": "Keep distant inferred city low detail and phase-specific. Match broad height groups and the few visible edge towers in south/bridge; hide future high-rises in north. Spend no geometry budget on individual skyline identities without source evidence.",
+      "evidence_basis": "three source backgrounds and explicit phase caveat in SOURCE-AND-ASSUMPTIONS.md",
+      "status": "third priority"
+    },
+    {
+      "id": "STAD-028",
+      "priority": "P1",
+      "category": "lighting_materials",
+      "name": "Warm facade, cool bowl, and water reflection separation",
+      "source_regions": [
+        {
+          "source": "north",
+          "xywh": [
+            0,
+            386,
+            2829,
+            2318
+          ],
+          "observation": "The bowl and screens are cool white/black while brick facades, plaza lights, boats, and river edge are warm and readable.",
+          "confidence": "high",
+          "legacy_xywh": [
+            0,
+            150,
+            1100,
+            900
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        },
+        {
+          "source": "south",
+          "xywh": [
+            1300,
+            1300,
+            2400,
+            1500
+          ],
+          "observation": "Sunset warmth differentiates terracotta facade, dark roof, green field, and reflective water.",
+          "confidence": "high"
+        },
+        {
+          "source": "bridge",
+          "xywh": [
+            0,
+            1390,
+            5000,
+            1633
+          ],
+          "observation": "The bowl is bright but the river promenade and facade remain legible under cool dusk light.",
+          "confidence": "high",
+          "legacy_xywh": [
+            0,
+            400,
+            1440,
+            470
+          ],
+          "coordinate_note": "Scaled from the legacy derivative ROI; coordinates are native pixels in the high-resolution canonical source."
+        }
+      ],
+      "current_mismatch": "v2 geometry comparisons are weakened by a cool gray environment, blown roof/floodlight whites, and large unlit hardscape areas. This obscures some remaining geometry judgments but does not explain missing masses.",
+      "proposed_geometric_correction": "After structural fixes, use view-specific lighting: cool bright bowl/field, warm brick and promenade practicals, controlled water reflection, and lower canopy panel exposure. Keep render comparisons and geometry review separate; do not claim lighting changes as geometry fidelity.",
+      "evidence_basis": "three source lighting treatments and v2 final renders",
+      "status": "presentation pass after geometry"
+    }
+  ]
+}
