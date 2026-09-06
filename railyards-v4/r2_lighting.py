@@ -3,11 +3,12 @@ import math
 import bpy
 
 def apply_lighting(scene,name):
-    night=name in ['north','bridge']
+    night=name in ['north','bridge','night']
+    enhanced=name=='night'
     future=bpy.data.collections.get('D2_Future development')
-    if future:future.hide_render=name=='north'
+    if future:future.hide_render=name in ['north','night']
     soccer=bpy.data.collections.get('D2_Proposed soccer stadium')
-    if soccer:soccer.hide_render=name=='north'
+    if soccer:soccer.hide_render=name in ['north','night']
     fireworks=bpy.data.collections.get('D2_Bridge-view fireworks')
     if fireworks:fireworks.hide_render=name!='bridge'
     for group in ['South source rail links','South source landing buildings','South source medical branding']:
@@ -34,6 +35,11 @@ def apply_lighting(scene,name):
         links.new(coord.outputs['Normal'],separate.inputs[0]);links.new(separate.outputs['Z'],ramp.inputs[0])
         links.new(ramp.outputs['Color'],background.inputs['Color'])
         background.inputs['Strength'].default_value=.55
+        if enhanced:
+            ramp.color_ramp.elements[0].color=(.028,.055,.115,1)
+            ramp.color_ramp.elements[1].position=.45
+            ramp.color_ramp.elements[1].color=(.002,.006,.025,1)
+            background.inputs['Strength'].default_value=.32
         if name=='bridge':
             ramp.color_ramp.elements[0].color=(.33,.46,.70,1)
             ramp.color_ramp.elements[1].color=(.20,.36,.65,1)
@@ -49,13 +55,15 @@ def apply_lighting(scene,name):
     if lit:lit.node_tree.nodes.get('Principled BSDF').inputs['Emission Strength'].default_value=.9 if night else .04
     # V7 night pass: boards glow, lit crowns and a faint interior glow behind
     # ordinary glazing so the city and the bowl read after dark.
-    for name,color,strength in [('screen',(.10,.20,.34,1),.16),('crown_white',(1,.85,.62,1),.55),('glass_grey',(1,.78,.52,1),.09),('glass_blue',(1,.80,.55,1),.07),('glass_bronze',(1,.72,.45,1),.08),('glass_dark',(1,.75,.5,1),.05),('glass_white',(1,.82,.6,1),.09),('glass_green',(1,.80,.55,1),.06),('glass',(1,.78,.52,1),.06)]:
-        m=bpy.data.materials.get('D2_'+name)
+    for material_name,color,strength in [('screen',(.10,.20,.34,1),.16),('crown_white',(1,.85,.62,1),.55),('glass_grey',(1,.78,.52,1),.09),('glass_blue',(1,.80,.55,1),.07),('glass_bronze',(1,.72,.45,1),.08),('glass_dark',(1,.75,.5,1),.05),('glass_white',(1,.82,.6,1),.09),('glass_green',(1,.80,.55,1),.06),('glass',(1,.78,.52,1),.06)]:
+        m=bpy.data.materials.get('D2_'+material_name)
         if m and m.node_tree.nodes.get('Principled BSDF'):
             p=m.node_tree.nodes['Principled BSDF'];p.inputs['Emission Color'].default_value=color;p.inputs['Emission Strength'].default_value=strength if night else 0.0
     for group in ['D2_Future development','D2_Proposed soccer stadium','D2_Bridge-view fireworks','D2_South source rail links','D2_South source landing buildings','D2_South source medical branding','D2_Pedestrian rail bridges']:
         col=bpy.data.collections.get(group)
         if col:col.hide_viewport=col.hide_render
+    from r8_night import apply_landmark_windows
+    apply_landmark_windows(scene,enhanced)
     scene.view_settings.view_transform='AgX';scene.view_settings.exposure=.10 if night else .05
     scene.render.film_transparent=False
     scene['lighting_preset']=name

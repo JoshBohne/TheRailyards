@@ -23,3 +23,6 @@ railyards-v*/review/*.png
 railyards-v*/*.png
 site/dist/
 site/img-lite/
+
+# Host-specific Blender MCP configuration
+.mcp.json
