@@ -66,13 +66,13 @@ svg.append(poly([(p.x,p.y) for p in board],'fill="#3a3a3a" stroke="#000"'))
 svg.append(poly([(p.x,p.y) for p in screens],'fill="#111" stroke="none"'))
 for p in pylons:svg.append(poly([(q.x,q.y) for q in p],'fill="#c0392b" stroke="#000"'))
 svg.append(f'<circle cx="{sx(96.87)}" cy="{sy(25.39)}" r="5" fill="none" stroke="#c0392b" stroke-width="2"/><text x="{sx(96.87)-70}" y="{sy(25.39)+18}" fill="#c0392b">V3 anchor (inside field)</text>')
-svg.append(f'<text x="{sx(top.x)+8}" y="{sy(top.y)}" fill="#000" font-weight="bold">RF board {w:.0f}x{h:.1f} m, top z{top.z}, bottom z{top.z-h:.1f}</text>')
+svg.append(f'<text x="{sx(top.x)+8}" y="{sy(top.y)}" fill="#000" font-weight="bold">RF board {w:.0f}x{h:.1f} m, top z{top.z:.1f}, bottom z{top.z-h:.1f}</text>')
 svg.append(f'<text x="{sx(100)+4}" y="{sy(0)+14}" fill="#2f7d32">RF foul pole (100,0)</text><text x="{sx(60)}" y="{sy(60)}" fill="#2f7d32" font-size="14">playable area</text>')
 svg.append(f'<text x="{sx(104)}" y="{sy(64)}" fill="#7a7a7a">podium ring / bleacher zone (10 m)</text><text x="{sx(112.5)}" y="{sy(76)}" fill="#555">riverwalk z4.95</text><text x="{sx(128.5)}" y="{sy(76)}" fill="#246">river</text>')
 svg.append(f'<text x="{sx(60)}" y="{sy(-24)}" fill="#000">min clearance to wall {evidence["min_clearance_m"]} m; all footprints outside playable: {evidence["all_outside_playable"]}</text>')
 svg.append('</svg>');(REVIEW/'rf-plan.svg').write_text('\n'.join(svg))
 # Source overlays.
-images={'north':('../reconstruction-references/aecom-north-aerial.png',(1944,1294)),'south':('../reconstruction-references/aecom-south-aerial.jpg',(5000,3333)),'bridge':('../reconstruction-references/user-bridge-view.png',(1440,959))}
+images={'north':('../../reconstruction-references/aecom-north-aerial.png',(1944,1294)),'south':('../../reconstruction-references/aecom-south-aerial.jpg',(5000,3333)),'bridge':('../../reconstruction-references/user-bridge-view.png',(1440,959))}
 html=['<html><body style="font-family:Helvetica;background:#111;color:#eee"><h2>RF board / support footprints projected into the calibrated source cameras</h2><p>Green: playable polygon at z12. Black: board frame at its bottom (z%.1f) and top. Red: pylon footprints at the podium ring (z13.4). Orange: V3 anchor.</p>'%(top.z-h)]
 def project(cam,size,p):
     scene.render.resolution_x,scene.render.resolution_y=size
@@ -90,3 +90,31 @@ for name,(src,size) in images.items():
 html.append('</body></html>');(REVIEW/'rf-source-overlays.html').write_text('\n'.join(html))
 scene.render.resolution_x,scene.render.resolution_y=1800,1198
 print(json.dumps({k:evidence[k] for k in ['all_outside_playable','min_clearance_m','v3_anchor_inside_playable']}))
+
+# Rasterised overlay crops (review/rf-overlay-<view>.png) so the projection can be
+# checked without a browser: same polylines burned into the source pixels.
+import numpy as np
+def burn(img,pts,color,thick=3):
+    h,w=img.shape[:2]
+    for (x0,y0),(x1,y1) in zip(pts,pts[1:]):
+        n=int(max(abs(x1-x0),abs(y1-y0)))+1
+        for i in range(n):
+            x=x0+(x1-x0)*i/n;y=y0+(y1-y0)*i/n
+            xi,yi=int(round(x)),int(round(y))
+            img[max(0,yi-thick):min(h,yi+thick+1),max(0,xi-thick):min(w,xi+thick+1),:3]=color
+crops={'north':(140,380,560,720),'south':(2300,1300,3300,1900),'bridge':(380,420,720,640)}
+for name,(src,size) in images.items():
+    im=bpy.data.images.load(str((REVIEW/src).resolve()));w,h=im.size
+    px=np.array(im.pixels[:],dtype=np.float32).reshape(h,w,4)[::-1].copy()
+    cam=bpy.data.objects['R2_'+name]
+    def P(pts):return [project(cam,size,p) for p in pts]
+    burn(px,P([(p[0],p[1],12) for p in polygon+[polygon[0]]]),(0.2,1.0,0.35),max(2,w//700))
+    burn(px,P([(p.x,p.y,top.z-h) for p in board]+[(board[0].x,board[0].y,top.z-h)]),(0,0,0),max(2,w//700))
+    burn(px,P([(p.x,p.y,top.z) for p in board]+[(board[0].x,board[0].y,top.z)]),(1,1,1),max(1,w//900))
+    for p in pylons:burn(px,P([(q.x,q.y,13.4) for q in p]+[(p[0].x,p[0].y,13.4)]),(1,0.23,0.19),max(2,w//700))
+    x,y=project(cam,size,(96.87,25.39,38));burn(px,[(x-8,y-8),(x+8,y+8)],(1,.62,.04),3);burn(px,[(x-8,y+8),(x+8,y-8)],(1,.62,.04),3)
+    x0,y0,x1,y1=crops[name];crop=px[y0:y1,x0:x1][::-1]
+    out=bpy.data.images.new('overlay_'+name,x1-x0,y1-y0,alpha=True);out.pixels.foreach_set(crop.ravel())
+    out.filepath_raw=str(REVIEW/f'rf-overlay-{name}.png');out.file_format='PNG';out.save()
+    bpy.data.images.remove(im);bpy.data.images.remove(out)
+print('overlay crops written')

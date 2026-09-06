@@ -13,7 +13,7 @@ Status codes: **resolved** (visible problem gone in every relevant view), **impr
 | Section through board / bleachers / podium / riverwalk | `review/control-rf_section.png` | `review/v4-rf_section.png` |
 | Field-eye, third-base, upper-deck | `baseline-v3/interior-*.png`, `review/control-interior/` | `interior-home_plate.png`, `interior-third_base_seats.png`, `interior-home_upper_deck.png` |
 | Three exterior source comparisons | `baseline-v3/final-*.png` | `final-north.png`, `final-south.png`, `final-bridge.png` |
-| Source-image overlays | — | `review/rf-source-overlays.html` (playable polygon, board frame, pylon bases projected into the north, south and bridge fits) |
+| Source-image overlays | — | `review/rf-overlay-north.png`, `review/rf-overlay-south.png`, `review/rf-overlay-bridge.png` (playable polygon green, board frame black/white, pylon bases red, V3 anchor orange, burned into crops of the three artworks with `world_to_camera_view`); full-frame HTML version `review/rf-source-overlays.html` |
 
 What was wrong: the V3 anchor was a single-height back-projection. Triangulating the board top-centre from three calibrated fits (north pixel 279,514 of 1944×1294; the south and bridge control pixels) gives `[101.7, 36.9, 37.8]` with 0.4 / 2.0 / 2.1 m ray misses, i.e. the board face sits on the outfield wall line, 13.5 m further north than V3 assumed. The north-image corner rays also indicate a board nearer 36×18.5 m than 39×20 m and a slight cant toward home.
 
@@ -31,10 +31,11 @@ Residual uncertainty: ±4 m along the wall from the camera fits; the board size 
 | Riverwalk level toward tower | `review/control-rf_corner_low_river.png` | `review/v4-rf_corner_low_river.png` |
 | Close-up beneath bleachers | `review/control-rf_underside.png` | `review/v4-rf_underside.png` |
 | Section | `review/control-rf_section.png` | `review/v4-rf_section.png` |
+| Tower junction (south-east, compare the south source crop) | — | `review/v4-rf_tower_junction.png` |
 
 Diagnosis: the field is a z12 plane, the outfield terraces started at z13.5, and `r3_public_realm.py` cut the ground to z4.83 for all of x 6–124 / y −135–310, so the bowl's first-base end face, the outfield banks, the tower base (z8) and the river arcade all hovered 3–8 m above the riverwalk pit. The bowl end line (75.2,−20.9)→(60.5,−105.7) had no end wall at all; dark facade materials made the hole read as shadow in aerial views.
 
-What changed: `r4_rf_structure.py` adds one podium footprint (bowl end line → 10 m outfield ring → LF end line → traced `bowl_back`) from z4.95 to z11.9, a ring step to z13.4 under the banks and the two corner terraces with coping and railings, a river-facing brick arcade on the exposed podium faces, a brick end wall on the RF termination whose top follows the four tier heights (stone plinth, pilasters, arched openings at concourse levels), a two-storey link block closing the 4–8 m gap to the clock-tower base, and a column line beneath the RF bank. `r3_public_realm.py` now cuts only the riverwalk strip (x 100–124, y −79–310) to the lower level; the stadium, tower and arcade land sit on the z8 datum. `r3_outfield.py` terraces end at 9.4 m so nothing overhangs the lower riverwalk (quay slab starts at x 112; festoons at x 116 and quay tables at x 115 are unaffected).
+What changed: `r4_rf_structure.py` adds one podium footprint (bowl end line → 10 m outfield ring → LF end line → traced `bowl_back`) from z4.95 to z11.9, a ring step to z13.4 under the banks and the two corner terraces with coping and railings, a river-facing brick arcade on the exposed podium faces, a brick end wall on the RF termination standing on the z8 ground (no lip over the podium edge) whose top follows the four tier heights (stone plinth, pilasters, arched openings at concourse levels), a two-storey link block closing the 4–8 m gap to the clock-tower base, and a column line beneath the RF bank. `r3_public_realm.py` now cuts only the riverwalk strip (x 100–124, y −79–310) to the lower level; the stadium, tower and arcade land sit on the z8 datum. `r3_outfield.py` terraces end at 9.4 m so nothing overhangs the lower riverwalk (quay slab starts at x 112; festoons at x 116 and quay tables at x 115 are unaffected).
 
 Datums: ground 8, lower riverwalk 4.95, podium ring 13.4, field 12. This is inferred understructure, not an engineering design.
 
@@ -67,7 +68,7 @@ Residual: Grant Park / Museum Campus lawns and the four museum masses are inferr
 | LF skyline | `baseline-v3/interior-left_field_skyline.png` | `interior-left_field_skyline.png` |
 | East cameras | — | `review/v4-east_lake*.png` |
 
-Ranking (`skyline-v4-additions.json`): NEMA (273 m), One Museum Park (221 m), The Grant (181 m) and 1000M (245 m) lie at local azimuth 10–33°, 1.1–1.3 km from the bowl, and project 150–290 px tall in the third-base and upper-deck views — larger than any downtown landmark — and were absent from every V3 dataset (context stopped at x ≈ 830). 311 South Wacker, Chicago Board of Trade and Franklin Center replace generic prisms; the duplicates are excluded by name in `r3_outfield_context.py`. 238 OSM buildings with height tags/levels fill the near South Loop between the district and the shore (`near-south-loop-context.json`).
+Ranking (`skyline-v4-additions.json`): NEMA (273 m), One Museum Park (221 m), The Grant (181 m) and 1000M (245 m) lie at local azimuth 10–33°, 1.1–1.3 km from the bowl, and project 150–290 px tall in the third-base and upper-deck views — larger than any downtown landmark — and were absent from every V3 dataset (context stopped at x ≈ 830). 311 South Wacker, Chicago Board of Trade and Franklin Center replace generic prisms; the duplicates are excluded by name in `r3_outfield_context.py`. 238 OSM buildings with height tags/levels were fetched for the near South Loop (`near-south-loop-context.json`); 99 of them share an `osm_way` with `outfield-context.json` or `site-context.json` and are skipped (`skip_ways`), and the four dedicated silhouettes are skipped by name, so nothing is represented twice.
 
 Residual: silhouettes are massing-level; materials are flat glass. 875 N Michigan, Marina City, Wrigley, Tribune, Salesforce, River Point and 150 N Riverside were left as modelled (under 120 px at 2.5–4 km).
 
@@ -77,3 +78,9 @@ Residual: silhouettes are massing-level; materials are flat glass. 875 N Michiga
 - `lf_pavilion_roof` control error (111 px south) is unchanged.
 - North / B6 covered-link variants remain separate collections.
 - Raised Roosevelt-level plaza entering above the bleachers is preserved unchanged.
+
+## Baseline preservation and reproducibility
+
+`review/baseline-preservation.json` (2026-09-06): the original `/Users/joshbohne/Developer/TheRailyards/railyards-v3/` matches all 65 `delivery-manifest.json` hashes (files and images); the worktree copy matches the 50 tracked entries, with the 15 Git-ignored generated files (blend, renders, receipts) absent as expected. `railyards-v3-baseline.blend` copied into V4 is byte-identical to the original scene. No V3 file was modified.
+
+Render passes: pass 1 (1400 px / 24 samples) exposed the north-pylon intrusion; pass 2 (1800 px / 48) rendered the corrected anchor; pass 3 (1800 px / 48) is the delivered set after grounding the end wall at z8, adding the tower-junction camera and deduplicating the OSM context. `saved-scene-verification.json`, `review/rf-plan-evidence.json` and `delivery-manifest-v4.json` were regenerated from the pass-3 scene.

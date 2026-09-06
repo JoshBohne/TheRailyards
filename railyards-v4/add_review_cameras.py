@@ -14,6 +14,7 @@ shots={
  'rf_underside':{'position':[118,-8,9],'target':[90,10,16],'lens_mm':20,'purpose':'Close-up beneath the RF bleachers and board supports'},
  'rf_plan_ortho':{'position':[95,0,300],'target':[95,0,0],'ortho_scale':160,'purpose':'Orthographic plan of the RF corner: field polygon, board, supports, riverwalk'},
  'rf_section':{'position':[110,-320,20],'target':[110,20,20],'ortho_scale':70,'purpose':'Orthographic north-facing section through the RF board, bleachers, podium and riverwalk (use with clip)'},
+ 'rf_tower_junction':{'position':[150,-135,32],'target':[72,-72,26],'lens_mm':30,'purpose':'South-east view of the bowl end wall, link block and clock tower base (compare the south source crop)'},
  'east_lake':{'position':[-40,-40,60],'target':[3000,600,0],'lens_mm':24,'purpose':'Elevated east-facing view toward Lake Michigan over the near South Loop'},
  'east_lake_high':{'position':[-60,-60,140],'target':[2500,500,0],'lens_mm':30,'purpose':'Higher east view to confirm the shoreline beyond real land'},
  'geo_map':{'position':[1200,700,6000],'target':[1200,700,0],'ortho_scale':5200,'purpose':'Orthographic geographic map: shoreline, stadium, river, landmarks; +Y is north'},

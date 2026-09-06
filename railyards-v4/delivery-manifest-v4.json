@@ -3,7 +3,8 @@
  "prepared": "2026-09-06",
  "blender": "5.2.1 LTS",
  "scene": "Railyards v4",
- "baseline": "railyards-v3 (unchanged; v3-baseline tag) and delivery-manifest.json hashes",
+ "render_pass": "pass 3, 1800 px / 48 samples",
+ "baseline": "railyards-v3 unchanged (review/baseline-preservation.json)",
  "files": [
   {
    "path": "ELEMENT-REVIEW.md",
@@ -12,8 +13,8 @@
   },
   {
    "path": "ISSUE-LEDGER.md",
-   "sha256": "7135f912928aaac0de47ed4eab70a19ccaf9559345a11dcd27ae55f18d04bf83",
-   "bytes": 9577
+   "sha256": "671dd10383e40f3cccfa5104e12b8d317e345cb0b716064b675b6bc9f2ff4517",
+   "bytes": 10994
   },
   {
    "path": "README.md",
@@ -37,8 +38,8 @@
   },
   {
    "path": "add_review_cameras.py",
-   "sha256": "a831283ff5d8998d7ad07c496be6cdc578dd84e8cfe5dbf24d7272d4a74446f0",
-   "bytes": 2534
+   "sha256": "19a7a89ca71ed57f074725cfd0393106688984df3367984470f1a24c1d364abc",
+   "bytes": 2731
   },
   {
    "path": "adjacent-building-spec.json",
@@ -92,33 +93,28 @@
   },
   {
    "path": "final-bridge.png",
-   "sha256": "e949fa4703603ab446ee25a53d74d596de0dca754d6103c8e67248059238ab4d",
-   "bytes": 3047870
+   "sha256": "633baa64f5ec037716d26444636c18e88ec2697ec6c9a8ebf42d6452599b13ac",
+   "bytes": 3047246
   },
   {
    "path": "final-north.png",
-   "sha256": "d83483937de331ec80f226f4f6d65f47ecd45c9406985abeb21d132b6e12ddb8",
-   "bytes": 3413127
+   "sha256": "03c06b18cfe5872da1683e07ed4fa96b1565a71a3ffb27f3e0de5c28669a1baa",
+   "bytes": 3412655
   },
   {
    "path": "final-renders.json",
-   "sha256": "aff7e0ccf74d1c274043cdb696a6643cbb908ec1c8d4b44a1fa22511d0bbd4e3",
+   "sha256": "6cb23a6eb1d927fc8c3962d80ebf38a6aa817fe22e7d68ab6e5b9c4570c60461",
    "bytes": 944
   },
   {
    "path": "final-south.png",
-   "sha256": "c5e26270394265b6e3107115040b638286a95daea9baa20f3808a16249803cb6",
-   "bytes": 3824337
+   "sha256": "8b4dc00d0c31034187f22c887469ce701e7839e424f8b2f20b8193d60f615ff3",
+   "bytes": 3823808
   },
   {
    "path": "finalize_scene.py",
-   "sha256": "f08ecc07e787876649273b00bb79e375eda1393c40c5509bec84eb4044e372c7",
-   "bytes": 2774
-  },
-  {
-   "path": "index.html",
-   "sha256": "c791868211331755c033ce723f3f641109d5b9503b0543418e6b00fcdd148f5a",
-   "bytes": 7944
+   "sha256": "ac67340524e1048f6f29a5e1c0c359e25a003b856b07645a254b06eda7555f13",
+   "bytes": 2873
   },
   {
    "path": "interior-cameras.json",
@@ -127,28 +123,28 @@
   },
   {
    "path": "interior-home_plate.png",
-   "sha256": "0c273000d954fac993c77c152eaf54095c4c4714f21cdf9e9e2c9566bd24ebba",
-   "bytes": 2303638
+   "sha256": "eb995bfc369776702bf1469f5e8b67a46a951f33401a7f0ebda3e42ad49b9352",
+   "bytes": 2303599
   },
   {
    "path": "interior-home_upper_deck.png",
-   "sha256": "447a115996999067ef75fe2dabdc1f05f4ee911f3363b794da2545e8b4810735",
-   "bytes": 3314146
+   "sha256": "cb3cf46dfcbee9820b56b3cc670e9117020cbd746ad5989728a730e4b1cc6843",
+   "bytes": 3314281
   },
   {
    "path": "interior-left_field_skyline.png",
-   "sha256": "a5c73e7657d07267387c4283b8ce4bfac36a5c7b6fcc90724e00958199cf23f5",
-   "bytes": 3048461
+   "sha256": "558a6cddb87d97459cac68ba6359e009ffbbd6d58dccf50fef64f3b6186315b6",
+   "bytes": 3048309
   },
   {
    "path": "interior-renders.json",
-   "sha256": "d860a33c62bb713814092cf4b110d7a4bead8fb18fba84fbf4a1d70da35dfbd6",
+   "sha256": "9dacc9837b4d94a68276c553da00344c01abaff51dd048c16ebf7061dec537d1",
    "bytes": 1118
   },
   {
    "path": "interior-third_base_seats.png",
-   "sha256": "742bd0913753562c39032e0b4609d2461f08bd413f5252199e568413994216a3",
-   "bytes": 2581301
+   "sha256": "c301ce3704f4f076adc2edc72881469926b74c4fb954adb0de8ddc1fcf6f72be",
+   "bytes": 2581305
   },
   {
    "path": "lake-michigan-local.json",
@@ -157,13 +153,13 @@
   },
   {
    "path": "make_plan_evidence.py",
-   "sha256": "e7235032bfd520e10c98b61a468fb9306985f036b154b16de3a104b4cc67a992",
-   "bytes": 8480
+   "sha256": "9e918d708b43a56a7fe77d2d158115f9a25744175b7f174fe3e89906ccc7b7c0",
+   "bytes": 10283
   },
   {
    "path": "near-south-loop-context.json",
-   "sha256": "3f0e9a72fbe712d999749e9dce0855eb280d443245a30837b7f3808c55a93842",
-   "bytes": 97002
+   "sha256": "566bf422749c526f616bcf64ed83b529df8a47e5a8396699a4802233cd349479",
+   "bytes": 98201
   },
   {
    "path": "outfield-context.json",
@@ -322,8 +318,8 @@
   },
   {
    "path": "r4_rf_structure.py",
-   "sha256": "774472b8f7fac983c3396fdc5cf17bbd6fa469c0b5752c60bd41000185f611ef",
-   "bytes": 8878
+   "sha256": "dc08339ebf8036b85020138170c81359683aa43a0d13e1ccf5062c8c22e0f0ad",
+   "bytes": 8981
   },
   {
    "path": "r4_skyline_south.py",
@@ -332,8 +328,8 @@
   },
   {
    "path": "railyards-v4.blend",
-   "sha256": "b324d134cb93fb10aadb66510c84c884aba4b76b32496c35247917b6fbc90d9c",
-   "bytes": 34068141
+   "sha256": "217cc6156cf8091a984f0615c1ca1a221f057e7e1e80bce7549e8ff855d26eca",
+   "bytes": 33967343
   },
   {
    "path": "render_interior.py",
@@ -357,8 +353,13 @@
   },
   {
    "path": "review-cameras.json",
-   "sha256": "b6edc16a86bba7b2712c107cad4ba8978aef4fc41f0bc1fb6779adec6d6c9717",
-   "bytes": 1959
+   "sha256": "0a0fe07a64bcbd31bb05c331de1f6a169a557ebada21e08698dbe425c8f2bf85",
+   "bytes": 2237
+  },
+  {
+   "path": "review/baseline-preservation.json",
+   "sha256": "8a14cf25cf85d74c67336640c9990a372eec19c3c5f1c2538423fe1bb694d3c1",
+   "bytes": 1212
   },
   {
    "path": "review/control-east_lake.png",
@@ -432,8 +433,23 @@
   },
   {
    "path": "review/index.html",
-   "sha256": "1786acd817c100e42678e4d6c7ccfd3a0ed8336342760e1e6fa1484f20905c34",
-   "bytes": 4736
+   "sha256": "ac002853bc74aead2b399a5e1edae7931eb0d7d7996743d37727cc0a995bd8f5",
+   "bytes": 5578
+  },
+  {
+   "path": "review/rf-overlay-bridge.png",
+   "sha256": "a5a0528f228b407b0fdab932286ddb06f62748d3c85293eb1063996dc9728f10",
+   "bytes": 156493
+  },
+  {
+   "path": "review/rf-overlay-north.png",
+   "sha256": "4a543250b62ec2a68766cf731b9e99a6eca1bcbc89cf165c16b249df0c478817",
+   "bytes": 266583
+  },
+  {
+   "path": "review/rf-overlay-south.png",
+   "sha256": "ebd1de46bd6ec6130049929640c59acf547e7f94651ae499b598cee9366233d5",
+   "bytes": 1258146
   },
   {
    "path": "review/rf-plan-evidence.json",
@@ -442,58 +458,63 @@
   },
   {
    "path": "review/rf-plan.svg",
-   "sha256": "4f040abb357f74ce4995458ea7cf7af0013f1a38a8bdbd3d021a5fe3679247dc",
-   "bytes": 4159
+   "sha256": "4a62404779dd12b9c240458ac9108d90ad9d50663bc139fad53c182da83f5126",
+   "bytes": 4146
   },
   {
    "path": "review/rf-source-overlays.html",
-   "sha256": "a9304bb8b5ae90f27ac299a65767e119d95f066161723c5eee069dd5d790832f",
-   "bytes": 3386
+   "sha256": "b8251de596d00ac0e64500465d5ab5e79ad90adfb2b2015c36c9645941d65637",
+   "bytes": 3395
   },
   {
    "path": "review/v4-east_lake.png",
-   "sha256": "f2b181a29c2ec888978f3736501be14921d83eacbd5456b04972378cf867355c",
-   "bytes": 1823589
+   "sha256": "2b76a98973e28033df2ad1dc690c6d944b2b3a4aa5281d0ed0d133551c5dfec2",
+   "bytes": 1824532
   },
   {
    "path": "review/v4-east_lake_high.png",
-   "sha256": "9f5aa2cb0eee36b00649f64f3e5f9493d1be4fee10f3ab10f2e2e13f4be3fef0",
-   "bytes": 1673284
+   "sha256": "71c0fa71a68972f1b2b4d4900169895fd22f6e9390fd2873e2e28a2fc33fee07",
+   "bytes": 1673541
   },
   {
    "path": "review/v4-geo_map.png",
-   "sha256": "dc14fbbe2799638bde27a28821a1c32d112b13e2dfda36e045a122f0aedeb67a",
-   "bytes": 2333637
+   "sha256": "2f19707cd72fcf287981f4dcbc9eff2e2241916ae56acc0b332c2cf8afbcf82a",
+   "bytes": 2333428
   },
   {
    "path": "review/v4-review-renders.json",
-   "sha256": "f98bd915431b09672425d95186ad15ffb47b90651b74283f07a052f67bad4d34",
-   "bytes": 2668
+   "sha256": "aaddd780de3a3eb77f3a92b997053e497da07514a682bc26bb3035b350e9ac39",
+   "bytes": 3042
   },
   {
    "path": "review/v4-rf_corner_exterior.png",
-   "sha256": "68a43b6b2167326a149268e860e655edfacab995957d79390155049247d0f1ca",
-   "bytes": 1635069
+   "sha256": "b1187491e46a8c178ccf3f31eff37a8a28da92f88cd88bec715a93539611b459",
+   "bytes": 1634487
   },
   {
    "path": "review/v4-rf_corner_low_river.png",
-   "sha256": "42fb857c93af9531aba607d122859c1c2d4b4cb91dff4b3066026f6b327fa19d",
-   "bytes": 1601735
+   "sha256": "a06d396341e7c5f7c11af1aff9313dab13add925d550d8d17e8762edf044e4a1",
+   "bytes": 1601154
   },
   {
    "path": "review/v4-rf_plan_ortho.png",
-   "sha256": "7956c83c0acad13cf39456d34d468f6c380b45d4c675b7ea294b087fac50b6de",
-   "bytes": 1620306
+   "sha256": "c31647f973b89fa2f21011752cbdc762b520a8bd3ceb4b72413bb24cecec87b0",
+   "bytes": 1620941
   },
   {
    "path": "review/v4-rf_section.png",
-   "sha256": "5b7dce0fb37be89321c725ce2b5ae1df99d4c73618c74a9e3f3fb233fe6eaabd",
-   "bytes": 1275541
+   "sha256": "b89310f5c36959332d5efce74f9f1c928703f860fe5482e1c37221902fcec6a2",
+   "bytes": 1275668
+  },
+  {
+   "path": "review/v4-rf_tower_junction.png",
+   "sha256": "a11694f99c17302feed892337f3edcf48e5da52bfa9830f0ebd327ff079e7e6a",
+   "bytes": 1759103
   },
   {
    "path": "review/v4-rf_underside.png",
-   "sha256": "52fbc9a9de058159be65f1b36d638989fca9fb93ebd81065ae23e42f73e82bc0",
-   "bytes": 1713946
+   "sha256": "886d3bfc04b1ea78ccb966d9f2ab42825aadb5132366111863120701229e7160",
+   "bytes": 1713930
   },
   {
    "path": "run_v4_renders.sh",
@@ -502,7 +523,7 @@
   },
   {
    "path": "saved-scene-verification.json",
-   "sha256": "8c914ad9023b4296b29ef2f93d35ceda9209d6d00a0d8dd167f2144f1c680e6f",
+   "sha256": "415c924a2d25db5e8b643dbf35d8f8ad4d5153cd31353daa86834b70104c9a25",
    "bytes": 9382
   },
   {
@@ -547,12 +568,12 @@
   },
   {
    "path": "southern-rail-detail.png",
-   "sha256": "5828f8092a14312811cf50276999ec0955be6cff9678fe9c28f2700d4431ca8b",
-   "bytes": 2170208
+   "sha256": "d88cdb9e00e39a708a5cdd0d2a3bef22e9d18b5c563657cea2d650b5fe195e9c",
+   "bytes": 2170174
   },
   {
    "path": "southern-rail-render.json",
-   "sha256": "944f5aa0dcf9ade7ce92268bdb2246801c6a23425ed81ef2277031a8306f4a84",
+   "sha256": "84bf18b8d075302a98808ac570f1476055053706dcecbda9589fd0f9b0c10634",
    "bytes": 321
   },
   {

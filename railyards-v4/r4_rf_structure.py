@@ -24,6 +24,7 @@ PODIUM_TOP=11.9
 RING_TOP=13.4
 RING_OFFSET=10.0  # bleacher zone depth behind the outfield wall (m); terraces end at 9.4
 END_WALL_THICKNESS=1.0
+END_WALL_BASE=8.0  # wall stands on the z8 ground east of the podium edge, no lip
 TIERS=[(0.0,.34,14,24),(.40,.49,27,30),(.55,.65,33,36),(.70,.93,39,47)]
 
 
@@ -105,7 +106,7 @@ def build_rf_structure(scene,spec,batch,materials):
         cur=(p0,p1,top)
         if prev:
             q0,q1,ptop=prev
-            verts=[(q0.x,q0.y,PODIUM_TOP),(p0.x,p0.y,PODIUM_TOP),(p1.x,p1.y,PODIUM_TOP),(q1.x,q1.y,PODIUM_TOP),
+            verts=[(q0.x,q0.y,END_WALL_BASE),(p0.x,p0.y,END_WALL_BASE),(p1.x,p1.y,END_WALL_BASE),(q1.x,q1.y,END_WALL_BASE),
                    (q0.x,q0.y,ptop),(p0.x,p0.y,top),(p1.x,p1.y,top),(q1.x,q1.y,ptop)]
             batch.add(GROUP,'brick',verts,[(3,2,1,0),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)])
             # Stone coping along the stepped top.
@@ -120,9 +121,9 @@ def build_rf_structure(scene,spec,batch,materials):
     for k in range(1,int(length/9)):
         p=a+line*(k*9/length);top=tier_top(k*9/length)+1.1
         c=p+east*(.15+END_WALL_THICKNESS+.28)
-        batch.box(GROUP,'brick_light',(c.x,c.y,(PODIUM_TOP+top)/2),(.55,.62,top-PODIUM_TOP),math.atan2(line.y,line.x))
+        batch.box(GROUP,'brick_light',(c.x,c.y,(END_WALL_BASE+top)/2),(.55,.62,top-END_WALL_BASE),math.atan2(line.y,line.x))
     c=a.lerp(b,.5)+east*(.15+END_WALL_THICKNESS/2)
-    batch.box(GROUP,'stone',(c.x,c.y,PODIUM_TOP+1.7),(length+.3,END_WALL_THICKNESS+.5,3.4),math.atan2(line.y,line.x))
+    batch.box(GROUP,'stone',(c.x,c.y,END_WALL_BASE+1.7),(length+.3,END_WALL_THICKNESS+.5,3.4),math.atan2(line.y,line.x))
     for k in range(int(length/9)):
         t=(k+.5)*9/length
         if tier_top(t)<20:continue

@@ -20,8 +20,8 @@ if not bpy.data.objects.get('R3_southern_rail_detail'):
     obj.rotation_euler=(Vector((152,-378,29))-obj.location).to_track_quat('-Z','Y').to_euler()
 apply_lighting(scene,'north');scene.camera=bpy.data.objects['R2_north']
 scene.render.resolution_x=1800;scene.render.resolution_y=1198;scene.cycles.samples=64
-scene['stage']='Comprehensive v3 source reconstruction; conceptual geometry and documented view variants'
-scene['source_manifest']='SOURCE-AND-ASSUMPTIONS.md';scene['generator']='build_blockout.py → build_detail.py → add_interior_cameras.py → finalize_scene.py'
+scene['stage']='V4 source reconstruction: corrected RF board, RF/tower structure, Lake Michigan geography and sightline skyline; conceptual geometry and documented view variants'
+scene['source_manifest']='SOURCE-AND-ASSUMPTIONS.md';scene['generator']='build_blockout.py → build_detail.py → add_interior_cameras.py → add_review_cameras.py → finalize_scene.py'
 scene['tool_split']='CLI scripts, batch renders and exports; MCP live inspection and edits; computer use visual review'
 scene.unit_settings.system='METRIC';scene.unit_settings.length_unit='METERS';scene.unit_settings.scale_length=1
 for obj in scene.objects:

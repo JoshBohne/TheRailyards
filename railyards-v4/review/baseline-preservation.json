@@ -1,0 +1,80 @@
+{
+ "worktree railyards-v3": {
+  "entries": 65,
+  "ok": 50,
+  "mismatch": 0,
+  "missing": 15,
+  "details": [
+   [
+    "missing",
+    "detail-renders.json"
+   ],
+   [
+    "missing",
+    "final-renders.json"
+   ],
+   [
+    "missing",
+    "interior-renders.json"
+   ],
+   [
+    "missing",
+    "lighting-renders.json"
+   ],
+   [
+    "missing",
+    "railyards-v3.blend"
+   ],
+   [
+    "missing",
+    "saved-scene-verification.json"
+   ],
+   [
+    "missing",
+    "southern-rail-render.json"
+   ],
+   [
+    "missing",
+    "final-north.png"
+   ],
+   [
+    "missing",
+    "final-south.png"
+   ],
+   [
+    "missing",
+    "final-bridge.png"
+   ],
+   [
+    "missing",
+    "interior-home_plate.png"
+   ],
+   [
+    "missing",
+    "interior-home_upper_deck.png"
+   ],
+   [
+    "missing",
+    "interior-third_base_seats.png"
+   ],
+   [
+    "missing",
+    "interior-left_field_skyline.png"
+   ],
+   [
+    "missing",
+    "southern-rail-detail.png"
+   ]
+  ]
+ },
+ "original railyards-v3": {
+  "entries": 65,
+  "ok": 65,
+  "mismatch": 0,
+  "missing": 0,
+  "details": []
+ },
+ "baseline_blend_sha256": "eb1a19150aeb749f9ad01f6c0238c40e0fe3ebd53a82d16adb86202d7779d893",
+ "copied_baseline_blend_matches": true,
+ "checked": "2026-09-06"
+}

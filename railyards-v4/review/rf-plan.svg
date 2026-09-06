@@ -31,7 +31,7 @@
 <polygon points="595.6,665.5 594.3,627.1 637.4,625.6 638.8,664.0" fill="#c0392b" stroke="#000"/>
 <polygon points="586.6,406.4 585.2,368.0 628.4,366.5 629.7,404.9" fill="#c0392b" stroke="#000"/>
 <circle cx="502.44000000000005" cy="655.3199999999999" r="5" fill="none" stroke="#c0392b" stroke-width="2"/><text x="432.44000000000005" y="673.3199999999999" fill="#c0392b">V3 anchor (inside field)</text>
-<text x="620.0" y="516.0" fill="#000" font-weight="bold">RF board 36x18.5 m, top z37.79999923706055, bottom z19.3</text>
+<text x="620.0" y="516.0" fill="#000" font-weight="bold">RF board 36x18.5 m, top z37.8, bottom z19.3</text>
 <text x="544" y="974" fill="#2f7d32">RF foul pole (100,0)</text><text x="60" y="240" fill="#2f7d32" font-size="14">playable area</text>
 <text x="588" y="192" fill="#7a7a7a">podium ring / bleacher zone (10 m)</text><text x="690.0" y="48" fill="#555">riverwalk z4.95</text><text x="882.0" y="48" fill="#246">river</text>
 <text x="60" y="1248" fill="#000">min clearance to wall 0.39 m; all footprints outside playable: True</text>
