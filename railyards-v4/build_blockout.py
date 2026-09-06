@@ -121,7 +121,7 @@ box('North riverwalk',(117,235,4),(15,155,1),'structure','Site')
 context=json.loads((OUT/'site-context.json').read_text())
 for building in context['buildings']:
     obj=extrude('OSM '+str(building['osm_way']),building['footprint'],building['base_z'],building['base_z']+building['height_m'],'ground','Context')
-    obj['osm_way']=building['osm_way'];obj['height_basis']=building['height_basis']
+    obj['osm_way']=building['osm_way'];obj['height_basis']=building['height_basis'];obj['name']=building.get('name') or '';obj['height_m']=float(building['height_m'])
 
 def make_camera(name,c):
     az,el,roll=c['azimuth'],c['elevation'],c['roll']

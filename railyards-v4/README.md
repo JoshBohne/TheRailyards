@@ -2,7 +2,7 @@
 
 Editable, source-driven Blender reconstruction of the September 2026 AECOM concept. V4 starts from the preserved V3 generators (`../railyards-v3/`) and corrects spatial relationships, structure and geography before further surface detail. Read `ISSUE-LEDGER.md` for the before/after record and `../docs/FABLE-5.1-HANDOFF.md` for the brief.
 
-What V4 changes:
+What V4 and V5 change (V5 = skyline pass, see ISSUE-LEDGER.md):
 
 - **RF scoreboard** re-anchored from a three-camera triangulation, rotated 92°, 36×18.5 m, on lattice pylons behind the outfield wall (`scene-spec.json` `rf_scoreboard`, `r3_scoreboards.py`, `r3_outfield.py`).
 - **RF / clock-tower structure**: podium, tier-profile end wall, tower link block, river arcade, corner terraces (`r4_rf_structure.py`); ground datum fix in `r3_public_realm.py`.

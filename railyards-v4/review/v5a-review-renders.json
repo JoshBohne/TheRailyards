@@ -1,0 +1,23 @@
+[
+  {
+    "view": "press_box",
+    "image": "v5a-press_box.png",
+    "seconds": 11.87,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
+  },
+  {
+    "view": "east_lake_high",
+    "image": "v5a-east_lake_high.png",
+    "seconds": 8.84,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Higher east view to confirm the shoreline beyond real land"
+  },
+  {
+    "view": "aerial_west",
+    "image": "v5a-aerial_west.png",
+    "seconds": 12.3,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake"
+  }
+]

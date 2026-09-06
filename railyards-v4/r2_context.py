@@ -2,6 +2,7 @@
 import math,random,json
 from pathlib import Path
 from mathutils import Vector
+import r5_palette
 
 def build_context(scene,spec,batch,materials):
     rng=random.Random(1201)
@@ -21,7 +22,7 @@ def build_context(scene,spec,batch,materials):
             n=Vector((-delta.y,delta.x,0)).normalized()*road['width_m']/2
             batch.quad('Mapped street network','asphalt',[a-n,b-n,b+n,a+n])
             if road['width_m']>=10:batch.line('Mapped street network','white',[a,b],.055,sides=4)
-    def windows(group,foot,z0,z1,spacing=3.1):
+    def windows(group,foot,z0,z1,spacing=3.1,window='glass',ratio=.67):
         signed=sum(a[0]*b[1]-b[0]*a[1]for a,b in zip(foot,foot[1:]+foot[:1]))
         for a,b in zip(foot,foot[1:]+foot[:1]):
             a,b=Vector((*a,0)),Vector((*b,0));length=(b-a).length
@@ -32,7 +33,7 @@ def build_context(scene,spec,batch,materials):
                 z=z0+(j+.55)*(z1-z0)/floors
                 for i in range(count):
                     p=a.lerp(b,(i+.5)/count)+n*.10;p.z=z
-                    batch.box(group,'glass_lit'if rng.random()<.17 else 'glass',p,(length/count*.67,.08,(z1-z0)/floors*.64),angle)
+                    batch.box(group,'glass_lit'if rng.random()<.06 else window,p,(length/count*ratio,.08,(z1-z0)/floors*.64),angle)
             p=(a+b)/2;p.z=z1+.15
             batch.box(group,'stone',p,(length,.4,.3),angle)
     context=json.loads((Path(__file__).parent/'site-context.json').read_text())
@@ -40,7 +41,9 @@ def build_context(scene,spec,batch,materials):
         if building['osm_way']==1324080275:continue  # Dedicated source-led bridgehouse owns this footprint.
         foot=building['footprint'];cx=sum(p[0]for p in foot)/len(foot);cy=sum(p[1]for p in foot)/len(foot)
         if abs(cx)>1100 or abs(cy)>1700 or building['height_m']<7:continue
-        windows('Existing city facades',foot,building['base_z'],building['base_z']+building['height_m'],4.4)
+        wall,window=r5_palette.facade(building.get('name') or '',building['osm_way'],float(building['height_m']))
+        windows('Existing city facades',foot,building['base_z'],building['base_z']+building['height_m'],4.4,window,r5_palette.window_ratio(building.get('name') or '',building['osm_way']))
+        r5_palette.tops(batch,'Existing city roofs',foot,building['base_z']+building['height_m'],wall,building.get('name'),building['osm_way'],float(building['height_m']))
     group='Future development'
     # Heights and footprints below are image-derived massing, not published plans.
     towers=[(-159,238,55,40,84),(226,-28,19,26,105),(256,294,12,16,80),(241,213,42,40,27),(263,-161,34,36,76),(85,427,49,46,48)]

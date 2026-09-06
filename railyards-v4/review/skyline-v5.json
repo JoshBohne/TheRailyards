@@ -1,0 +1,3146 @@
+{
+ "landmarks": 36,
+ "cameras": {
+  "home_upper_deck": [
+   {
+    "name": "The St. Regis Chicago",
+    "set": "V3",
+    "scene_xy": [
+     1603,
+     2517
+    ],
+    "height_m": 362.9,
+    "in_frame": true,
+    "pixel": [
+     652,
+     282
+    ],
+    "projected_height_px": 136,
+    "occluded": false
+   },
+   {
+    "name": "Aqua",
+    "set": "V3",
+    "scene_xy": [
+     1383,
+     2416
+    ],
+    "height_m": 261.8,
+    "in_frame": true,
+    "pixel": [
+     591,
+     318
+    ],
+    "projected_height_px": 101,
+    "occluded": false
+   },
+   {
+    "name": "Aon Center",
+    "set": "V3",
+    "scene_xy": [
+     1247,
+     2300
+    ],
+    "height_m": 346.3,
+    "in_frame": true,
+    "pixel": [
+     559,
+     268
+    ],
+    "projected_height_px": 147,
+    "occluded": false
+   },
+   {
+    "name": "Two Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1150,
+     2315
+    ],
+    "height_m": 303.3,
+    "in_frame": true,
+    "pixel": [
+     512,
+     287
+    ],
+    "projected_height_px": 128,
+    "occluded": false
+   },
+   {
+    "name": "Trump International Hotel & Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     840,
+     2698
+    ],
+    "height_m": 423.2,
+    "in_frame": true,
+    "pixel": [
+     278,
+     230
+    ],
+    "projected_height_px": 170,
+    "occluded": false
+   },
+   {
+    "name": "875 North Michigan Avenue",
+    "set": "V3",
+    "scene_xy": [
+     1119,
+     3801
+    ],
+    "height_m": 343.7,
+    "in_frame": true,
+    "pixel": [
+     254,
+     313
+    ],
+    "projected_height_px": 97,
+    "occluded": true
+   },
+   {
+    "name": "One Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1115,
+     2261
+    ],
+    "height_m": 183.0,
+    "in_frame": true,
+    "pixel": [
+     510,
+     346
+    ],
+    "projected_height_px": 73,
+    "occluded": true
+   },
+   {
+    "name": "Tribune Tower",
+    "set": "V3",
+    "scene_xy": [
+     1099,
+     2885
+    ],
+    "height_m": 141.0,
+    "in_frame": true,
+    "pixel": [
+     378,
+     377
+    ],
+    "projected_height_px": 43,
+    "occluded": true
+   },
+   {
+    "name": "Wrigley Building",
+    "set": "V3",
+    "scene_xy": [
+     978,
+     2786
+    ],
+    "height_m": 133.0,
+    "in_frame": true,
+    "pixel": [
+     339,
+     378
+    ],
+    "projected_height_px": 42,
+    "occluded": true
+   },
+   {
+    "name": "Marina City",
+    "set": "V3",
+    "scene_xy": [
+     642,
+     2611
+    ],
+    "height_m": 179.2,
+    "in_frame": true,
+    "pixel": [
+     189,
+     346
+    ],
+    "projected_height_px": 67,
+    "occluded": true
+   },
+   {
+    "name": "Willis Tower",
+    "set": "V3",
+    "scene_xy": [
+     52,
+     1574
+    ],
+    "height_m": 442.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 316,
+    "occluded": null
+   },
+   {
+    "name": "Salesforce Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     -89,
+     2534
+    ],
+    "height_m": 255.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 108,
+    "occluded": null
+   },
+   {
+    "name": "River Point",
+    "set": "V3",
+    "scene_xy": [
+     -237,
+     2400
+    ],
+    "height_m": 222.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 96,
+    "occluded": null
+   },
+   {
+    "name": "150 North Riverside",
+    "set": "V3",
+    "scene_xy": [
+     -155,
+     2300
+    ],
+    "height_m": 229.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 105,
+    "occluded": null
+   },
+   {
+    "name": "NEMA Chicago",
+    "set": "V4",
+    "scene_xy": [
+     1118,
+     284
+    ],
+    "height_m": 273.1,
+    "in_frame": true,
+    "pixel": [
+     1663,
+     122
+    ],
+    "projected_height_px": 250,
+    "occluded": false
+   },
+   {
+    "name": "One Museum Park",
+    "set": "V4",
+    "scene_xy": [
+     1243,
+     284
+    ],
+    "height_m": 221.0,
+    "in_frame": true,
+    "pixel": [
+     1703,
+     207
+    ],
+    "projected_height_px": 178,
+    "occluded": false
+   },
+   {
+    "name": "The Grant (One Museum Park West)",
+    "set": "V4",
+    "scene_xy": [
+     1207,
+     286
+    ],
+    "height_m": 181.0,
+    "in_frame": true,
+    "pixel": [
+     1685,
+     250
+    ],
+    "projected_height_px": 144,
+    "occluded": false
+   },
+   {
+    "name": "1000M",
+    "set": "V4",
+    "scene_xy": [
+     975,
+     590
+    ],
+    "height_m": 245.4,
+    "in_frame": true,
+    "pixel": [
+     1229,
+     186
+    ],
+    "projected_height_px": 223,
+    "occluded": false
+   },
+   {
+    "name": "311 South Wacker Drive",
+    "set": "V4",
+    "scene_xy": [
+     57,
+     1433
+    ],
+    "height_m": 292.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 220,
+    "occluded": null
+   },
+   {
+    "name": "Chicago Board of Trade Building",
+    "set": "V4",
+    "scene_xy": [
+     398,
+     1432
+    ],
+    "height_m": 184.0,
+    "in_frame": true,
+    "pixel": [
+     244,
+     282
+    ],
+    "projected_height_px": 123,
+    "occluded": false
+   },
+   {
+    "name": "Franklin Center (North Tower)",
+    "set": "V4",
+    "scene_xy": [
+     154,
+     1743
+    ],
+    "height_m": 306.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 191,
+    "occluded": null
+   },
+   {
+    "name": "Chase Tower",
+    "set": "V5",
+    "scene_xy": [
+     538,
+     1892
+    ],
+    "height_m": 260,
+    "in_frame": true,
+    "pixel": [
+     246,
+     262
+    ],
+    "projected_height_px": 141,
+    "occluded": false
+   },
+   {
+    "name": "333 South Wabash (CNA Center, \"The Red\")",
+    "set": "V5",
+    "scene_xy": [
+     908,
+     1428
+    ],
+    "height_m": 183,
+    "in_frame": true,
+    "pixel": [
+     654,
+     312
+    ],
+    "projected_height_px": 107,
+    "occluded": false
+   },
+   {
+    "name": "Kluczynski Federal Building",
+    "set": "V5",
+    "scene_xy": [
+     555,
+     1537
+    ],
+    "height_m": 171,
+    "in_frame": true,
+    "pixel": [
+     357,
+     310
+    ],
+    "projected_height_px": 102,
+    "occluded": false
+   },
+   {
+    "name": "Crain Communications Building",
+    "set": "V5",
+    "scene_xy": [
+     977,
+     2313
+    ],
+    "height_m": 177,
+    "in_frame": true,
+    "pixel": [
+     429,
+     348
+    ],
+    "projected_height_px": 70,
+    "occluded": true
+   },
+   {
+    "name": "Blue Cross Blue Shield Tower",
+    "set": "V5",
+    "scene_xy": [
+     1383,
+     2255
+    ],
+    "height_m": 227,
+    "in_frame": true,
+    "pixel": [
+     631,
+     330
+    ],
+    "projected_height_px": 90,
+    "occluded": true
+   },
+   {
+    "name": "Legacy at Millennium Park",
+    "set": "V5",
+    "scene_xy": [
+     906,
+     1874
+    ],
+    "height_m": 250,
+    "in_frame": true,
+    "pixel": [
+     499,
+     288
+    ],
+    "projected_height_px": 127,
+    "occluded": false
+   },
+   {
+    "name": "One Chicago (east and west towers)",
+    "set": "V5",
+    "scene_xy": [
+     648,
+     3507
+    ],
+    "height_m": 296,
+    "in_frame": true,
+    "pixel": [
+     82,
+     313
+    ],
+    "projected_height_px": 91,
+    "occluded": false
+   },
+   {
+    "name": "Water Tower Place",
+    "set": "V5",
+    "scene_xy": [
+     1180,
+     3701
+    ],
+    "height_m": 262,
+    "in_frame": true,
+    "pixel": [
+     291,
+     342
+    ],
+    "projected_height_px": 73,
+    "occluded": true
+   },
+   {
+    "name": "Hilton Chicago",
+    "set": "V5",
+    "scene_xy": [
+     1019,
+     872
+    ],
+    "height_m": 110,
+    "in_frame": true,
+    "pixel": [
+     1021,
+     353
+    ],
+    "projected_height_px": 69,
+    "occluded": true
+   },
+   {
+    "name": "Soldier Field",
+    "set": "lakefront",
+    "scene_xy": [
+     1658,
+     -366
+    ],
+    "height_m": 42,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 7,
+    "occluded": null
+   },
+   {
+    "name": "Field Museum",
+    "set": "lakefront",
+    "scene_xy": [
+     1651,
+     187
+    ],
+    "height_m": 36,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 2,
+    "occluded": null
+   },
+   {
+    "name": "Shedd Aquarium",
+    "set": "lakefront",
+    "scene_xy": [
+     1884,
+     334
+    ],
+    "height_m": 38,
+    "in_frame": true,
+    "pixel": [
+     1790,
+     420
+    ],
+    "projected_height_px": 3,
+    "occluded": true
+   },
+   {
+    "name": "Adler Planetarium",
+    "set": "lakefront",
+    "scene_xy": [
+     2482,
+     204
+    ],
+    "height_m": 24,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -4,
+    "occluded": null
+   },
+   {
+    "name": "Wintrust Arena",
+    "set": "lakefront",
+    "scene_xy": [
+     1240,
+     -1210
+    ],
+    "height_m": 32,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -1,
+    "occluded": null
+   },
+   {
+    "name": "Mccormick Lakeside",
+    "set": "lakefront",
+    "scene_xy": [
+     2039,
+     -1446
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 2,
+    "occluded": null
+   }
+  ],
+  "left_field_skyline": [
+   {
+    "name": "The St. Regis Chicago",
+    "set": "V3",
+    "scene_xy": [
+     1603,
+     2517
+    ],
+    "height_m": 362.9,
+    "in_frame": true,
+    "pixel": [
+     1554,
+     519
+    ],
+    "projected_height_px": 121,
+    "occluded": false
+   },
+   {
+    "name": "Aqua",
+    "set": "V3",
+    "scene_xy": [
+     1383,
+     2416
+    ],
+    "height_m": 261.8,
+    "in_frame": true,
+    "pixel": [
+     1489,
+     557
+    ],
+    "projected_height_px": 90,
+    "occluded": false
+   },
+   {
+    "name": "Aon Center",
+    "set": "V3",
+    "scene_xy": [
+     1247,
+     2300
+    ],
+    "height_m": 346.3,
+    "in_frame": true,
+    "pixel": [
+     1456,
+     513
+    ],
+    "projected_height_px": 130,
+    "occluded": false
+   },
+   {
+    "name": "Two Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1150,
+     2315
+    ],
+    "height_m": 303.3,
+    "in_frame": true,
+    "pixel": [
+     1409,
+     534
+    ],
+    "projected_height_px": 114,
+    "occluded": false
+   },
+   {
+    "name": "Trump International Hotel & Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     840,
+     2698
+    ],
+    "height_m": 423.2,
+    "in_frame": true,
+    "pixel": [
+     1212,
+     503
+    ],
+    "projected_height_px": 151,
+    "occluded": false
+   },
+   {
+    "name": "875 North Michigan Avenue",
+    "set": "V3",
+    "scene_xy": [
+     1119,
+     3801
+    ],
+    "height_m": 343.7,
+    "in_frame": true,
+    "pixel": [
+     1193,
+     570
+    ],
+    "projected_height_px": 86,
+    "occluded": true
+   },
+   {
+    "name": "One Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1115,
+     2261
+    ],
+    "height_m": 183.0,
+    "in_frame": true,
+    "pixel": [
+     1408,
+     587
+    ],
+    "projected_height_px": 65,
+    "occluded": true
+   },
+   {
+    "name": "Tribune Tower",
+    "set": "V3",
+    "scene_xy": [
+     1099,
+     2885
+    ],
+    "height_m": 141.0,
+    "in_frame": true,
+    "pixel": [
+     1289,
+     618
+    ],
+    "projected_height_px": 39,
+    "occluded": true
+   },
+   {
+    "name": "Wrigley Building",
+    "set": "V3",
+    "scene_xy": [
+     978,
+     2786
+    ],
+    "height_m": 133.0,
+    "in_frame": true,
+    "pixel": [
+     1257,
+     619
+    ],
+    "projected_height_px": 37,
+    "occluded": true
+   },
+   {
+    "name": "Marina City",
+    "set": "V3",
+    "scene_xy": [
+     642,
+     2611
+    ],
+    "height_m": 179.2,
+    "in_frame": true,
+    "pixel": [
+     1145,
+     598
+    ],
+    "projected_height_px": 60,
+    "occluded": true
+   },
+   {
+    "name": "Willis Tower",
+    "set": "V3",
+    "scene_xy": [
+     52,
+     1574
+    ],
+    "height_m": 442.1,
+    "in_frame": true,
+    "pixel": [
+     922,
+     382
+    ],
+    "projected_height_px": 281,
+    "occluded": false
+   },
+   {
+    "name": "Salesforce Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     -89,
+     2534
+    ],
+    "height_m": 255.0,
+    "in_frame": true,
+    "pixel": [
+     842,
+     563
+    ],
+    "projected_height_px": 96,
+    "occluded": false
+   },
+   {
+    "name": "River Point",
+    "set": "V3",
+    "scene_xy": [
+     -237,
+     2400
+    ],
+    "height_m": 222.0,
+    "in_frame": true,
+    "pixel": [
+     773,
+     572
+    ],
+    "projected_height_px": 86,
+    "occluded": true
+   },
+   {
+    "name": "150 North Riverside",
+    "set": "V3",
+    "scene_xy": [
+     -155,
+     2300
+    ],
+    "height_m": 229.0,
+    "in_frame": true,
+    "pixel": [
+     808,
+     565
+    ],
+    "projected_height_px": 93,
+    "occluded": false
+   },
+   {
+    "name": "NEMA Chicago",
+    "set": "V4",
+    "scene_xy": [
+     1118,
+     284
+    ],
+    "height_m": 273.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 224,
+    "occluded": null
+   },
+   {
+    "name": "One Museum Park",
+    "set": "V4",
+    "scene_xy": [
+     1243,
+     284
+    ],
+    "height_m": 221.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 160,
+    "occluded": null
+   },
+   {
+    "name": "The Grant (One Museum Park West)",
+    "set": "V4",
+    "scene_xy": [
+     1207,
+     286
+    ],
+    "height_m": 181.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 129,
+    "occluded": null
+   },
+   {
+    "name": "1000M",
+    "set": "V4",
+    "scene_xy": [
+     975,
+     590
+    ],
+    "height_m": 245.4,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 200,
+    "occluded": null
+   },
+   {
+    "name": "311 South Wacker Drive",
+    "set": "V4",
+    "scene_xy": [
+     57,
+     1433
+    ],
+    "height_m": 292.9,
+    "in_frame": true,
+    "pixel": [
+     931,
+     464
+    ],
+    "projected_height_px": 196,
+    "occluded": false
+   },
+   {
+    "name": "Chicago Board of Trade Building",
+    "set": "V4",
+    "scene_xy": [
+     398,
+     1432
+    ],
+    "height_m": 184.0,
+    "in_frame": true,
+    "pixel": [
+     1184,
+     545
+    ],
+    "projected_height_px": 110,
+    "occluded": false
+   },
+   {
+    "name": "Franklin Center (North Tower)",
+    "set": "V4",
+    "scene_xy": [
+     154,
+     1743
+    ],
+    "height_m": 306.9,
+    "in_frame": true,
+    "pixel": [
+     979,
+     489
+    ],
+    "projected_height_px": 170,
+    "occluded": false
+   },
+   {
+    "name": "Chase Tower",
+    "set": "V5",
+    "scene_xy": [
+     538,
+     1892
+    ],
+    "height_m": 260,
+    "in_frame": true,
+    "pixel": [
+     1187,
+     530
+    ],
+    "projected_height_px": 126,
+    "occluded": false
+   },
+   {
+    "name": "333 South Wabash (CNA Center, \"The Red\")",
+    "set": "V5",
+    "scene_xy": [
+     908,
+     1428
+    ],
+    "height_m": 183,
+    "in_frame": true,
+    "pixel": [
+     1557,
+     547
+    ],
+    "projected_height_px": 96,
+    "occluded": false
+   },
+   {
+    "name": "Kluczynski Federal Building",
+    "set": "V5",
+    "scene_xy": [
+     555,
+     1537
+    ],
+    "height_m": 171,
+    "in_frame": true,
+    "pixel": [
+     1270,
+     562
+    ],
+    "projected_height_px": 92,
+    "occluded": false
+   },
+   {
+    "name": "Crain Communications Building",
+    "set": "V5",
+    "scene_xy": [
+     977,
+     2313
+    ],
+    "height_m": 177,
+    "in_frame": true,
+    "pixel": [
+     1333,
+     591
+    ],
+    "projected_height_px": 63,
+    "occluded": true
+   },
+   {
+    "name": "Blue Cross Blue Shield Tower",
+    "set": "V5",
+    "scene_xy": [
+     1383,
+     2255
+    ],
+    "height_m": 227,
+    "in_frame": true,
+    "pixel": [
+     1533,
+     566
+    ],
+    "projected_height_px": 80,
+    "occluded": true
+   },
+   {
+    "name": "Legacy at Millennium Park",
+    "set": "V5",
+    "scene_xy": [
+     906,
+     1874
+    ],
+    "height_m": 250,
+    "in_frame": true,
+    "pixel": [
+     1397,
+     535
+    ],
+    "projected_height_px": 113,
+    "occluded": false
+   },
+   {
+    "name": "One Chicago (east and west towers)",
+    "set": "V5",
+    "scene_xy": [
+     648,
+     3507
+    ],
+    "height_m": 296,
+    "in_frame": true,
+    "pixel": [
+     1076,
+     577
+    ],
+    "projected_height_px": 81,
+    "occluded": false
+   },
+   {
+    "name": "Water Tower Place",
+    "set": "V5",
+    "scene_xy": [
+     1180,
+     3701
+    ],
+    "height_m": 262,
+    "in_frame": true,
+    "pixel": [
+     1220,
+     591
+    ],
+    "projected_height_px": 65,
+    "occluded": true
+   },
+   {
+    "name": "Hilton Chicago",
+    "set": "V5",
+    "scene_xy": [
+     1019,
+     872
+    ],
+    "height_m": 110,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 63,
+    "occluded": null
+   },
+   {
+    "name": "Soldier Field",
+    "set": "lakefront",
+    "scene_xy": [
+     1658,
+     -366
+    ],
+    "height_m": 42,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 7,
+    "occluded": null
+   },
+   {
+    "name": "Field Museum",
+    "set": "lakefront",
+    "scene_xy": [
+     1651,
+     187
+    ],
+    "height_m": 36,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 3,
+    "occluded": null
+   },
+   {
+    "name": "Shedd Aquarium",
+    "set": "lakefront",
+    "scene_xy": [
+     1884,
+     334
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 4,
+    "occluded": null
+   },
+   {
+    "name": "Adler Planetarium",
+    "set": "lakefront",
+    "scene_xy": [
+     2482,
+     204
+    ],
+    "height_m": 24,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -3,
+    "occluded": null
+   },
+   {
+    "name": "Wintrust Arena",
+    "set": "lakefront",
+    "scene_xy": [
+     1240,
+     -1210
+    ],
+    "height_m": 32,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 1,
+    "occluded": null
+   },
+   {
+    "name": "Mccormick Lakeside",
+    "set": "lakefront",
+    "scene_xy": [
+     2039,
+     -1446
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 3,
+    "occluded": null
+   }
+  ],
+  "third_base_seats": [
+   {
+    "name": "The St. Regis Chicago",
+    "set": "V3",
+    "scene_xy": [
+     1603,
+     2517
+    ],
+    "height_m": 362.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 150,
+    "occluded": null
+   },
+   {
+    "name": "Aqua",
+    "set": "V3",
+    "scene_xy": [
+     1383,
+     2416
+    ],
+    "height_m": 261.8,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 113,
+    "occluded": null
+   },
+   {
+    "name": "Aon Center",
+    "set": "V3",
+    "scene_xy": [
+     1247,
+     2300
+    ],
+    "height_m": 346.3,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 163,
+    "occluded": null
+   },
+   {
+    "name": "Two Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1150,
+     2315
+    ],
+    "height_m": 303.3,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 143,
+    "occluded": null
+   },
+   {
+    "name": "Trump International Hotel & Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     840,
+     2698
+    ],
+    "height_m": 423.2,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 187,
+    "occluded": null
+   },
+   {
+    "name": "875 North Michigan Avenue",
+    "set": "V3",
+    "scene_xy": [
+     1119,
+     3801
+    ],
+    "height_m": 343.7,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 106,
+    "occluded": null
+   },
+   {
+    "name": "One Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1115,
+     2261
+    ],
+    "height_m": 183.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 84,
+    "occluded": null
+   },
+   {
+    "name": "Tribune Tower",
+    "set": "V3",
+    "scene_xy": [
+     1099,
+     2885
+    ],
+    "height_m": 141.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 50,
+    "occluded": null
+   },
+   {
+    "name": "Wrigley Building",
+    "set": "V3",
+    "scene_xy": [
+     978,
+     2786
+    ],
+    "height_m": 133.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 49,
+    "occluded": null
+   },
+   {
+    "name": "Marina City",
+    "set": "V3",
+    "scene_xy": [
+     642,
+     2611
+    ],
+    "height_m": 179.2,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 77,
+    "occluded": null
+   },
+   {
+    "name": "Willis Tower",
+    "set": "V3",
+    "scene_xy": [
+     52,
+     1574
+    ],
+    "height_m": 442.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 359,
+    "occluded": null
+   },
+   {
+    "name": "Salesforce Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     -89,
+     2534
+    ],
+    "height_m": 255.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 122,
+    "occluded": null
+   },
+   {
+    "name": "River Point",
+    "set": "V3",
+    "scene_xy": [
+     -237,
+     2400
+    ],
+    "height_m": 222.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 110,
+    "occluded": null
+   },
+   {
+    "name": "150 North Riverside",
+    "set": "V3",
+    "scene_xy": [
+     -155,
+     2300
+    ],
+    "height_m": 229.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 119,
+    "occluded": null
+   },
+   {
+    "name": "NEMA Chicago",
+    "set": "V4",
+    "scene_xy": [
+     1118,
+     284
+    ],
+    "height_m": 273.1,
+    "in_frame": true,
+    "pixel": [
+     846,
+     173
+    ],
+    "projected_height_px": 279,
+    "occluded": false
+   },
+   {
+    "name": "One Museum Park",
+    "set": "V4",
+    "scene_xy": [
+     1243,
+     284
+    ],
+    "height_m": 221.0,
+    "in_frame": true,
+    "pixel": [
+     871,
+     256
+    ],
+    "projected_height_px": 200,
+    "occluded": false
+   },
+   {
+    "name": "The Grant (One Museum Park West)",
+    "set": "V4",
+    "scene_xy": [
+     1207,
+     286
+    ],
+    "height_m": 181.0,
+    "in_frame": true,
+    "pixel": [
+     862,
+     293
+    ],
+    "projected_height_px": 164,
+    "occluded": true
+   },
+   {
+    "name": "1000M",
+    "set": "V4",
+    "scene_xy": [
+     975,
+     590
+    ],
+    "height_m": 245.4,
+    "in_frame": true,
+    "pixel": [
+     439,
+     183
+    ],
+    "projected_height_px": 255,
+    "occluded": false
+   },
+   {
+    "name": "311 South Wacker Drive",
+    "set": "V4",
+    "scene_xy": [
+     57,
+     1433
+    ],
+    "height_m": 292.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 254,
+    "occluded": null
+   },
+   {
+    "name": "Chicago Board of Trade Building",
+    "set": "V4",
+    "scene_xy": [
+     398,
+     1432
+    ],
+    "height_m": 184.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 145,
+    "occluded": null
+   },
+   {
+    "name": "Franklin Center (North Tower)",
+    "set": "V4",
+    "scene_xy": [
+     154,
+     1743
+    ],
+    "height_m": 306.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 218,
+    "occluded": null
+   },
+   {
+    "name": "Chase Tower",
+    "set": "V5",
+    "scene_xy": [
+     538,
+     1892
+    ],
+    "height_m": 260,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 160,
+    "occluded": null
+   },
+   {
+    "name": "333 South Wabash (CNA Center, \"The Red\")",
+    "set": "V5",
+    "scene_xy": [
+     908,
+     1428
+    ],
+    "height_m": 183,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 125,
+    "occluded": null
+   },
+   {
+    "name": "Kluczynski Federal Building",
+    "set": "V5",
+    "scene_xy": [
+     555,
+     1537
+    ],
+    "height_m": 171,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 121,
+    "occluded": null
+   },
+   {
+    "name": "Crain Communications Building",
+    "set": "V5",
+    "scene_xy": [
+     977,
+     2313
+    ],
+    "height_m": 177,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 81,
+    "occluded": null
+   },
+   {
+    "name": "Blue Cross Blue Shield Tower",
+    "set": "V5",
+    "scene_xy": [
+     1383,
+     2255
+    ],
+    "height_m": 227,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 101,
+    "occluded": null
+   },
+   {
+    "name": "Legacy at Millennium Park",
+    "set": "V5",
+    "scene_xy": [
+     906,
+     1874
+    ],
+    "height_m": 250,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 144,
+    "occluded": null
+   },
+   {
+    "name": "One Chicago (east and west towers)",
+    "set": "V5",
+    "scene_xy": [
+     648,
+     3507
+    ],
+    "height_m": 296,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 101,
+    "occluded": null
+   },
+   {
+    "name": "Water Tower Place",
+    "set": "V5",
+    "scene_xy": [
+     1180,
+     3701
+    ],
+    "height_m": 262,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 81,
+    "occluded": null
+   },
+   {
+    "name": "Hilton Chicago",
+    "set": "V5",
+    "scene_xy": [
+     1019,
+     872
+    ],
+    "height_m": 110,
+    "in_frame": true,
+    "pixel": [
+     170,
+     360
+    ],
+    "projected_height_px": 85,
+    "occluded": true
+   },
+   {
+    "name": "Soldier Field",
+    "set": "lakefront",
+    "scene_xy": [
+     1658,
+     -366
+    ],
+    "height_m": 42,
+    "in_frame": true,
+    "pixel": [
+     1453,
+     444
+    ],
+    "projected_height_px": 14,
+    "occluded": true
+   },
+   {
+    "name": "Field Museum",
+    "set": "lakefront",
+    "scene_xy": [
+     1651,
+     187
+    ],
+    "height_m": 36,
+    "in_frame": true,
+    "pixel": [
+     1001,
+     449
+    ],
+    "projected_height_px": 10,
+    "occluded": false
+   },
+   {
+    "name": "Shedd Aquarium",
+    "set": "lakefront",
+    "scene_xy": [
+     1884,
+     334
+    ],
+    "height_m": 38,
+    "in_frame": true,
+    "pixel": [
+     914,
+     449
+    ],
+    "projected_height_px": 10,
+    "occluded": true
+   },
+   {
+    "name": "Adler Planetarium",
+    "set": "lakefront",
+    "scene_xy": [
+     2482,
+     204
+    ],
+    "height_m": 24,
+    "in_frame": true,
+    "pixel": [
+     1025,
+     459
+    ],
+    "projected_height_px": 0,
+    "occluded": true
+   },
+   {
+    "name": "Wintrust Arena",
+    "set": "lakefront",
+    "scene_xy": [
+     1240,
+     -1210
+    ],
+    "height_m": 32,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 6,
+    "occluded": null
+   },
+   {
+    "name": "Mccormick Lakeside",
+    "set": "lakefront",
+    "scene_xy": [
+     2039,
+     -1446
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 7,
+    "occluded": null
+   }
+  ],
+  "press_box": [
+   {
+    "name": "The St. Regis Chicago",
+    "set": "V3",
+    "scene_xy": [
+     1603,
+     2517
+    ],
+    "height_m": 362.9,
+    "in_frame": true,
+    "pixel": [
+     633,
+     287
+    ],
+    "projected_height_px": 129,
+    "occluded": false
+   },
+   {
+    "name": "Aqua",
+    "set": "V3",
+    "scene_xy": [
+     1383,
+     2416
+    ],
+    "height_m": 261.8,
+    "in_frame": true,
+    "pixel": [
+     574,
+     321
+    ],
+    "projected_height_px": 96,
+    "occluded": false
+   },
+   {
+    "name": "Aon Center",
+    "set": "V3",
+    "scene_xy": [
+     1247,
+     2300
+    ],
+    "height_m": 346.3,
+    "in_frame": true,
+    "pixel": [
+     543,
+     273
+    ],
+    "projected_height_px": 140,
+    "occluded": false
+   },
+   {
+    "name": "Two Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1150,
+     2315
+    ],
+    "height_m": 303.3,
+    "in_frame": true,
+    "pixel": [
+     496,
+     291
+    ],
+    "projected_height_px": 122,
+    "occluded": false
+   },
+   {
+    "name": "Trump International Hotel & Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     840,
+     2698
+    ],
+    "height_m": 423.2,
+    "in_frame": true,
+    "pixel": [
+     266,
+     235
+    ],
+    "projected_height_px": 162,
+    "occluded": false
+   },
+   {
+    "name": "875 North Michigan Avenue",
+    "set": "V3",
+    "scene_xy": [
+     1119,
+     3801
+    ],
+    "height_m": 343.7,
+    "in_frame": true,
+    "pixel": [
+     243,
+     316
+    ],
+    "projected_height_px": 92,
+    "occluded": true
+   },
+   {
+    "name": "One Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1115,
+     2261
+    ],
+    "height_m": 183.0,
+    "in_frame": true,
+    "pixel": [
+     495,
+     349
+    ],
+    "projected_height_px": 69,
+    "occluded": true
+   },
+   {
+    "name": "Tribune Tower",
+    "set": "V3",
+    "scene_xy": [
+     1099,
+     2885
+    ],
+    "height_m": 141.0,
+    "in_frame": true,
+    "pixel": [
+     365,
+     378
+    ],
+    "projected_height_px": 40,
+    "occluded": true
+   },
+   {
+    "name": "Wrigley Building",
+    "set": "V3",
+    "scene_xy": [
+     978,
+     2786
+    ],
+    "height_m": 133.0,
+    "in_frame": true,
+    "pixel": [
+     327,
+     379
+    ],
+    "projected_height_px": 39,
+    "occluded": true
+   },
+   {
+    "name": "Marina City",
+    "set": "V3",
+    "scene_xy": [
+     642,
+     2611
+    ],
+    "height_m": 179.2,
+    "in_frame": true,
+    "pixel": [
+     178,
+     348
+    ],
+    "projected_height_px": 63,
+    "occluded": true
+   },
+   {
+    "name": "Willis Tower",
+    "set": "V3",
+    "scene_xy": [
+     52,
+     1574
+    ],
+    "height_m": 442.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 303,
+    "occluded": null
+   },
+   {
+    "name": "Salesforce Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     -89,
+     2534
+    ],
+    "height_m": 255.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 102,
+    "occluded": null
+   },
+   {
+    "name": "River Point",
+    "set": "V3",
+    "scene_xy": [
+     -237,
+     2400
+    ],
+    "height_m": 222.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 91,
+    "occluded": null
+   },
+   {
+    "name": "150 North Riverside",
+    "set": "V3",
+    "scene_xy": [
+     -155,
+     2300
+    ],
+    "height_m": 229.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 99,
+    "occluded": null
+   },
+   {
+    "name": "NEMA Chicago",
+    "set": "V4",
+    "scene_xy": [
+     1118,
+     284
+    ],
+    "height_m": 273.1,
+    "in_frame": true,
+    "pixel": [
+     1605,
+     137
+    ],
+    "projected_height_px": 238,
+    "occluded": false
+   },
+   {
+    "name": "One Museum Park",
+    "set": "V4",
+    "scene_xy": [
+     1243,
+     284
+    ],
+    "height_m": 221.0,
+    "in_frame": true,
+    "pixel": [
+     1642,
+     219
+    ],
+    "projected_height_px": 169,
+    "occluded": false
+   },
+   {
+    "name": "The Grant (One Museum Park West)",
+    "set": "V4",
+    "scene_xy": [
+     1207,
+     286
+    ],
+    "height_m": 181.0,
+    "in_frame": true,
+    "pixel": [
+     1625,
+     260
+    ],
+    "projected_height_px": 136,
+    "occluded": false
+   },
+   {
+    "name": "1000M",
+    "set": "V4",
+    "scene_xy": [
+     975,
+     590
+    ],
+    "height_m": 245.4,
+    "in_frame": true,
+    "pixel": [
+     1192,
+     197
+    ],
+    "projected_height_px": 212,
+    "occluded": false
+   },
+   {
+    "name": "311 South Wacker Drive",
+    "set": "V4",
+    "scene_xy": [
+     57,
+     1433
+    ],
+    "height_m": 292.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 210,
+    "occluded": null
+   },
+   {
+    "name": "Chicago Board of Trade Building",
+    "set": "V4",
+    "scene_xy": [
+     398,
+     1432
+    ],
+    "height_m": 184.0,
+    "in_frame": true,
+    "pixel": [
+     233,
+     287
+    ],
+    "projected_height_px": 116,
+    "occluded": false
+   },
+   {
+    "name": "Franklin Center (North Tower)",
+    "set": "V4",
+    "scene_xy": [
+     154,
+     1743
+    ],
+    "height_m": 306.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 182,
+    "occluded": null
+   },
+   {
+    "name": "Chase Tower",
+    "set": "V5",
+    "scene_xy": [
+     538,
+     1892
+    ],
+    "height_m": 260,
+    "in_frame": true,
+    "pixel": [
+     235,
+     266
+    ],
+    "projected_height_px": 134,
+    "occluded": false
+   },
+   {
+    "name": "333 South Wabash (CNA Center, \"The Red\")",
+    "set": "V5",
+    "scene_xy": [
+     908,
+     1428
+    ],
+    "height_m": 183,
+    "in_frame": true,
+    "pixel": [
+     636,
+     316
+    ],
+    "projected_height_px": 102,
+    "occluded": false
+   },
+   {
+    "name": "Kluczynski Federal Building",
+    "set": "V5",
+    "scene_xy": [
+     555,
+     1537
+    ],
+    "height_m": 171,
+    "in_frame": true,
+    "pixel": [
+     344,
+     314
+    ],
+    "projected_height_px": 97,
+    "occluded": false
+   },
+   {
+    "name": "Crain Communications Building",
+    "set": "V5",
+    "scene_xy": [
+     977,
+     2313
+    ],
+    "height_m": 177,
+    "in_frame": true,
+    "pixel": [
+     416,
+     350
+    ],
+    "projected_height_px": 66,
+    "occluded": true
+   },
+   {
+    "name": "Blue Cross Blue Shield Tower",
+    "set": "V5",
+    "scene_xy": [
+     1383,
+     2255
+    ],
+    "height_m": 227,
+    "in_frame": true,
+    "pixel": [
+     613,
+     333
+    ],
+    "projected_height_px": 85,
+    "occluded": true
+   },
+   {
+    "name": "Legacy at Millennium Park",
+    "set": "V5",
+    "scene_xy": [
+     906,
+     1874
+    ],
+    "height_m": 250,
+    "in_frame": true,
+    "pixel": [
+     484,
+     292
+    ],
+    "projected_height_px": 121,
+    "occluded": false
+   },
+   {
+    "name": "One Chicago (east and west towers)",
+    "set": "V5",
+    "scene_xy": [
+     648,
+     3507
+    ],
+    "height_m": 296,
+    "in_frame": true,
+    "pixel": [
+     73,
+     316
+    ],
+    "projected_height_px": 87,
+    "occluded": false
+   },
+   {
+    "name": "Water Tower Place",
+    "set": "V5",
+    "scene_xy": [
+     1180,
+     3701
+    ],
+    "height_m": 262,
+    "in_frame": true,
+    "pixel": [
+     279,
+     344
+    ],
+    "projected_height_px": 69,
+    "occluded": true
+   },
+   {
+    "name": "Hilton Chicago",
+    "set": "V5",
+    "scene_xy": [
+     1019,
+     872
+    ],
+    "height_m": 110,
+    "in_frame": true,
+    "pixel": [
+     991,
+     357
+    ],
+    "projected_height_px": 64,
+    "occluded": true
+   },
+   {
+    "name": "Soldier Field",
+    "set": "lakefront",
+    "scene_xy": [
+     1658,
+     -366
+    ],
+    "height_m": 42,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 4,
+    "occluded": null
+   },
+   {
+    "name": "Field Museum",
+    "set": "lakefront",
+    "scene_xy": [
+     1651,
+     187
+    ],
+    "height_m": 36,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": null,
+    "occluded": null
+   },
+   {
+    "name": "Shedd Aquarium",
+    "set": "lakefront",
+    "scene_xy": [
+     1884,
+     334
+    ],
+    "height_m": 38,
+    "in_frame": true,
+    "pixel": [
+     1720,
+     421
+    ],
+    "projected_height_px": 1,
+    "occluded": true
+   },
+   {
+    "name": "Adler Planetarium",
+    "set": "lakefront",
+    "scene_xy": [
+     2482,
+     204
+    ],
+    "height_m": 24,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -6,
+    "occluded": null
+   },
+   {
+    "name": "Wintrust Arena",
+    "set": "lakefront",
+    "scene_xy": [
+     1240,
+     -1210
+    ],
+    "height_m": 32,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -3,
+    "occluded": null
+   },
+   {
+    "name": "Mccormick Lakeside",
+    "set": "lakefront",
+    "scene_xy": [
+     2039,
+     -1446
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 1,
+    "occluded": null
+   }
+  ],
+  "east_lake_high": [
+   {
+    "name": "The St. Regis Chicago",
+    "set": "V3",
+    "scene_xy": [
+     1603,
+     2517
+    ],
+    "height_m": 362.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 113,
+    "occluded": null
+   },
+   {
+    "name": "Aqua",
+    "set": "V3",
+    "scene_xy": [
+     1383,
+     2416
+    ],
+    "height_m": 261.8,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 68,
+    "occluded": null
+   },
+   {
+    "name": "Aon Center",
+    "set": "V3",
+    "scene_xy": [
+     1247,
+     2300
+    ],
+    "height_m": 346.3,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 119,
+    "occluded": null
+   },
+   {
+    "name": "Two Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1150,
+     2315
+    ],
+    "height_m": 303.3,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 96,
+    "occluded": null
+   },
+   {
+    "name": "Trump International Hotel & Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     840,
+     2698
+    ],
+    "height_m": 423.2,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 151,
+    "occluded": null
+   },
+   {
+    "name": "875 North Michigan Avenue",
+    "set": "V3",
+    "scene_xy": [
+     1119,
+     3801
+    ],
+    "height_m": 343.7,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 79,
+    "occluded": null
+   },
+   {
+    "name": "One Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1115,
+     2261
+    ],
+    "height_m": 183.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 29,
+    "occluded": null
+   },
+   {
+    "name": "Tribune Tower",
+    "set": "V3",
+    "scene_xy": [
+     1099,
+     2885
+    ],
+    "height_m": 141.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 4,
+    "occluded": null
+   },
+   {
+    "name": "Wrigley Building",
+    "set": "V3",
+    "scene_xy": [
+     978,
+     2786
+    ],
+    "height_m": 133.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 0,
+    "occluded": null
+   },
+   {
+    "name": "Marina City",
+    "set": "V3",
+    "scene_xy": [
+     642,
+     2611
+    ],
+    "height_m": 179.2,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 26,
+    "occluded": null
+   },
+   {
+    "name": "Willis Tower",
+    "set": "V3",
+    "scene_xy": [
+     52,
+     1574
+    ],
+    "height_m": 442.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 284,
+    "occluded": null
+   },
+   {
+    "name": "Salesforce Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     -89,
+     2534
+    ],
+    "height_m": 255.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 71,
+    "occluded": null
+   },
+   {
+    "name": "River Point",
+    "set": "V3",
+    "scene_xy": [
+     -237,
+     2400
+    ],
+    "height_m": 222.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 55,
+    "occluded": null
+   },
+   {
+    "name": "150 North Riverside",
+    "set": "V3",
+    "scene_xy": [
+     -155,
+     2300
+    ],
+    "height_m": 229.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 62,
+    "occluded": null
+   },
+   {
+    "name": "NEMA Chicago",
+    "set": "V4",
+    "scene_xy": [
+     1118,
+     284
+    ],
+    "height_m": 273.1,
+    "in_frame": true,
+    "pixel": [
+     796,
+     308
+    ],
+    "projected_height_px": 172,
+    "occluded": false
+   },
+   {
+    "name": "One Museum Park",
+    "set": "V4",
+    "scene_xy": [
+     1243,
+     284
+    ],
+    "height_m": 221.0,
+    "in_frame": true,
+    "pixel": [
+     836,
+     383
+    ],
+    "projected_height_px": 99,
+    "occluded": false
+   },
+   {
+    "name": "The Grant (One Museum Park West)",
+    "set": "V4",
+    "scene_xy": [
+     1207,
+     286
+    ],
+    "height_m": 181.0,
+    "in_frame": true,
+    "pixel": [
+     823,
+     426
+    ],
+    "projected_height_px": 56,
+    "occluded": false
+   },
+   {
+    "name": "1000M",
+    "set": "V4",
+    "scene_xy": [
+     975,
+     590
+    ],
+    "height_m": 245.4,
+    "in_frame": true,
+    "pixel": [
+     357,
+     333
+    ],
+    "projected_height_px": 139,
+    "occluded": false
+   },
+   {
+    "name": "311 South Wacker Drive",
+    "set": "V4",
+    "scene_xy": [
+     57,
+     1433
+    ],
+    "height_m": 292.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 161,
+    "occluded": null
+   },
+   {
+    "name": "Chicago Board of Trade Building",
+    "set": "V4",
+    "scene_xy": [
+     398,
+     1432
+    ],
+    "height_m": 184.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 50,
+    "occluded": null
+   },
+   {
+    "name": "Franklin Center (North Tower)",
+    "set": "V4",
+    "scene_xy": [
+     154,
+     1743
+    ],
+    "height_m": 306.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 145,
+    "occluded": null
+   },
+   {
+    "name": "Chase Tower",
+    "set": "V5",
+    "scene_xy": [
+     538,
+     1892
+    ],
+    "height_m": 260,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 94,
+    "occluded": null
+   },
+   {
+    "name": "333 South Wabash (CNA Center, \"The Red\")",
+    "set": "V5",
+    "scene_xy": [
+     908,
+     1428
+    ],
+    "height_m": 183,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 43,
+    "occluded": null
+   },
+   {
+    "name": "Kluczynski Federal Building",
+    "set": "V5",
+    "scene_xy": [
+     555,
+     1537
+    ],
+    "height_m": 171,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 34,
+    "occluded": null
+   },
+   {
+    "name": "Crain Communications Building",
+    "set": "V5",
+    "scene_xy": [
+     977,
+     2313
+    ],
+    "height_m": 177,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 26,
+    "occluded": null
+   },
+   {
+    "name": "Blue Cross Blue Shield Tower",
+    "set": "V5",
+    "scene_xy": [
+     1383,
+     2255
+    ],
+    "height_m": 227,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 52,
+    "occluded": null
+   },
+   {
+    "name": "Legacy at Millennium Park",
+    "set": "V5",
+    "scene_xy": [
+     906,
+     1874
+    ],
+    "height_m": 250,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 82,
+    "occluded": null
+   },
+   {
+    "name": "One Chicago (east and west towers)",
+    "set": "V5",
+    "scene_xy": [
+     648,
+     3507
+    ],
+    "height_m": 296,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 68,
+    "occluded": null
+   },
+   {
+    "name": "Water Tower Place",
+    "set": "V5",
+    "scene_xy": [
+     1180,
+     3701
+    ],
+    "height_m": 262,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 49,
+    "occluded": null
+   },
+   {
+    "name": "Hilton Chicago",
+    "set": "V5",
+    "scene_xy": [
+     1019,
+     872
+    ],
+    "height_m": 110,
+    "in_frame": true,
+    "pixel": [
+     86,
+     509
+    ],
+    "projected_height_px": -23,
+    "occluded": false
+   },
+   {
+    "name": "Soldier Field",
+    "set": "lakefront",
+    "scene_xy": [
+     1658,
+     -366
+    ],
+    "height_m": 42,
+    "in_frame": true,
+    "pixel": [
+     1518,
+     566
+    ],
+    "projected_height_px": -77,
+    "occluded": true
+   },
+   {
+    "name": "Field Museum",
+    "set": "lakefront",
+    "scene_xy": [
+     1651,
+     187
+    ],
+    "height_m": 36,
+    "in_frame": true,
+    "pixel": [
+     1008,
+     566
+    ],
+    "projected_height_px": -83,
+    "occluded": true
+   },
+   {
+    "name": "Shedd Aquarium",
+    "set": "lakefront",
+    "scene_xy": [
+     1884,
+     334
+    ],
+    "height_m": 38,
+    "in_frame": true,
+    "pixel": [
+     923,
+     553
+    ],
+    "projected_height_px": -71,
+    "occluded": true
+   },
+   {
+    "name": "Adler Planetarium",
+    "set": "lakefront",
+    "scene_xy": [
+     2482,
+     204
+    ],
+    "height_m": 24,
+    "in_frame": true,
+    "pixel": [
+     1068,
+     546
+    ],
+    "projected_height_px": -63,
+    "occluded": true
+   },
+   {
+    "name": "Wintrust Arena",
+    "set": "lakefront",
+    "scene_xy": [
+     1240,
+     -1210
+    ],
+    "height_m": 32,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -86,
+    "occluded": null
+   },
+   {
+    "name": "Mccormick Lakeside",
+    "set": "lakefront",
+    "scene_xy": [
+     2039,
+     -1446
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -56,
+    "occluded": null
+   }
+  ],
+  "south": [
+   {
+    "name": "The St. Regis Chicago",
+    "set": "V3",
+    "scene_xy": [
+     1603,
+     2517
+    ],
+    "height_m": 362.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 65,
+    "occluded": null
+   },
+   {
+    "name": "Aqua",
+    "set": "V3",
+    "scene_xy": [
+     1383,
+     2416
+    ],
+    "height_m": 261.8,
+    "in_frame": true,
+    "pixel": [
+     970,
+     2
+    ],
+    "projected_height_px": 12,
+    "occluded": false
+   },
+   {
+    "name": "Aon Center",
+    "set": "V3",
+    "scene_xy": [
+     1247,
+     2300
+    ],
+    "height_m": 346.3,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 63,
+    "occluded": null
+   },
+   {
+    "name": "Two Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1150,
+     2315
+    ],
+    "height_m": 303.3,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 38,
+    "occluded": null
+   },
+   {
+    "name": "Trump International Hotel & Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     840,
+     2698
+    ],
+    "height_m": 423.2,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 101,
+    "occluded": null
+   },
+   {
+    "name": "875 North Michigan Avenue",
+    "set": "V3",
+    "scene_xy": [
+     1119,
+     3801
+    ],
+    "height_m": 343.7,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 43,
+    "occluded": null
+   },
+   {
+    "name": "One Prudential Plaza",
+    "set": "V3",
+    "scene_xy": [
+     1115,
+     2261
+    ],
+    "height_m": 183.0,
+    "in_frame": true,
+    "pixel": [
+     867,
+     52
+    ],
+    "projected_height_px": -35,
+    "occluded": true
+   },
+   {
+    "name": "Tribune Tower",
+    "set": "V3",
+    "scene_xy": [
+     1099,
+     2885
+    ],
+    "height_m": 141.0,
+    "in_frame": true,
+    "pixel": [
+     715,
+     69
+    ],
+    "projected_height_px": -51,
+    "occluded": false
+   },
+   {
+    "name": "Wrigley Building",
+    "set": "V3",
+    "scene_xy": [
+     978,
+     2786
+    ],
+    "height_m": 133.0,
+    "in_frame": true,
+    "pixel": [
+     672,
+     75
+    ],
+    "projected_height_px": -57,
+    "occluded": false
+   },
+   {
+    "name": "Marina City",
+    "set": "V3",
+    "scene_xy": [
+     642,
+     2611
+    ],
+    "height_m": 179.2,
+    "in_frame": true,
+    "pixel": [
+     515,
+     51
+    ],
+    "projected_height_px": -35,
+    "occluded": false
+   },
+   {
+    "name": "Willis Tower",
+    "set": "V3",
+    "scene_xy": [
+     52,
+     1574
+    ],
+    "height_m": 442.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 177,
+    "occluded": null
+   },
+   {
+    "name": "Salesforce Tower Chicago",
+    "set": "V3",
+    "scene_xy": [
+     -89,
+     2534
+    ],
+    "height_m": 255.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 9,
+    "occluded": null
+   },
+   {
+    "name": "River Point",
+    "set": "V3",
+    "scene_xy": [
+     -237,
+     2400
+    ],
+    "height_m": 222.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -12,
+    "occluded": null
+   },
+   {
+    "name": "150 North Riverside",
+    "set": "V3",
+    "scene_xy": [
+     -155,
+     2300
+    ],
+    "height_m": 229.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -7,
+    "occluded": null
+   },
+   {
+    "name": "NEMA Chicago",
+    "set": "V4",
+    "scene_xy": [
+     1118,
+     284
+    ],
+    "height_m": 273.1,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 39,
+    "occluded": null
+   },
+   {
+    "name": "One Museum Park",
+    "set": "V4",
+    "scene_xy": [
+     1243,
+     284
+    ],
+    "height_m": 221.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -21,
+    "occluded": null
+   },
+   {
+    "name": "The Grant (One Museum Park West)",
+    "set": "V4",
+    "scene_xy": [
+     1207,
+     286
+    ],
+    "height_m": 181.0,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -66,
+    "occluded": null
+   },
+   {
+    "name": "1000M",
+    "set": "V4",
+    "scene_xy": [
+     975,
+     590
+    ],
+    "height_m": 245.4,
+    "in_frame": true,
+    "pixel": [
+     1608,
+     14
+    ],
+    "projected_height_px": 6,
+    "occluded": false
+   },
+   {
+    "name": "311 South Wacker Drive",
+    "set": "V4",
+    "scene_xy": [
+     57,
+     1433
+    ],
+    "height_m": 292.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 49,
+    "occluded": null
+   },
+   {
+    "name": "Chicago Board of Trade Building",
+    "set": "V4",
+    "scene_xy": [
+     398,
+     1432
+    ],
+    "height_m": 184.0,
+    "in_frame": true,
+    "pixel": [
+     595,
+     68
+    ],
+    "projected_height_px": -50,
+    "occluded": false
+   },
+   {
+    "name": "Franklin Center (North Tower)",
+    "set": "V4",
+    "scene_xy": [
+     154,
+     1743
+    ],
+    "height_m": 306.9,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 54,
+    "occluded": null
+   },
+   {
+    "name": "Chase Tower",
+    "set": "V5",
+    "scene_xy": [
+     538,
+     1892
+    ],
+    "height_m": 260,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 15,
+    "occluded": null
+   },
+   {
+    "name": "333 South Wabash (CNA Center, \"The Red\")",
+    "set": "V5",
+    "scene_xy": [
+     908,
+     1428
+    ],
+    "height_m": 183,
+    "in_frame": true,
+    "pixel": [
+     1015,
+     67
+    ],
+    "projected_height_px": -47,
+    "occluded": false
+   },
+   {
+    "name": "Kluczynski Federal Building",
+    "set": "V5",
+    "scene_xy": [
+     555,
+     1537
+    ],
+    "height_m": 171,
+    "in_frame": true,
+    "pixel": [
+     698,
+     77
+    ],
+    "projected_height_px": -58,
+    "occluded": false
+   },
+   {
+    "name": "Crain Communications Building",
+    "set": "V5",
+    "scene_xy": [
+     977,
+     2313
+    ],
+    "height_m": 177,
+    "in_frame": true,
+    "pixel": [
+     774,
+     56
+    ],
+    "projected_height_px": -38,
+    "occluded": false
+   },
+   {
+    "name": "Blue Cross Blue Shield Tower",
+    "set": "V5",
+    "scene_xy": [
+     1383,
+     2255
+    ],
+    "height_m": 227,
+    "in_frame": true,
+    "pixel": [
+     1017,
+     24
+    ],
+    "projected_height_px": -8,
+    "occluded": false
+   },
+   {
+    "name": "Legacy at Millennium Park",
+    "set": "V5",
+    "scene_xy": [
+     906,
+     1874
+    ],
+    "height_m": 250,
+    "in_frame": true,
+    "pixel": [
+     852,
+     7
+    ],
+    "projected_height_px": 7,
+    "occluded": false
+   },
+   {
+    "name": "One Chicago (east and west towers)",
+    "set": "V5",
+    "scene_xy": [
+     648,
+     3507
+    ],
+    "height_m": 296,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": 26,
+    "occluded": null
+   },
+   {
+    "name": "Water Tower Place",
+    "set": "V5",
+    "scene_xy": [
+     1180,
+     3701
+    ],
+    "height_m": 262,
+    "in_frame": true,
+    "pixel": [
+     615,
+     2
+    ],
+    "projected_height_px": 9,
+    "occluded": true
+   },
+   {
+    "name": "Hilton Chicago",
+    "set": "V5",
+    "scene_xy": [
+     1019,
+     872
+    ],
+    "height_m": 110,
+    "in_frame": true,
+    "pixel": [
+     1402,
+     161
+    ],
+    "projected_height_px": -128,
+    "occluded": true
+   },
+   {
+    "name": "Soldier Field",
+    "set": "lakefront",
+    "scene_xy": [
+     1658,
+     -366
+    ],
+    "height_m": 42,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -198,
+    "occluded": null
+   },
+   {
+    "name": "Field Museum",
+    "set": "lakefront",
+    "scene_xy": [
+     1651,
+     187
+    ],
+    "height_m": 36,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -190,
+    "occluded": null
+   },
+   {
+    "name": "Shedd Aquarium",
+    "set": "lakefront",
+    "scene_xy": [
+     1884,
+     334
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -166,
+    "occluded": null
+   },
+   {
+    "name": "Adler Planetarium",
+    "set": "lakefront",
+    "scene_xy": [
+     2482,
+     204
+    ],
+    "height_m": 24,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -146,
+    "occluded": null
+   },
+   {
+    "name": "Wintrust Arena",
+    "set": "lakefront",
+    "scene_xy": [
+     1240,
+     -1210
+    ],
+    "height_m": 32,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -248,
+    "occluded": null
+   },
+   {
+    "name": "Mccormick Lakeside",
+    "set": "lakefront",
+    "scene_xy": [
+     2039,
+     -1446
+    ],
+    "height_m": 38,
+    "in_frame": false,
+    "pixel": null,
+    "projected_height_px": -159,
+    "occluded": null
+   }
+  ]
+ }
+}

@@ -10,7 +10,7 @@ import json,math,random
 from pathlib import Path
 from mathutils import Vector
 from mathutils.geometry import delaunay_2d_cdt
-import r4_geo
+import r4_geo,r5_palette
 
 OUT=Path(__file__).resolve().parent
 LAND_GROUP='Lakefront land'
@@ -61,16 +61,7 @@ def build_geography(scene,spec,batch,materials):
            'Museum Campus (approx.)':[(1560,-520),(2000,-520),(2060,330),(1560,330)]}
     for name,poly in lawns.items():
         batch.prism(LAND_GROUP+' lawn','lawn',poly,z-.02,z+.12)
-    # Museum-campus masses (inferred sizes from published plans; recognizable
-    # low silhouettes east of the stadium, kept separate from OSM records).
-    masses=[('Field Museum (inferred mass)',41.8663,-87.6170,215,110,26,'stone'),
-            ('Shedd Aquarium (inferred mass)',41.8676,-87.6140,95,95,22,'stone'),
-            ('Soldier Field (inferred mass)',41.8623,-87.6167,205,125,42,'concrete'),
-            ('Adler Planetarium (inferred mass)',41.8663,-87.6069,60,60,18,'stone')]
-    for name,lat,lon,w,d,h,mat in masses:
-        x,y=r4_geo.local_xy(lat,lon)
-        batch.box(LAND_GROUP+' museum campus',mat,(x,y,z+h/2),(w,d,h))
-        batch.box(LAND_GROUP+' museum campus','roof',(x,y,z+h+.2),(w*.9,d*.9,.4))
+    # Museum-campus and stadium masses are built by r5_lakefront from OSM footprints.
     # Near South Loop: OSM buildings between the mapped district and the lake
     # (heights from tags or levels).  Buildings modelled as dedicated skyline
     # silhouettes are skipped here so nothing is represented twice.
@@ -83,9 +74,10 @@ def build_geography(scene,spec,batch,materials):
         cx=sum(p[0] for p in foot)/len(foot)
         if cx<830:continue  # already covered by site-context / outfield-context
         h=float(rec['height_m']);z1=z+h
-        mat='stone' if h>=60 else 'brick_light'
+        mat,window=r5_palette.facade(rec.get('name') or '',rec['osm_way'],h);ratio=r5_palette.window_ratio(rec.get('name') or '',rec['osm_way'])
         batch.prism(CONTEXT_GROUP,mat,foot,z,z1)
         batch.prism(CONTEXT_GROUP,'roof',foot,z1,z1+.25)
+        r5_palette.tops(batch,CONTEXT_GROUP,foot,z1,mat,rec.get('name'),rec['osm_way'],h)
         signed=sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(foot,foot[1:]+foot[:1]))
         floors=max(1,round(h/3.6))
         for a,b in zip(foot,foot[1:]+foot[:1]):
@@ -97,7 +89,7 @@ def build_geography(scene,spec,batch,materials):
                 zz=z+(f+.55)*h/floors
                 for k in range(n_win):
                     p=a.lerp(b,(k+.5)/n_win)+n*.12;p.z=zz
-                    batch.box(CONTEXT_GROUP,'glass_lit' if rng.random()<.15 else 'glass',p,(length/n_win*.62,.10,h/floors*.58),angle)
+                    batch.box(CONTEXT_GROUP,'glass_lit' if rng.random()<.05 else window,p,(length/n_win*ratio,.10,h/floors*.58),angle)
         count+=1
     scene['lake_source']=data['source'];scene['lake_source_url']=data['source_url']
     scene['lake_registration']='formula + %.0f m X (r4_geo)'%r4_geo.REGISTRATION_X_M

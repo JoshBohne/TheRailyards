@@ -84,3 +84,26 @@ Residual: silhouettes are massing-level; materials are flat glass. 875 N Michiga
 `review/baseline-preservation.json` (2026-09-06): the original `/Users/joshbohne/Developer/TheRailyards/railyards-v3/` matches all 65 `delivery-manifest.json` hashes (files and images); the worktree copy matches the 50 tracked entries, with the 15 Git-ignored generated files (blend, renders, receipts) absent as expected. `railyards-v3-baseline.blend` copied into V4 is byte-identical to the original scene. No V3 file was modified.
 
 Render passes: pass 1 (1400 px / 24 samples) exposed the north-pylon intrusion; pass 2 (1800 px / 48) rendered the corrected anchor; pass 3 (1800 px / 48) is the delivered set after grounding the end wall at z8, adding the tower-junction camera and deduplicating the OSM context. `saved-scene-verification.json`, `review/rf-plan-evidence.json` and `delivery-manifest-v4.json` were regenerated from the pass-3 scene.
+
+## V5 — skyline accuracy, facade variety, finished tops, lakefront references
+
+| Evidence | Before (V4) | After (V5) |
+| --- | --- | --- |
+| Press box panorama | `review/v4-press_box.png` | `review/v5-press_box.png` |
+| Home upper deck / LF skyline / third base | `review/pass1/`, site images `v4-*` | `interior-*.png` (V5 pass) |
+| South fixed comparison (Loop core in the top band) | `review/pass1/final-south.png` | `final-south.png` |
+| Elevated east / west aerial | `review/v4-east_lake_high.png`, `review/v4-aerial_west.png` | `review/v5-east_lake_high.png`, `review/v5-aerial_west.png` |
+| Labelled panoramas and visibility table | — | `review/skyline-panoramas.html`, `review/skyline-v5.json` |
+
+What was wrong: every mapped building used one tan `stone` with a dark checkerboard, the V3/V4 crowns used the night-emissive `glass_lit` (0.04 emission by day, so 311's cylinder, NEMA's top and Aqua's rings read as unfinished dark caps), flat prisms had no parapets or penthouses, and Chase, CNA/333 S Wabash, Crain, BCBS, Legacy, One Chicago, Water Tower Place and the Hilton were absent while Kluczynski was a generic prism.
+
+What changed:
+- `r5_palette.py`: 16 daylight facade materials; a curated table of 50 named buildings (Kluczynski black/bronze, Old Post Office limestone per its OSM tag, Harold Washington red brick, BMO glass…) and an era/height-weighted mix for the rest (only 8 of 114 fetched ways carried OSM colour/material tags). Window glazing ratio varies per building. Every flat prism gets a parapet and, above 18 m, a mechanical penthouse; above 90 m a rooftop mast box.
+- `r5_skyline_icons.py` (+`skyline-v5-icons.json`): Chase Tower (curved sweep), 333 South Wabash painted red, Kluczynski, Crain (slanted split top), BCBS, Legacy, One Chicago (both towers), Water Tower Place, Hilton Chicago. OSM footprints where Nominatim returned polygons; Wikipedia heights. Kluczynski removed from the generic set.
+- Crowns re-materialled: 311 South Wacker white cylinder crown, St. Regis / Aqua / Two Prudential white bands and blue glass, Aon white marble, Trump blue glass, Franklin Center pink granite, CBOT limestone with copper pyramid, NEMA grey glass, 1000M light glass.
+- `r5_lakefront.py` (+`lakefront-v5.json`): Soldier Field (OSM colonnade footprint, columns, glass bowl inside), Field Museum (marble mass, raised hall, columns), Shedd (octagon, green dome), Adler (dome), Wintrust Arena, McCormick Lakeside (inferred box). Heights inferred and labelled.
+- Crowd: five walker clothing variants replace the single grey figure (`r2_landscape.py`, `r3_public_realm.py`).
+
+Visibility (ray test from each camera to each landmark roof, stopping 70 m short of the target): upper deck sees 15 landmarks unobstructed (St. Regis, Aqua, Aon, Two Prudential, Trump, NEMA, One Museum Park, The Grant, 1000M, CBOT, Chase, 333 S Wabash, Kluczynski, Legacy, One Chicago); LF skyline adds Willis, 311, Franklin Center, Salesforce, 150 N Riverside; third base sees the Museum Park cluster and the Field Museum; the south fixed camera sees 11. Hancock, Tribune, Wrigley, Marina City, Crain, BCBS and Water Tower Place are in frame but behind nearer towers from the bowl, as they are in reality.
+
+Residual: silhouettes are massing-level (no window textures on the dedicated towers beyond strip glazing); lakefront heights inferred; buildings west of the river and the Loop core beyond the mapped extent are still absent.

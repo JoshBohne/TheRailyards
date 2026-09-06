@@ -142,11 +142,11 @@ def _st_regis(batch):
         x = cx + offset
         _tapered_prism(batch, f'St Regis stem {index + 1}', x, cy,
                        GROUND_Z, GROUND_Z + top_height,
-                       width * 0.74, depth * 0.82, width, depth, 'glass')
+                       width * 0.74, depth * 0.82, width, depth, 'glass_blue')
         # Repeated slab edges carry the Studio Gang frustum rhythm at distance.
         for z in range(25, int(top_height), 24):
             scale = 1.0 if (z // 24) % 2 else 0.78
-            batch.prism(GROUP, 'glass_lit',
+            batch.prism(GROUP, 'crown_white',
                         _ellipse(x, cy, width * scale, depth * scale),
                         GROUND_Z + z, GROUND_Z + z + 0.28)
 
@@ -156,12 +156,12 @@ def _aqua(batch):
     cx, cy = _center('aqua')
     top = GROUND_Z + 261.8
     _tapered_prism(batch, 'Aqua core', cx, cy, GROUND_Z, top,
-                   25.0, 21.0, 31.0, 25.0, 'glass')
+                   25.0, 21.0, 31.0, 25.0, 'glass_blue')
     for z in range(20, 255, 13):
         phase = math.sin(z * 0.17)
         width = 51.0 + phase * 13.0
         depth = 42.0 + math.cos(z * 0.13) * 11.0
-        batch.prism(GROUP, 'glass_lit', _ellipse(cx, cy, width, depth),
+        batch.prism(GROUP, 'crown_white', _ellipse(cx, cy, width, depth),
                     GROUND_Z + z, GROUND_Z + z + 0.30)
 
 
@@ -169,7 +169,7 @@ def _aon(batch):
     cx, cy = _center('aon-center')
     top = GROUND_Z + 346.3
     _tapered_prism(batch, 'Aon Center monolith', cx, cy, GROUND_Z, top,
-                   65.0, 48.0, 61.0, 45.0, 'stone')
+                   65.0, 48.0, 61.0, 45.0, 'white_marble')
     _vertical_bays(batch, cx, cy, GROUND_Z + 2, top - 2, 61.0, 45.0,
                    spacing=9.0, material='metal', bar_width=0.45)
     for dx in (-13.0, 13.0):
@@ -184,7 +184,7 @@ def _prudential(batch, identifier, two=False):
     body_top = GROUND_Z + height - (18.0 if two else 4.0)
     _tapered_prism(batch, 'Two Prudential Plaza body' if two else 'One Prudential Plaza body',
                    cx, cy, GROUND_Z, body_top,
-                   width * 0.94, depth * 0.94, width, depth, 'glass_lit')
+                   width * 0.94, depth * 0.94, width, depth, 'glass_grey')
     _horizontal_bands(batch, cx, cy, GROUND_Z + 6, body_top,
                        width, depth, material='aluminum', spacing=14.0)
     if two:
@@ -192,7 +192,7 @@ def _prudential(batch, identifier, two=False):
         levels = [(8.0, 0.92), (6.0, 0.70), (4.0, 0.48)]
         z = body_top
         for rise, scale in levels:
-            batch.prism(GROUP, 'glass_lit',
+            batch.prism(GROUP, 'crown_white',
                         _rect(cx, cy, width * scale, depth * scale),
                         z, z + rise)
             z += rise
@@ -204,7 +204,7 @@ def _trump(batch):
     _tapered_prism(batch, 'Trump Tower lower shaft', cx, cy, GROUND_Z,
                    GROUND_Z + 278.0, 55.0, 44.0, 49.0, 39.0, 'glass')
     _tapered_prism(batch, 'Trump Tower upper shaft', cx, cy, GROUND_Z + 278.0,
-                   GROUND_Z + 357.0, 49.0, 39.0, 31.0, 27.0, 'glass_lit')
+                   GROUND_Z + 357.0, 49.0, 39.0, 31.0, 27.0, 'glass_blue')
     _horizontal_bands(batch, cx, cy, GROUND_Z + 10, GROUND_Z + 350,
                        49.0, 39.0, material='metal', spacing=16.0)
     batch.cylinder(GROUP, 'aluminum', (cx, cy, GROUND_Z + 357.0),

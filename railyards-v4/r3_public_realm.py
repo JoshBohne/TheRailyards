@@ -167,6 +167,12 @@ def build_public_realm(scene,spec,batch,materials):
         for i in range(420):
             x,y=rng.uniform(116,123),rng.uniform(-125,166)
             positions.append((x,y,quay_z(y)+.04));rotations.append((0,0,rng.random()*math.tau));scales.append((1,1,1))
-        instances(scene,batch.collection(GROUP),'Public deck visitors',walker,positions,rotations,scales)
+        # V5: spread the crowd across the clothing variants (weighted toward grey/white/black).
+        variants=[w for w in [bpy.data.objects.get('D2_Walking visitor'),bpy.data.objects.get('D2_Walking visitor cloth_white'),bpy.data.objects.get('D2_Walking visitor cloth_black'),bpy.data.objects.get('D2_Walking visitor cloth_blue'),bpy.data.objects.get('D2_Walking visitor cloth_red')] if w]
+        weights=[30,28,22,12,8][:len(variants)]
+        buckets=[[] for _ in variants]
+        for i in range(len(positions)):buckets[rng.choices(range(len(variants)),weights)[0]].append(i)
+        for k,(w,sel) in enumerate(zip(variants,buckets)):
+            if sel:instances(scene,batch.collection(GROUP),'Public deck visitors '+str(k),w,[positions[i] for i in sel],[rotations[i] for i in sel],[scales[i] for i in sel])
     scene['public_deck_grade']='Inferred z=14.1+0.045*(300-y), meeting Roosevelt sidewalk and rising toward the outfield entry; verify in both north and bridge source views.'
     scene['public_realm_roof_xy']=str(roof)

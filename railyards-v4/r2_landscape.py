@@ -46,18 +46,23 @@ def build_landscape(scene,spec,batch,materials):
             s=rng.uniform(.82,1.22);positions.append((x+rng.uniform(-.5,.5),y+rng.uniform(-.5,.5),z));rot.append((0,0,rng.random()*math.tau));scales.append((s,s,s*rng.uniform(.95,1.15)))
         instances(scene,col,'Planted broadleaf '+str(k),tree,positions,rot,scales)
     scene['tree_count']=len(points)
-    def pedestrian(b):
-        b.ellipsoid('Walker','cloth_gray',(0,0,1.16),(.22,.13,.31),8,5)
-        b.ellipsoid('Walker','skin',(0,0,1.66),(.11,.10,.13),8,5)
-        for side in [-1,1]:
-            b.cylinder('Walker','navy',(side*.10,0,.95),(side*.12,side*.09,.10),.08,sides=7)
-            b.cylinder('Walker','cloth_gray',(side*.22,0,1.36),(side*.28,-.09,.96),.065,sides=6)
-    walker=prototype(scene,materials,'Walking visitor',pedestrian)
+    # V5: five clothing variants so crowds are not one grey figure repeated.
+    walkers=[]
+    for cloth,trouser in [('cloth_gray','navy'),('cloth_white','navy'),('cloth_black','cloth_gray'),('cloth_blue','cloth_black'),('cloth_red','navy')]:
+        def pedestrian(b,cloth=cloth,trouser=trouser):
+            b.ellipsoid('Walker',cloth,(0,0,1.16),(.22,.13,.31),8,5)
+            b.ellipsoid('Walker','skin',(0,0,1.66),(.11,.10,.13),8,5)
+            for side in [-1,1]:
+                b.cylinder('Walker',trouser,(side*.10,0,.95),(side*.12,side*.09,.10),.08,sides=7)
+                b.cylinder('Walker',cloth,(side*.22,0,1.36),(side*.28,-.09,.96),.065,sides=6)
+        walkers.append(prototype(scene,materials,'Walking visitor' if cloth=='cloth_gray' else 'Walking visitor '+cloth,pedestrian))
     positions=[];rotations=[];scales=[]
     for i in range(250):
         x,y=rng.uniform(-85,-70),rng.uniform(-135,155)
         s=rng.uniform(.90,1.08);positions.append((x,y,8.6));rotations.append((0,0,rng.random()*math.tau));scales.append((s,s,s))
-    instances(scene,col,'Walking visitors',walker,positions,rotations,scales)
+    for k,walker in enumerate(walkers):
+        sel=[i for i in range(len(positions)) if i%len(walkers)==k]
+        instances(scene,col,'Walking visitors '+str(k),walker,[positions[i] for i in sel],[rotations[i] for i in sel],[scales[i] for i in sel])
     scene['pedestrian_count']=len(positions)
     # Rail bed, ties and catenary-free commuter tracks.
     for x in [-139,-129,-119,-109,-99]:

@@ -51,7 +51,7 @@ INDEX=f'''
 <div><b>3</b><span>AECOM renderings fitted</span></div>
 <div><b>26,950</b><span>seats, individually placed</span></div>
 <div><b>291 M</b><span>tokens across two agents</span></div>
-<div><b>V4</b><span>current version · Sunday</span></div>
+<div><b>V5</b><span>current version · Sunday</span></div>
 </div>
 <div class="cards">
 <div class="card"><h3>Sources vs model</h3><p>Each AECOM picture beside the model rendered through the same camera, plus the site plan against the model's map.</p><a href="sources.html">See the comparisons</a></div>
@@ -116,6 +116,7 @@ PROCESS=f'''
 <div class="inning"><div class="n">V2</div><div class="who">Astra · Sat night</div><h3>Calibrate</h3><p>Solve the three camera fits (2.9 px error on the north aerial), trace bowl, canopy and field from pixels, build the district: river, bridges, rail links, Roosevelt Road.</p></div>
 <div class="inning"><div class="n">V3</div><div class="who">Astra + Luna · overnight</div><h3>Dress it</h3><p>Thirty-five Python generators: arched brick envelope, clock tower, four tiers with 27,000 seats, video boards, riverwalk, park, Northwestern Medicine, Willis and 13 more landmarks. Eight native renders and a written handoff of known problems.</p></div>
 <div class="inning"><div class="n">V4</div><div class="who">Fable 5.1 · Sun, 2½ h</div><h3>Make it true</h3><p>Fix what a fan would notice: a scoreboard on the grass, a bowl end floating over the river, no lake, the wrong towers in right field. Every fix checked with same-camera before/after renders.</p></div>
+<div class="inning"><div class="n">V5</div><div class="who">Fable 5.1 · Sun evening</div><h3>The real skyline</h3><p>Sixteen facade materials instead of one tan stone, finished roofs, nine more icons (Chase, the red CNA, Crain, BCBS, Legacy, One Chicago, Water Tower Place, the Hilton, Kluczynski), Soldier Field and the Museum Campus from their footprints, and a labelled panorama proving what each seat can see.</p></div>
 </div>
 </div></section>
 <section><div class="wrap">
@@ -165,6 +166,10 @@ PROCESS=f'''
 {pair(fig('control-rf_corner_exterior','<b>Before.</b> From the east bank the decks end in mid-air beside the tower.'),fig('v4-rf_corner_exterior','<b>After.</b> A brick end wall following the four tiers, an arcade at the riverwalk, a link block to the tower.'))}
 <h3 style="margin-bottom:14px">Lake Michigan did not exist</h3>
 {pair(fig('control-geo_map','<b>Before.</b> The background terrain paved straight across the lake.'),fig('v4-geo_map','<b>After.</b> USGS shoreline in the scene’s frame: Grant Park, Museum Campus, Northerly Island, Burnham Harbor, Navy Pier.'))}
+<h3 style="margin-bottom:14px">V5 · The skyline stopped being one colour</h3>
+{pair(fig('v4-home_upper_deck','<b>V4.</b> One tan material with a dark checkerboard for every mapped building; crowns dark and unfinished.'),fig('interior-home_upper_deck','<b>V5.</b> Real facade colours by building, parapets and penthouses, white crowns, the red 333 South Wabash, Chase Tower, Legacy, One Chicago. <a href="../railyards-v4/review/skyline-panoramas.html">Labelled panoramas</a> list what each camera can and cannot see.'))}
+{pair(fig('v4-left_field_skyline','<b>V4.</b> Left-field skyline.'),fig('interior-left_field_skyline','<b>V5.</b> Willis, 311 South Wacker with its white crown, Franklin Center in pink granite, the Board of Trade and its copper roof, CNA red beyond.'))}
+{pair(fig('v4-south','<b>V4.</b> South comparison, Loop core in the top band.'),fig('final-south','<b>V5.</b> Same camera with the varied Loop and the Museum Campus landmarks.'))}
 {pair(fig('rf-overlay-south','<b>Proof against the artwork.</b> The modelled field (green), board frame (black/white) and pylon bases (red) projected into the AECOM south aerial with the calibrated camera. Orange: where V3 had the board.'),fig('v4-rf_tower_junction','<b>Tower junction.</b> Clock tower, river arcade and bowl end now meet, matching the crop of the south aerial.'))}
 </div></section>
 '''
@@ -176,12 +181,12 @@ ROADMAP=f'''
 </div></div></header>
 <section><div class="wrap">
 <div class="road">
-<div><span class="st">Next · V5</span><h3>Materials and light</h3><p>Real brick, glass and metal at the right scale, window recess depth, varied crowd colours and poses, coherent dusk lighting across all views. The city stops looking like a grey checkerboard.</p></div>
-<div><span class="st">Next · V5</span><h3>Centre-field board and restaurant</h3><p>The centre-field board triangulates 14 m north of where it sits; the rounded restaurant hangs off the same anchor. Move both together and re-fit the batter's eye.</p></div>
-<div><span class="st">Next · V5</span><h3>Left-field end and concourses</h3><p>Give the left-field end of the bowl the same end wall treatment as right field; open up visible concourse depth, vomitories and the tower-to-bowl junction from the inside.</p></div>
+<div><span class="st">Done in V5</span><h3>Skyline accuracy and colour</h3><p>Sixteen facade materials, finished roofs, nine more icons, Soldier Field and the Museum Campus, five crowd colour variants. Next: real brick and glass detail at close range, coherent dusk lighting.</p></div>
+<div><span class="st">Next · V6</span><h3>Centre-field board and restaurant</h3><p>The centre-field board triangulates 14 m north of where it sits; the rounded restaurant hangs off the same anchor. Move both together and re-fit the batter's eye.</p></div>
+<div><span class="st">Next · V6</span><h3>Left-field end and concourses</h3><p>Give the left-field end of the bowl the same end wall treatment as right field; open up visible concourse depth, vomitories and the tower-to-bowl junction from the inside.</p></div>
 <div><span class="st">Planned</span><h3>Moving pictures</h3><p>Short clips: a walk north along the riverwalk, a slow turn from the press box, the approach from Roosevelt over the park. Same cameras as the stills.</p></div>
 <div><span class="st">Planned</span><h3>Night game</h3><p>A full night lighting pass: floodlights, board glow, the lit crowns downtown, the river reflections, from every fixed camera.</p></div>
-<div><span class="st">Planned</span><h3>More of the city</h3><p>Textured silhouettes for the towers that matter from the seats; the Loop core beyond the near South Loop; the Museum Campus buildings from real footprints rather than boxes.</p></div>
+<div><span class="st">Planned</span><h3>More of the city</h3><p>Window textures on the dedicated towers, the Loop core beyond the mapped extent, the West Loop across the river, and any published dimensions that replace inferred heights.</p></div>
 <div><span class="st">Open question</span><h3>The two rail-link readings</h3><p>The north and south artworks disagree on where the covered rail links cross. Both readings are kept as separate layers until a better unified fit exists.</p></div>
 <div><span class="st">Open question</span><h3>Outfield dimensions</h3><p>The infield is regulation; the outfield wall is traced from the artwork (about 328 ft down the right-field line). Any published dimensions would replace the trace.</p></div>
 </div>

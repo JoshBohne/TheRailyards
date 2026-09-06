@@ -29,6 +29,9 @@ from r3_window_tones import apply_window_tones
 from r4_rf_structure import build_rf_structure
 from r4_geography import build_geography
 from r4_skyline_south import build_skyline_south
+from r5_lakefront import build_lakefront
+from r5_skyline_icons import build_skyline_icons
+import r5_palette
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window_manager.windows[0].scene=scene
 for obj in list(bpy.data.objects):
     if obj.name.startswith('D2_'):bpy.data.objects.remove(obj,do_unlink=True)
@@ -57,6 +60,9 @@ for obj in scene.objects:
     elif 'roof'in name:mat='roof'
     obj.data.materials.clear();obj.data.materials.append(materials[mat])
     if obj.type=='MESH' and obj.name.startswith('R2_OSM'):
+        # V5: curated / era-mixed facade colours instead of one tan stone.
+        wall,_win=r5_palette.facade(obj.get('name',''),obj.get('osm_way'),float(obj.get('height_m',0)))
+        obj.data.materials.clear();obj.data.materials.append(materials[wall])
         obj.data.materials.append(materials['roof'])
         for face in obj.data.polygons:
             if face.normal.z>.8:face.material_index=1
@@ -83,6 +89,8 @@ build_skyline(scene,spec,batch,materials)
 build_context(scene,spec,batch,materials)
 build_geography(scene,spec,batch,materials)
 build_skyline_south(scene,spec,batch,materials)
+build_lakefront(scene,spec,batch,materials)
+build_skyline_icons(scene,spec,batch,materials)
 build_soccer_context(scene,spec,batch,materials)
 build_south_blocks(scene,spec,batch,materials)
 build_outfield_context(scene,spec,batch,materials)

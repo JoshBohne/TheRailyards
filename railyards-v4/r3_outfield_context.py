@@ -3,6 +3,7 @@ import json, math, random
 from pathlib import Path
 from mathutils import Vector
 from mathutils.geometry import delaunay_2d_cdt
+import r5_palette
 
 
 def _inside(p, ring):
@@ -15,13 +16,13 @@ def _inside(p, ring):
 def build_outfield_context(scene,spec,batch,materials):
     records=json.loads((Path(__file__).parent/'outfield-context.json').read_text())['buildings']
     rng=random.Random(4702)
-    dedicated={'311 South Wacker Drive','Chicago Board of Trade Building'}  # V4 silhouettes in r4_skyline_south
+    dedicated={'311 South Wacker Drive','Chicago Board of Trade Building','Kluczynski Federal Building'}  # dedicated silhouettes in r4_skyline_south / r5_skyline_icons
     for record in records:
         if record['name'] in dedicated:continue
         foot=record['footprint'];holes=record.get('footprint_holes',[])
         z0=record.get('base_z',8);z1=z0+record['height_m']
         group='Outfield city '+record['name']
-        material='stone' if record['name']=='River City' else 'brick_light' if record['height_m']<40 else 'stone'
+        material,window=r5_palette.facade(record['name'],record['osm_way'],float(record['height_m']));ratio=r5_palette.window_ratio(record['name'],record['osm_way'])
         if holes:
             points=[];edges=[]
             for ring in [foot]+holes:
@@ -36,6 +37,7 @@ def build_outfield_context(scene,spec,batch,materials):
             for ring in [foot]+holes:
                 for a,b in zip(ring,ring[1:]+ring[:1]):batch.quad(group,material,[(*a,z0),(*b,z0),(*b,z1),(*a,z1)])
         else:batch.prism(group,material,foot,z0,z1)
+        r5_palette.tops(batch,group,foot,z1,material,record['name'],record['osm_way'],float(record['height_m']))
         # Repeated windows describe facade scale, not surveyed facade designs.
         for ring in [foot]+holes:
             signed=sum(a[0]*b[1]-b[0]*a[1] for a,b in zip(ring,ring[1:]+ring[:1]))
@@ -48,6 +50,6 @@ def build_outfield_context(scene,spec,batch,materials):
                 for floor in range(floors):
                     for k in range(count):
                         p=a.lerp(b,(k+.5)/count)+normal*.12;p.z=z0+(floor+.57)*(z1-z0)/floors
-                        batch.box(group,'glass_lit' if rng.random()<.14 else 'glass',p,(length/count*.65,.12,(z1-z0)/floors*.61),angle)
+                        batch.box(group,'glass_lit' if rng.random()<.05 else window,p,(length/count*ratio,.12,(z1-z0)/floors*.61),angle)
     scene['outfield_context_count']=len(records)
     scene['outfield_context_note']='Mapped OSM footprints; per-building sourced or level-derived heights in outfield-context.json. Repeated facades inferred. River City courtyard remains open.'

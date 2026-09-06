@@ -56,10 +56,10 @@ def _nema(batch,rec):
     cx,cy=rec['scene_xy'];h=rec['architectural_height_m']
     # Vinoly's three-part bundled-tube composition: site podium, square middle
     # with a stair-stepped southern extension, indented upper section.
-    _frustum(batch,cx,cy+8,Z,Z+48,62,70,62,70,'stone')
+    _frustum(batch,cx,cy+8,Z,Z+48,62,70,62,70,'precast')
     _bands(batch,cx,cy+8,Z,Z+48,62,70,4.0,'metal')
     mid_top=Z+178
-    _frustum(batch,cx,cy+8,Z+48,mid_top,44,44,44,44,'glass')
+    _frustum(batch,cx,cy+8,Z+48,mid_top,44,44,44,44,'glass_grey')
     _glazing_strips(batch,cx,cy+8,Z+48,mid_top,44,44,7.5)
     _bands(batch,cx,cy+8,Z+48,mid_top,44,44,12.0)
     # Southern "staircase" of stacked bays stepping down away from the shaft.
@@ -68,11 +68,11 @@ def _nema(batch,rec):
         _frustum(batch,cx,y,Z+48,top,44,depth,44,depth,'glass')
         _glazing_strips(batch,cx,y,Z+48,top,44,depth,7.5)
     # Upper section with two indents, then the crown.
-    _frustum(batch,cx,cy+8,mid_top,Z+h-14,36,36,36,36,'glass')
+    _frustum(batch,cx,cy+8,mid_top,Z+h-14,36,36,36,36,'glass_grey')
     _glazing_strips(batch,cx,cy+8,mid_top,Z+h-14,36,36,7.5)
     for dx,dy in [(-1,1),(1,-1)]:
         batch.box(GROUP,'metal',(cx+dx*13,cy+8+dy*13,(mid_top+Z+h-14)/2),(10.5,10.5,Z+h-14-mid_top+.6))
-    _frustum(batch,cx,cy+8,Z+h-14,Z+h,28,28,28,28,'glass_lit')
+    _frustum(batch,cx,cy+8,Z+h-14,Z+h,28,28,28,28,'glass_grey')
     batch.box(GROUP,'metal',(cx,cy+8,Z+h+.3),(30,30,.6))
 
 
@@ -83,9 +83,9 @@ def _one_museum_park(batch,rec):
     for i in range(25):
         a=-math.pi/2+math.pi*i/24;pts.append((cx+22*math.cos(a),cy+22*math.sin(a)))
     pts+= [(cx-16,cy+22),(cx-16,cy-22)]
-    batch.prism(GROUP,'glass',pts,Z,Z+h-6)
+    batch.prism(GROUP,'glass_blue',pts,Z,Z+h-6)
     for z in range(int(Z+12),int(Z+h-6),12):batch.prism(GROUP,'aluminum',[(x*1.0,y*1.0) for x,y in pts],z,z+.3)
-    batch.prism(GROUP,'glass_lit',[(cx+.9*(x-cx),cy+.9*(y-cy)) for x,y in pts],Z+h-6,Z+h)
+    batch.prism(GROUP,'crown_white',[(cx+.9*(x-cx),cy+.9*(y-cy)) for x,y in pts],Z+h-6,Z+h)
     # Museum Tower: the shorter twin immediately south (1235 S Prairie, 124 m).
     mx,my=rec['museum_tower_scene_xy']
     _frustum(batch,mx,my,Z,Z+124,34,30,34,30,'glass')
@@ -94,7 +94,7 @@ def _one_museum_park(batch,rec):
 
 def _the_grant(batch,rec):
     cx,cy=rec['scene_xy'];h=rec['architectural_height_m']
-    _frustum(batch,cx,cy,Z,Z+h-4,40,40,36,36,'glass')
+    _frustum(batch,cx,cy,Z,Z+h-4,40,40,36,36,'glass_grey')
     _glazing_strips(batch,cx,cy,Z,Z+h-4,38,38,6.5)
     _bands(batch,cx,cy,Z,Z+h-4,38,38,14.0,'metal')
     batch.box(GROUP,'metal',(cx,cy,Z+h-2),(30,30,4))
@@ -115,21 +115,21 @@ def _1000m(batch,rec):
             pts+=[(cx-w/2,cy+d/2),(cx-w/2,cy-d/2)]
         verts=[(x,y,z0) for x,y in pts0]+[(x,y,z1) for x,y in pts1];n=len(pts0)
         faces=[tuple(reversed(range(n))),tuple(range(n,2*n))]+[(i,(i+1)%n,(i+1)%n+n,i+n) for i in range(n)]
-        batch.add(GROUP,'glass',verts,faces)
+        batch.add(GROUP,'glass_white',verts,faces)
         for z in (z0+h/steps*.5,):batch.prism(GROUP,'aluminum',[(cx+(x-cx)*1.02,cy+(y-cy)*1.02) for x,y in pts0],z,z+.3)
-    batch.box(GROUP,'glass_lit',(cx+4,cy,Z+h+3),(18,14,6))
+    batch.box(GROUP,'glass_white',(cx+4,cy,Z+h+3),(18,14,6))
 
 
 def _311_south_wacker(batch,rec):
     cx,cy=rec['scene_xy'];h=rec['architectural_height_m']
     body=h-32
-    _frustum(batch,cx,cy,Z,Z+body,58,58,52,52,'stone')
+    _frustum(batch,cx,cy,Z,Z+body,58,58,52,52,'granite_pink')
     _glazing_strips(batch,cx,cy,Z,Z+body,55,55,6.0)
     _bands(batch,cx,cy,Z,Z+body,55,55,16.0,'metal')
     # Glass "crown": tall translucent cylinder ringed by four smaller cylinders.
-    batch.cylinder(GROUP,'glass_lit',(cx,cy,Z+body),(cx,cy,Z+h),13.5,sides=24)
+    batch.cylinder(GROUP,'crown_white',(cx,cy,Z+body),(cx,cy,Z+h),13.5,sides=24)
     for dx,dy in [(-17,-17),(17,-17),(17,17),(-17,17)]:
-        batch.cylinder(GROUP,'glass_lit',(cx+dx,cy+dy,Z+body),(cx+dx,cy+dy,Z+body+18),6.0,sides=16)
+        batch.cylinder(GROUP,'crown_white',(cx+dx,cy+dy,Z+body),(cx+dx,cy+dy,Z+body+18),6.0,sides=16)
     batch.cylinder(GROUP,'lamp',(cx,cy,Z+h),(cx,cy,Z+h+3),1.2,sides=8)
 
 
@@ -137,19 +137,19 @@ def _cbot(batch,rec):
     cx,cy=rec['scene_xy'];h=rec['architectural_height_m']
     # Art-deco setbacks and the pyramidal copper roof with the Ceres figure.
     for z0,z1,w,d in [(Z,Z+34,76,58),(Z+34,Z+92,58,50),(Z+92,Z+142,40,42),(Z+142,Z+162,28,30)]:
-        _frustum(batch,cx,cy,z0,z1,w,d,w,d,'stone')
+        _frustum(batch,cx,cy,z0,z1,w,d,w,d,'limestone')
         _glazing_strips(batch,cx,cy,z0,z1,w,d,4.5)
-    _frustum(batch,cx,cy,Z+162,Z+h-9,26,26,6,6,'metal')
+    _frustum(batch,cx,cy,Z+162,Z+h-9,26,26,6,6,'copper_green')
     batch.cylinder(GROUP,'aluminum',(cx,cy,Z+h-9),(cx,cy,Z+h),1.4,.6,sides=8)
 
 
 def _franklin_center(batch,rec):
     cx,cy=rec['scene_xy'];h=rec['architectural_height_m']
     # Setbacks at floors 15/30/45, granite deepening at the base, spiked pinnacles.
-    for z0,z1,w,d,mat in [(Z,Z+62,64,52,'brick'),(Z+62,Z+124,54,44,'stone'),(Z+124,Z+186,46,38,'stone'),(Z+186,Z+h-16,38,32,'stone')]:
+    for z0,z1,w,d,mat in [(Z,Z+62,64,52,'granite_pink'),(Z+62,Z+124,54,44,'granite_pink'),(Z+124,Z+186,46,38,'granite_pink'),(Z+186,Z+h-16,38,32,'granite_pink')]:
         _frustum(batch,cx,cy,z0,z1,w,d,w,d,mat)
         _glazing_strips(batch,cx,cy,z0,z1,w,d,5.0)
-    _frustum(batch,cx,cy,Z+h-16,Z+h-4,38,32,26,22,'stone')
+    _frustum(batch,cx,cy,Z+h-16,Z+h-4,38,32,26,22,'granite_pink')
     for dx,dy in [(-14,-11),(14,-11),(14,11),(-14,11),(0,0)]:
         batch.cylinder(GROUP,'metal',(cx+dx,cy+dy,Z+h-6),(cx+dx,cy+dy,Z+h+(6 if dx==0 else 0)),.7,.2,sides=6)
 
