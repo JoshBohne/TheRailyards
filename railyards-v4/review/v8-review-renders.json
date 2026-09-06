@@ -1,0 +1,16 @@
+[
+  {
+    "view": "press_box",
+    "image": "v8-press_box.png",
+    "seconds": 136.95,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/railyards-v4/railyards-v8.blend",
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
+  },
+  {
+    "view": "east_bank",
+    "image": "v8-east_bank.png",
+    "seconds": 120.24,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/railyards-v4/railyards-v8.blend",
+    "purpose": "New view: from the east bank across the river, the tower, board and river arcade"
+  }
+]
