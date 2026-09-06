@@ -25,6 +25,18 @@ def fig(img,cap,alt=''):
 
 def pair(a,b):return f'<div class="pair">{a}{b}</div>'
 
+def cmp(source,models,cap,start=50):
+    """Drag slider: AECOM artwork on the left of the handle, the model on the right.
+    ``models`` is an ordered dict of label -> image stem; the first is shown."""
+    first=next(iter(models.values()))
+    picks=''.join(f'<button type="button" data-src="img/{v}.jpg" aria-pressed="{"true" if v==first else "false"}">{k}</button>' for k,v in models.items())
+    return f'''<div class="cmp" style="--x:{start}%"><div class="frame"><img src="img/{source}.jpg" alt="AECOM concept rendering" loading="lazy"><img class="over" src="img/{first}.jpg" alt="Blender model through the same camera" loading="lazy"><div class="bar"></div><div class="knob">&lt;&gt;</div><span class="lab l">AECOM</span><span class="lab r">Model</span><div class="pick">{picks}</div><input type="range" min="0" max="100" value="{start}" aria-label="Reveal the model"></div><figcaption>{cap}</figcaption></div>'''
+
+CMP_JS='''<script>
+document.querySelectorAll('.cmp').forEach(c=>{const r=c.querySelector('input[type=range]');const set=v=>c.style.setProperty('--x',v+'%');r.addEventListener('input',()=>set(r.value));
+c.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{c.querySelector('.over').src=b.dataset.src;c.querySelectorAll('.pick button').forEach(o=>o.setAttribute('aria-pressed',o===b));}));});
+</script>'''
+
 # ---------------------------------------------------------------- pages
 INDEX=f'''
 <header class="page"><div class="wrap"><div class="grid">
@@ -32,7 +44,7 @@ INDEX=f'''
 <div><p class="lede">The three renderings AECOM released on Saturday, turned into an editable 3-D model of the proposed White Sox ballpark on the South Branch, with the real Chicago skyline and Lake Michigan where they actually are, so you can look at it from anywhere.</p>
 <p class="note" style="margin-top:14px">Built over one weekend by Josh Bohne with OpenAI Codex (GPT-6 Astra) and Claude Code (Claude Fable 5.1). Every image on this site is a native Blender render of the model unless it is labelled as AECOM artwork.</p></div>
 </div>
-<div class="hero"><img src="img/final-south.jpg" alt="V4 render of the Railyards ballpark from the south with the Loop and Lake Michigan beyond"><div class="tag">Fixed south camera, matched to the AECOM aerial · Cycles, 1800 px</div></div>
+<div class="hero">{cmp('aecom-south',{'V4':'final-south','V3':'v3-south','V2':'v2-south'},'Drag the handle: AECOM\'s south aerial on the left, the model through the same camera on the right. Buttons swap in the earlier V3 and V2 stages.',62)}</div>
 </div></header>
 <section><div class="wrap">
 <div class="bigstats">
@@ -60,11 +72,15 @@ SOURCES=f'''
 <div><p class="lede">For each released picture the model has a camera solved to the artwork's own perspective. Left is AECOM; right is Blender through that camera. Differences are where the model is wrong or unfinished, and they are meant to be visible.</p></div>
 </div></div></header>
 <section><div class="wrap">
+<p class="note" style="margin-bottom:28px">Drag the handle. Left of it is AECOM's picture; right of it is the model through the same solved camera. The buttons swap the model between the current V4 and the earlier V3 and V2 stages, so you can see the reconstruction converge.</p>
 <h3 style="margin-bottom:14px">South aerial, afternoon</h3>
+{cmp('aecom-south',{'V4':'final-south','V3':'v3-south','V2':'v2-south'},'<b>Slider.</b> Same camera; AECOM at left of the handle, model at right. The lake, the board at the river edge and the tower junction are V4 changes; the future towers across the river are AECOM\'s own illustration kept as a separate layer.')}
 {pair(fig('aecom-south','<b>AECOM.</b> The south aerial: the arched brick river face, clock tower, right-field board at the river, the soccer stadium and towers across the river, the Loop and lake beyond.'),fig('final-south','<b>Model.</b> Camera fitted to the same picture. The lake now sits top right where AECOM has it; the board is at the river edge beside the tower; the towers across the river are a labelled future-development layer.'))}
 <h3 style="margin-bottom:14px">North aerial, dusk</h3>
+{cmp('aecom-north',{'V4':'final-north','V3':'v3-north','V2':'v2-north'},'<b>Slider.</b> The first picture most people saw. The park grade, outfield entry above the bleachers and the lower riverwalk follow the artwork; the field, seats and boards are native geometry.')}
 {pair(fig('aecom-north','<b>AECOM.</b> The north aerial, the view most people saw first: bowl, raised park, Northwestern Medicine building, riverwalk and the board over the bleachers.'),fig('final-north','<b>Model.</b> Same camera. The park grade, the outfield entry above the bleachers and the lower riverwalk follow the picture; the field, seats and boards are native geometry.'))}
 <h3 style="margin-bottom:14px">From the Roosevelt Road bridge</h3>
+{cmp('aecom-bridge',{'V4':'final-bridge','V3':'v3-bridge','V2':'v2-bridge'},'<b>Slider.</b> Twilight from the bridge; fireworks are staged for this view only, as in the artwork.')}
 {pair(fig('aecom-bridge','<b>AECOM.</b> Looking south from the bridge at twilight, fireworks over the bowl.'),fig('final-bridge','<b>Model.</b> Same camera. Bridge deck, tender houses, the park and its lawn, the retail under the deck, the tower and board beyond.'))}
 <h3 style="margin-bottom:14px">Site plan vs the model's map</h3>
 {pair(fig('site-plan','<b>AECOM site plan.</b> Roosevelt to 18th, Canal Street to the river, Soldier Field and the lake at right.'),fig('v4-geo_map','<b>Model, orthographic, north up, 5.2 km.</b> Mapped streets and buildings, the river, the stadium, Grant Park and Museum Campus lawns, and the USGS shoreline with Northerly Island and the harbours.'))}
@@ -177,17 +193,22 @@ BODIES={'index':INDEX,'sources':SOURCES,'views':VIEWS,'process':PROCESS,'roadmap
 TITLES={'index':'Railyards, Rebuilt','sources':'Sources vs model · Railyards, Rebuilt','views':'New views · Railyards, Rebuilt','process':'Process · Railyards, Rebuilt','roadmap':'Roadmap · Railyards, Rebuilt'}
 
 def page(key):
-    return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{TITLES[key]}</title>{FONTS}<link rel="stylesheet" href="assets/site.css"></head><body>{nav(key)}{BODIES[key]}{FOOT}</body></html>'
+    return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{TITLES[key]}</title>{FONTS}<link rel="stylesheet" href="assets/site.css"></head><body>{nav(key)}{BODIES[key]}{FOOT}{CMP_JS}</body></html>'
 
 def single():
+    """One file for claude.ai artifacts: every image embedded exactly once and
+    assigned by script, so repeated uses do not repeat the bytes."""
+    import re,json
     css=(ROOT/'assets/site.css').read_text()
     body=''.join(f'<div id="{k}">{BODIES[k]}</div>' for k,_ in PAGES)
-    html=f'<title>Railyards, Rebuilt</title>{FONTS}<style>{css}\nsection,header.page{{scroll-margin-top:60px}}</style>{nav("index",single=True)}{body}{FOOT}'
-    import re
-    def rep(m):
-        p=ROOT/'img'/(m.group(1)+'.jpg')
-        return 'src="data:image/jpeg;base64,'+base64.b64encode(p.read_bytes()).decode()+'"'
-    return re.sub(r'src="img/([a-z0-9_\-]+)\.jpg"',rep,html)
+    html=f'<title>Railyards, Rebuilt</title>{FONTS}<style>{css}\nsection,header.page{{scroll-margin-top:60px}}</style>{nav("index",single=True)}{body}{FOOT}{CMP_JS}'
+    names=sorted(set(re.findall(r'img/([a-z0-9_\-]+)\.jpg',html)))
+    html=re.sub(r'src="img/([a-z0-9_\-]+)\.jpg"',r'data-img="\1"',html)
+    html=re.sub(r'data-src="img/([a-z0-9_\-]+)\.jpg"',r'data-pick="\1"',html)
+    table={n:'data:image/jpeg;base64,'+base64.b64encode((ROOT/'img'/(n+'.jpg')).read_bytes()).decode() for n in names}
+    js='<script id="imgs" type="application/json">'+json.dumps(table)+'</script><script>(function(){const T=JSON.parse(document.getElementById("imgs").textContent);document.querySelectorAll("[data-img]").forEach(e=>{e.src=T[e.dataset.img]});document.querySelectorAll("[data-pick]").forEach(b=>{b.dataset.src=T[b.dataset.pick]});})();</script>'
+    # the picker script must run before CMP_JS binds click handlers that read data-src
+    return html.replace(CMP_JS,js+CMP_JS)
 
 if __name__=='__main__':
     for k,_ in PAGES:(ROOT/f'{k}.html').write_text(page(k))

@@ -8,6 +8,7 @@ for f in final-south final-north final-bridge interior-third_base_seats interior
 for f in v4-geo_map v4-rf_section v4-rf_corner_exterior v4-rf_tower_junction v4-east_lake_high control-rf_section control-rf_corner_exterior control-geo_map control-rf_plan_ortho v4-rf_plan_ortho rf-overlay-south; do j $V/review/$f.png $f 1400; done
 for f in home_plate_skyline press_box roosevelt_bridge_west north_park_entry riverwalk_north east_bank aerial_west; do [ -f $V/review/v4-$f.png ] && j $V/review/v4-$f.png $f; done
 j $V/baseline-v3/interior-third_base_seats.png v3-third_base 1400
+for f in south north bridge; do j $V/baseline-v3/final-$f.png v3-$f; j $V/baseline-v2/final-$f.png v2-$f; done
 j reconstruction-references/aecom-south-aerial.jpg aecom-south
 j reconstruction-references/aecom-north-aerial.png aecom-north
 j reconstruction-references/user-bridge-view.png aecom-bridge

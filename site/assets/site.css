@@ -56,3 +56,18 @@ code{font:400 .92em "IBM Plex Mono",monospace;color:var(--white);background:var(
 .road div{background:var(--ink-2);padding:20px 22px}.road h3{font-size:22px;margin-bottom:6px}.road p{font-size:14px}
 .road .st{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;display:block}
 footer{padding:40px 0 64px;font-size:13px;color:var(--fog)}footer p{max-width:80ch}
+
+/* comparison slider */
+.cmp{position:relative;user-select:none;margin-bottom:12px;background:#000}
+.cmp .frame{position:relative;overflow:hidden;aspect-ratio:3/2}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.cmp .over{clip-path:inset(0 0 0 var(--x,50%))}
+.cmp .bar{position:absolute;top:0;bottom:0;left:var(--x,50%);width:2px;background:var(--amber);transform:translateX(-1px);pointer-events:none}
+.cmp .knob{position:absolute;top:50%;left:var(--x,50%);transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:var(--ink);border:2px solid var(--amber);color:var(--amber);display:flex;align-items:center;justify-content:center;font:700 14px "Barlow Condensed",sans-serif;letter-spacing:.06em;pointer-events:none}
+.cmp input[type=range]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.cmp .lab{position:absolute;bottom:10px;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;background:rgba(14,15,17,.78);color:var(--white);padding:7px 9px;pointer-events:none}
+.cmp .lab.l{left:10px}.cmp .lab.r{right:10px}
+.cmp .pick{display:flex;gap:6px;position:absolute;top:10px;right:10px}
+.cmp .pick button{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;background:rgba(14,15,17,.82);color:var(--fog);border:1px solid var(--line);padding:7px 9px;cursor:pointer}
+.cmp .pick button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
+.cmp .pick button:focus-visible{outline:2px solid var(--amber)}
