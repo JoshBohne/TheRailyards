@@ -9,6 +9,8 @@ from mathutils import Vector
 OUT=Path(__file__).resolve().parent
 scene=bpy.data.scenes["Railyards v4"];col=bpy.data.collections['R2_Cameras']
 shots={
+ 'tier_junction':{'position':[22,-6,19],'target':[-28,58,30],'lens_mm':45,'purpose':'V7 diagnostic: third-base side tier junctions, concourses and vomitories from the first-base seats'},
+ 'upper_concourse':{'position':[-52,-58,44.5],'target':[10,30,40],'lens_mm':24,'purpose':'V7 diagnostic: standing on the upper concourse behind home plate'},
  'lf_gatehouse':{'position':[70,215,34],'target':[-8,118,34],'lens_mm':32,'purpose':'V6: the left-field gatehouse and end wall above the pavilion, from the park (north-east)'},
  'lf_corner_exterior':{'position':[-95,215,22],'target':[-12,110,26],'lens_mm':30,'purpose':'V6 diagnostic: left-field end of the bowl from the north-west, pavilion junction'},
  'lf_underside':{'position':[-62,178,12.5],'target':[-8,116,26],'lens_mm':24,'purpose':'V6 diagnostic: beneath the left-field bank / pavilion junction from the park level'},

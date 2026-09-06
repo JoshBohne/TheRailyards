@@ -6,6 +6,10 @@ V=railyards-v4; O=${IMG_OUT:-site/img}; Q=${IMG_Q:-74}; mkdir -p $O
 j(){ local z=${3:-1600}; [ -n "$IMG_MAX" ] && [ "$z" -gt "$IMG_MAX" ] && z=$IMG_MAX; sips -s format jpeg -s formatOptions $Q -Z $z "$1" --out "$O/$2.jpg" >/dev/null; }
 for f in final-south final-north final-bridge interior-third_base_seats interior-home_upper_deck interior-home_plate interior-left_field_skyline; do j $V/$f.png $f; done
 for f in v4-geo_map v4-rf_section v4-rf_corner_exterior v4-rf_tower_junction v4-east_lake_high control-rf_section control-rf_corner_exterior control-geo_map control-rf_plan_ortho v4-rf_plan_ortho rf-overlay-south; do j $V/review/$f.png $f 1400; done
+for f in press_box riverwalk_north east_bank aerial_west home_plate_skyline roosevelt_bridge_west tier_junction north_park_entry lf_gatehouse; do [ -f $V/review/night-$f.png ] && j $V/review/night-$f.png night-$f; done
+for f in home_plate home_upper_deck third_base_seats left_field_skyline; do [ -f $V/night-$f.png ] && j $V/night-$f.png night-$f; done
+for f in tier_junction upper_concourse; do [ -f $V/review/v7-$f.png ] && j $V/review/v7-$f.png v7-$f; done
+[ -f $V/review/v7day-tier_junction.png ] && j $V/review/v7day-tier_junction.png v7pre-tier_junction 1400
 for f in lf_gatehouse; do [ -f $V/review/v6-$f.png ] && j $V/review/v6-$f.png v6-$f; done
 for f in press_box east_lake_high aerial_west; do [ -f $V/review/v5-$f.png ] && j $V/review/v5-$f.png v5-$f; done
 [ -f $V/review/pass1/final-south.png ] && j $V/review/pass1/final-south.png v4-south 1400

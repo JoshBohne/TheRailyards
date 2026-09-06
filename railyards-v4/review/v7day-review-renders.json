@@ -1,0 +1,16 @@
+[
+  {
+    "view": "tier_junction",
+    "image": "v7day-tier_junction.png",
+    "seconds": 14.32,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V7 diagnostic: third-base side tier junctions, concourses and vomitories from the first-base seats"
+  },
+  {
+    "view": "upper_concourse",
+    "image": "v7day-upper_concourse.png",
+    "seconds": 15.79,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V7 diagnostic: standing on the upper concourse behind home plate"
+  }
+]

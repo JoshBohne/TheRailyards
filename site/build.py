@@ -12,7 +12,7 @@ import base64,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 FONTS='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">'
-PAGES=[('index','Overview'),('today','Site today'),('sources','Sources vs model'),('views','New views'),('process','Process'),('roadmap','Roadmap')]
+PAGES=[('index','Overview'),('today','Site today'),('sources','Sources vs model'),('views','New views'),('night','Night game'),('process','Process'),('roadmap','Roadmap')]
 
 def nav(current,single=False):
     items=''.join(f'<li><a class="l" href="{"#"+k if single else k+".html"}"{" aria-current=\"page\"" if (k==current and not single) else ""}>{t}</a></li>' for k,t in PAGES)
@@ -57,10 +57,11 @@ INDEX=f'''
 <div><b>3</b><span>AECOM renderings fitted</span></div>
 <div><b>26,950</b><span>seats, individually placed</span></div>
 <div><b>291 M</b><span>tokens across two agents</span></div>
-<div><b>V6</b><span>current version · Sunday</span></div>
+<div><b>V7</b><span>current version</span></div>
 </div>
 <div class="cards">
 <div class="card"><h3>Site today</h3><p>USGS aerial photography of the rail yard against the model from directly above, at yard and lakefront scale.</p><a href="today.html">Compare with today</a></div>
+<div class="card"><h3>Night game</h3><p>Every camera again after dark: floodlights, lit boards, the Loop glowing, the river reflecting it.</p><a href="night.html">See it at night</a></div>
 <div class="card"><h3>Sources vs model</h3><p>Each AECOM picture beside the model rendered through the same camera, plus the site plan against the model's map.</p><a href="sources.html">See the comparisons</a></div>
 <div class="card"><h3>New views</h3><p>Angles the release didn't show: behind home plate with the skyline, the press box, Roosevelt Road, the park, the riverwalk, the east bank.</p><a href="views.html">Look around</a></div>
 <div class="card"><h3>Process</h3><p>How V1 to V4 happened, what each agent did, what it cost in tokens and hours, and how every fix was checked.</p><a href="process.html">Read the process</a></div>
@@ -105,6 +106,7 @@ VIEWS=f'''
 <div class="full">{fig('press_box','<b>Press-box level.</b> The whole bowl and the skyline in one frame: Willis and 311 South Wacker over left-centre, NEMA, The Grant and One Museum Park over right-centre, 1000M between them.')}</div>
 {pair(fig('roosevelt_bridge_west','<b>Roosevelt Road, west end of the bridge.</b> Looking south over the raised park toward the outfield entrance, with the Northwestern Medicine building on the right.'),fig('north_park_entry','<b>On the park deck.</b> Approaching the outfield entry above the bleachers; the bowl and the centre-field board ahead, the riverwalk below to the left.'))}
 {pair(fig('riverwalk_north','<b>Lower riverwalk, walking north.</b> The brick arcade under the right-field seats on the left, the river on the right, the Roosevelt bridge ahead.'),fig('east_bank','<b>From the east bank.</b> Across the river: the clock tower, the river arcade, the right-field board and the bleachers behind it.'))}
+{pair(fig('v7-tier_junction','<b>Concourses (V7).</b> Walkway, railing, recessed vomitories and suite glazing between the tiers, seen from the first-base seats.'),fig('v7pre-tier_junction','<b>Before V7.</b> The same view with the flat glass ribbon and box entries.'))}
 {pair(fig('v6-lf_gatehouse','<b>Left-field gatehouse (V6).</b> From the park: the bowl’s left-field end now ends in a brick gatehouse with an arch above the pavilion roof, as the north aerial shows, instead of a louver slab.'),fig('north_park_entry','<b>On the park deck.</b> Approaching the outfield entry above the bleachers.'))}
 <div class="full">{fig('aerial_west','<b>From the west, 270 m up.</b> The whole district at once: rail yards and the covered links, the park meeting Roosevelt, the river, the near South Loop, Lake Michigan.')}</div>
 {pair(fig('interior-third_base_seats','<b>Third-base seats.</b> The right-field board set back behind the wall on its pylons; the Museum Park cluster in right-centre.'),fig('interior-left_field_skyline','<b>Left-field upper deck.</b> Willis Tower, the lit crown of 311 South Wacker, the Board of Trade.'))}
@@ -125,6 +127,7 @@ PROCESS=f'''
 <div class="inning"><div class="n">V3</div><div class="who">Astra + Luna · overnight</div><h3>Dress it</h3><p>Thirty-five Python generators: arched brick envelope, clock tower, four tiers with 27,000 seats, video boards, riverwalk, park, Northwestern Medicine, Willis and 13 more landmarks. Eight native renders and a written handoff of known problems.</p></div>
 <div class="inning"><div class="n">V4</div><div class="who">Fable 5.1 · Sun, 2½ h</div><h3>Make it true</h3><p>Fix what a fan would notice: a scoreboard on the grass, a bowl end floating over the river, no lake, the wrong towers in right field. Every fix checked with same-camera before/after renders.</p></div>
 <div class="inning"><div class="n">V5</div><div class="who">Fable 5.1 · Sun evening</div><h3>The real skyline</h3><p>Sixteen facade materials instead of one tan stone, finished roofs, nine more icons (Chase, the red CNA, Crain, BCBS, Legacy, One Chicago, Water Tower Place, the Hilton, Kluczynski), Soldier Field and the Museum Campus from their footprints, and a labelled panorama proving what each seat can see.</p></div>
+<div class="inning"><div class="n">V7</div><div class="who">Fable 5.1 · Mon</div><h3>Concourses and night</h3><p>Real walkways between the tiers with railings, recessed vomitories and suite glazing, then a night lighting pass on every camera: lit boards, glowing crowns and windows downtown.</p></div>
 <div class="inning"><div class="n">V6</div><div class="who">Fable 5.1 · Sun night</div><h3>Left-field end</h3><p>The bowl's left-field end gets the brick gatehouse and arch the artwork shows instead of a louver slab. The centre-field board was re-triangulated from all three views; the fits disagree by 8–14 m, so it stays where it is and the doubt is recorded.</p></div>
 </div>
 </div></section>
@@ -199,6 +202,23 @@ TODAY=f'''
 </div></section>
 '''
 
+NIGHT=f'''
+<header class="page"><div class="wrap"><div class="grid">
+<div><div class="eyebrow">Night game</div><h1 style="margin-top:14px">Lights<br>on</h1></div>
+<div><p class="lede">The same cameras under the dusk preset fitted to AECOM's north aerial: floodlights on the field, the boards lit, suite glazing and concourse lamps in the bowl, the Loop's windows and crowns glowing, the river reflecting all of it.</p>
+<p class="note" style="margin-top:14px">V7 added the concourses you can see here (walkways, railings, recessed vomitories, suite glazing) and the night materials: boards, lit crowns and a faint glow behind ordinary glazing. Lighting is a render interpretation, not a lighting design.</p></div>
+</div></div></header>
+<section><div class="wrap">
+<div class="full">{fig('night-press_box','<b>Press-box level, night.</b> The bowl under the floodlights with the Loop lit beyond; the suite glazing between tiers and the concourse lamps are new in V7.')}</div>
+{pair(fig('night-home_upper_deck','<b>Home upper deck.</b>'),fig('night-third_base_seats','<b>Third-base seats.</b> The right-field board and the Museum Park towers.'))}
+{pair(fig('night-home_plate_skyline','<b>Behind the plate.</b>'),fig('night-left_field_skyline','<b>Left field.</b> Willis and 311 South Wacker\'s crown lit.'))}
+{pair(fig('night-riverwalk_north','<b>Lower riverwalk.</b> Festoon lights under the arcade, the bridge ahead.'),fig('night-east_bank','<b>East bank.</b> Clock tower, board and arcade across the water.'))}
+{pair(fig('night-roosevelt_bridge_west','<b>Roosevelt Road.</b> Over the park to the outfield entry.'),fig('night-north_park_entry','<b>Park deck.</b>'))}
+<div class="full">{fig('night-aerial_west','<b>From the west.</b> The district after dark: stadium, park, river, the near South Loop and the lake.')}</div>
+{pair(fig('night-tier_junction','<b>Concourses, night.</b> Suite glazing and soffit lamps between the tiers.'),fig('night-lf_gatehouse','<b>Left-field gatehouse, night.</b>'))}
+</div></section>
+'''
+
 ROADMAP=f'''
 <header class="page"><div class="wrap"><div class="grid">
 <div><div class="eyebrow">Roadmap</div><h1 style="margin-top:14px">What's<br>next</h1></div>
@@ -208,9 +228,9 @@ ROADMAP=f'''
 <div class="road">
 <div><span class="st">Done in V5</span><h3>Skyline accuracy and colour</h3><p>Sixteen facade materials, finished roofs, nine more icons, Soldier Field and the Museum Campus, five crowd colour variants. Next: real brick and glass detail at close range, coherent dusk lighting.</p></div>
 <div><span class="st">Checked in V6</span><h3>Centre-field board</h3><p>Re-triangulated from all three views: the fits disagree by 8–14 m in different directions, so the board stays put and the uncertainty is recorded. A sharper north original would settle it.</p></div>
-<div><span class="st">Done in V6</span><h3>Left-field end</h3><p>Brick end wall and gatehouse with its park-facing arch. Still to do: visible concourse depth and vomitories from inside the bowl.</p></div>
+<div><span class="st">Done in V6 · V7</span><h3>Left-field end and concourses</h3><p>Brick end wall and gatehouse (V6); walkways, railings, recessed vomitories, suite glazing and soffit lamps between the tiers (V7).</p></div>
 <div><span class="st">Planned</span><h3>Moving pictures</h3><p>Short clips: a walk north along the riverwalk, a slow turn from the press box, the approach from Roosevelt over the park. Same cameras as the stills.</p></div>
-<div><span class="st">Planned</span><h3>Night game</h3><p>A full night lighting pass: floodlights, board glow, the lit crowns downtown, the river reflections, from every fixed camera.</p></div>
+<div><span class="st">Done in V7</span><h3>Night game</h3><p>Floodlights, board glow, lit crowns and windows downtown, river reflections, from every camera. Next: colour-varied window lighting and a proper dusk sky gradient.</p></div>
 <div><span class="st">Planned</span><h3>More of the city</h3><p>Window textures on the dedicated towers, the Loop core beyond the mapped extent, the West Loop across the river, and any published dimensions that replace inferred heights.</p></div>
 <div><span class="st">Open question</span><h3>The two rail-link readings</h3><p>The north and south artworks disagree on where the covered rail links cross. Both readings are kept as separate layers until a better unified fit exists.</p></div>
 <div><span class="st">Open question</span><h3>Outfield dimensions</h3><p>The infield is regulation; the outfield wall is traced from the artwork (about 328 ft down the right-field line). Any published dimensions would replace the trace.</p></div>
@@ -219,8 +239,8 @@ ROADMAP=f'''
 </div></section>
 '''
 
-BODIES={'index':INDEX,'today':TODAY,'sources':SOURCES,'views':VIEWS,'process':PROCESS,'roadmap':ROADMAP}
-TITLES={'index':'Railyards, Rebuilt','today':'Site today · Railyards, Rebuilt','sources':'Sources vs model · Railyards, Rebuilt','views':'New views · Railyards, Rebuilt','process':'Process · Railyards, Rebuilt','roadmap':'Roadmap · Railyards, Rebuilt'}
+BODIES={'index':INDEX,'today':TODAY,'night':NIGHT,'sources':SOURCES,'views':VIEWS,'process':PROCESS,'roadmap':ROADMAP}
+TITLES={'index':'Railyards, Rebuilt','today':'Site today · Railyards, Rebuilt','night':'Night game · Railyards, Rebuilt','sources':'Sources vs model · Railyards, Rebuilt','views':'New views · Railyards, Rebuilt','process':'Process · Railyards, Rebuilt','roadmap':'Roadmap · Railyards, Rebuilt'}
 
 def page(key):
     return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{TITLES[key]}</title>{FONTS}<link rel="stylesheet" href="assets/site.css"></head><body>{nav(key)}{BODIES[key]}{FOOT}{CMP_JS}</body></html>'

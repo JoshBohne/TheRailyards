@@ -1,0 +1,65 @@
+[
+  {
+    "view": "press_box",
+    "image": "night-press_box.png",
+    "seconds": 62.8,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
+  },
+  {
+    "view": "riverwalk_north",
+    "image": "night-riverwalk_north.png",
+    "seconds": 75.94,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: lower riverwalk walking north, arcade left, river right, Roosevelt bridge ahead"
+  },
+  {
+    "view": "east_bank",
+    "image": "night-east_bank.png",
+    "seconds": 56.24,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: from the east bank across the river, the tower, board and river arcade"
+  },
+  {
+    "view": "aerial_west",
+    "image": "night-aerial_west.png",
+    "seconds": 64.06,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake"
+  },
+  {
+    "view": "home_plate_skyline",
+    "image": "night-home_plate_skyline.png",
+    "seconds": 46.33,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: from behind home plate, field level, the Loop and Museum Park towers over the outfield"
+  },
+  {
+    "view": "roosevelt_bridge_west",
+    "image": "night-roosevelt_bridge_west.png",
+    "seconds": 54.21,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: standing on Roosevelt Road looking south over the raised park to the outfield entry"
+  },
+  {
+    "view": "tier_junction",
+    "image": "night-tier_junction.png",
+    "seconds": 74.81,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V7 diagnostic: third-base side tier junctions, concourses and vomitories from the first-base seats"
+  },
+  {
+    "view": "north_park_entry",
+    "image": "night-north_park_entry.png",
+    "seconds": 50.48,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: on the raised park deck approaching the outfield entrance above the bleachers"
+  },
+  {
+    "view": "lf_gatehouse",
+    "image": "night-lf_gatehouse.png",
+    "seconds": 53.97,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V6: the left-field gatehouse and end wall above the pavilion, from the park (north-east)"
+  }
+]

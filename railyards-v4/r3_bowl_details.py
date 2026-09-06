@@ -15,10 +15,7 @@ def build_bowl_details(scene,spec,batch,materials):
             before=front[max(0,index-1)].lerp(back[max(0,index-1)],tb)
             after=front[min(len(front)-1,index+1)].lerp(back[min(len(front)-1,index+1)],tb)
             tangent=(after-before).normalized();angle=math.atan2(tangent.y,tangent.x)
-            if k<3:
-                p=a.lerp(b,tb+.025);p.z=zb+1.2
-                batch.box('Concourse entries','interior',p,(2.8,.20,2.35),angle)
-                batch.box('Concourse entries','stone',(p.x,p.y,zb+2.5),(3.1,.35,.20),angle)
+            # V7: concourse walls and vomitories are built by r7_concourses.
             p=a.lerp(b,ta);q=a.lerp(b,tb);p.z=za+.85;q.z=zb+.85
             for offset in [-.52,.52]:
                 u=p+tangent*offset;v=q+tangent*offset

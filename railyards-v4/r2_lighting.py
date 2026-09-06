@@ -47,6 +47,12 @@ def apply_lighting(scene,name):
         if obj.type=='LIGHT'and obj.name.startswith('D2_Public light'):obj.data.energy=160 if night else 0
     lit=bpy.data.materials.get('D2_glass_lit')
     if lit:lit.node_tree.nodes.get('Principled BSDF').inputs['Emission Strength'].default_value=.9 if night else .04
+    # V7 night pass: boards glow, lit crowns and a faint interior glow behind
+    # ordinary glazing so the city and the bowl read after dark.
+    for name,color,strength in [('screen',(.10,.20,.34,1),.16),('crown_white',(1,.85,.62,1),.55),('glass_grey',(1,.78,.52,1),.09),('glass_blue',(1,.80,.55,1),.07),('glass_bronze',(1,.72,.45,1),.08),('glass_dark',(1,.75,.5,1),.05),('glass_white',(1,.82,.6,1),.09),('glass_green',(1,.80,.55,1),.06),('glass',(1,.78,.52,1),.06)]:
+        m=bpy.data.materials.get('D2_'+name)
+        if m and m.node_tree.nodes.get('Principled BSDF'):
+            p=m.node_tree.nodes['Principled BSDF'];p.inputs['Emission Color'].default_value=color;p.inputs['Emission Strength'].default_value=strength if night else 0.0
     for group in ['D2_Future development','D2_Proposed soccer stadium','D2_Bridge-view fireworks','D2_South source rail links','D2_South source landing buildings','D2_South source medical branding','D2_Pedestrian rail bridges']:
         col=bpy.data.collections.get(group)
         if col:col.hide_viewport=col.hide_render

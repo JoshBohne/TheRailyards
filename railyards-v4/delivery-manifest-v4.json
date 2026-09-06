@@ -1,9 +1,9 @@
 {
- "version": "v6",
- "prepared": "2026-09-06",
+ "version": "v7",
+ "prepared": "2026-09-07",
  "blender": "5.2.1 LTS",
- "scene": "Railyards v4 (V6: LF end, CF check)",
- "render_pass": "V6, 1800 px / 48 samples",
+ "scene": "Railyards v4 (V7: concourses, night pass)",
+ "render_pass": "V7 day and night, 1800 px / 48 samples",
  "files": [
   {
    "path": "ELEMENT-REVIEW.md",
@@ -12,8 +12,8 @@
   },
   {
    "path": "ISSUE-LEDGER.md",
-   "sha256": "c07707f8f10ee4b50a942b4e0f7f27205541eed230ceede0cd834c5951a9b180",
-   "bytes": 16023
+   "sha256": "d5bd734d1ad38cb629711a313b49ac294a25782ecf12e15923eb81851407d5cf",
+   "bytes": 17599
   },
   {
    "path": "README.md",
@@ -37,8 +37,8 @@
   },
   {
    "path": "add_review_cameras.py",
-   "sha256": "c5c6b886a9ae75449a039ebfb9fde7734862458002239315bb0a2e8b9856d4e2",
-   "bytes": 5382
+   "sha256": "f0004e42e125f51feed8ba97242fb013a22db5223699455e31f9e93aa9615a55",
+   "bytes": 5727
   },
   {
    "path": "adjacent-building-spec.json",
@@ -77,8 +77,8 @@
   },
   {
    "path": "build_detail.py",
-   "sha256": "f94c70632fc313d9800ef1b25995d903cfa3cde9d115c2ebfea57563d5b121a2",
-   "bytes": 6116
+   "sha256": "0a2b51cf06c0aafbc1c8804ec418b65050cc21f28be803797a3f78f5bbcd41e0",
+   "bytes": 6279
   },
   {
    "path": "delivery-manifest.json",
@@ -92,23 +92,23 @@
   },
   {
    "path": "final-bridge.png",
-   "sha256": "c651998580473b4efca5ea96c38916454338c2db3b757d4b0c94d5bd10b7d641",
-   "bytes": 3029864
+   "sha256": "94f1a00a7274ea5a34c08cdd137249fd2e862609394e709066cb3da487034930",
+   "bytes": 3018542
   },
   {
    "path": "final-north.png",
-   "sha256": "69e3d0eb80f81b3b2ac64902b4ce71dd95c58edeaddd289a434f248f37933168",
-   "bytes": 3388723
+   "sha256": "1793a5c64111342ef662a90e4ba741d51d572e6953a92249bf1d2b5315f58b52",
+   "bytes": 3419547
   },
   {
    "path": "final-renders.json",
-   "sha256": "ea0cead1c53c371e13790c4adf114e11c114be1b315ce8594329634e8c64c20c",
-   "bytes": 631
+   "sha256": "0e54615b94e02caeeeba45e336d2a33db805c6e5bd9f4fe05583010aedd83258",
+   "bytes": 944
   },
   {
    "path": "final-south.png",
-   "sha256": "719cd8415f96e0ac6c418427cce6c99e3d560d7bd6f3d999249a83d817fa9a63",
-   "bytes": 3736408
+   "sha256": "64abae072be617ff4b0a840be69933579d3ed4324b4fee96bf98e2e00323dd67",
+   "bytes": 3735853
   },
   {
    "path": "finalize_scene.py",
@@ -122,28 +122,28 @@
   },
   {
    "path": "interior-home_plate.png",
-   "sha256": "88bee845d04f6f09fffecd10761a380f6b9594a1524abbed1680dcc6fd4905c0",
-   "bytes": 2283996
+   "sha256": "5a71cf2caa7465c1c622e6623f1f3cfc4152c79d73727253a78ff92fd8b66e05",
+   "bytes": 2292661
   },
   {
    "path": "interior-home_upper_deck.png",
-   "sha256": "22510fb23a6c7ff0576479e8dafb0554b85b327d2f588ab5171ad4c83af549da",
-   "bytes": 3273533
+   "sha256": "2bfa3599aff77e801c0fb4d754d956eacedb9aebc284ad768037ac9c895c24b3",
+   "bytes": 3291688
   },
   {
    "path": "interior-left_field_skyline.png",
-   "sha256": "2f7f69831c1ad8514ac49bf475112dd67f3a349e9314f67de6799a89ec18ce2f",
-   "bytes": 3023216
+   "sha256": "25c74091d40b6806ad43af9664c39b54cd01ded872eb92170139ee7df2e2b870",
+   "bytes": 3058042
   },
   {
    "path": "interior-renders.json",
-   "sha256": "be680d51c10fd2fe16904e0abd94c164aa30c0f2ab030aa9ad337f42f8deecc2",
+   "sha256": "61243e718953b3effc8eda23a5914dd8af66bbc6a88d33c2ff41e17800602e58",
    "bytes": 1118
   },
   {
    "path": "interior-third_base_seats.png",
-   "sha256": "b38140a5bbf235fac0121ec36ebe8fc558d545bb7370568be2f7ce1dd6405d06",
-   "bytes": 2539513
+   "sha256": "2de4b67881a91c34d23b9ae98c480347fa8dbf3b125e7b21fd196296d57e4b0a",
+   "bytes": 2539436
   },
   {
    "path": "lake-michigan-local.json",
@@ -169,6 +169,31 @@
    "path": "near-south-loop-context.json",
    "sha256": "566bf422749c526f616bcf64ed83b529df8a47e5a8396699a4802233cd349479",
    "bytes": 98201
+  },
+  {
+   "path": "night-home_plate.png",
+   "sha256": "55cd4b240a8d3c5ba856b793adb040c192d35bb2425fa7e4e823cb8e07deca2c",
+   "bytes": 2282821
+  },
+  {
+   "path": "night-home_upper_deck.png",
+   "sha256": "0e95ccdc898d0ceb6f62a9a4239ccd28ccd23aaea4ec58cdbab9de8a049a30af",
+   "bytes": 3366424
+  },
+  {
+   "path": "night-left_field_skyline.png",
+   "sha256": "5146b0bf7f16837b3515dbb64a36a5c77f00851796d8c05d8634e09f403d1e21",
+   "bytes": 3234365
+  },
+  {
+   "path": "night-renders.json",
+   "sha256": "533770d58a5538e15896588e1cec67ec8f90483e990259d3e7f73819e9543106",
+   "bytes": 1117
+  },
+  {
+   "path": "night-third_base_seats.png",
+   "sha256": "af6a7982a50838314b07e598e193187fc056f359fcf6c2cb80a035fa7aa6969b",
+   "bytes": 2553224
   },
   {
    "path": "outfield-context.json",
@@ -197,8 +222,8 @@
   },
   {
    "path": "r2_lighting.py",
-   "sha256": "465fb7b715bfb40c19b54a6859183c8282b35cc3601fb92bde19026126785fb2",
-   "bytes": 3740
+   "sha256": "b02f48fad0036452bb8a6258215f1b96556462c63dc2a439cf81b0aa619a7ad8",
+   "bytes": 4483
   },
   {
    "path": "r2_materials.py",
@@ -217,8 +242,8 @@
   },
   {
    "path": "r3_bowl_details.py",
-   "sha256": "73ed8b12c9078b7c27552516cc34e74894f4020212112ef2011699d31c3c122d",
-   "bytes": 4749
+   "sha256": "f5c82ae7fbd2aafd9b6fd8c905182176cdb675c96fddb2ca201d0fb8ea5e6de8",
+   "bytes": 4586
   },
   {
    "path": "r3_bridge_approach_park.py",
@@ -356,19 +381,24 @@
    "bytes": 4585
   },
   {
+   "path": "r7_concourses.py",
+   "sha256": "2418f8e54e140ff77d895997c147d05f8faabd7919a9c0e7eb755df47a8ce26e",
+   "bytes": 4707
+  },
+  {
    "path": "railyards-v4.blend",
-   "sha256": "4887c206da0be1eaa68bc0068a1ab506e543b5e172b9746ba4bd241e634fc4ac",
-   "bytes": 34086669
+   "sha256": "9f0f3fdf971423354c244286d7c9bc39a71387b14e761e2ba57d28197f200810",
+   "bytes": 34535510
   },
   {
    "path": "render_interior.py",
-   "sha256": "f6752e380ad153b34ef8f05c38e1b2d67966c1aef1211b05d578dfbbacaab030",
-   "bytes": 1581
+   "sha256": "6052868b9dcf6bcf3ffee2ca497a00f501816a90a460636f457f2b12f24901c7",
+   "bytes": 1723
   },
   {
    "path": "render_review.py",
-   "sha256": "90eb83d4e171a9991cd3e9f2cc81fbad803fea6d74ac86e88525c6e642b5b720",
-   "bytes": 1843
+   "sha256": "92dbde59dc80df1c7d04ee13cd2cc618a3ab66b6e51cdbd80d6a9d8ab872ada9",
+   "bytes": 1878
   },
   {
    "path": "render_scene.py",
@@ -382,8 +412,8 @@
   },
   {
    "path": "review-cameras.json",
-   "sha256": "494052cc616ad2411296e070513b67a8ea1cfdd382bb43e9bf8858c3e9cb566e",
-   "bytes": 6034
+   "sha256": "7856963ac947551b3469d6e4e60799414fdf2026eefb3c19a138461a7b656b6b",
+   "bytes": 6541
   },
   {
    "path": "review/baseline-preservation.json",
@@ -464,6 +494,56 @@
    "path": "review/index.html",
    "sha256": "ac002853bc74aead2b399a5e1edae7931eb0d7d7996743d37727cc0a995bd8f5",
    "bytes": 5578
+  },
+  {
+   "path": "review/night-aerial_west.png",
+   "sha256": "f990d7240dcbbfe3d098603ee6e39445c1ff98c7f9f2ee2ae4c928f3917713bf",
+   "bytes": 2954477
+  },
+  {
+   "path": "review/night-east_bank.png",
+   "sha256": "bb480a3c6ea46bf5849e45313a2cb26a568425e3628e70e969ec2e5785624176",
+   "bytes": 2669380
+  },
+  {
+   "path": "review/night-home_plate_skyline.png",
+   "sha256": "6d703483ecae472d57dc894c3a527998b7e79490b6a8d2b8a4c95467d132b897",
+   "bytes": 2602408
+  },
+  {
+   "path": "review/night-lf_gatehouse.png",
+   "sha256": "cc16de511920a087ec4cbc7a52cb8ebaccbf94fc3e6194861ea02d2e2da33353",
+   "bytes": 2826026
+  },
+  {
+   "path": "review/night-north_park_entry.png",
+   "sha256": "0b87c4a0cae13d766e647ff2d7ea5cea76ffbdeede1a468c3a4d6c1e46d6f0b6",
+   "bytes": 2676472
+  },
+  {
+   "path": "review/night-press_box.png",
+   "sha256": "517549983ecb631d5f7277959949b24cb64c400180a270abfb6b8b3857648e7b",
+   "bytes": 3207852
+  },
+  {
+   "path": "review/night-review-renders.json",
+   "sha256": "0b6e744f5cc0ccef3787913e42c92a729d4bc91e701769ce98326b3f0d3eafbf",
+   "bytes": 3219
+  },
+  {
+   "path": "review/night-riverwalk_north.png",
+   "sha256": "4e054623001266822ebc9dc0d94f6e1a8933d84743bd7c5ab9a49ac0721760f2",
+   "bytes": 2860774
+  },
+  {
+   "path": "review/night-roosevelt_bridge_west.png",
+   "sha256": "bafdfd4d1818461d5802f0b3fb448a75362b9bcb042624949c79b7d830713616",
+   "bytes": 2532578
+  },
+  {
+   "path": "review/night-tier_junction.png",
+   "sha256": "408d2ce86560fda3ca9f05f061a8480babf6012cd8f793b6ce27d51c41b4f2e0",
+   "bytes": 4088210
   },
   {
    "path": "review/rf-overlay-bridge.png",
@@ -756,13 +836,83 @@
    "bytes": 1558755
   },
   {
+   "path": "review/v7-press_box.png",
+   "sha256": "b44c347590260930d11f8c766ecac8a4c8f3cb4ecbeedae9dfcde86533725ddc",
+   "bytes": 3152556
+  },
+  {
+   "path": "review/v7-review-renders.json",
+   "sha256": "1b3cf61754d3569bc6d476cf231fe7fe567832969021b670509c16b34c65ee1c",
+   "bytes": 1035
+  },
+  {
+   "path": "review/v7-tier_junction.png",
+   "sha256": "bab4b73428357c66bec28baa293bfa33046e5ee82f29222a5f4ba62db8cde4a7",
+   "bytes": 3728704
+  },
+  {
+   "path": "review/v7-upper_concourse.png",
+   "sha256": "2480bbc33baec1f920d787a284db21b19a4baa8c48194bac82ae83845e54e360",
+   "bytes": 3254713
+  },
+  {
+   "path": "review/v7day-review-renders.json",
+   "sha256": "30c7c1d2f13228d5a821aa82f256cd7d72e6033aa3081d05e4d10cb5eda5a1b4",
+   "bytes": 701
+  },
+  {
+   "path": "review/v7day-tier_junction.png",
+   "sha256": "19592036fc436de63eaca6bae46cceb677ed9d9e52f2f38a9d97291d74f7dab4",
+   "bytes": 2342012
+  },
+  {
+   "path": "review/v7day-upper_concourse.png",
+   "sha256": "aabf95db7512c7bdd1f08e1d1419eb7f637ebd9b541dc6986fc7f8cb907a45d1",
+   "bytes": 2028660
+  },
+  {
+   "path": "review/v7night-aerial_west.png",
+   "sha256": "098678935d7ba3ce38b26e44b5e891ee63ebe8a7c8e323d3052cdbd520d1f7b6",
+   "bytes": 1796346
+  },
+  {
+   "path": "review/v7night-east_bank.png",
+   "sha256": "4bbf9a41526a04acafed95d80509d08479013601ee0e05b894706a30a749d16a",
+   "bytes": 1635478
+  },
+  {
+   "path": "review/v7night-home_plate_skyline.png",
+   "sha256": "e6d94a0ac2948fcc25a8e21d0e0d2fe4bea0009761a4cfb8d7d27baf9e4686fe",
+   "bytes": 1602573
+  },
+  {
+   "path": "review/v7night-press_box.png",
+   "sha256": "e9caac403818334976fb553e1c9d8144cd661a5274546c2924c6da7f84fd1199",
+   "bytes": 1989619
+  },
+  {
+   "path": "review/v7night-review-renders.json",
+   "sha256": "617b7f9b7c92e3679515f18d926af533fd470d9177ddb915bb29e1c37fca9510",
+   "bytes": 1054
+  },
+  {
+   "path": "review/v7night-riverwalk_north.png",
+   "sha256": "9812d88a6fee43b1a7d0b8c2c27a20e48bf79d24d5bdb9760ef0e3b14341e61e",
+   "bytes": 1767471
+  },
+  {
+   "path": "review/v7night-tier_junction.png",
+   "sha256": "8350b63c120ac430dbb3d151292d58955289a04a8ad6bc140883d55c440204f6",
+   "bytes": 2549159
+  },
+  {
    "path": "run_v4_renders.sh",
    "sha256": "cc4f537c313053bcd9c1474fa3a8c3d6b37caf2a664e99aba193aa641c0787be",
    "bytes": 742
   },
   {
    "path": "saved-scene-verification.json",
-   "sha256": "9cadf9bbbdb9c44571d8dbd75c207f40bc7b72d29862d44b86c046033f6bc978",
+   "sha256": "f4051929163872fcdddd324283f7251cab5b609a70a92cf30d58df0ac763adbc",
    "bytes": 10558
   },
   {

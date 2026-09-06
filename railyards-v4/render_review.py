@@ -5,7 +5,7 @@ OUT=Path(__file__).resolve().parent;sys.path.insert(0,str(OUT))
 from r2_lighting import apply_lighting
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 shots=json.loads((OUT/'review-cameras.json').read_text())
-apply_lighting(scene,'south')
+apply_lighting(scene,os.environ.get('RAILYARDS_PRESET','south'))
 for group in ['D2_Future development','D2_Proposed soccer stadium','D2_South source rail links','D2_South source landing buildings','D2_South source medical branding']:
     if bpy.data.collections.get(group):bpy.data.collections[group].hide_render=True
 if bpy.data.collections.get('D2_Pedestrian rail bridges'):bpy.data.collections['D2_Pedestrian rail bridges'].hide_render=False

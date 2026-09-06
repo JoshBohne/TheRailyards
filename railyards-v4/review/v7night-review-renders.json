@@ -1,0 +1,23 @@
+[
+  {
+    "view": "tier_junction",
+    "image": "v7night-tier_junction.png",
+    "seconds": 18.57,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V7 diagnostic: third-base side tier junctions, concourses and vomitories from the first-base seats"
+  },
+  {
+    "view": "press_box",
+    "image": "v7night-press_box.png",
+    "seconds": 16.33,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
+  },
+  {
+    "view": "east_bank",
+    "image": "v7night-east_bank.png",
+    "seconds": 14.68,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: from the east bank across the river, the tower, board and river arcade"
+  }
+]

@@ -1,4 +1,32 @@
 {
+  "tier_junction": {
+    "position": [
+      22,
+      -6,
+      19
+    ],
+    "target": [
+      -28,
+      58,
+      30
+    ],
+    "lens_mm": 45,
+    "purpose": "V7 diagnostic: third-base side tier junctions, concourses and vomitories from the first-base seats"
+  },
+  "upper_concourse": {
+    "position": [
+      -52,
+      -58,
+      44.5
+    ],
+    "target": [
+      10,
+      30,
+      40
+    ],
+    "lens_mm": 24,
+    "purpose": "V7 diagnostic: standing on the upper concourse behind home plate"
+  },
   "lf_gatehouse": {
     "position": [
       70,

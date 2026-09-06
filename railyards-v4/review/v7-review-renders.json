@@ -1,0 +1,23 @@
+[
+  {
+    "view": "press_box",
+    "image": "v7-press_box.png",
+    "seconds": 51.03,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
+  },
+  {
+    "view": "tier_junction",
+    "image": "v7-tier_junction.png",
+    "seconds": 61.38,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V7 diagnostic: third-base side tier junctions, concourses and vomitories from the first-base seats"
+  },
+  {
+    "view": "upper_concourse",
+    "image": "v7-upper_concourse.png",
+    "seconds": 66.36,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V7 diagnostic: standing on the upper concourse behind home plate"
+  }
+]

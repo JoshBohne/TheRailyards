@@ -32,6 +32,7 @@ from r4_skyline_south import build_skyline_south
 from r5_lakefront import build_lakefront
 from r5_skyline_icons import build_skyline_icons
 from r6_lf_end import build_lf_end
+from r7_concourses import build_concourses
 import r5_palette
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window_manager.windows[0].scene=scene
 for obj in list(bpy.data.objects):
@@ -39,7 +40,7 @@ for obj in list(bpy.data.objects):
 for col in list(bpy.data.collections):
     if col.name.startswith('D2_'):bpy.data.collections.remove(col)
 materials=create_materials();spec=json.loads((OUT/'scene-spec.json').read_text())
-replace=['Outer stadium facade','Canopy','Roof seam','Clock tower shaft','Clock tower cap','West canopy lantern','Center field screen','River field screen','Playing platform','Outfield fence','Infield clay','Infield grass','Base ','First base foul line','Third base foul line','Left field pavilion','North entertainment hall','Medical main','Medical wing','Center field pavilion','Stadium district ground','North lawn','North riverwalk','Park walk']
+replace=['Outer stadium facade','Canopy','Roof seam','Clock tower shaft','Clock tower cap','West canopy lantern','Center field screen','River field screen','Playing platform','Outfield fence','Infield clay','Infield grass','Base ','First base foul line','Third base foul line','Left field pavilion','North entertainment hall','Medical main','Medical wing','Center field pavilion','Stadium district ground','North lawn','North riverwalk','Park walk','Tier 1 concourse glass','Tier 2 concourse glass','Tier 3 concourse glass']
 for obj in scene.objects:
     if not obj.name.startswith('R2_'):continue
     obj.hide_render=any(obj.name.startswith('R2_'+prefix)for prefix in replace)
@@ -78,6 +79,7 @@ batch=MeshBatch(scene,materials);build_envelope(scene,spec,batch,materials)
 build_scoreboards(scene,spec,batch,materials)
 build_seating(scene,spec,batch,materials)
 build_bowl_details(scene,spec,batch,materials)
+build_concourses(scene,spec,batch,materials)
 build_landscape(scene,spec,batch,materials)
 build_bridges(scene,spec,batch,materials)
 build_field(scene,spec,batch,materials)
