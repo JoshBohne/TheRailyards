@@ -1,65 +1,51 @@
 [
   {
-    "view": "rf_corner_exterior",
-    "image": "v4-rf_corner_exterior.png",
-    "seconds": 13.76,
+    "view": "home_plate_skyline",
+    "image": "v4-home_plate_skyline.png",
+    "seconds": 27.8,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Low exterior view of the right-field / clock-tower end from the east bank"
+    "purpose": "New view: from behind home plate, field level, the Loop and Museum Park towers over the outfield"
   },
   {
-    "view": "rf_corner_low_river",
-    "image": "v4-rf_corner_low_river.png",
-    "seconds": 14.71,
+    "view": "press_box",
+    "image": "v4-press_box.png",
+    "seconds": 41.22,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Riverwalk-level view under the RF board toward the tower"
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
   },
   {
-    "view": "rf_underside",
-    "image": "v4-rf_underside.png",
-    "seconds": 19.84,
+    "view": "roosevelt_bridge_west",
+    "image": "v4-roosevelt_bridge_west.png",
+    "seconds": 32.92,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Close-up beneath the RF bleachers and board supports"
+    "purpose": "New view: standing on Roosevelt Road looking south over the raised park to the outfield entry"
   },
   {
-    "view": "rf_plan_ortho",
-    "image": "v4-rf_plan_ortho.png",
-    "seconds": 16.49,
+    "view": "north_park_entry",
+    "image": "v4-north_park_entry.png",
+    "seconds": 34.74,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Orthographic plan of the RF corner: field polygon, board, supports, riverwalk"
+    "purpose": "New view: on the raised park deck approaching the outfield entrance above the bleachers"
   },
   {
-    "view": "rf_section",
-    "image": "v4-rf_section.png",
-    "seconds": 5.87,
+    "view": "riverwalk_north",
+    "image": "v4-riverwalk_north.png",
+    "seconds": 52.02,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Orthographic north-facing section through the RF board, bleachers, podium and riverwalk (use with clip)"
+    "purpose": "New view: lower riverwalk walking north, arcade left, river right, Roosevelt bridge ahead"
   },
   {
-    "view": "rf_tower_junction",
-    "image": "v4-rf_tower_junction.png",
-    "seconds": 16.96,
+    "view": "east_bank",
+    "image": "v4-east_bank.png",
+    "seconds": 42.1,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "South-east view of the bowl end wall, link block and clock tower base (compare the south source crop)"
+    "purpose": "New view: from the east bank across the river, the tower, board and river arcade"
   },
   {
-    "view": "east_lake",
-    "image": "v4-east_lake.png",
-    "seconds": 14.33,
+    "view": "aerial_west",
+    "image": "v4-aerial_west.png",
+    "seconds": 45.81,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Elevated east-facing view toward Lake Michigan over the near South Loop"
-  },
-  {
-    "view": "east_lake_high",
-    "image": "v4-east_lake_high.png",
-    "seconds": 12.43,
-    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Higher east view to confirm the shoreline beyond real land"
-  },
-  {
-    "view": "geo_map",
-    "image": "v4-geo_map.png",
-    "seconds": 22.93,
-    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Orthographic geographic map: shoreline, stadium, river, landmarks; +Y is north"
+    "purpose": "New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake"
   }
 ]

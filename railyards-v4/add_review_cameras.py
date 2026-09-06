@@ -9,6 +9,13 @@ from mathutils import Vector
 OUT=Path(__file__).resolve().parent
 scene=bpy.data.scenes["Railyards v4"];col=bpy.data.collections['R2_Cameras']
 shots={
+ 'home_plate_skyline':{'position':[-4.5,-4.5,13.7],'target':[45,60,44],'lens_mm':16,'purpose':'New view: from behind home plate, field level, the Loop and Museum Park towers over the outfield'},
+ 'press_box':{'position':[-33,-33,44],'target':[52,52,30],'lens_mm':24,'purpose':'New view: upper deck behind home plate looking out over the whole bowl to the skyline'},
+ 'roosevelt_bridge_west':{'position':[70,332,17.5],'target':[60,140,22],'lens_mm':28,'purpose':'New view: standing on Roosevelt Road looking south over the raised park to the outfield entry'},
+ 'north_park_entry':{'position':[92,240,23.5],'target':[35,105,24],'lens_mm':24,'purpose':'New view: on the raised park deck approaching the outfield entrance above the bleachers'},
+ 'riverwalk_north':{'position':[119.5,-60,9.6],'target':[121,320,14],'lens_mm':24,'purpose':'New view: lower riverwalk walking north, arcade left, river right, Roosevelt bridge ahead'},
+ 'east_bank':{'position':[200,62,9.5],'target':[75,-5,32],'lens_mm':30,'purpose':'New view: from the east bank across the river, the tower, board and river arcade'},
+ 'aerial_west':{'position':[-620,-140,270],'target':[160,160,20],'lens_mm':35,'purpose':'New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake'},
  'rf_corner_exterior':{'position':[175,-40,14],'target':[95,-10,20],'lens_mm':28,'purpose':'Low exterior view of the right-field / clock-tower end from the east bank'},
  'rf_corner_low_river':{'position':[135,60,6],'target':[100,-30,18],'lens_mm':24,'purpose':'Riverwalk-level view under the RF board toward the tower'},
  'rf_underside':{'position':[118,-8,9],'target':[90,10,16],'lens_mm':20,'purpose':'Close-up beneath the RF bleachers and board supports'},

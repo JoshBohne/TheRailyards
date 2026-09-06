@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Process · Railyards, Rebuilt</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"><link rel="stylesheet" href="assets/site.css"></head><body><nav class="top"><div class="wrap"><a class="brand" href="index.html">Railyards, Rebuilt</a><ul><li><a class="l" href="index.html">Overview</a></li><li><a class="l" href="sources.html">Sources vs model</a></li><li><a class="l" href="views.html">New views</a></li><li><a class="l" href="process.html" aria-current="page">Process</a></li><li><a class="l" href="roadmap.html">Roadmap</a></li></ul></div></nav>
+<header class="page"><div class="wrap"><div class="grid">
+<div><div class="eyebrow">Process</div><h1 style="margin-top:14px">How we<br>got to V4</h1></div>
+<div><p class="lede">Two coding agents, one weekend, four versions. Codex did the long build on Saturday; Claude Code did the corrections on Sunday. Everything is scripts, so every version can be rebuilt and compared.</p></div>
+</div></div></header>
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Innings</div><div><h2>Four versions</h2></div></div>
+<div class="innings">
+<div class="inning"><div class="n">V1</div><div class="who">Astra · Sat evening</div><h3>Read the pictures</h3><p>Inventory the three AECOM views and the site plan, register the site to OpenStreetMap, block out a grey massing model with cameras fitted to each artwork.</p></div>
+<div class="inning"><div class="n">V2</div><div class="who">Astra · Sat night</div><h3>Calibrate</h3><p>Solve the three camera fits (2.9 px error on the north aerial), trace bowl, canopy and field from pixels, build the district: river, bridges, rail links, Roosevelt Road.</p></div>
+<div class="inning"><div class="n">V3</div><div class="who">Astra + Luna · overnight</div><h3>Dress it</h3><p>Thirty-five Python generators: arched brick envelope, clock tower, four tiers with 27,000 seats, video boards, riverwalk, park, Northwestern Medicine, Willis and 13 more landmarks. Eight native renders and a written handoff of known problems.</p></div>
+<div class="inning"><div class="n">V4</div><div class="who">Fable 5.1 · Sun, 2½ h</div><h3>Make it true</h3><p>Fix what a fan would notice: a scoreboard on the grass, a bowl end floating over the river, no lake, the wrong towers in right field. Every fix checked with same-camera before/after renders.</p></div>
+</div>
+</div></section>
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Box score</div><div><h2>What it took</h2><p style="margin-top:12px">Railyards sessions only (Playi work on the same machine that weekend is excluded), as recorded locally by Tokscale from the Codex and Claude Code session logs. Cost is an API-equivalent estimate at list prices, not what a subscription charged.</p></div></div>
+<div class="bigstats">
+<div><b>~20 h</b><span>Sat 7 pm → Sun 3:30 pm CDT</span></div>
+<div><b>291 M</b><span>tokens, three models</span></div>
+<div><b>2,217</b><span>model responses</span></div>
+<div><b>$103</b><span>API-equivalent estimate</span></div>
+</div>
+<div class="scroll"><table class="box">
+<thead><tr><th>Model</th><th>Responses</th><th>Input</th><th>Output</th><th>Cache read</th><th>Cache write</th><th>Model time</th><th>Est. cost</th></tr></thead>
+<tbody>
+<tr><td>GPT-6 Astra<span class="role">Codex · V1, V2, V3 lead: calibration, bowl, district, handoff</span></td><td>922</td><td>2.18 M</td><td>248 K</td><td>112.3 M</td><td>0</td><td>6.1 h</td><td>$77.01</td></tr>
+<tr><td>GPT-5.6 Luna<span class="role">Codex · six parallel V3 build workers overnight</span></td><td>1,218</td><td>4.77 M</td><td>369 K</td><td>143.6 M</td><td>0</td><td>4.7 h</td><td>$4.60</td></tr>
+<tr><td>Claude Fable 5.1<span class="role">Claude Code · V4: scoreboard, structure, lake, skyline, this site</span></td><td>77</td><td>19 K</td><td>161 K</td><td>27.0 M</td><td>0.49 M</td><td>0.7 h</td><td>$21.17</td></tr>
+<tr class="total"><td>Total</td><td>2,217</td><td>6.97 M</td><td>778 K</td><td>282.9 M</td><td>0.49 M</td><td>11.5 h</td><td>$102.78</td></tr>
+</tbody></table></div>
+<p class="note">"Model time" is the summed duration of model responses; Luna's six workers ran in parallel, so it exceeds their wall clock. Codex logs did not record cache writes. The Fable numbers are the V4 session through the building of this site.</p>
+</div></section>
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Method</div><div><h2>How it was made</h2></div></div>
+<div class="method">
+<div>
+<h3>Sources, not vibes</h3>
+<p>The model is fitted to three published AECOM images and the site plan. A 90-foot base path is the scale prior. Three perspective cameras were solved against pixel controls; everything traced from a picture records which image and which pixels it came from.</p>
+<p>Geography is real: OpenStreetMap footprints for 780 existing buildings plus 238 in the near South Loop, the USGS shoreline for the lake, published heights for the landmarks. Buildings are never moved to look better from a seat; the cameras go to the buildings.</p>
+<h3 style="margin-top:28px">Everything is a script</h3>
+<p>About forty Python modules run through the Blender command line generate the scene: bowl, envelope, seats, boards, park, bridges, skyline, lake. Live edits in Blender were pushed back into the generators, so a clean rebuild reproduces the file. A rebuild takes about a minute; the render pass about ten.</p>
+<ul><li><code>build_blockout.py → build_detail.py → finalize_scene.py</code>, then <code>run_v4_renders.sh</code></li><li>1,582 objects, 1.79 M mesh vertices, 26,950 instanced seats, 21,282 spectators, 290 trees</li><li>Blender 5.2.1 LTS, Cycles on Apple Metal</li></ul>
+</div>
+<div>
+<h3>Two agents, two jobs</h3>
+<p><b style="color:var(--white)">Astra (Codex)</b> ran Saturday: source inventories, camera calibration, the bowl and the district, thirty-five generators, six Luna workers building components in parallel overnight, and a written handoff that listed what it believed was still wrong. That handoff was honest; it flagged the scoreboard and the missing lake itself.</p>
+<p><b style="color:var(--white)">Fable 5.1 (Claude Code)</b> took the handoff on Sunday. It rendered diagnostic cameras before touching anything, triangulated the board from all three source views instead of guessing, found that the skyline data and the city data disagreed by 33 m and fixed the registration once, fetched the lake from USGS when the city's GIS server timed out, and ranked candidate towers by how many pixels they would occupy from the seats. A reviewer model checked the plan before the build and the result before sign-off.</p>
+<h3 style="margin-top:28px">Verification</h3>
+<p>Every V4 fix has a before/after from the same camera, an orthographic plan with clearances in metres, and the model's own geometry projected back into the AECOM photos. The V3 baseline is preserved and hash-checked. A ledger records what is resolved, what is uncertain and what was deliberately left.</p>
+</div></div>
+</div></section>
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">V4 before / after</div><div><h2>What Sunday fixed</h2><p style="margin-top:12px">Same cameras, same lighting, same pipeline. Left: the V3 model rebuilt through the V4 chain. Right: V4.</p></div></div>
+<h3 style="margin-bottom:14px">The right-field board was 5 m inside the field</h3>
+<div class="pair"><figure><img src="img/control-rf_plan_ortho.jpg" alt="<b>Before.</b> The V3 anchor came from a single-height back-projection and landed inside the playable polygon." loading="lazy"><figcaption><b>Before.</b> The V3 anchor came from a single-height back-projection and landed inside the playable polygon.</figcaption></figure><figure><img src="img/v4-rf_plan_ortho.jpg" alt="<b>After.</b> Triangulated from all three source cameras; on pylons behind the wall, every footprint clears the field (min 0.39 m)." loading="lazy"><figcaption><b>After.</b> Triangulated from all three source cameras; on pylons behind the wall, every footprint clears the field (min 0.39 m).</figcaption></figure></div>
+<div class="pair"><figure><img src="img/v3-third_base.jpg" alt="<b>Before.</b> From third base the board reads as standing on the grass; the right-field towers are missing." loading="lazy"><figcaption><b>Before.</b> From third base the board reads as standing on the grass; the right-field towers are missing.</figcaption></figure><figure><img src="img/interior-third_base_seats.jpg" alt="<b>After.</b> Board set back; NEMA, One Museum Park, The Grant and 1000M in right-centre." loading="lazy"><figcaption><b>After.</b> Board set back; NEMA, One Museum Park, The Grant and 1000M in right-centre.</figcaption></figure></div>
+<h3 style="margin-bottom:14px">The bowl end was held up by nothing</h3>
+<div class="pair"><figure><img src="img/control-rf_section.jpg" alt="<b>Before.</b> Section through the right-field corner: field, bleachers and board over an 8 m void down to the riverwalk." loading="lazy"><figcaption><b>Before.</b> Section through the right-field corner: field, bleachers and board over an 8 m void down to the riverwalk.</figcaption></figure><figure><img src="img/v4-rf_section.jpg" alt="<b>After.</b> A podium from the riverwalk to the bleacher base, a brick arcade on the river face, pylons landing on the podium." loading="lazy"><figcaption><b>After.</b> A podium from the riverwalk to the bleacher base, a brick arcade on the river face, pylons landing on the podium.</figcaption></figure></div>
+<div class="pair"><figure><img src="img/control-rf_corner_exterior.jpg" alt="<b>Before.</b> From the east bank the decks end in mid-air beside the tower." loading="lazy"><figcaption><b>Before.</b> From the east bank the decks end in mid-air beside the tower.</figcaption></figure><figure><img src="img/v4-rf_corner_exterior.jpg" alt="<b>After.</b> A brick end wall following the four tiers, an arcade at the riverwalk, a link block to the tower." loading="lazy"><figcaption><b>After.</b> A brick end wall following the four tiers, an arcade at the riverwalk, a link block to the tower.</figcaption></figure></div>
+<h3 style="margin-bottom:14px">Lake Michigan did not exist</h3>
+<div class="pair"><figure><img src="img/control-geo_map.jpg" alt="<b>Before.</b> The background terrain paved straight across the lake." loading="lazy"><figcaption><b>Before.</b> The background terrain paved straight across the lake.</figcaption></figure><figure><img src="img/v4-geo_map.jpg" alt="<b>After.</b> USGS shoreline in the scene’s frame: Grant Park, Museum Campus, Northerly Island, Burnham Harbor, Navy Pier." loading="lazy"><figcaption><b>After.</b> USGS shoreline in the scene’s frame: Grant Park, Museum Campus, Northerly Island, Burnham Harbor, Navy Pier.</figcaption></figure></div>
+<div class="pair"><figure><img src="img/rf-overlay-south.jpg" alt="<b>Proof against the artwork.</b> The modelled field (green), board frame (black/white) and pylon bases (red) projected into the AECOM south aerial with the calibrated camera. Orange: where V3 had the board." loading="lazy"><figcaption><b>Proof against the artwork.</b> The modelled field (green), board frame (black/white) and pylon bases (red) projected into the AECOM south aerial with the calibrated camera. Orange: where V3 had the board.</figcaption></figure><figure><img src="img/v4-rf_tower_junction.jpg" alt="<b>Tower junction.</b> Clock tower, river arcade and bowl end now meet, matching the crop of the south aerial." loading="lazy"><figcaption><b>Tower junction.</b> Clock tower, river arcade and bowl end now meet, matching the crop of the south aerial.</figcaption></figure></div>
+</div></section>
+<footer><div class="wrap"><p>Reference artwork © AECOM for the Chicago White Sox; used here for comparison only. Map data © OpenStreetMap contributors (ODbL). Shoreline: USGS National Hydrography Dataset. Token accounting: Tokscale on local session logs, Railyards sessions only. Model, renders and page: Josh Bohne, September 2026. This is a fan reconstruction of published concept art, not an official or surveyed design.</p></div></footer></body></html>

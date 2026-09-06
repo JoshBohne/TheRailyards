@@ -21,3 +21,4 @@ railyards-v*/baseline-v*/
 railyards-v*/review/**/*.png
 railyards-v*/review/*.png
 railyards-v*/*.png
+site/dist/

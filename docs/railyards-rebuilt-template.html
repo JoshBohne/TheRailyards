@@ -1,0 +1,171 @@
+<title>Railyards, Rebuilt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--ink:#0e0f11;--ink-2:#17191c;--ink-3:#22252a;--line:#2c3036;--fog:#8d949c;--silver:#c9d0d6;--white:#f5f6f7;--amber:#e3a350;--amber-2:#8a5a24;--field:#4f7a3a;--fs:clamp(15px,1.05vw,17px)}
+*{box-sizing:border-box}body{margin:0;background:var(--ink);color:var(--silver);font:400 var(--fs)/1.6 "IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--white);text-decoration:underline;text-decoration-color:var(--amber-2);text-underline-offset:3px}a:hover{text-decoration-color:var(--amber)}a:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+img{max-width:100%;display:block;background:#000}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.eyebrow{font:500 12px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;color:var(--white);text-wrap:balance;margin:0;line-height:1}
+h1{font-weight:800;font-size:clamp(56px,9vw,132px);letter-spacing:-.01em;text-transform:uppercase}
+h2{font-weight:700;font-size:clamp(34px,4.2vw,56px);text-transform:uppercase;letter-spacing:.01em}
+h3{font-weight:700;font-size:clamp(22px,2.2vw,28px);text-transform:uppercase;letter-spacing:.02em}
+p{max-width:64ch;margin:0}
+.lede{font-size:clamp(18px,1.5vw,22px);color:var(--white);max-width:52ch}
+header{padding:clamp(40px,7vw,96px) 0 32px;border-bottom:1px solid var(--line)}
+header .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:end}
+@media(max-width:860px){header .grid{grid-template-columns:1fr}}
+.hero{margin-top:36px;position:relative}.hero img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.hero .tag{position:absolute;left:0;bottom:0;background:var(--ink);padding:10px 14px 8px 0;font:500 12px/1.4 "IBM Plex Mono",monospace;color:var(--fog)}
+section{padding:clamp(48px,7vw,96px) 0;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:220px 1fr;gap:32px;margin-bottom:36px}@media(max-width:860px){.sec-head{grid-template-columns:1fr;gap:12px}}
+.sec-head .eyebrow{padding-top:14px}
+/* box score */
+.box{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px}
+.box th,.box td{padding:12px 14px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+.box th{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+.box td:first-child,.box th:first-child{text-align:left}
+.box td:first-child{font-family:"Barlow Condensed",sans-serif;font-size:20px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.02em}
+.box td .role{display:block;font:400 12px/1.3 "IBM Plex Sans",sans-serif;color:var(--fog);text-transform:none;letter-spacing:0}
+.box tr.total td{border-top:2px solid var(--silver);border-bottom:0;color:var(--white);font-weight:600}
+.box tr.total td:first-child{color:var(--amber)}
+.scroll{overflow-x:auto}
+.bigstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:28px 0}
+@media(max-width:860px){.bigstats{grid-template-columns:repeat(2,1fr)}}
+.bigstats div{background:var(--ink-2);padding:22px 20px}
+.bigstats b{display:block;font:800 clamp(38px,4.6vw,60px)/1 "Barlow Condensed",sans-serif;color:var(--white);font-variant-numeric:tabular-nums}
+.bigstats span{font:500 12px/1.4 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fog)}
+.note{font-size:13px;color:var(--fog);max-width:76ch;margin-top:14px}
+/* timeline */
+.innings{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:860px){.innings{grid-template-columns:1fr 1fr}}@media(max-width:520px){.innings{grid-template-columns:1fr}}
+.inning{background:var(--ink-2);padding:22px 20px;display:flex;flex-direction:column;gap:10px}
+.inning .n{font:800 44px/1 "Barlow Condensed",sans-serif;color:var(--amber)}
+.inning .who{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--fog)}
+.inning h3{font-size:22px}.inning p{font-size:14px;color:var(--silver)}
+/* compare */
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:34px}@media(max-width:700px){.pair{grid-template-columns:1fr}}
+.pair figure{margin:0}.pair figcaption,.gal figcaption{font:400 13px/1.5 "IBM Plex Sans",sans-serif;color:var(--fog);padding-top:10px}
+.pair figcaption b{color:var(--white);font-weight:600}
+.pair.three{grid-template-columns:1fr 1fr 1fr}@media(max-width:900px){.pair.three{grid-template-columns:1fr}}
+.gal{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.gal{grid-template-columns:1fr}}
+.gal figure{margin:0}
+/* method */
+.method{display:grid;grid-template-columns:1fr 1fr;gap:40px}@media(max-width:860px){.method{grid-template-columns:1fr}}
+.method h3{margin-bottom:12px}.method p+p{margin-top:12px}
+.method ul{padding-left:18px;margin:10px 0 0}.method li{margin:6px 0;max-width:60ch}
+code{font:400 .92em "IBM Plex Mono",monospace;color:var(--white);background:var(--ink-3);padding:1px 5px;border-radius:2px}
+.limits{border-left:3px solid var(--amber);padding:6px 0 6px 20px;max-width:70ch}
+footer{padding:40px 0 64px;font-size:13px;color:var(--fog)}footer p{max-width:80ch}
+</style>
+
+<header><div class="wrap">
+<div class="grid">
+<div><div class="eyebrow">The Railyards · Chicago White Sox · AECOM concept, Sept 2026</div>
+<h1 style="margin-top:14px">Railyards,<br>Rebuilt</h1></div>
+<div><p class="lede">Three published concept renderings, one site plan, and two AI coding agents turned into an editable 3-D model of the proposed White Sox ballpark on the South Branch, with the real Chicago skyline and Lake Michigan where they actually are.</p>
+<p class="note" style="margin-top:14px">Made over one weekend by Josh Bohne with OpenAI Codex (GPT-6 Astra) and Claude Code (Claude Fable 5.1). Every image below is a native Blender render of the model, not the AECOM artwork, unless labelled.</p></div>
+</div>
+<div class="hero"><img src="{{img:final-south}}" alt="V4 render of the Railyards ballpark from the south with the Loop and Lake Michigan beyond"><div class="tag">V4 · fixed south camera matched to the AECOM aerial · Cycles, 1800 px, 48 samples</div></div>
+</div></header>
+
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Box score</div><div><h2>What it took</h2><p style="margin-top:12px">Everything the agents consumed, as recorded locally by Tokscale for 5–6 September. Cost is an API-equivalent estimate at list prices, not what a subscription actually charged. A small share of this usage may belong to unrelated work on the same machine.</p></div></div>
+<div class="bigstats">
+<div><b>~24 h</b><span>Sat 3 pm → Sun 3 pm CDT</span></div>
+<div><b>399 M</b><span>tokens, all models</span></div>
+<div><b>3,107</b><span>model responses</span></div>
+<div><b>$171</b><span>API-equivalent estimate</span></div>
+</div>
+<div class="scroll"><table class="box">
+<thead><tr><th>Model</th><th>Responses</th><th>Input</th><th>Output</th><th>Cache read</th><th>Cache write</th><th>Model time</th><th>Est. cost</th></tr></thead>
+<tbody>
+<tr><td>GPT-6 Astra<span class="role">Codex · V1, V2, V3 — calibration, bowl, district</span></td><td>1,632</td><td>3.42 M</td><td>385 K</td><td>199.3 M</td><td>0</td><td>9.3 h</td><td>$131.67</td></tr>
+<tr><td>GPT-5.6 Luna<span class="role">Codex · delegated implementation passes</span></td><td>1,226</td><td>4.81 M</td><td>370 K</td><td>143.9 M</td><td>0</td><td>4.8 h</td><td>$4.62</td></tr>
+<tr><td>Claude Fable 5.1<span class="role">Claude Code · V4 — scoreboard, structure, lake, skyline</span></td><td>138</td><td>24 K</td><td>183 K</td><td>34.1 M</td><td>0.89 M</td><td>0.8 h</td><td>$29.04</td></tr>
+<tr><td>Claude Opus 5<span class="role">Claude Code · review and advisor calls</span></td><td>32</td><td>&lt;1 K</td><td>10 K</td><td>3.1 M</td><td>0.22 M</td><td>1.3 h</td><td>$3.21</td></tr>
+<tr><td>Claude Sonnet 5<span class="role">Claude Code · helpers</span></td><td>79</td><td>&lt;1 K</td><td>35 K</td><td>7.5 M</td><td>0.36 M</td><td>0.1 h</td><td>$2.74</td></tr>
+<tr class="total"><td>Total</td><td>3,107</td><td>8.26 M</td><td>983 K</td><td>388.0 M</td><td>1.47 M</td><td>16.3 h</td><td>$171.27</td></tr>
+</tbody></table></div>
+<p class="note">The V4 session alone: 2 h 28 min of wall clock (12:55–15:23 CDT), 94 Fable responses, 28.6 M tokens, $23.43 estimated. "Model time" is the summed duration of model responses, so parallel sub-agents make it exceed wall clock.</p>
+</div></section>
+
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Innings</div><div><h2>Four versions in a weekend</h2></div></div>
+<div class="innings">
+<div class="inning"><div class="n">V1</div><div class="who">Astra · Sat afternoon</div><h3>Read the pictures</h3><p>Inventory the three AECOM views and the site plan, pin the site to OpenStreetMap, and block a grey massing model with cameras fitted to each artwork.</p></div>
+<div class="inning"><div class="n">V2</div><div class="who">Astra · Sat night</div><h3>Calibrate</h3><p>Solve the three camera fits properly (2.9 px error on the north aerial), trace the bowl, canopy and field from pixels, and build the district: river, bridges, rail links, Roosevelt Road.</p></div>
+<div class="inning"><div class="n">V3</div><div class="who">Astra + Luna · overnight</div><h3>Dress it</h3><p>Thirty-five Python generators: arched brick envelope, clock tower, four seating tiers with 27,000 seats, video boards, riverwalk, park, Northwestern Medicine, Willis Tower and 13 more landmarks. Eight native renders.</p></div>
+<div class="inning"><div class="n">V4</div><div class="who">Fable 5.1 · Sunday, 2½ h</div><h3>Make it true</h3><p>Fix what a fan would notice: a scoreboard sitting on the field, a bowl end floating over the river, no lake, and the wrong towers in right field. Verified with fixed-camera before/after renders.</p></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Before / after</div><div><h2>The four things V4 fixed</h2><p style="margin-top:12px">Same cameras, same lighting, same pipeline. Left is the unchanged V3 model rebuilt through the V4 chain; right is the delivered V4 scene.</p></div></div>
+
+<h3 style="margin-bottom:14px">1 · The right-field board was 5 m inside the field</h3>
+<div class="pair"><figure><img src="{{img:control-rf_plan_ortho}}" alt="Plan before: board and supports inside the outfield wall"><figcaption><b>Before.</b> The V3 anchor came from a single-height back-projection and landed inside the playable polygon.</figcaption></figure>
+<figure><img src="{{img:v4-rf_plan_ortho}}" alt="Plan after: board behind the wall on pylons"><figcaption><b>After.</b> Triangulated from all three source cameras, the board sits on the wall line on two lattice pylons; every footprint clears the field (min 0.39 m).</figcaption></figure></div>
+<div class="pair"><figure><img src="{{img:v3-third_base}}" alt="Third-base view before"><figcaption><b>Before.</b> From the third-base seats the board reads as standing on the grass; the tall glass towers in right field are missing.</figcaption></figure>
+<figure><img src="{{img:interior-third_base_seats}}" alt="Third-base view after"><figcaption><b>After.</b> Board set back behind the wall. NEMA, One Museum Park, The Grant and 1000M rise in right-centre — they are the biggest things on that horizon and no dataset had them.</figcaption></figure></div>
+
+<h3 style="margin-bottom:14px">2 · The bowl end and bleachers were held up by nothing</h3>
+<div class="pair"><figure><img src="{{img:control-rf_section}}" alt="Section before: bleachers over a void"><figcaption><b>Before.</b> Section through the right-field corner: field, bleachers and board over an 8 m void down to the riverwalk.</figcaption></figure>
+<figure><img src="{{img:v4-rf_section}}" alt="Section after: podium to riverwalk"><figcaption><b>After.</b> One podium from the riverwalk to the bleacher base, a brick arcade on the river face, pylons landing on the podium.</figcaption></figure></div>
+<div class="pair"><figure><img src="{{img:control-rf_corner_exterior}}" alt="Exterior before"><figcaption><b>Before.</b> From the east bank the seating decks end in mid-air beside the clock tower.</figcaption></figure>
+<figure><img src="{{img:v4-rf_corner_exterior}}" alt="Exterior after"><figcaption><b>After.</b> A brick end wall that follows the four tiers, an arcade at the riverwalk, and a link block to the tower.</figcaption></figure></div>
+
+<h3 style="margin-bottom:14px">3 · Lake Michigan did not exist</h3>
+<div class="pair"><figure><img src="{{img:control-geo_map}}" alt="Map before: paving over the lake"><figcaption><b>Before.</b> 5 km orthographic map, north up: the background terrain paved straight across the lake.</figcaption></figure>
+<figure><img src="{{img:v4-geo_map}}" alt="Map after: real shoreline"><figcaption><b>After.</b> USGS National Hydrography shoreline in the scene's frame — Grant Park, Museum Campus, Northerly Island, Burnham Harbor, Navy Pier.</figcaption></figure></div>
+<div class="pair"><figure><img src="{{img:v4-east_lake_high}}" alt="Elevated east view with the lake"><figcaption><b>After.</b> Looking east from 140 m over the park: the lake sits beyond real land, as it does from the site 1.9 km inland. No seat is given a lake view it could not physically have.</figcaption></figure>
+<figure><img src="{{img:v4-rf_tower_junction}}" alt="Tower junction"><figcaption><b>After.</b> The clock tower, river arcade and bowl end now meet, matching the crop of the AECOM south aerial.</figcaption></figure></div>
+
+<h3 style="margin-bottom:14px">4 · Proof against the artwork</h3>
+<div class="pair"><figure><img src="{{img:rf-overlay-south}}" alt="Projected footprints burned into the AECOM south aerial"><figcaption><b>AECOM south aerial, annotated.</b> Green: the modelled playable field. Black and white: the modelled board frame, bottom and top. Red: pylon bases. Orange: where V3 had the board. Projected with the calibrated camera, so the model is being checked against the picture rather than the other way round.</figcaption></figure>
+<figure><img src="{{img:aecom-south}}" alt="AECOM south aerial"><figcaption><b>AECOM concept rendering</b> (south aerial), the source the model is fitted to. Artwork © AECOM / Chicago White Sox; shown for comparison.</figcaption></figure></div>
+</div></section>
+
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">Gallery</div><div><h2>Fixed views</h2></div></div>
+<div class="gal">
+<figure><img src="{{img:final-north}}" alt="North aerial at dusk"><figcaption>North aerial, matched to the AECOM dusk view.</figcaption></figure>
+<figure><img src="{{img:final-bridge}}" alt="Roosevelt bridge view"><figcaption>From the Roosevelt Road bridge, fireworks and all.</figcaption></figure>
+<figure><img src="{{img:interior-home_upper_deck}}" alt="Home upper deck"><figcaption>Home-plate upper deck: Willis to the left, the Museum Park cluster to the right.</figcaption></figure>
+<figure><img src="{{img:interior-left_field_skyline}}" alt="Left-field skyline"><figcaption>Left-field skyline: Willis, 311 South Wacker's lit crown, the Board of Trade.</figcaption></figure>
+<figure><img src="{{img:interior-home_plate}}" alt="Field level"><figcaption>Field level. The players are placeholders; the base paths are regulation.</figcaption></figure>
+<figure><img src="{{img:v3-south}}" alt="V3 south render"><figcaption>For contrast, the V3 south render: no lake, board at the wrong spot, generic prisms downtown.</figcaption></figure>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="sec-head"><div class="eyebrow">How it was made</div><div><h2>Method</h2></div></div>
+<div class="method">
+<div>
+<h3>Sources, not vibes</h3>
+<p>The model is fitted to three published AECOM images (north aerial, south aerial, the view from the Roosevelt bridge) and the site plan. A 90-foot base path is the scale prior. Three perspective cameras were solved against pixel controls; everything traced from a picture records which image and which pixels it came from.</p>
+<p>Geography is real: OpenStreetMap footprints for 780 existing buildings and 238 more in the near South Loop, the USGS shoreline for the lake, published heights for the landmarks. Buildings are never moved to look better from a seat; the cameras go to the buildings.</p>
+<h3 style="margin-top:28px">Everything is a script</h3>
+<p>The scene is generated by about forty Python modules run through the Blender command line — bowl, envelope, seats, boards, park, bridges, skyline, lake. Live edits in Blender were pushed back into the generators, so a clean rebuild reproduces the file. A rebuild takes about a minute; the eight-view render pass about ten.</p>
+<ul>
+<li><code>build_blockout.py → build_detail.py → finalize_scene.py</code> then <code>run_v4_renders.sh</code></li>
+<li>1,582 objects, 1.79 M mesh vertices, 26,950 instanced seats, 21,282 spectators, 290 trees</li>
+<li>Blender 5.2.1 LTS, Cycles on Apple Metal</li>
+</ul>
+</div>
+<div>
+<h3>Two agents, two jobs</h3>
+<p><b style="color:var(--white)">Astra (Codex)</b> did the long build on Saturday: source inventories, camera calibration, the bowl and district, thirty-five generators, and a written handoff listing what it believed was wrong. That handoff was honest — it flagged the scoreboard and the lake itself.</p>
+<p><b style="color:var(--white)">Fable 5.1 (Claude Code)</b> took the handoff on Sunday. It rendered diagnostic cameras before touching anything, triangulated the board from all three source views instead of guessing, found that the skyline data and the city data disagreed by 33 m and fixed the registration once, fetched the lake from USGS when the city's GIS server timed out, and ranked candidate towers by how many pixels they would actually occupy from the seats. A reviewer model checked the plan before the build and the result before sign-off.</p>
+<h3 style="margin-top:28px">Verification</h3>
+<p>Every fix has a before/after from the same camera, an orthographic plan with clearances in metres, and the model's own geometry projected back into the AECOM photos. The V3 baseline is preserved and hash-checked. The ledger says what is resolved, what is uncertain, and what was deliberately left.</p>
+</div>
+</div>
+<div class="limits" style="margin-top:40px"><h3>What this is not</h3><p style="margin-top:8px">It is a conceptual reconstruction of concept art, not a surveyed building. Outfield distances, hidden structure, materials and the future towers across the river are inferred. The scoreboard graphics and players are placeholders. AECOM's own disclaimer applies twice over: design, uses and locations remain subject to diligence, engineering and approvals.</p></div>
+</div></section>
+
+<footer><div class="wrap">
+<p>Reference artwork © AECOM for the Chicago White Sox; used here for comparison only. Map data © OpenStreetMap contributors (ODbL). Shoreline: USGS National Hydrography Dataset. Token accounting: Tokscale, local session logs. Page and model: Josh Bohne, September 2026.</p>
+</div></footer>
