@@ -13,6 +13,8 @@
 <p class="note">Coming next: short camera moves through these same spots (a walk down the riverwalk, a slow turn from the press box) once materials and crowd variation are further along.</p>
 </div></section>
 <footer><div class="wrap"><p>Reference artwork © AECOM for the Chicago White Sox; used here for comparison only. Map data © OpenStreetMap contributors (ODbL). Shoreline: USGS National Hydrography Dataset. Token accounting: Tokscale on local session logs, Railyards sessions only. Model, renders and page: Josh Bohne, September 2026. This is a fan reconstruction of published concept art, not an official or surveyed design.</p></div></footer><script>
-document.querySelectorAll('.cmp').forEach(c=>{const r=c.querySelector('input[type=range]');const set=v=>c.style.setProperty('--x',v+'%');r.addEventListener('input',()=>set(r.value));
-c.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{c.querySelector('.over').src=b.dataset.src;c.querySelectorAll('.pick button').forEach(o=>o.setAttribute('aria-pressed',o===b));}));});
+document.querySelectorAll('.cmp').forEach(c=>{const w=c.querySelector('input.wipe');w.addEventListener('input',()=>c.style.setProperty('--x',w.value+'%'));
+const o=c.querySelector('input.opacity');o.addEventListener('input',()=>c.style.setProperty('--o',o.value+'%'));
+c.querySelectorAll('.modes button[data-mode]').forEach(b=>b.addEventListener('click',()=>{c.dataset.mode=b.dataset.mode;c.querySelectorAll('.modes button[data-mode]').forEach(x=>x.setAttribute('aria-pressed',x===b));}));
+c.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{c.querySelector('.over').src=b.dataset.src;c.querySelectorAll('.pick button').forEach(x=>x.setAttribute('aria-pressed',x===b));}));});
 </script></body></html>

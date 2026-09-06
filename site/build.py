@@ -25,19 +25,22 @@ def fig(img,cap,alt=''):
 
 def pair(a,b):return f'<div class="pair">{a}{b}</div>'
 
-def cmp(source,models,cap,start=50):
-    """Drag slider: AECOM artwork on the left of the handle, the model on the right.
+def cmp(source,models,cap,start=50,llab='AECOM',rlab='Model',tall=False):
+    """Comparison block with three modes: wipe slider, side by side, and opacity blend.
     ``models`` is an ordered dict of label -> image stem; the first is shown."""
     first=next(iter(models.values()))
-    picks=''.join(f'<button type="button" data-src="img/{v}.jpg" aria-pressed="{"true" if v==first else "false"}">{k}</button>' for k,v in models.items())
-    return f'''<div class="cmp" style="--x:{start}%"><div class="frame"><img src="img/{source}.jpg" alt="AECOM concept rendering" loading="lazy"><img class="over" src="img/{first}.jpg" alt="Blender model through the same camera" loading="lazy"><div class="bar"></div><div class="knob">&lt;&gt;</div><span class="lab l">AECOM</span><span class="lab r">Model</span><div class="pick">{picks}</div><input type="range" min="0" max="100" value="{start}" aria-label="Reveal the model"></div><figcaption>{cap}</figcaption></div>'''
+    picks=''.join(f'<button type="button" data-src="img/{v}.jpg" aria-pressed="{"true" if v==first else "false"}">{k}</button>' for k,v in models.items()) if len(models)>1 else ''
+    return f'''<div class="cmp" data-mode="wipe" style="--x:{start}%;--o:50%"><div class="modes"><span class="mlab">Compare</span><button type="button" data-mode="wipe" aria-pressed="true">Wipe</button><button type="button" data-mode="side" aria-pressed="false">Side by side</button><button type="button" data-mode="blend" aria-pressed="false">Overlay</button><label class="op">Model opacity <input type="range" class="opacity" min="0" max="100" value="50" aria-label="Model opacity"></label></div>
+<div class="frame{" tall" if tall else ""}"><img class="base" src="img/{source}.jpg" alt="{llab}" loading="lazy"><img class="over" src="img/{first}.jpg" alt="{rlab}" loading="lazy"><div class="bar"></div><div class="knob">&lt;&gt;</div><span class="lab l">{llab}</span><span class="lab r">{rlab}</span><div class="pick">{picks}</div><input type="range" class="wipe" min="0" max="100" value="{start}" aria-label="Reveal the model"></div><figcaption>{cap}</figcaption></div>'''
 
 def cmp_generic(left,right,llab,rlab,cap,start=50):
-    return f'''<div class="cmp" style="--x:{start}%"><div class="frame tall"><img src="img/{left}.jpg" alt="{llab}" loading="lazy"><img class="over" src="img/{right}.jpg" alt="{rlab}" loading="lazy"><div class="bar"></div><div class="knob">&lt;&gt;</div><span class="lab l">{llab}</span><span class="lab r">{rlab}</span><input type="range" min="0" max="100" value="{start}" aria-label="Reveal the model"></div><figcaption>{cap}</figcaption></div>'''
+    return cmp(left,{rlab:right},cap,start,llab,rlab,tall=True)
 
 CMP_JS='''<script>
-document.querySelectorAll('.cmp').forEach(c=>{const r=c.querySelector('input[type=range]');const set=v=>c.style.setProperty('--x',v+'%');r.addEventListener('input',()=>set(r.value));
-c.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{c.querySelector('.over').src=b.dataset.src;c.querySelectorAll('.pick button').forEach(o=>o.setAttribute('aria-pressed',o===b));}));});
+document.querySelectorAll('.cmp').forEach(c=>{const w=c.querySelector('input.wipe');w.addEventListener('input',()=>c.style.setProperty('--x',w.value+'%'));
+const o=c.querySelector('input.opacity');o.addEventListener('input',()=>c.style.setProperty('--o',o.value+'%'));
+c.querySelectorAll('.modes button[data-mode]').forEach(b=>b.addEventListener('click',()=>{c.dataset.mode=b.dataset.mode;c.querySelectorAll('.modes button[data-mode]').forEach(x=>x.setAttribute('aria-pressed',x===b));}));
+c.querySelectorAll('.pick button').forEach(b=>b.addEventListener('click',()=>{c.querySelector('.over').src=b.dataset.src;c.querySelectorAll('.pick button').forEach(x=>x.setAttribute('aria-pressed',x===b));}));});
 </script>'''
 
 # ---------------------------------------------------------------- pages

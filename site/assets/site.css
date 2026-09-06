@@ -76,3 +76,24 @@ nav.top ul{overflow-x:auto;scrollbar-width:none;white-space:nowrap}nav.top ul::-
 
 .cmp .frame.tall{aspect-ratio:2000/2674;max-height:82vh}.cmp .frame.tall img{object-fit:contain}
 @media(max-width:860px){.cards{grid-template-columns:1fr 1fr}}
+
+/* comparison modes */
+.cmp .modes{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 0 10px}
+.cmp .modes .mlab{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--fog);margin-right:4px}
+.cmp .modes button{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;background:var(--ink-2);color:var(--fog);border:1px solid var(--line);padding:8px 10px;cursor:pointer}
+.cmp .modes button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
+.cmp .modes .op{display:none;align-items:center;gap:8px;margin-left:auto;font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--fog)}
+.cmp .modes .op input{width:140px;accent-color:var(--amber)}
+.cmp[data-mode=blend] .modes .op{display:flex}
+/* side by side */
+.cmp[data-mode=side] .frame{display:grid;grid-template-columns:1fr 1fr;gap:10px;aspect-ratio:auto;overflow:visible}
+.cmp[data-mode=side] .frame img{position:static;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;clip-path:none}
+.cmp[data-mode=side] .frame.tall img{aspect-ratio:2000/2674;object-fit:contain}
+.cmp[data-mode=side] .bar,.cmp[data-mode=side] .knob,.cmp[data-mode=side] input.wipe{display:none}
+.cmp[data-mode=side] .lab.l{left:10px;bottom:10px}.cmp[data-mode=side] .lab.r{right:10px}
+.cmp[data-mode=side] .pick{top:10px;right:10px}
+/* overlay blend */
+.cmp[data-mode=blend] .over{clip-path:none;opacity:var(--o,50%)}
+.cmp[data-mode=blend] .bar,.cmp[data-mode=blend] .knob{display:none}
+.cmp[data-mode=blend] input.wipe{pointer-events:none}
+@media(max-width:700px){.cmp[data-mode=side] .frame{grid-template-columns:1fr}}
