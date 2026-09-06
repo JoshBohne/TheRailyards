@@ -1,0 +1,26 @@
+[
+  {
+    "view": "left_field_skyline",
+    "seconds": 10.696,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Geometry and visibility review, not final fidelity"
+  },
+  {
+    "view": "home_plate",
+    "seconds": 10.806,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Geometry and visibility review, not final fidelity"
+  },
+  {
+    "view": "home_upper_deck",
+    "seconds": 13.041,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Geometry and visibility review, not final fidelity"
+  },
+  {
+    "view": "third_base_seats",
+    "seconds": 11.945,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Geometry and visibility review, not final fidelity"
+  }
+]

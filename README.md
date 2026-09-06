@@ -6,7 +6,8 @@ Editable Blender reconstruction of the AECOM White Sox Railyards concept in Chic
 
 ## Contents
 
-- `railyards-v3/`: delivered scene, 35 reproducible Python modules, specifications, gallery and eight native renders.
+- `railyards-v3/`: delivered scene, 35 reproducible Python modules, specifications, gallery and eight native renders (preserved baseline).
+- `railyards-v4/`: V4 working copy — corrected RF scoreboard, RF/tower structure, Lake Michigan geography and sightline-ranked skyline; see `railyards-v4/README.md` and `railyards-v4/ISSUE-LEDGER.md`.
 - `reconstruction-references/`: original artwork, working images and additional references.
 - `reference-audit/`: source inventories and research evidence, including historical findings that may have been superseded.
 - `railyards-v2/`: three earlier renders for comparison; the full earlier study remains in the original workspace.
@@ -21,7 +22,7 @@ From the project root:
 python3 -m http.server 8850 --bind 127.0.0.1
 ```
 
-Open http://127.0.0.1:8850/railyards-v3/ in a browser. Open `railyards-v3/railyards-v3.blend` in Blender. The scene uses no externally linked images. Rebuild commands are in `railyards-v3/README.md`; use them on a V4 copy when beginning changes.
+Open http://127.0.0.1:8850/railyards-v3/ (V3) or http://127.0.0.1:8850/railyards-v4/review/ (V4 before/after) in a browser. Open `railyards-v3/railyards-v3.blend` in Blender. The scene uses no externally linked images. Rebuild commands are in `railyards-v3/README.md`; use them on a V4 copy when beginning changes.
 
 ## Versioning
 

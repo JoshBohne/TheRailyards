@@ -1,0 +1,96 @@
+{
+  "schema_version": "1.0",
+  "prepared": "2026-09-06",
+  "scope": "V4 skyline additions ranked by actual sightline contribution from the saved interior cameras. Coordinates are WGS84; scene XY is produced by r4_geo.local_xy (single +33 m X registration).",
+  "ranking_method": "For each candidate: local azimuth and distance from each saved interior camera, projected pixel height at 1800 px width (lens/36 mm * 1800 * (8+height-camera_z)/distance), and whether the azimuth falls in the camera's horizontal frustum. Apparent size and unobstructed contribution rank first, identity second. Occlusion by the bowl/canopy is checked in the rendered panoramas, not assumed.",
+  "camera_frustums_deg": {
+    "home_plate": [6, 84],
+    "home_upper_deck": [10, 82],
+    "third_base_seats": [-26, 44],
+    "left_field_skyline": [49, 127]
+  },
+  "buildings": [
+    {
+      "id": "nema",
+      "name": "NEMA Chicago",
+      "latlon": {"latitude": 41.8671, "longitude": -87.6231},
+      "architectural_height_m": 273.1,
+      "floors": 76,
+      "height_source": "Wikipedia infobox (CTBUH 896 ft / 273.1 m); CTBUH record https://www.skyscrapercenter.com/building/one-grant-park/21954 returned 403 on 2026-09-06",
+      "location_source": "Wikipedia coordinates; OSM way 509032412 (podium, 113 E Roosevelt) centroid agrees within 12 m",
+      "sightlines": {"home_plate": "az 15, d 1122 m, 262 px, in frustum", "home_upper_deck": "az 16, d 1167 m, 257 px, in frustum", "third_base_seats": "az 11, d 1133 m, 287 px, in frustum", "left_field_skyline": "az 16, out of frustum"},
+      "recognizability": "Three-part bundled-tube composition (podium, square middle with southern stair-stepped extension, indented top); tallest object in the RF/RCF window."
+    },
+    {
+      "id": "one-museum-park",
+      "name": "One Museum Park",
+      "latlon": {"latitude": 41.8671, "longitude": -87.6216},
+      "museum_tower_latlon": [41.8663, -87.6212],
+      "architectural_height_m": 221.0,
+      "floors": 62,
+      "height_source": "Wikipedia (726 ft / 221 m to roof)",
+      "location_source": "Wikipedia coordinates; OSM 'One Museum Park East' podium way 151479984 centroid within 15 m; Museum Tower OSM way 151477490 (124 m tag)",
+      "sightlines": {"home_plate": "az 13, d 1243 m, 191 px", "home_upper_deck": "az 15, d 1287 m, 183 px", "third_base_seats": "az 10, d 1255 m, 205 px"},
+      "recognizability": "Rounded lakeward glass face with a shorter twin (Museum Tower) to the south; second silhouette of the RF cluster."
+    },
+    {
+      "id": "the-grant",
+      "name": "The Grant (One Museum Park West)",
+      "latlon": {"latitude": 41.8671168, "longitude": -87.6220351},
+      "architectural_height_m": 181.0,
+      "floors": 54,
+      "height_source": "OSM height=181 on way 151371817; Wikipedia 594 ft / 181 m",
+      "location_source": "OSM way 151371817 centroid",
+      "sightlines": {"third_base_seats": "az 11, d 1198 m, 171 px", "home_upper_deck": "az 15, d 1231 m, 150 px"},
+      "recognizability": "Slightly tapered square glass tower between NEMA and One Museum Park."
+    },
+    {
+      "id": "1000m",
+      "name": "1000M",
+      "latlon": {"latitude": 41.8698565, "longitude": -87.6248301},
+      "architectural_height_m": 245.4,
+      "floors": 74,
+      "height_source": "Wikipedia 805 ft / 245.4 m; OSM height=240 on way 1013794039",
+      "location_source": "OSM way 1013794039 centroid (Nominatim)",
+      "sightlines": {"third_base_seats": "az 29, d 1125 m, 257 px", "home_upper_deck": "az 33, d 1184 m, 224 px", "home_plate": "az 32, d 1132 m, 233 px"},
+      "recognizability": "Slender curved slab tapering with height, horizontal aluminium spandrels; stands alone north of the Museum Park cluster."
+    },
+    {
+      "id": "311-south-wacker",
+      "name": "311 South Wacker Drive",
+      "latlon": {"latitude": 41.8774661, "longitude": -87.6359049},
+      "architectural_height_m": 292.9,
+      "floors": 65,
+      "height_source": "Wikipedia 961 ft / 292.9 m",
+      "location_source": "OSM way 147350208 centroid; replaces the generic outfield-context prism of the same name (excluded by name in r3_outfield_context)",
+      "sightlines": {"left_field_skyline": "az 87, d 1503 m, 192 px", "third_base_seats": "az 87, d 1412 m, 248 px (edge of frustum)"},
+      "recognizability": "Illuminated 32 m glass cylinder crown with four smaller cylinders, immediately south-east of Willis."
+    },
+    {
+      "id": "chicago-board-of-trade",
+      "name": "Chicago Board of Trade Building",
+      "latlon": {"latitude": 41.8774502, "longitude": -87.6317848},
+      "architectural_height_m": 184.0,
+      "floors": 44,
+      "height_source": "Wikipedia 604 ft / 184 m",
+      "location_source": "OSM way 28951633 centroid; replaces the generic outfield-context prism",
+      "sightlines": {"left_field_skyline": "az 77, d 1573 m, 107 px", "home_upper_deck": "az 77, d 1583 m, 119 px"},
+      "recognizability": "Art-deco setbacks with pyramidal copper roof and the Ceres figure."
+    },
+    {
+      "id": "franklin-center",
+      "name": "Franklin Center (North Tower)",
+      "latlon": {"latitude": 41.8802541, "longitude": -87.6347335},
+      "architectural_height_m": 306.9,
+      "floors": 60,
+      "height_source": "OSM height=306.9 on way 64398410; Wikipedia 1,007 ft / 307 m",
+      "location_source": "OSM way 64398410 centroid; the South Tower remains an outfield-context prism",
+      "sightlines": {"left_field_skyline": "az 84, d 1833 m, 166 px", "home_upper_deck": "az 84, d 1842 m, 186 px"},
+      "recognizability": "Setbacks at floors 15/30/45 and spiked pinnacles beside Willis."
+    }
+  ],
+  "excluded": {
+    "875 N Michigan, Marina City, Wrigley, Tribune, Salesforce, River Point, 150 N Riverside": "already modelled; at 2.5-4 km they project under 120 px and sit near or beyond the canopy edge in the upper-deck view",
+    "St. Regis / Aon / Two Prudential / Aqua / Trump": "already modelled; retained, shifted +33 m X with the audited registration"
+  }
+}

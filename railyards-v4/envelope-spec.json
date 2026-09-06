@@ -1,0 +1,158 @@
+{
+  "version": "v3 envelope source-led pass",
+  "units": "meters",
+  "sources": [
+    {
+      "file": "../reconstruction-references/additional/cbs-aecom-chicago-v-b4-aerial-final-v7-footer-joe-smith.jpg",
+      "view": "north aerial, high resolution",
+      "use": "canopy ribs, floodlight banks, clock tower lantern, seating-facing roof edge",
+      "confidence": "high for visible silhouette and repeated detail"
+    },
+    {
+      "file": "../reconstruction-references/aecom-south-aerial.jpg",
+      "view": "south aerial",
+      "use": "river-facing brick arches, upper fascia, sign placement, river arcade",
+      "confidence": "high for visible facade composition; dimensions inferred from calibrated scene"
+    },
+    {
+      "file": "../reconstruction-references/additional/cbs-aecom-chicago-v-a3-north-final-v5-footer-joe-smith.jpg",
+      "view": "north/bridge context",
+      "use": "clock tower proportion and canopy attachment context",
+      "confidence": "medium for depth hidden by perspective"
+    },
+    {
+      "file": "../reference-audit/parent-stadium-closeup.html",
+      "view": "south reference crop, source pixels 1400 1250 2000 1200",
+      "use": "facade bay cadence, arch height, continuous louver fascia",
+      "confidence": "high for visible south facade"
+    }
+  ],
+  "facade": {
+    "bay_spacing": 18.0,
+    "base_z": 8.0,
+    "plinth_top_z": 11.3,
+    "wall_top_z": 47.6,
+    "arch_bottom_z": 11.45,
+    "arch_width": 10.5,
+    "arch_height": 22.0,
+    "fascia_bottom_z": 35.2,
+    "fascia_top_z": 47.6,
+    "wall_depth": 1.15,
+    "sign_bay_index": 6,
+    "sign_size": 4.6
+  },
+  "river_arcade": {
+    "footprint": [
+      [
+        18.0,
+        -135.0
+      ],
+      [
+        109.0,
+        -99.0
+      ],
+      [
+        106.0,
+        -79.0
+      ],
+      [
+        23.0,
+        -109.0
+      ]
+    ],
+    "base_z": 8.0,
+    "lower_wall_top_z": 20.0,
+    "upper_glass_top_z": 27.8,
+    "roof_top_z": 28.6,
+    "bay_spacing": 7.4,
+    "arch_width": 5.5,
+    "arch_bottom_z": 8.35,
+    "arch_height": 10.0,
+    "face_depth": 1.0
+  },
+  "canopy": {
+    "cross_section_rows": 15,
+    "crown_lift": 3.25,
+    "underside_drop": 0.52,
+    "seam_spacing_points": 9,
+    "seam_radius": 0.085,
+    "under_seam_radius": 0.055,
+    "edge_beam_radius": 0.22
+  },
+  "gantries": {
+    "path_fractions": [
+      0.09375,
+      0.36875,
+      0.70625
+    ],
+    "height": 8.0,
+    "crossbeam_width": 14.0,
+    "leg_radius": 0.26,
+    "brace_radius": 0.14,
+    "beam_radius": 0.22,
+    "lamp_count": 10,
+    "lamp_width": 0.82,
+    "lamp_height": 0.82,
+    "source_pixels_north": [
+      [
+        178,
+        240
+      ],
+      [
+        478,
+        158
+      ],
+      [
+        757,
+        232
+      ]
+    ],
+    "source_note": "Three prominent B4 roof light banks, positioned by source pixels at inferred fixture elevation55.45m; source controls supersede uniform eight-copy layout."
+  },
+  "tower": {
+    "roof_z": 68.0,
+    "shaft_width": 15.0,
+    "shaft_depth": 15.0,
+    "lantern_bottom_z": 47.6,
+    "lantern_top_z": 66.3,
+    "lantern_half_width": 7.6,
+    "clock_z": 57.0,
+    "clock_radius": 4.5,
+    "clock_segments": 48,
+    "clock_ring_radius": 0.18
+  },
+  "west_lantern": {
+    "bottom_z": 47.6,
+    "roof_z": 56.0,
+    "width": 11.0,
+    "depth": 9.0
+  },
+  "attachments": {
+    "main_facade": "follows scene-spec.bowl_back; positive local depth is the street/river-facing exterior",
+    "canopy_outer": "exact scene-spec.bowl_back points at z=48 datum",
+    "canopy_inner": "exact scene-spec.canopy_inner points at z=46 datum",
+    "clock_tower": "scene-spec.anchors.tower_roof XY retained; roof_z retained at 68",
+    "west_lantern": "scene-spec.anchors.west_roof_lantern XY retained; roof_z retained at 56",
+    "river_arcade": "explicit inferred footprint from south crop; separate from adjacent-building ownership"
+  },
+  "scope": {
+    "owned": [
+      "brick and stone stadium envelope",
+      "upper glazed/louver fascia",
+      "barrel canopy",
+      "roof ribs",
+      "floodlight gantries",
+      "clock tower and lantern",
+      "river-side arcade"
+    ],
+    "excluded": [
+      "field",
+      "seating",
+      "scoreboards",
+      "adjacent buildings",
+      "park",
+      "rail bridges",
+      "river and site context"
+    ]
+  }
+}

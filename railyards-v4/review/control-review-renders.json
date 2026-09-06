@@ -1,0 +1,58 @@
+[
+  {
+    "view": "rf_corner_exterior",
+    "image": "control-rf_corner_exterior.png",
+    "seconds": 11.53,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Low exterior view of the right-field / clock-tower end from the east bank"
+  },
+  {
+    "view": "rf_corner_low_river",
+    "image": "control-rf_corner_low_river.png",
+    "seconds": 11.66,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Riverwalk-level view under the RF board toward the tower"
+  },
+  {
+    "view": "rf_underside",
+    "image": "control-rf_underside.png",
+    "seconds": 15.39,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Close-up beneath the RF bleachers and board supports"
+  },
+  {
+    "view": "rf_plan_ortho",
+    "image": "control-rf_plan_ortho.png",
+    "seconds": 13.27,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Orthographic plan of the RF corner: field polygon, board, supports, riverwalk"
+  },
+  {
+    "view": "rf_section",
+    "image": "control-rf_section.png",
+    "seconds": 3.39,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Orthographic north-facing section through the RF board, bleachers, podium and riverwalk (use with clip)"
+  },
+  {
+    "view": "east_lake",
+    "image": "control-east_lake.png",
+    "seconds": 10.51,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Elevated east-facing view toward Lake Michigan over the near South Loop"
+  },
+  {
+    "view": "east_lake_high",
+    "image": "control-east_lake_high.png",
+    "seconds": 8.86,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Higher east view to confirm the shoreline beyond real land"
+  },
+  {
+    "view": "geo_map",
+    "image": "control-geo_map.png",
+    "seconds": 17.17,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "Orthographic geographic map: shoreline, stadium, river, landmarks; +Y is north"
+  }
+]

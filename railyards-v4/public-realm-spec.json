@@ -1,0 +1,164 @@
+{
+  "version": "v3 parent source-projected public realm",
+  "source": "../reconstruction-references/aecom-north-aerial.png",
+  "source_size_px": [
+    1944,
+    1294
+  ],
+  "parameters": {
+    "ROAD_Y": 300.0,
+    "ROAD_Z": 14.1,
+    "GRADE": 0.045,
+    "LOWER_Z": 4.95,
+    "ROOF_PIXELS": [
+      [
+        700,
+        790
+      ],
+      [
+        810,
+        730
+      ],
+      [
+        1025,
+        692
+      ],
+      [
+        1660,
+        983
+      ],
+      [
+        1470,
+        1180
+      ],
+      [
+        895,
+        841
+      ],
+      [
+        800,
+        906
+      ],
+      [
+        700,
+        850
+      ]
+    ],
+    "LAWN_PIXELS": [
+      [
+        [
+          907,
+          789
+        ],
+        [
+          973,
+          730
+        ],
+        [
+          1595,
+          1005
+        ],
+        [
+          1471,
+          1137
+        ]
+      ],
+      [
+        [
+          783,
+          856
+        ],
+        [
+          877,
+          794
+        ],
+        [
+          895,
+          809
+        ],
+        [
+          802,
+          875
+        ]
+      ],
+      [
+        [
+          895,
+          825
+        ],
+        [
+          935,
+          846
+        ],
+        [
+          909,
+          866
+        ],
+        [
+          872,
+          846
+        ]
+      ],
+      [
+        [
+          943,
+          852
+        ],
+        [
+          1090,
+          932
+        ],
+        [
+          1067,
+          950
+        ],
+        [
+          918,
+          872
+        ]
+      ],
+      [
+        [
+          1400,
+          1111
+        ],
+        [
+          1455,
+          1142
+        ],
+        [
+          1424,
+          1174
+        ],
+        [
+          1372,
+          1144
+        ]
+      ]
+    ],
+    "RETAIL_EDGE": [
+      [
+        700,
+        850
+      ],
+      [
+        800,
+        906
+      ],
+      [
+        895,
+        841
+      ],
+      [
+        1470,
+        1180
+      ]
+    ]
+  },
+  "evidence": [
+    "Parent-reviewed native source grid: roof/storefront return and continuous event lawn.",
+    "User-provided contextual reading: Roosevelt-level public approach enters above bleachers.",
+    "A3 bridge source corroborates raised deck above a separate lower waterside promenade."
+  ],
+  "height_boundary": "Road sidewalk datum14.1 is retained from calibrated scene. Grade0.045 toward stadium is an inferred continuity solution, not a surveyed design. Source XY is recovered on that plane; hidden roof shape and supports remain inferred."
+}

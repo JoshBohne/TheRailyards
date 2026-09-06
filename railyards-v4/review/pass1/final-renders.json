@@ -1,0 +1,32 @@
+[
+  {
+    "camera": "north",
+    "image": "final-north.png",
+    "width": 1400,
+    "height": 932,
+    "samples": 24,
+    "seconds": 20.623,
+    "device": "GPU",
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend"
+  },
+  {
+    "camera": "south",
+    "image": "final-south.png",
+    "width": 1400,
+    "height": 933,
+    "samples": 24,
+    "seconds": 15.005,
+    "device": "GPU",
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend"
+  },
+  {
+    "camera": "bridge",
+    "image": "final-bridge.png",
+    "width": 1400,
+    "height": 932,
+    "samples": 24,
+    "seconds": 14.807,
+    "device": "GPU",
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend"
+  }
+]

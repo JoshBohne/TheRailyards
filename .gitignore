@@ -13,3 +13,11 @@ railyards-v*/blender-mcp-viewport.png
 railyards-v*/*render*.json
 railyards-v*/saved-scene-verification.json
 *.log
+# V4 working data, logs and copied baselines stay outside Git; review PNGs are
+# delivered on disk (SVG/HTML/JSON evidence is tracked).
+railyards-v*/work/
+railyards-v*/logs/
+railyards-v*/baseline-v*/
+railyards-v*/review/**/*.png
+railyards-v*/review/*.png
+railyards-v*/*.png

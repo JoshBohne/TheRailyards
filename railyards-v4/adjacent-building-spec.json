@@ -1,0 +1,83 @@
+{
+  "version": "r3 adjacent buildings, source-led replacement",
+  "units": "meters",
+  "source_regions": {
+    "full_north": {
+      "file": "reconstruction-references/additional/cbs-aecom-chicago-v-b4-aerial-final-v7-footer-joe-smith.jpg",
+      "native_size": [5000, 3333],
+      "medical": [2100, 430, 3900, 1500],
+      "left_field_pavilion": [1900, 1050, 3500, 2050],
+      "north_entertainment_hall": [2850, 1400, 4700, 2600],
+      "centerfield_rounded_restaurant": [1750, 1500, 3100, 2550]
+    },
+    "north": {
+      "native_size": [1944, 1294],
+      "medical": [990, 120, 1530, 430],
+      "left_field_pavilion": [790, 360, 1130, 700],
+      "north_entertainment_hall": [930, 470, 1730, 1090],
+      "centerfield_rounded_restaurant": [500, 700, 1030, 1110]
+    },
+    "south": {
+      "native_size": [5000, 3333],
+      "medical": [620, 1450, 1550, 2500],
+      "left_field_pavilion": [1250, 1150, 2300, 2100],
+      "north_entertainment_hall": [2500, 1320, 3900, 2480],
+      "centerfield_rounded_restaurant": [1900, 1350, 3100, 2450]
+    },
+    "bridge": {
+      "native_size": [1440, 959],
+      "medical": [30, 350, 290, 640],
+      "left_field_pavilion": [760, 430, 1010, 660],
+      "north_entertainment_hall": [800, 430, 1170, 690],
+      "centerfield_rounded_restaurant": [520, 470, 780, 650]
+    }
+  },
+  "footprint_basis": "The four polygon footprints and the CF anchor come from outputs/railyards-v3/scene-spec.json. Source roof corners are visible in the north aerial; elevations, hidden faces and exact radii remain inferred.",
+  "buildings": {
+    "medical": {
+      "source_evidence": "Northwestern Medicine purple two-line sign, fine vertical curtain-wall bays, stepped main/wing mass and roof garden/mechanical zones.",
+      "spec_footprints": ["Medical main", "Medical wing"],
+      "main": {"base_z": 8, "roof_z": 27, "window_spacing_m": 2.8, "upper_setback": 0.8, "roof_terrace": true},
+      "wing": {"base_z": 8, "roof_z": 23, "window_spacing_m": 3.2, "upper_setback": 1.0, "roof_terrace": true},
+      "sign": {"text": "NORTHWESTERN\nMEDICINE", "edge": 1, "height_z": 23.8, "material": "purple"}
+    },
+    "left_field_pavilion": {
+      "source_evidence": "Elongated rail-side pavilion with dark stepped/sloped roof and a lower public concourse joining bowl and crossing.",
+      "spec_footprint": "Left field pavilion",
+      "base_z": 8,
+      "podium_roof_z": 21,
+      "main_roof_z": 34,
+      "roof_step_z": 31.5,
+      "window_spacing_m": 3.6,
+      "roof_terrace": true
+    },
+    "north_entertainment_hall": {
+      "source_evidence": "Long 4-5 story brick/glass hall with deep rooftop terrace, strong vertical bays and active park edge.",
+      "spec_footprint": "North entertainment hall",
+      "base_z": 8,
+      "podium_roof_z": 20,
+      "main_roof_z": 30,
+      "roof_step_z": 27.5,
+      "window_spacing_m": 4.0,
+      "roof_terrace": true
+    },
+    "centerfield_rounded_restaurant": {
+      "source_evidence": "Broad curved/glazed river-facing frontage below CF board, dark rounded canopy/cornice and active upper terrace.",
+      "anchor": "cf_scoreboard_top",
+      "anchor_y_offset_m": -8,
+      "left_extent_m": 30,
+      "straight_depth_m": 14,
+      "curve_radius_m": 14,
+      "base_z": 8,
+      "front_roof_z": 19.5,
+      "terrace_z": 22,
+      "window_spacing_m": 2.2,
+      "roof_terrace": true
+    }
+  },
+  "implementation_notes": [
+    "build_adjacent_buildings adds only to MeshBatch; caller controls legacy-object visibility and flush order.",
+    "All source-facing details are intentionally low-complexity and editable: stepped masses, roof slabs, facade bays, sign panel and terrace railings.",
+    "No park, rail, bridge or skyline geometry is created by this module."
+  ]
+}

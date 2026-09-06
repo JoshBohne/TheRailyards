@@ -1,0 +1,94 @@
+{
+  "version": "B6 south covered-bridge evidence 2026-09-06",
+  "source": {
+    "file": "outputs/reconstruction-references/aecom-south-aerial.jpg",
+    "native_size_px": [5000, 3333],
+    "coordinate_convention": "origin top-left; x right; y down",
+    "method": "Manual roof-edge traces against the native south AECOM image, checked against the calibrated R2_south camera by inverse projection onto Z=26.2 m. Polygons describe visible roof extents; hidden abutments remain inferred."
+  },
+  "south_count_conclusion": {
+    "covered_bridge_count": 3,
+    "supported_world_y_order": [150, -48, -113],
+    "current_spec_comparison": {
+      "y_198": "Not supported by the B6 roof trace as a south-view position; the north-derived wing crossing remains a cross-view registration/source-interpretation conflict.",
+      "y_73": "No distinct covered roof is resolved in B6 at this position; likely a north-view registration or duplicate interpretation of the upper/middle link.",
+      "y_minus_48": "Supported by the middle B6 covered link and its south-side low-wing landing.",
+      "y_minus_113": "Supported by the farthest-south B6 covered link and its southern west-side landing."
+    },
+    "confidence": "medium-high for count and ordering; medium for exact hidden abutments and world-Y reconciliation between north and south cameras"
+  },
+  "covered_bridges": [
+    {
+      "name": "south_view_upper_medical_link",
+      "source_polygon_px_at_roof_z_26_2": [[590, 1628], [1510, 1568], [1535, 1642], [620, 1716]],
+      "visible_roof_edges_px": {
+        "west": [[590, 1628], [620, 1716]],
+        "east": [[1510, 1568], [1535, 1642]],
+        "north": [[590, 1628], [1510, 1568]],
+        "south": [[620, 1716], [1535, 1642]]
+      },
+      "south_source_world_y_prior": 150,
+      "inverse_projected_world_xyz_m_at_z_26_2": [[-171.52, 181.3, 26.2], [-42.26, 156.5, 26.2], [-50.2, 117.15, 26.2], [-173.76, 135.47, 26.2]],
+      "inferred_heights_m": {"deck_z": 22.0, "roof_z": 26.2, "glazed_side_top_z": 26.2, "west_landing_z": "14.1-23"},
+      "landing_evidence": "West roof trace enters the medical/rail-side building zone; east end is partly occluded by the stadium-side low mass.",
+      "confidence": "medium"
+    },
+    {
+      "name": "south_view_medical_wing_link",
+      "source_polygon_px_at_roof_z_26_2": [[650, 2018], [1745, 1960], [1780, 2029], [680, 2110]],
+      "visible_roof_edges_px": {
+        "west": [[650, 2018], [680, 2110]],
+        "east": [[1745, 1960], [1780, 2029]],
+        "north": [[650, 2018], [1745, 1960]],
+        "south": [[680, 2110], [1780, 2029]]
+      },
+      "south_source_world_y_prior": -48,
+      "inverse_projected_world_xyz_m_at_z_26_2": [[-187.56, 12.49, 26.2], [-66.24, -22.88, 26.2], [-70.16, -46.87, 26.2], [-188.89, -18.88, 26.2]],
+      "inferred_heights_m": {"deck_z": 22.0, "roof_z": 26.2, "glazed_side_top_z": 26.2, "west_landing_z": "14.1-23"},
+      "landing_evidence": "The east roof edge terminates at the stadium-side concourse; the west edge is tied to the low medical wing/courtyard sequence rather than open ground.",
+      "confidence": "medium-high"
+    },
+    {
+      "name": "south_view_southern_district_link",
+      "source_polygon_px_at_roof_z_26_2": [[1380, 2300], [2200, 2210], [2230, 2280], [1410, 2390]],
+      "visible_roof_edges_px": {
+        "west": [[1380, 2300], [1410, 2390]],
+        "east": [[2200, 2210], [2230, 2280]],
+        "north": [[1380, 2300], [2200, 2210]],
+        "south": [[1410, 2390], [2230, 2280]]
+      },
+      "south_source_world_y_prior": -113,
+      "inverse_projected_world_xyz_m_at_z_26_2": [[-132.76, -103.48, 26.2], [-47.66, -117.59, 26.2], [-52.28, -136.06, 26.2], [-135.94, -126.22, 26.2]],
+      "inferred_heights_m": {"deck_z": 22.0, "roof_z": 26.2, "glazed_side_top_z": 26.2, "west_landing_z": "14.1-23"},
+      "landing_evidence": "The west end aligns with the southern courtyard/building cluster; the east end enters the stadium forecourt.",
+      "confidence": "high for visible roof span; medium for hidden west landing"
+    }
+  ],
+  "adjacent_west_footprints": [
+    {
+      "name": "south_low_medical_wing",
+      "source_polygon_px_at_inferred_roof_z_23": [[1120, 1520], [1610, 1480], [1830, 1580], [1780, 1830], [1530, 2050], [1160, 1960]],
+      "inferred_roof_z_m": 23.0,
+      "inferred_base_z_m": 8.0,
+      "landing_relation": "Receives the west side of the y≈−48 medical-wing link; its south edge also frames the rail-side concourse below the upper link.",
+      "confidence": "medium; upper/north edge is partly occluded by taller medical mass"
+    },
+    {
+      "name": "southern_west_courtyard_block",
+      "source_polygon_px_at_inferred_roof_z_23": [[760, 2290], [1320, 2210], [1510, 2400], [1440, 2730], [850, 2720], [700, 2500]],
+      "inferred_roof_z_m": 23.0,
+      "inferred_base_z_m": 8.0,
+      "landing_relation": "Large roof-courtyard block immediately west/southwest of the y≈−113 link; retain the open central courtyard and do not close it with a solid roof polygon.",
+      "confidence": "high for outer roof silhouette and courtyard void; medium for occluded southwest corner"
+    },
+    {
+      "name": "southern_west_red_low_wing",
+      "source_polygon_px_at_inferred_roof_z_23": [[820, 2510], [1450, 2450], [1760, 2620], [1470, 2930], [900, 2860], [760, 2690]],
+      "inferred_roof_z_m": 23.0,
+      "inferred_base_z_m": 8.0,
+      "landing_relation": "Lower red-brick bar south of the courtyard block; use as the secondary west landing/concourse mass if the south district crossing needs a buried approach volume.",
+      "confidence": "medium; footprint is source-visible but its ownership/name is not resolved by the artwork"
+    }
+  ],
+  "height_basis": "Covered-crossing deck and roof use the existing private-link prior deck_z=22.0 m and roof_z=26.2 m. Low west-side building roof/base values are inferred from the south image and existing medical building priors, not surveyed dimensions."
+}

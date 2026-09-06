@@ -1,0 +1,224 @@
+{
+  "playable_polygon": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      100,
+      0
+    ],
+    [
+      103.69713059856122,
+      44.81452314432505
+    ],
+    [
+      100.39202528970216,
+      65.63687637683068
+    ],
+    [
+      71.47785716892102,
+      93.53824646978035
+    ],
+    [
+      41.05093795277105,
+      106.8431275326657
+    ],
+    [
+      0,
+      100
+    ]
+  ],
+  "warning_track_width_m": 4.572,
+  "warning_track_note": "The warning track is inset inside the traced boundary (r3_field), so any footprint outside the polygon clears it by construction; clearance below is to the wall line, add 4.57 m to reach the track edge.",
+  "board_frame_corners": [
+    {
+      "xy": [
+        105.35,
+        18.47
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 3.81
+    },
+    {
+      "xy": [
+        104.06,
+        55.44
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 2.02
+    },
+    {
+      "xy": [
+        106.65,
+        55.53
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 4.6
+    },
+    {
+      "xy": [
+        107.94,
+        18.56
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 6.39
+    }
+  ],
+  "screen_corners": [
+    {
+      "xy": [
+        105.45,
+        18.97
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 3.87
+    },
+    {
+      "xy": [
+        104.19,
+        54.95
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 2.08
+    },
+    {
+      "xy": [
+        106.55,
+        55.03
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 4.42
+    },
+    {
+      "xy": [
+        107.81,
+        19.05
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 6.21
+    }
+  ],
+  "service_platform_corners": [
+    {
+      "xy": [
+        104.81,
+        18.05
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 3.31
+    },
+    {
+      "xy": [
+        103.49,
+        55.82
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 1.52
+    },
+    {
+      "xy": [
+        107.19,
+        55.95
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 5.2
+    },
+    {
+      "xy": [
+        108.51,
+        18.18
+      ],
+      "inside_playable": false,
+      "distance_to_boundary_m": 6.99
+    }
+  ],
+  "pylon_footprints": [
+    [
+      {
+        "xy": [
+          104.63,
+          24.54
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 2.6
+      },
+      {
+        "xy": [
+          104.52,
+          27.74
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 2.23
+      },
+      {
+        "xy": [
+          108.12,
+          27.87
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 5.8
+      },
+      {
+        "xy": [
+          108.23,
+          24.67
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 6.18
+      }
+    ],
+    [
+      {
+        "xy": [
+          103.88,
+          46.13
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 0.39
+      },
+      {
+        "xy": [
+          103.77,
+          49.33
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 0.78
+      },
+      {
+        "xy": [
+          107.37,
+          49.46
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 4.35
+      },
+      {
+        "xy": [
+          107.48,
+          46.26
+        ],
+        "inside_playable": false,
+        "distance_to_boundary_m": 3.96
+      }
+    ]
+  ],
+  "anchor": [
+    106.0,
+    37.0,
+    37.79999923706055
+  ],
+  "width_m": 36.0,
+  "height_m": 18.5,
+  "angle_deg": 92.0,
+  "bottom_z": 19.299999237060547,
+  "support_base_z": 13.4,
+  "v3_anchor": [
+    96.86961510459159,
+    25.39420437817199,
+    38.0
+  ],
+  "v3_anchor_inside_playable": true,
+  "all_outside_playable": true,
+  "min_clearance_m": 0.39
+}

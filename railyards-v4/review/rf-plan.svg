@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1320" font-family="Helvetica,Arial" font-size="12">
+<rect width="100%" height="100%" fill="#f4f2ee"/>
+<line x1="0" y1="0" x2="0" y2="1320" stroke="#ddd"/><text x="2" y="12" fill="#888">x55</text>
+<line x1="120" y1="0" x2="120" y2="1320" stroke="#ddd"/><text x="122" y="12" fill="#888">x65</text>
+<line x1="240" y1="0" x2="240" y2="1320" stroke="#ddd"/><text x="242" y="12" fill="#888">x75</text>
+<line x1="360" y1="0" x2="360" y2="1320" stroke="#ddd"/><text x="362" y="12" fill="#888">x85</text>
+<line x1="480" y1="0" x2="480" y2="1320" stroke="#ddd"/><text x="482" y="12" fill="#888">x95</text>
+<line x1="600" y1="0" x2="600" y2="1320" stroke="#ddd"/><text x="602" y="12" fill="#888">x105</text>
+<line x1="720" y1="0" x2="720" y2="1320" stroke="#ddd"/><text x="722" y="12" fill="#888">x115</text>
+<line x1="840" y1="0" x2="840" y2="1320" stroke="#ddd"/><text x="842" y="12" fill="#888">x125</text>
+<line x1="960" y1="0" x2="960" y2="1320" stroke="#ddd"/><text x="962" y="12" fill="#888">x135</text>
+<line x1="0" y1="1320" x2="960" y2="1320" stroke="#ddd"/><text x="2" y="1318" fill="#888">y-30</text>
+<line x1="0" y1="1200" x2="960" y2="1200" stroke="#ddd"/><text x="2" y="1198" fill="#888">y-20</text>
+<line x1="0" y1="1080" x2="960" y2="1080" stroke="#ddd"/><text x="2" y="1078" fill="#888">y-10</text>
+<line x1="0" y1="960" x2="960" y2="960" stroke="#ddd"/><text x="2" y="958" fill="#888">y0</text>
+<line x1="0" y1="840" x2="960" y2="840" stroke="#ddd"/><text x="2" y="838" fill="#888">y10</text>
+<line x1="0" y1="720" x2="960" y2="720" stroke="#ddd"/><text x="2" y="718" fill="#888">y20</text>
+<line x1="0" y1="600" x2="960" y2="600" stroke="#ddd"/><text x="2" y="598" fill="#888">y30</text>
+<line x1="0" y1="480" x2="960" y2="480" stroke="#ddd"/><text x="2" y="478" fill="#888">y40</text>
+<line x1="0" y1="360" x2="960" y2="360" stroke="#ddd"/><text x="2" y="358" fill="#888">y50</text>
+<line x1="0" y1="240" x2="960" y2="240" stroke="#ddd"/><text x="2" y="238" fill="#888">y60</text>
+<line x1="0" y1="120" x2="960" y2="120" stroke="#ddd"/><text x="2" y="118" fill="#888">y70</text>
+<line x1="0" y1="0" x2="960" y2="0" stroke="#ddd"/><text x="2" y="-2" fill="#888">y80</text>
+<polygon points="-660.0,960.0 540.0,960.0 584.4,422.2 544.7,172.4 197.7,-162.5 -167.4,-322.1 -660.0,-240.0" fill="#cfe8c4" stroke="#2f7d32" stroke-width="2"/>
+<polygon points="-660.0,960.0 485.1,960.0 534.0,444.0 498.8,202.4 164.4,-118.9 -187.1,-270.9 -660.0,-185.1" fill="none" stroke="#b8862b" stroke-width="1.5" stroke-dasharray="6,4"/>
+<polygon points="660.0,960.0 694.5,374.6 645.1,106.7 270.6,-257.8 -124.4,-434.1 -660.0,-360.0 -632.4,-286.8 242.4,1210.8" fill="none" stroke="#7a7a7a" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="684" y="0" width="144" height="1320" fill="#e6e0d3" stroke="none"/><rect x="876" y="0" width="84" height="1320" fill="#a9c4d8"/>
+<polygon points="597.7,743.4 581.9,290.1 626.3,288.6 642.1,741.9" fill="#ffe08a" stroke="#a37b00"/>
+<polygon points="604.2,738.4 588.7,294.7 619.8,293.6 635.3,737.3" fill="#3a3a3a" stroke="#000"/>
+<polygon points="605.4,732.4 590.3,300.6 618.6,299.6 633.7,731.4" fill="#111" stroke="none"/>
+<polygon points="595.6,665.5 594.3,627.1 637.4,625.6 638.8,664.0" fill="#c0392b" stroke="#000"/>
+<polygon points="586.6,406.4 585.2,368.0 628.4,366.5 629.7,404.9" fill="#c0392b" stroke="#000"/>
+<circle cx="502.44000000000005" cy="655.3199999999999" r="5" fill="none" stroke="#c0392b" stroke-width="2"/><text x="432.44000000000005" y="673.3199999999999" fill="#c0392b">V3 anchor (inside field)</text>
+<text x="620.0" y="516.0" fill="#000" font-weight="bold">RF board 36x18.5 m, top z37.79999923706055, bottom z19.3</text>
+<text x="544" y="974" fill="#2f7d32">RF foul pole (100,0)</text><text x="60" y="240" fill="#2f7d32" font-size="14">playable area</text>
+<text x="588" y="192" fill="#7a7a7a">podium ring / bleacher zone (10 m)</text><text x="690.0" y="48" fill="#555">riverwalk z4.95</text><text x="882.0" y="48" fill="#246">river</text>
+<text x="60" y="1248" fill="#000">min clearance to wall 0.39 m; all footprints outside playable: True</text>
+</svg>
