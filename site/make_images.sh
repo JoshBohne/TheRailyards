@@ -2,8 +2,8 @@
 # Downscale renders and source artwork into site/img as JPEGs.
 set -e
 cd "$(dirname "$0")/.."
-V=railyards-v4; O=site/img; mkdir -p $O
-j(){ sips -s format jpeg -s formatOptions 74 -Z ${3:-1600} "$1" --out "$O/$2.jpg" >/dev/null; }
+V=railyards-v4; O=${IMG_OUT:-site/img}; Q=${IMG_Q:-74}; mkdir -p $O
+j(){ local z=${3:-1600}; [ -n "$IMG_MAX" ] && [ "$z" -gt "$IMG_MAX" ] && z=$IMG_MAX; sips -s format jpeg -s formatOptions $Q -Z $z "$1" --out "$O/$2.jpg" >/dev/null; }
 for f in final-south final-north final-bridge interior-third_base_seats interior-home_upper_deck interior-home_plate interior-left_field_skyline; do j $V/$f.png $f; done
 for f in v4-geo_map v4-rf_section v4-rf_corner_exterior v4-rf_tower_junction v4-east_lake_high control-rf_section control-rf_corner_exterior control-geo_map control-rf_plan_ortho v4-rf_plan_ortho rf-overlay-south; do j $V/review/$f.png $f 1400; done
 for f in press_box east_lake_high aerial_west; do [ -f $V/review/v5-$f.png ] && j $V/review/v5-$f.png v5-$f; done
@@ -16,4 +16,6 @@ j reconstruction-references/aecom-south-aerial.jpg aecom-south
 j reconstruction-references/aecom-north-aerial.png aecom-north
 j reconstruction-references/user-bridge-view.png aecom-bridge
 j reconstruction-references/railyards-site-plan.png site-plan 1400
+for f in site wide; do [ -f $V/work/today-$f.jpg ] && j $V/work/today-$f.jpg today-$f >/dev/null; done
+for f in site_today site_today_wide; do [ -f $V/review/v5-$f.png ] && j $V/review/v5-$f.png v5-$f 1600; done
 du -ch $O/*.jpg | tail -1

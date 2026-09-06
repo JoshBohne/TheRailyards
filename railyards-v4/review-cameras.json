@@ -97,6 +97,36 @@
     "lens_mm": 35,
     "purpose": "New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake"
   },
+  "site_today": {
+    "position": [
+      48.8,
+      106.4,
+      4000
+    ],
+    "target": [
+      48.8,
+      106.4,
+      0
+    ],
+    "ortho_scale": 1823.9,
+    "aspect": 1.3377,
+    "purpose": "Orthographic match to the USGS aerial box lon -87.647..-87.625, lat 41.8545..41.8765 (north up) for the site-today comparison"
+  },
+  "site_today_wide": {
+    "position": [
+      546.3,
+      882.7,
+      4000
+    ],
+    "target": [
+      546.3,
+      882.7,
+      0
+    ],
+    "ortho_scale": 5803.2,
+    "aspect": 1.3377,
+    "purpose": "Orthographic match to the USGS aerial box lon -87.665..-87.595, lat 41.8375..41.9075 (north up) for the site-today comparison"
+  },
   "rf_corner_exterior": {
     "position": [
       175,

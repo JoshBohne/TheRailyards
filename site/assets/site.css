@@ -50,7 +50,7 @@ figure{margin:0}figcaption{font:400 13px/1.5 "IBM Plex Sans",sans-serif;color:va
 .method h3{margin-bottom:12px}.method ul{padding-left:18px;margin:10px 0 0}.method li{margin:6px 0;max-width:60ch}
 code{font:400 .92em "IBM Plex Mono",monospace;color:var(--white);background:var(--ink-3);padding:1px 5px;border-radius:2px}
 .limits{border-left:3px solid var(--amber);padding:6px 0 6px 20px;max-width:70ch}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}@media(max-width:860px){.cards{grid-template-columns:1fr}}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}@media(max-width:860px){.cards{grid-template-columns:1fr}}
 .card{background:var(--ink-2);padding:24px 22px}.card h3{font-size:24px;margin-bottom:8px}.card p{font-size:14px}.card a{display:inline-block;margin-top:12px;font:500 12px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase}
 .road{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}@media(max-width:700px){.road{grid-template-columns:1fr}}
 .road div{background:var(--ink-2);padding:20px 22px}.road h3{font-size:22px;margin-bottom:6px}.road p{font-size:14px}
@@ -73,3 +73,6 @@ footer{padding:40px 0 64px;font-size:13px;color:var(--fog)}footer p{max-width:80
 .cmp .pick button:focus-visible{outline:2px solid var(--amber)}
 nav.top ul{overflow-x:auto;scrollbar-width:none;white-space:nowrap}nav.top ul::-webkit-scrollbar{display:none}nav.top a.l{white-space:nowrap;display:inline-block}
 @media(max-width:700px){nav.top .wrap{gap:14px}nav.top .brand{font-size:17px}}
+
+.cmp .frame.tall{aspect-ratio:2000/2674;max-height:82vh}.cmp .frame.tall img{object-fit:contain}
+@media(max-width:860px){.cards{grid-template-columns:1fr 1fr}}

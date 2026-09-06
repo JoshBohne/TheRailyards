@@ -12,7 +12,7 @@ import base64,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 FONTS='<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">'
-PAGES=[('index','Overview'),('sources','Sources vs model'),('views','New views'),('process','Process'),('roadmap','Roadmap')]
+PAGES=[('index','Overview'),('today','Site today'),('sources','Sources vs model'),('views','New views'),('process','Process'),('roadmap','Roadmap')]
 
 def nav(current,single=False):
     items=''.join(f'<li><a class="l" href="{"#"+k if single else k+".html"}"{" aria-current=\"page\"" if (k==current and not single) else ""}>{t}</a></li>' for k,t in PAGES)
@@ -31,6 +31,9 @@ def cmp(source,models,cap,start=50):
     first=next(iter(models.values()))
     picks=''.join(f'<button type="button" data-src="img/{v}.jpg" aria-pressed="{"true" if v==first else "false"}">{k}</button>' for k,v in models.items())
     return f'''<div class="cmp" style="--x:{start}%"><div class="frame"><img src="img/{source}.jpg" alt="AECOM concept rendering" loading="lazy"><img class="over" src="img/{first}.jpg" alt="Blender model through the same camera" loading="lazy"><div class="bar"></div><div class="knob">&lt;&gt;</div><span class="lab l">AECOM</span><span class="lab r">Model</span><div class="pick">{picks}</div><input type="range" min="0" max="100" value="{start}" aria-label="Reveal the model"></div><figcaption>{cap}</figcaption></div>'''
+
+def cmp_generic(left,right,llab,rlab,cap,start=50):
+    return f'''<div class="cmp" style="--x:{start}%"><div class="frame tall"><img src="img/{left}.jpg" alt="{llab}" loading="lazy"><img class="over" src="img/{right}.jpg" alt="{rlab}" loading="lazy"><div class="bar"></div><div class="knob">&lt;&gt;</div><span class="lab l">{llab}</span><span class="lab r">{rlab}</span><input type="range" min="0" max="100" value="{start}" aria-label="Reveal the model"></div><figcaption>{cap}</figcaption></div>'''
 
 CMP_JS='''<script>
 document.querySelectorAll('.cmp').forEach(c=>{const r=c.querySelector('input[type=range]');const set=v=>c.style.setProperty('--x',v+'%');r.addEventListener('input',()=>set(r.value));
@@ -54,6 +57,7 @@ INDEX=f'''
 <div><b>V5</b><span>current version · Sunday</span></div>
 </div>
 <div class="cards">
+<div class="card"><h3>Site today</h3><p>USGS aerial photography of the rail yard against the model from directly above, at yard and lakefront scale.</p><a href="today.html">Compare with today</a></div>
 <div class="card"><h3>Sources vs model</h3><p>Each AECOM picture beside the model rendered through the same camera, plus the site plan against the model's map.</p><a href="sources.html">See the comparisons</a></div>
 <div class="card"><h3>New views</h3><p>Angles the release didn't show: behind home plate with the skyline, the press box, Roosevelt Road, the park, the riverwalk, the east bank.</p><a href="views.html">Look around</a></div>
 <div class="card"><h3>Process</h3><p>How V1 to V4 happened, what each agent did, what it cost in tokens and hours, and how every fix was checked.</p><a href="process.html">Read the process</a></div>
@@ -174,6 +178,22 @@ PROCESS=f'''
 </div></section>
 '''
 
+
+TODAY=f'''
+<header class="page"><div class="wrap"><div class="grid">
+<div><div class="eyebrow">Site today</div><h1 style="margin-top:14px">What's<br>there now</h1></div>
+<div><p class="lede">The site is the working rail yard south of Roosevelt Road between Canal Street and the South Branch, with the empty "78" parcel across the river. Public-domain USGS aerial imagery (refreshed June 2024) against the model from directly above, same box, north up.</p>
+<p class="note" style="margin-top:14px">AECOM's three views are the only oblique pictures of the proposal, and there is no free oblique imagery of the yard from those exact angles, so this page compares from above. Drag the handle: today on the left, the model on the right.</p></div>
+</div></div></header>
+<section><div class="wrap">
+<h3 style="margin-bottom:14px">The yard and the ballpark, 1.8 km across</h3>
+{cmp_generic('today-site','v5-site_today','TODAY','MODEL','<b>Slider.</b> Roosevelt Road runs across the middle; the Metra coach yards fill the block south of it; the river bends east of the yard. In the model the bowl sits on the yard between the tracks and the river, the park meets Roosevelt, the covered links cross the tracks to Canal Street. USGS orthoimagery, The National Map (public domain).',55)}
+<h3 style="margin-bottom:14px">The lakefront, 5.8 km across</h3>
+{cmp_generic('today-wide','v5-site_today_wide','TODAY','MODEL','<b>Slider.</b> The same box at district scale: the Loop to the north, Grant Park and the Museum Campus, Northerly Island, Soldier Field, McCormick Place and the harbour. The model’s mapped extent stops west of the river and north of the Loop core; beyond it the ground is flat grey by design.',55)}
+<div class="limits"><h3>Reading these</h3><p style="margin-top:8px">The model uses OpenStreetMap footprints for existing buildings and the USGS shoreline for the lake, so streets, blocks and the river line up with the photograph to within a few metres. Everything on the yard itself is the proposal: the bowl, park, bridges, the medical building and the soccer stadium across the river are AECOM's concept as traced, not anything that exists.</p></div>
+</div></section>
+'''
+
 ROADMAP=f'''
 <header class="page"><div class="wrap"><div class="grid">
 <div><div class="eyebrow">Roadmap</div><h1 style="margin-top:14px">What's<br>next</h1></div>
@@ -194,8 +214,8 @@ ROADMAP=f'''
 </div></section>
 '''
 
-BODIES={'index':INDEX,'sources':SOURCES,'views':VIEWS,'process':PROCESS,'roadmap':ROADMAP}
-TITLES={'index':'Railyards, Rebuilt','sources':'Sources vs model · Railyards, Rebuilt','views':'New views · Railyards, Rebuilt','process':'Process · Railyards, Rebuilt','roadmap':'Roadmap · Railyards, Rebuilt'}
+BODIES={'index':INDEX,'today':TODAY,'sources':SOURCES,'views':VIEWS,'process':PROCESS,'roadmap':ROADMAP}
+TITLES={'index':'Railyards, Rebuilt','today':'Site today · Railyards, Rebuilt','sources':'Sources vs model · Railyards, Rebuilt','views':'New views · Railyards, Rebuilt','process':'Process · Railyards, Rebuilt','roadmap':'Roadmap · Railyards, Rebuilt'}
 
 def page(key):
     return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{TITLES[key]}</title>{FONTS}<link rel="stylesheet" href="assets/site.css"></head><body>{nav(key)}{BODIES[key]}{FOOT}{CMP_JS}</body></html>'
@@ -205,15 +225,18 @@ def single():
     assigned by script, so repeated uses do not repeat the bytes."""
     import re,json
     css=(ROOT/'assets/site.css').read_text()
-    body=''.join(f'<div id="{k}">{BODIES[k]}</div>' for k,_ in PAGES)
-    html=f'<title>Railyards, Rebuilt</title>{FONTS}<style>{css}\nsection,header.page{{scroll-margin-top:60px}}</style>{nav("index",single=True)}{body}{FOOT}{CMP_JS}'
+    body=''.join(f'<div class="tab" id="{k}">{BODIES[k]}</div>' for k,_ in PAGES)
+    html=f'<title>Railyards, Rebuilt</title>{FONTS}<style>{css}\nbody>div.tab{{display:none}}body>div.tab.on{{display:block}}</style>{nav("index",single=True)}{body}{FOOT}{CMP_JS}'
+    for k,_ in PAGES:html=html.replace(f'href="{k}.html"',f'href="#{k}"')
     names=sorted(set(re.findall(r'img/([a-z0-9_\-]+)\.jpg',html)))
     html=re.sub(r'src="img/([a-z0-9_\-]+)\.jpg"',r'data-img="\1"',html)
     html=re.sub(r'data-src="img/([a-z0-9_\-]+)\.jpg"',r'data-pick="\1"',html)
-    table={n:'data:image/jpeg;base64,'+base64.b64encode((ROOT/'img'/(n+'.jpg')).read_bytes()).decode() for n in names}
+    lite=ROOT/'img-lite'  # smaller encodes for the 16 MB artifact limit (site/make_images.sh with IMG_OUT=site/img-lite IMG_Q=60 IMG_MAX=1300)
+    table={n:'data:image/jpeg;base64,'+base64.b64encode(((lite/(n+'.jpg')) if (lite/(n+'.jpg')).exists() else (ROOT/'img'/(n+'.jpg'))).read_bytes()).decode() for n in names}
     js='<script id="imgs" type="application/json">'+json.dumps(table)+'</script><script>(function(){const T=JSON.parse(document.getElementById("imgs").textContent);document.querySelectorAll("[data-img]").forEach(e=>{e.src=T[e.dataset.img]});document.querySelectorAll("[data-pick]").forEach(b=>{b.dataset.src=T[b.dataset.pick]});})();</script>'
     # the picker script must run before CMP_JS binds click handlers that read data-src
-    return html.replace(CMP_JS,js+CMP_JS)
+    tabs='<script>(function(){const keys=[...document.querySelectorAll("body>div.tab")].map(d=>d.id);function show(k){if(!keys.includes(k))k=keys[0];document.querySelectorAll("body>div.tab").forEach(d=>d.classList.toggle("on",d.id===k));document.querySelectorAll("nav.top a.l").forEach(a=>{if(a.getAttribute("href")==="#"+k)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});window.scrollTo(0,0)}window.addEventListener("hashchange",()=>show(location.hash.slice(1)));show(location.hash.slice(1));})();</script>'
+    return html.replace(CMP_JS,js+CMP_JS+tabs)
 
 if __name__=='__main__':
     for k,_ in PAGES:(ROOT/f'{k}.html').write_text(page(k))

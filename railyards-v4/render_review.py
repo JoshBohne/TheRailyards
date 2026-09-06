@@ -15,7 +15,7 @@ receipts=[]
 for name in os.environ.get('RAILYARDS_REVIEW_VIEWS',','.join(shots)).split(','):
     cam=bpy.data.objects['R3_v4_'+name];scene.camera=cam
     if name=='rf_section':cam.data.clip_start=300;cam.data.clip_end=345  # slice y in [-20,25]
-    scene.render.resolution_x=width;scene.render.resolution_y=round(width*(1.0 if name=='geo_map' else .625))
+    scene.render.resolution_x=width;scene.render.resolution_y=round(width*(shots[name].get('aspect') or (1.0 if name=='geo_map' else .625)))
     scene.cycles.samples=samples;scene.render.filepath=str(outdir/f'{label}-{name}.png');t=time.monotonic()
     bpy.ops.render.render(write_still=True)
     receipts.append({'view':name,'image':Path(scene.render.filepath).name,'seconds':round(time.monotonic()-t,2),'source_scene':bpy.data.filepath,'purpose':shots[name]['purpose']})

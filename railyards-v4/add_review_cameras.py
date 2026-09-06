@@ -16,6 +16,8 @@ shots={
  'riverwalk_north':{'position':[119.5,-60,9.6],'target':[121,320,14],'lens_mm':24,'purpose':'New view: lower riverwalk walking north, arcade left, river right, Roosevelt bridge ahead'},
  'east_bank':{'position':[200,62,9.5],'target':[75,-5,32],'lens_mm':30,'purpose':'New view: from the east bank across the river, the tower, board and river arcade'},
  'aerial_west':{'position':[-620,-140,270],'target':[160,160,20],'lens_mm':35,'purpose':'New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake'},
+ 'site_today':{'position':[48.8,106.4,4000],'target':[48.8,106.4,0],'ortho_scale':1823.9,'aspect':1.3377,'purpose':'Orthographic match to the USGS aerial box lon -87.647..-87.625, lat 41.8545..41.8765 (north up) for the site-today comparison'},
+ 'site_today_wide':{'position':[546.3,882.7,4000],'target':[546.3,882.7,0],'ortho_scale':5803.2,'aspect':1.3377,'purpose':'Orthographic match to the USGS aerial box lon -87.665..-87.595, lat 41.8375..41.9075 (north up) for the site-today comparison'},
  'rf_corner_exterior':{'position':[175,-40,14],'target':[95,-10,20],'lens_mm':28,'purpose':'Low exterior view of the right-field / clock-tower end from the east bank'},
  'rf_corner_low_river':{'position':[135,60,6],'target':[100,-30,18],'lens_mm':24,'purpose':'Riverwalk-level view under the RF board toward the tower'},
  'rf_underside':{'position':[118,-8,9],'target':[90,10,16],'lens_mm':20,'purpose':'Close-up beneath the RF bleachers and board supports'},
