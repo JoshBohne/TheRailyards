@@ -71,3 +71,5 @@ footer{padding:40px 0 64px;font-size:13px;color:var(--fog)}footer p{max-width:80
 .cmp .pick button{font:500 11px/1 "IBM Plex Mono",monospace;letter-spacing:.12em;text-transform:uppercase;background:rgba(14,15,17,.82);color:var(--fog);border:1px solid var(--line);padding:7px 9px;cursor:pointer}
 .cmp .pick button[aria-pressed=true]{color:var(--amber);border-color:var(--amber)}
 .cmp .pick button:focus-visible{outline:2px solid var(--amber)}
+nav.top ul{overflow-x:auto;scrollbar-width:none;white-space:nowrap}nav.top ul::-webkit-scrollbar{display:none}nav.top a.l{white-space:nowrap;display:inline-block}
+@media(max-width:700px){nav.top .wrap{gap:14px}nav.top .brand{font-size:17px}}
