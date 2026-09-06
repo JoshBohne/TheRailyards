@@ -3224,5 +3224,42 @@
   },
   "v4_notes": [
     "2026-09-06: RF scoreboard anchor corrected; rf_scoreboard block added; r4_geo owns the +33 m X registration for lake, skyline and near-South-Loop context."
-  ]
+  ],
+  "cf_scoreboard_triangulation": {
+    "v3_anchor": [
+      90.03,
+      125.98,
+      36.0
+    ],
+    "south_bridge_two_ray": [
+      93.4,
+      140.1,
+      36.3
+    ],
+    "north_south_two_ray": [
+      81.2,
+      127.7,
+      44.0
+    ],
+    "north_bridge_two_ray": [
+      78.1,
+      126.5,
+      39.5
+    ],
+    "three_ray": [
+      83.0,
+      128.2,
+      40.7
+    ],
+    "three_ray_misses_m": [
+      11.2,
+      6.3,
+      6.8
+    ],
+    "north_pixel_1944": [
+      695,
+      567
+    ],
+    "conclusion": "V6 check 2026-09-06: the three fits disagree by 8-14 m in different directions (misses 6-11 m), so the board top cannot be pinned better than the V3 anchor, which lies inside the spread. Anchor retained; the restaurant footprint is traced independently from north pixels. Re-check if a higher-resolution north original becomes available."
+  }
 }

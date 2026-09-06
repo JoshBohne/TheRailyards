@@ -31,6 +31,7 @@ from r4_geography import build_geography
 from r4_skyline_south import build_skyline_south
 from r5_lakefront import build_lakefront
 from r5_skyline_icons import build_skyline_icons
+from r6_lf_end import build_lf_end
 import r5_palette
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window_manager.windows[0].scene=scene
 for obj in list(bpy.data.objects):
@@ -85,6 +86,7 @@ build_adjacent_buildings(scene,spec,batch,materials)
 build_public_realm(scene,spec,batch,materials)
 build_outfield(scene,spec,batch,materials)
 build_rf_structure(scene,spec,batch,materials)
+build_lf_end(scene,spec,batch,materials)
 build_skyline(scene,spec,batch,materials)
 build_context(scene,spec,batch,materials)
 build_geography(scene,spec,batch,materials)

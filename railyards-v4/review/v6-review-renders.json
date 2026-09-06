@@ -1,0 +1,16 @@
+[
+  {
+    "view": "lf_gatehouse",
+    "image": "v6-lf_gatehouse.png",
+    "seconds": 42.39,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "V6: the left-field gatehouse and end wall above the pavilion, from the park (north-east)"
+  },
+  {
+    "view": "north_park_entry",
+    "image": "v6-north_park_entry.png",
+    "seconds": 39.85,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: on the raised park deck approaching the outfield entrance above the bleachers"
+  }
+]

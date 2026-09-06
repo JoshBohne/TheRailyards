@@ -130,6 +130,13 @@ def _arch_bay(batch, group, center, tangent, width, bottom, height,
 def _fascia_bay(batch, center, tangent, width, z0, z1, depth):
     """Dark continuous louver band below the source barrel canopy."""
     _tangent,_outward,point,angle=_frame(center,tangent)
+    if center[1] > 100.0 and center[0] < 20.0:
+        # V6: the left-field end reads as a brick gatehouse in the north aerial,
+        # not a louver band; brick with stone belts, the arch is in r6_lf_end.
+        batch.box(ENVELOPE_GROUP,'brick',point(0,(z0+z1)/2,depth),(width+.18,.9,z1-z0),angle=angle)
+        for z in (z0+.3,(z0+z1)/2,z1-.3):
+            batch.box(ENVELOPE_GROUP,'stone',point(0,z,depth+.55),(width+.3,.3,.4),angle=angle)
+        return
     batch.box(ENVELOPE_GROUP,'glass',point(0,(z0+z1)/2,depth),
               (width+.18,.18,z1-z0),angle=angle)
     count=max(1,round(width/2.2))

@@ -1,16 +1,30 @@
 [
   {
-    "view": "site_today",
-    "image": "v5-site_today.png",
-    "seconds": 51.19,
+    "view": "north_park_entry",
+    "image": "v5-north_park_entry.png",
+    "seconds": 39.14,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Orthographic match to the USGS aerial box lon -87.647..-87.625, lat 41.8545..41.8765 (north up) for the site-today comparison"
+    "purpose": "New view: on the raised park deck approaching the outfield entrance above the bleachers"
   },
   {
-    "view": "site_today_wide",
-    "image": "v5-site_today_wide.png",
-    "seconds": 50.15,
+    "view": "roosevelt_bridge_west",
+    "image": "v5-roosevelt_bridge_west.png",
+    "seconds": 37.46,
     "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
-    "purpose": "Orthographic match to the USGS aerial box lon -87.665..-87.595, lat 41.8375..41.9075 (north up) for the site-today comparison"
+    "purpose": "New view: standing on Roosevelt Road looking south over the raised park to the outfield entry"
+  },
+  {
+    "view": "aerial_west",
+    "image": "v5-aerial_west.png",
+    "seconds": 44.94,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New aerial from the west over the rail yards, stadium and Museum Park cluster toward the lake"
+  },
+  {
+    "view": "press_box",
+    "image": "v5-press_box.png",
+    "seconds": 46.73,
+    "source_scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-v4-implementation-914b3d/railyards-v4/railyards-v4.blend",
+    "purpose": "New view: upper deck behind home plate looking out over the whole bowl to the skyline"
   }
 ]

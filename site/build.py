@@ -57,7 +57,7 @@ INDEX=f'''
 <div><b>3</b><span>AECOM renderings fitted</span></div>
 <div><b>26,950</b><span>seats, individually placed</span></div>
 <div><b>291 M</b><span>tokens across two agents</span></div>
-<div><b>V5</b><span>current version · Sunday</span></div>
+<div><b>V6</b><span>current version · Sunday</span></div>
 </div>
 <div class="cards">
 <div class="card"><h3>Site today</h3><p>USGS aerial photography of the rail yard against the model from directly above, at yard and lakefront scale.</p><a href="today.html">Compare with today</a></div>
@@ -105,6 +105,7 @@ VIEWS=f'''
 <div class="full">{fig('press_box','<b>Press-box level.</b> The whole bowl and the skyline in one frame: Willis and 311 South Wacker over left-centre, NEMA, The Grant and One Museum Park over right-centre, 1000M between them.')}</div>
 {pair(fig('roosevelt_bridge_west','<b>Roosevelt Road, west end of the bridge.</b> Looking south over the raised park toward the outfield entrance, with the Northwestern Medicine building on the right.'),fig('north_park_entry','<b>On the park deck.</b> Approaching the outfield entry above the bleachers; the bowl and the centre-field board ahead, the riverwalk below to the left.'))}
 {pair(fig('riverwalk_north','<b>Lower riverwalk, walking north.</b> The brick arcade under the right-field seats on the left, the river on the right, the Roosevelt bridge ahead.'),fig('east_bank','<b>From the east bank.</b> Across the river: the clock tower, the river arcade, the right-field board and the bleachers behind it.'))}
+{pair(fig('v6-lf_gatehouse','<b>Left-field gatehouse (V6).</b> From the park: the bowl’s left-field end now ends in a brick gatehouse with an arch above the pavilion roof, as the north aerial shows, instead of a louver slab.'),fig('north_park_entry','<b>On the park deck.</b> Approaching the outfield entry above the bleachers.'))}
 <div class="full">{fig('aerial_west','<b>From the west, 270 m up.</b> The whole district at once: rail yards and the covered links, the park meeting Roosevelt, the river, the near South Loop, Lake Michigan.')}</div>
 {pair(fig('interior-third_base_seats','<b>Third-base seats.</b> The right-field board set back behind the wall on its pylons; the Museum Park cluster in right-centre.'),fig('interior-left_field_skyline','<b>Left-field upper deck.</b> Willis Tower, the lit crown of 311 South Wacker, the Board of Trade.'))}
 <p class="note">Coming next: short camera moves through these same spots (a walk down the riverwalk, a slow turn from the press box) once materials and crowd variation are further along.</p>
@@ -124,6 +125,7 @@ PROCESS=f'''
 <div class="inning"><div class="n">V3</div><div class="who">Astra + Luna · overnight</div><h3>Dress it</h3><p>Thirty-five Python generators: arched brick envelope, clock tower, four tiers with 27,000 seats, video boards, riverwalk, park, Northwestern Medicine, Willis and 13 more landmarks. Eight native renders and a written handoff of known problems.</p></div>
 <div class="inning"><div class="n">V4</div><div class="who">Fable 5.1 · Sun, 2½ h</div><h3>Make it true</h3><p>Fix what a fan would notice: a scoreboard on the grass, a bowl end floating over the river, no lake, the wrong towers in right field. Every fix checked with same-camera before/after renders.</p></div>
 <div class="inning"><div class="n">V5</div><div class="who">Fable 5.1 · Sun evening</div><h3>The real skyline</h3><p>Sixteen facade materials instead of one tan stone, finished roofs, nine more icons (Chase, the red CNA, Crain, BCBS, Legacy, One Chicago, Water Tower Place, the Hilton, Kluczynski), Soldier Field and the Museum Campus from their footprints, and a labelled panorama proving what each seat can see.</p></div>
+<div class="inning"><div class="n">V6</div><div class="who">Fable 5.1 · Sun night</div><h3>Left-field end</h3><p>The bowl's left-field end gets the brick gatehouse and arch the artwork shows instead of a louver slab. The centre-field board was re-triangulated from all three views; the fits disagree by 8–14 m, so it stays where it is and the doubt is recorded.</p></div>
 </div>
 </div></section>
 <section><div class="wrap">
@@ -205,8 +207,8 @@ ROADMAP=f'''
 <section><div class="wrap">
 <div class="road">
 <div><span class="st">Done in V5</span><h3>Skyline accuracy and colour</h3><p>Sixteen facade materials, finished roofs, nine more icons, Soldier Field and the Museum Campus, five crowd colour variants. Next: real brick and glass detail at close range, coherent dusk lighting.</p></div>
-<div><span class="st">Next · V6</span><h3>Centre-field board and restaurant</h3><p>The centre-field board triangulates 14 m north of where it sits; the rounded restaurant hangs off the same anchor. Move both together and re-fit the batter's eye.</p></div>
-<div><span class="st">Next · V6</span><h3>Left-field end and concourses</h3><p>Give the left-field end of the bowl the same end wall treatment as right field; open up visible concourse depth, vomitories and the tower-to-bowl junction from the inside.</p></div>
+<div><span class="st">Checked in V6</span><h3>Centre-field board</h3><p>Re-triangulated from all three views: the fits disagree by 8–14 m in different directions, so the board stays put and the uncertainty is recorded. A sharper north original would settle it.</p></div>
+<div><span class="st">Done in V6</span><h3>Left-field end</h3><p>Brick end wall and gatehouse with its park-facing arch. Still to do: visible concourse depth and vomitories from inside the bowl.</p></div>
 <div><span class="st">Planned</span><h3>Moving pictures</h3><p>Short clips: a walk north along the riverwalk, a slow turn from the press box, the approach from Roosevelt over the park. Same cameras as the stills.</p></div>
 <div><span class="st">Planned</span><h3>Night game</h3><p>A full night lighting pass: floodlights, board glow, the lit crowns downtown, the river reflections, from every fixed camera.</p></div>
 <div><span class="st">Planned</span><h3>More of the city</h3><p>Window textures on the dedicated towers, the Loop core beyond the mapped extent, the West Loop across the river, and any published dimensions that replace inferred heights.</p></div>

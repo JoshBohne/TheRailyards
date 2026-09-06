@@ -9,6 +9,11 @@ from mathutils import Vector
 OUT=Path(__file__).resolve().parent
 scene=bpy.data.scenes["Railyards v4"];col=bpy.data.collections['R2_Cameras']
 shots={
+ 'lf_gatehouse':{'position':[70,215,34],'target':[-8,118,34],'lens_mm':32,'purpose':'V6: the left-field gatehouse and end wall above the pavilion, from the park (north-east)'},
+ 'lf_corner_exterior':{'position':[-95,215,22],'target':[-12,110,26],'lens_mm':30,'purpose':'V6 diagnostic: left-field end of the bowl from the north-west, pavilion junction'},
+ 'lf_underside':{'position':[-62,178,12.5],'target':[-8,116,26],'lens_mm':24,'purpose':'V6 diagnostic: beneath the left-field bank / pavilion junction from the park level'},
+ 'cf_board_plan':{'position':[80,120,300],'target':[80,120,0],'ortho_scale':140,'purpose':'V6 diagnostic: orthographic plan of the centre-field board, restaurant, batter eye and banks'},
+ 'cf_from_home':{'position':[-2,-2,15.5],'target':[90,126,30],'lens_mm':40,'purpose':'V6 diagnostic: centre-field board and restaurant from behind the plate'},
  'home_plate_skyline':{'position':[-4.5,-4.5,13.7],'target':[45,60,44],'lens_mm':16,'purpose':'New view: from behind home plate, field level, the Loop and Museum Park towers over the outfield'},
  'press_box':{'position':[-33,-33,44],'target':[52,52,30],'lens_mm':24,'purpose':'New view: upper deck behind home plate looking out over the whole bowl to the skyline'},
  'roosevelt_bridge_west':{'position':[70,332,17.5],'target':[60,140,22],'lens_mm':28,'purpose':'New view: standing on Roosevelt Road looking south over the raised park to the outfield entry'},
