@@ -27,6 +27,14 @@ Control run (unchanged V3 generators through the V4 chain) is in `review/control
 
 Keep `../reconstruction-references/` adjacent: the north image is read for window tones and the source overlays reference the three artworks.
 
+## Live inspection
+
+A `blender-mcp` server is registered for the project in `../.mcp.json` (`uvx blender-mcp`; enable the add-on in Blender and start its server). `tools/blender_mcp_client.py` talks to the add-on socket directly (`BMCP_PORT=9877 python3 tools/blender_mcp_client.py get_scene_info`), and `tools/start_live_mcp.py` starts a GUI instance on this scene with the server on port 9877:
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender railyards-v4.blend --python tools/start_live_mcp.py
+```
+
 ## Files
 
 - `r4_geo.py` — single geographic registration (formula + 33 m X), datums, lake loader, clipping helpers.
