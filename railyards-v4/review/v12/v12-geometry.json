@@ -2,644 +2,644 @@
  "scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-stadium-proportions-cb24d4/railyards-v4/railyards-v12-static.blend",
  "arrival_gaps": [],
  "arrival_obstructions": [],
- "arrival_samples": 163,
+ "arrival_samples": 187,
  "lc_aisle_profile": [
   {
    "xy": [
-    54.57,
-    120.83
+    54.34,
+    120.65
    ],
-   "floor": 22.22,
-   "object": "D2_V11 Continuous terrace paving"
-  },
-  {
-   "xy": [
-    54.52,
-    120.58
-   ],
-   "floor": 22.25,
+   "floor": 22.06,
    "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
-    54.47,
-    120.34
+    54.29,
+    120.41
    ],
-   "floor": 22.27,
+   "floor": 22.06,
    "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
-    54.42,
-    120.09
+    54.23,
+    120.16
    ],
-   "floor": 22.27,
+   "floor": 22.06,
    "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
-    54.37,
-    119.85
+    54.18,
+    119.92
    ],
-   "floor": 22.24,
+   "floor": 22.06,
    "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
-    54.32,
-    119.6
+    54.13,
+    119.67
    ],
-   "floor": 22.21,
-   "object": "D2_V12 Left-center bank paving"
-  },
-  {
-   "xy": [
-    54.27,
-    119.36
-   ],
-   "floor": 22.19,
-   "object": "D2_V12 Left-center bank paving"
-  },
-  {
-   "xy": [
-    54.22,
-    119.11
-   ],
-   "floor": 22.16,
-   "object": "D2_V12 Left-center bank paving"
-  },
-  {
-   "xy": [
-    54.17,
-    118.87
-   ],
-   "floor": 22.14,
-   "object": "D2_V12 Left-center bank paving"
-  },
-  {
-   "xy": [
-    54.12,
-    118.62
-   ],
-   "floor": 22.11,
+   "floor": 22.06,
    "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
     54.07,
-    118.38
+    119.43
    ],
-   "floor": 21.63,
-   "object": "D2_V12 Left-center bank concrete"
+   "floor": 22.06,
+   "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
-    54.01,
-    118.13
+    54.02,
+    119.18
    ],
-   "floor": 21.63,
-   "object": "D2_V12 Left-center bank concrete"
+   "floor": 22.06,
+   "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
-    53.96,
-    117.89
+    53.97,
+    118.94
    ],
-   "floor": 21.63,
-   "object": "D2_V12 Left-center bank concrete"
+   "floor": 22.05,
+   "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
     53.91,
-    117.64
+    118.7
    ],
-   "floor": 21.16,
-   "object": "D2_V12 Left-center bank concrete"
+   "floor": 22.06,
+   "object": "D2_V12 Left-center bank paving"
   },
   {
    "xy": [
     53.86,
-    117.4
+    118.45
    ],
-   "floor": 21.16,
+   "floor": 22.06,
+   "object": "D2_V12 Left-center bank paving"
+  },
+  {
+   "xy": [
+    53.8,
+    118.21
+   ],
+   "floor": 21.59,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.81,
-    117.16
+    53.75,
+    117.96
    ],
-   "floor": 21.16,
+   "floor": 21.59,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.76,
-    116.91
+    53.7,
+    117.72
    ],
-   "floor": 20.69,
+   "floor": 21.59,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.71,
-    116.67
+    53.64,
+    117.48
    ],
-   "floor": 20.69,
+   "floor": 21.12,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.66,
-    116.42
+    53.59,
+    117.23
    ],
-   "floor": 20.69,
+   "floor": 21.12,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.61,
-    116.18
+    53.53,
+    116.99
    ],
-   "floor": 20.23,
+   "floor": 21.12,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.56,
-    115.93
+    53.48,
+    116.74
    ],
-   "floor": 20.23,
+   "floor": 20.65,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.51,
-    115.69
+    53.43,
+    116.5
    ],
-   "floor": 20.23,
+   "floor": 20.65,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.46,
-    115.44
+    53.37,
+    116.26
    ],
-   "floor": 20.23,
+   "floor": 20.65,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.41,
-    115.2
+    53.32,
+    116.01
    ],
-   "floor": 19.76,
+   "floor": 20.19,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.35,
-    114.95
+    53.26,
+    115.77
    ],
-   "floor": 19.76,
+   "floor": 20.19,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.3,
-    114.71
+    53.21,
+    115.52
    ],
-   "floor": 19.76,
+   "floor": 20.19,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    53.25,
-    114.46
+    53.16,
+    115.28
    ],
-   "floor": 19.29,
-   "object": "D2_V12 Left-center bank concrete"
-  },
-  {
-   "xy": [
-    53.2,
-    114.22
-   ],
-   "floor": 19.29,
-   "object": "D2_V12 Left-center bank concrete"
-  },
-  {
-   "xy": [
-    53.15,
-    113.97
-   ],
-   "floor": 19.29,
+   "floor": 20.19,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     53.1,
-    113.73
+    115.03
    ],
-   "floor": 18.82,
+   "floor": 19.72,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     53.05,
-    113.48
+    114.79
    ],
-   "floor": 18.82,
+   "floor": 19.72,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     53.0,
-    113.24
+    114.55
    ],
-   "floor": 18.82,
+   "floor": 19.72,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.95,
-    112.99
+    52.94,
+    114.3
    ],
-   "floor": 18.36,
+   "floor": 19.25,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.9,
-    112.75
+    52.89,
+    114.06
    ],
-   "floor": 18.36,
+   "floor": 19.25,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.85,
-    112.5
+    52.83,
+    113.81
    ],
-   "floor": 18.36,
+   "floor": 19.25,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.8,
-    112.26
+    52.78,
+    113.57
    ],
-   "floor": 17.89,
+   "floor": 18.79,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.75,
-    112.01
+    52.73,
+    113.33
    ],
-   "floor": 17.89,
+   "floor": 18.79,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.69,
-    111.77
+    52.67,
+    113.08
    ],
-   "floor": 17.89,
+   "floor": 18.79,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.64,
-    111.53
+    52.62,
+    112.84
    ],
-   "floor": 17.42,
+   "floor": 18.32,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.59,
-    111.28
+    52.56,
+    112.59
    ],
-   "floor": 17.42,
+   "floor": 18.32,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.54,
-    111.04
+    52.51,
+    112.35
    ],
-   "floor": 17.42,
+   "floor": 18.32,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.49,
-    110.79
+    52.46,
+    112.11
    ],
-   "floor": 16.96,
+   "floor": 17.85,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.44,
-    110.55
+    52.4,
+    111.86
    ],
-   "floor": 16.96,
+   "floor": 17.85,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.39,
-    110.3
+    52.35,
+    111.62
    ],
-   "floor": 16.96,
+   "floor": 17.85,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.34,
-    110.06
+    52.3,
+    111.37
    ],
-   "floor": 16.49,
-   "object": "D2_V12 Left-center bank concrete"
-  },
-  {
-   "xy": [
-    52.29,
-    109.81
-   ],
-   "floor": 16.49,
+   "floor": 17.39,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     52.24,
-    109.57
+    111.13
    ],
-   "floor": 16.49,
+   "floor": 17.39,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     52.19,
-    109.32
+    110.88
    ],
-   "floor": 16.49,
+   "floor": 17.39,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    52.14,
-    109.08
+    52.13,
+    110.64
    ],
-   "floor": 16.02,
+   "floor": 16.92,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     52.08,
-    108.83
+    110.4
    ],
-   "floor": 16.02,
+   "floor": 16.92,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     52.03,
-    108.59
+    110.15
    ],
-   "floor": 16.02,
+   "floor": 16.92,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.98,
-    108.34
+    51.97,
+    109.91
    ],
-   "floor": 15.56,
+   "floor": 16.45,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.93,
-    108.1
+    51.92,
+    109.66
    ],
-   "floor": 15.56,
+   "floor": 16.45,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.88,
-    107.85
+    51.86,
+    109.42
    ],
-   "floor": 15.56,
+   "floor": 16.45,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.83,
-    107.61
+    51.81,
+    109.18
    ],
-   "floor": 15.09,
+   "floor": 16.45,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.78,
-    107.36
+    51.76,
+    108.93
    ],
-   "floor": 15.09,
+   "floor": 15.98,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.73,
-    107.12
+    51.7,
+    108.69
    ],
-   "floor": 15.09,
+   "floor": 15.98,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.68,
-    106.87
+    51.65,
+    108.44
    ],
-   "floor": 14.62,
+   "floor": 15.98,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.63,
-    106.63
+    51.6,
+    108.2
    ],
-   "floor": 14.62,
+   "floor": 15.52,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.58,
-    106.38
+    51.54,
+    107.95
    ],
-   "floor": 14.62,
+   "floor": 15.52,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.53,
-    106.14
+    51.49,
+    107.71
    ],
-   "floor": 14.15,
+   "floor": 15.52,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.48,
-    105.89
+    51.43,
+    107.47
    ],
-   "floor": 14.15,
+   "floor": 15.05,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.42,
-    105.65
+    51.38,
+    107.22
    ],
-   "floor": 14.15,
+   "floor": 15.05,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
-    51.37,
-    105.41
+    51.33,
+    106.98
    ],
-   "floor": 13.69,
-   "object": "D2_V12 Left-center bank concrete"
-  },
-  {
-   "xy": [
-    51.32,
-    105.16
-   ],
-   "floor": 13.69,
+   "floor": 15.05,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     51.27,
-    104.92
+    106.73
    ],
-   "floor": 13.69,
+   "floor": 14.58,
    "object": "D2_V12 Left-center bank concrete"
   },
   {
    "xy": [
     51.22,
-    104.67
+    106.49
+   ],
+   "floor": 14.58,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    51.16,
+    106.25
+   ],
+   "floor": 14.58,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    51.11,
+    106.0
+   ],
+   "floor": 14.12,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    51.06,
+    105.76
+   ],
+   "floor": 14.12,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    51.0,
+    105.51
+   ],
+   "floor": 14.12,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    50.95,
+    105.27
+   ],
+   "floor": 13.65,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    50.9,
+    105.03
+   ],
+   "floor": 13.65,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    50.84,
+    104.78
+   ],
+   "floor": 13.65,
+   "object": "D2_V12 Left-center bank concrete"
+  },
+  {
+   "xy": [
+    50.79,
+    104.54
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    51.17,
-    104.43
+    50.73,
+    104.29
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    51.12,
-    104.18
+    50.68,
+    104.05
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    51.07,
-    103.94
+    50.63,
+    103.8
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    51.02,
-    103.69
+    50.57,
+    103.56
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    50.97,
-    103.45
+    50.52,
+    103.32
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    50.92,
-    103.2
+    50.46,
+    103.07
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    50.87,
-    102.96
+    50.41,
+    102.83
    ],
    "floor": 13.4,
    "object": "D2_RF structure concrete"
   },
   {
    "xy": [
-    50.82,
-    102.71
-   ],
-   "floor": 13.4,
-   "object": "D2_RF structure concrete"
-  },
-  {
-   "xy": [
-    50.76,
-    102.47
+    50.36,
+    102.58
    ],
    "floor": 12.02,
    "object": "D2_Field warning"
   },
   {
    "xy": [
-    50.71,
-    102.22
+    50.3,
+    102.34
    ],
    "floor": 12.02,
    "object": "D2_Field warning"
   },
   {
    "xy": [
-    50.66,
-    101.98
+    50.25,
+    102.1
    ],
    "floor": 12.02,
    "object": "D2_Field warning"
   },
   {
    "xy": [
-    50.61,
-    101.73
+    50.2,
+    101.85
    ],
    "floor": 12.02,
    "object": "D2_Field warning"
   },
   {
    "xy": [
-    50.56,
-    101.49
+    50.14,
+    101.61
+   ],
+   "floor": 12.02,
+   "object": "D2_Field warning"
+  },
+  {
+   "xy": [
+    50.09,
+    101.36
    ],
    "floor": 12.02,
    "object": "D2_Field warning"

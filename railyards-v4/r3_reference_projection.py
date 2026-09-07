@@ -44,3 +44,21 @@ def source_to_grade(scene,camera,pixel,image_size,road_y=300.0,road_z=14.1,slope
     direction=on_zero-origin
     distance=(road_z+slope*road_y-origin.z-slope*origin.y)/(direction.z+slope*direction.y)
     return tuple(origin+direction*distance)
+
+
+def source_to_surface(scene,camera,pixel,image_size,surface,z_low=0.0,z_high=40.0):
+    """Intersect a source ray with a height field z = surface(y) by bisection.
+
+    ``surface`` may be piecewise (V12 flat plaza / stair / terrace); the ray is
+    parameterised between its crossings of z_high and z_low.
+    """
+    origin=camera.matrix_world.translation
+    top=Vector(source_to_plane(scene,camera,pixel,image_size,z_high))
+    bottom=Vector(source_to_plane(scene,camera,pixel,image_size,z_low))
+    lo,hi=0.0,1.0
+    f=lambda t:(top+(bottom-top)*t)
+    for _ in range(60):
+        mid=(lo+hi)/2;q=f(mid)
+        if q.z>surface(q.y):lo=mid
+        else:hi=mid
+    q=f((lo+hi)/2);return (q.x,q.y,q.z)

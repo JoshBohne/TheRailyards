@@ -11,7 +11,9 @@ from r2_geometry import text
 from r3_public_realm import deck_z, quay_z, LOWER_Z, inside
 
 
-ARRIVAL_XY=[(50,294),(48,220),(52,185),(66.9,161.8),(66.9,136)]
+# V12: the route crosses the street-level plaza, climbs the grand stair (x 80-100,
+# y 172.6 -> 160) and continues onto the outfield terrace. V11 used (52,185),(66.9,161.8).
+ARRIVAL_XY=[(50,294),(48,220),(72,184),(90,175),(90,158),(70,142),(66.9,136)]
 
 
 def clear_arrival(x,y):
