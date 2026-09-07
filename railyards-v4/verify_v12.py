@@ -30,7 +30,9 @@ for a,b in zip(ARRIVAL_XY,ARRIVAL_XY[1:]):
     a,b=Vector(a),Vector(b);length=(b-a).length
     for i in range(max(2,round(length))):
         p=a.lerp(b,i/max(1,round(length)-1));floor=terrace_z(p.y)
-        route.append({'xy':list(p),'ground':architectural_probe((p.x,p.y,floor+.4),(0,0,-1),.85),'body':architectural_probe((p.x,p.y,floor+1.1),((b-a).x,(b-a).y,0),1.0)})
+        # The guide surface is linear across the grand stair; a landing puts the
+        # treads up to a metre off it, so the floor window is +-1 m.
+        route.append({'xy':list(p),'ground':architectural_probe((p.x,p.y,floor+1.0),(0,0,-1),2.0),'body':architectural_probe((p.x,p.y,floor+1.6),((b-a).x,(b-a).y,0),1.0)})
 info['arrival_gaps']=[r for r in route if r['ground'] is None];info['arrival_obstructions']=[r for r in route if r['body'] is not None];info['arrival_samples']=len(route)
 # V12: walk from the plaza edge down the left-center bank's first aisle to the wall.
 if scene.get('v12_proportions'):
@@ -78,7 +80,7 @@ shots={
  'D4_backstop':((-34,-34,30),(4,4,13),35),
  'F1_flag_close':((tx+30,ty-18,tz+6),(tx+4.6,ty+4.6,tz+8),60),
  'F2_tower_context':((tx+95,ty-120,30),(tx,ty,45),45),
- 'C_entrance_landing':((66.9,170,deck_z(170)+1.6),(45,105,18),22),
+ 'C_entrance_landing':((92,196,deck_z(196)+1.6),(70,158,20),24),
  'E_outfield_concourse':((108,60,13.4+1.6),(60,105,15),22),
  'H_entrance_from_field':((60,95,14),(66.9,161.8,deck_z(161.8)+2),30),
 }

@@ -312,3 +312,80 @@ def build_river_deck(scene,batch,spec,materials,rng):
         for k,w in enumerate(walkers):
             if buckets[k]:instances(scene,batch.collection(group),'River gallery visitors '+str(k),w,buckets[k],rots[k])
     return {'levels':[L1_Z,L2_Z],'canopy':CANOPY_Z,'x':[DECK_X0,DECK_X1],'y':[DECK_Y0,DECK_Y1],'board_deck_x0':round(xw,1)}
+
+
+# ------------------------------------------------------- terrace front and grand stair
+STAIR_X=(80.0,100.0)   # grand stair on the river side of the arches (bridge rendering)
+
+
+def build_terrace_surface_v12(batch,polygons,step_lines,stair_x=STAIR_X):
+    """V11 terrace union split at the level change: south of the arcade face
+    the surface is the outfield terrace (22.0); north of it the plaza is flat
+    at street level right up to the arcade, except the grand-stair opening."""
+    from mathutils.geometry import delaunay_2d_cdt
+    from collections import Counter
+    from r3_public_realm import STAIR_Y_TOP,STAIR_Y_BOTTOM,ROAD_Z,PLAZA_GRADE,ROAD_Y
+    points=[];edges=[]
+    for poly in polygons:
+        start=len(points);points.extend(Vector(p) for p in poly)
+        edges.extend((start+i,start+(i+1)%len(poly)) for i in range(len(poly)))
+    for y in step_lines:
+        start=len(points);points.extend([Vector((-20,y)),Vector((130,y))]);edges.append((start,start+1))
+    for x in stair_x:
+        start=len(points);points.extend([Vector((x,STAIR_Y_BOTTOM-.001)),Vector((x,STAIR_Y_TOP+.001))]);edges.append((start,start+1))
+    vertices,_,faces,*_=delaunay_2d_cdt(points,edges,[],0,.0001)
+    plaza=lambda y:ROAD_Z+PLAZA_GRADE*(ROAD_Y-max(y,STAIR_Y_TOP))
+    lower=[];upper=[]
+    for face in faces:
+        c=sum((vertices[i] for i in face),Vector((0,0)))/len(face)
+        if not any(inside(tuple(c),poly) for poly in polygons):continue
+        if c.y<STAIR_Y_BOTTOM:upper.append(tuple(face))
+        elif STAIR_Y_BOTTOM<=c.y<=STAIR_Y_TOP and stair_x[0]<c.x<stair_x[1]:continue
+        else:lower.append(tuple(face))
+    for selected,zf in ((upper,terrace_z),(lower,plaza)):
+        if not selected:continue
+        top=[(p.x,p.y,zf(p.y)) for p in vertices];bottom=[(p.x,p.y,zf(p.y)-.5) for p in vertices]
+        batch.add('V11 Continuous terrace','paving',top,selected)
+        batch.add('V11 Continuous terrace','concrete',bottom,[tuple(reversed(face)) for face in selected])
+        counts=Counter(tuple(sorted((a,b))) for face in selected for a,b in zip(face,face[1:]+face[:1]))
+        for (a,b),count in counts.items():
+            if count==1:batch.quad('V11 Continuous terrace','stone',[bottom[a],bottom[b],top[b],top[a]])
+
+
+def build_terrace_front(scene,batch,spec,materials,park,roof):
+    """The outfield terrace is the roof of a two-storey brick arcade building
+    facing the street-level plaza (bridge and north renderings).  A grand stair
+    beside the arches climbs from the plaza to the terrace; the stair band is
+    the same one deck_z uses, so the walking route is continuous."""
+    from r3_public_realm import STAIR_Y_TOP,STAIR_Y_BOTTOM,TERRACE_Z,deck_z
+    from r11_circulation import stairs as _stairs
+    group='V12 Terrace front'
+    plaza_z=deck_z(STAIR_Y_TOP);y_face=STAIR_Y_BOTTOM
+    # The plaza is flat at plaza_z up to this face; deck_z's linear band only guides the walking route down the stair.
+    xs=[q[0] for q in park];x0=min(xs)+1.0;x1=max(max(xs),max(q[0] for q in roof if q[1]>150))
+    x1=min(x1,113.0)
+    stair_x0,stair_x1=STAIR_X
+    # Terrace face: brick from the ground to the terrace, along y = y_face.
+    batch.box(group,'brick',((x0+x1)/2,y_face+.3,(8+TERRACE_Z-.4)/2),(x1-x0,1.0,TERRACE_Z-.4-8))
+    batch.box(group,'stone',((x0+x1)/2,y_face+.3,TERRACE_Z-.22),(x1-x0+.2,1.3,.36))
+    # Arches on the plaza face (left normal of tangent (1,0) is +Y: the plaza side).
+    bay=6.4
+    for x in [x0+bay*(k+.5) for k in range(int((x1-x0)/bay))]:
+        if stair_x0-2.5<x<stair_x1+2.5:continue
+        _arch_bay(batch,group,Vector((x,y_face+.8,0)),Vector((1,0,0)),4.3,plaza_z+.05,5.4,TERRACE_Z-.4,.5,materials)
+    # Grand stair from the plaza (y 172) to the terrace (y 160), 20 m wide, one landing.
+    _stairs(batch,group,(( stair_x0+stair_x1)/2,y_face,TERRACE_Z),((stair_x0+stair_x1)/2,STAIR_Y_TOP+.6,plaza_z),stair_x1-stair_x0,1)
+    # Landing at the stair head: covers the sliver between the roof and park traces.
+    batch.box(group,'paving',((stair_x0+stair_x1)/2,y_face-3.0,TERRACE_Z-.25),(stair_x1-stair_x0+1.4,7.0,.5))
+    # Brick cheek walls either side of the stair, following the run.
+    for x in (stair_x0-.35,stair_x1+.35):
+        n=12
+        for k in range(n):
+            ya=y_face+(STAIR_Y_TOP-y_face)*k/n;yb=y_face+(STAIR_Y_TOP-y_face)*(k+1)/n;z=deck_z((ya+yb)/2)+.9
+            batch.box(group,'brick',(x,(ya+yb)/2,(8+z)/2),(.7,(yb-ya)+.02,z-8))
+    # Parapet rail along the terrace edge either side of the stair.
+    for xa,xb in ((x0,stair_x0-.7),(stair_x1+.7,x1)):
+        rail(batch,group,(xa,y_face-.3,TERRACE_Z),(xb,y_face-.3,TERRACE_Z))
+    # Plaza slab under the flat park is otherwise open to the ground: close its
+    # visible north-east and west faces with brick so the park reads as a deck.
+    return {'face_y':y_face,'plaza_z':round(plaza_z,2),'terrace_z':TERRACE_Z,'stair_x':[stair_x0,stair_x1],'face_x':[round(x0,1),round(x1,1)]}

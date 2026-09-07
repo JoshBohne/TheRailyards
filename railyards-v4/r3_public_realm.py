@@ -9,17 +9,23 @@ from pathlib import Path
 from mathutils import Vector
 from r2_geometry import instances
 from r2_seating import prototype
-from r3_reference_projection import source_to_grade
+from r3_reference_projection import source_to_grade,source_to_surface
 
 GROUP='Public realm'
 _SPEC=json.loads((Path(__file__).parent/'public-realm-spec.json').read_text())
 _PARAMETERS=_SPEC['parameters']
 ROAD_Y=_PARAMETERS['ROAD_Y'];ROAD_Z=_PARAMETERS['ROAD_Z'];GRADE=_PARAMETERS['GRADE'];LOWER_Z=_PARAMETERS['LOWER_Z']
+PLAZA_GRADE=_PARAMETERS['PLAZA_GRADE'];STAIR_Y_TOP=_PARAMETERS['STAIR_Y_TOP'];STAIR_Y_BOTTOM=_PARAMETERS['STAIR_Y_BOTTOM'];TERRACE_Z=_PARAMETERS['TERRACE_Z']
 SOURCE_SIZE=tuple(_SPEC['source_size_px'])
 ROOF_PIXELS=_PARAMETERS['ROOF_PIXELS'];LAWN_PIXELS=_PARAMETERS['LAWN_PIXELS'];RETAIL_EDGE=_PARAMETERS['RETAIL_EDGE']
 
 
-def deck_z(y):return ROAD_Z+GRADE*(ROAD_Y-y)
+def deck_z(y):
+    # V12: flat street-level plaza, a grand stair band, then the outfield terrace.
+    plaza=ROAD_Z+PLAZA_GRADE*(ROAD_Y-STAIR_Y_TOP)
+    if y>=STAIR_Y_TOP:return ROAD_Z+PLAZA_GRADE*(ROAD_Y-y)
+    if y<=STAIR_Y_BOTTOM:return TERRACE_Z
+    return TERRACE_Z+(plaza-TERRACE_Z)*(y-STAIR_Y_BOTTOM)/(STAIR_Y_TOP-STAIR_Y_BOTTOM)
 
 def quay_z(y):
     # Inferred continuous lower walk joining the stadium arcade and park quay.
@@ -56,7 +62,7 @@ def _table(batch,x,y,z,scale=1):
 
 def build_public_realm(scene,spec,batch,materials,circulation=False):
     rng=random.Random(6026);camera=bpy.data.objects['R2_north']
-    def project(p):return source_to_grade(scene,camera,p,SOURCE_SIZE,ROAD_Y,ROAD_Z,GRADE)[:2]
+    def project(p):return source_to_surface(scene,camera,p,SOURCE_SIZE,deck_z)[:2]
     roof=[project(p)for p in ROOF_PIXELS]
     lawns=[[project(p)for p in polygon]for polygon in LAWN_PIXELS]
     edge=[project(p)for p in RETAIL_EDGE]
@@ -94,10 +100,11 @@ def build_public_realm(scene,spec,batch,materials,circulation=False):
     # Broad entry landing toward the bowl, structurally supported and continuous
     # with the rising park deck. Its top remains above the modeled bleacher rows.
     entrance=[project(p)for p in [(695,736),(808,668),(1050,689),(810,790)]]
-    _slab(batch,'stone',entrance,deck_z,lambda y:deck_z(y)-.60)
-    for a,b in zip(entrance,entrance[1:]+entrance[:1]):
-        center=(Vector(a)+Vector(b))/2
-        batch.box(GROUP,'concrete',(center.x,center.y,(8+deck_z(center.y))/2),(.6,.8,deck_z(center.y)-8))
+    if not circulation:
+        _slab(batch,'stone',entrance,deck_z,lambda y:deck_z(y)-.60)
+        for a,b in zip(entrance,entrance[1:]+entrance[:1]):
+            center=(Vector(a)+Vector(b))/2
+            batch.box(GROUP,'concrete',(center.x,center.y,(8+deck_z(center.y))/2),(.6,.8,deck_z(center.y)-8))
     if circulation:
         from r11_circulation import build_arcade
         build_arcade(scene,batch,materials,edge)
@@ -190,5 +197,5 @@ def build_public_realm(scene,spec,batch,materials,circulation=False):
         for i in range(len(positions)):buckets[rng.choices(range(len(variants)),weights)[0]].append(i)
         for k,(w,sel) in enumerate(zip(variants,buckets)):
             if sel:instances(scene,batch.collection(GROUP),'Public deck visitors '+str(k),w,[positions[i] for i in sel],[rotations[i] for i in sel],[scales[i] for i in sel])
-    scene['public_deck_grade']='Inferred z=14.1+0.045*(300-y), meeting Roosevelt sidewalk and rising toward the outfield entry; verify in both north and bridge source views.'
+    scene['public_deck_grade']='V12: flat plaza z=14.1+0.01*(300-y) to y 172, grand stair to the 22.0 outfield terrace by y 160 (arcade-building roof); read from the bridge and north renderings, dimensions inferred.'
     scene['public_realm_roof_xy']=str(roof)

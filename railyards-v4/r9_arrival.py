@@ -5,7 +5,7 @@ Its grade follows the existing park datum. Rails, stairs and canopy details
 are inferred and are not an accessibility or engineering assessment.
 """
 from mathutils import Vector
-from r3_reference_projection import source_to_grade
+from r3_reference_projection import source_to_surface
 from r3_public_realm import deck_z,ROAD_Y,ROAD_Z,GRADE,_slab
 
 GROUP='Left center arrival'
@@ -15,7 +15,7 @@ SOURCE_POLYGON=[(707,626),(854,567),(896,637),(1050,689),(810,790),(695,736)]
 def build_arrival(scene,spec,batch,materials):
     import bpy
     cam=bpy.data.objects['R2_north']
-    points=[source_to_grade(scene,cam,p,(1944,1294),ROAD_Y,ROAD_Z,GRADE)[:2] for p in SOURCE_POLYGON]
+    points=[source_to_surface(scene,cam,p,(1944,1294),deck_z)[:2] for p in SOURCE_POLYGON]
     # Same top surface as the park and existing entrance: no invented flat
     # platform at an unrelated height. The overlap joins the existing slab.
     _slab(batch,'stone',points,lambda y:deck_z(y)+.06,lambda y:deck_z(y)-.55)

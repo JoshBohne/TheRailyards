@@ -12,11 +12,11 @@ from pathlib import Path
 from mathutils import Vector
 OUT=Path(__file__).resolve().parent;sys.path.insert(0,str(OUT))
 from r2_geometry import MeshBatch
-from r3_public_realm import build_public_realm,ROOF_PIXELS as PARK_PIXELS,ROAD_Y,ROAD_Z,GRADE,inside
-from r3_reference_projection import source_to_grade,source_to_plane
+from r3_public_realm import build_public_realm,ROOF_PIXELS as PARK_PIXELS,ROAD_Y,ROAD_Z,GRADE,inside,deck_z,STAIR_Y_TOP,STAIR_Y_BOTTOM
+from r3_reference_projection import source_to_surface,source_to_plane
 from r3_restaurant import ROOF_PIXELS
 from r11_circulation import regrade_restaurant,terrace_z,build_terrace_surface,rail,slab,stairs
-from r12_outfield import build_lc_bank,build_rf_corner,build_river_deck,in_lc_bank,in_corner_bank
+from r12_outfield import build_lc_bank,build_rf_corner,build_river_deck,build_terrace_front,build_terrace_surface_v12,in_lc_bank,in_corner_bank
 from r2_lighting import apply_lighting
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 spec=json.loads((OUT/'scene-spec.json').read_text())
@@ -32,9 +32,9 @@ batch=MeshBatch(scene,materials)
 build_public_realm(scene,spec,batch,materials,circulation=True)
 cam=bpy.data.objects['R2_north']
 roof=[source_to_plane(scene,cam,p,(1944,1294),22)[:2] for p in ROOF_PIXELS]
-entrance=[source_to_grade(scene,cam,p,(1944,1294),ROAD_Y,ROAD_Z,GRADE)[:2] for p in [(695,736),(808,668),(1050,689),(810,790)]]
+entrance=[source_to_surface(scene,cam,p,(1944,1294),deck_z)[:2] for p in [(695,736),(808,668),(1050,689),(810,790)]]
 from r9_arrival import SOURCE_POLYGON
-front_terrace=[source_to_grade(scene,cam,p,(1944,1294),ROAD_Y,ROAD_Z,GRADE)[:2] for p in SOURCE_POLYGON]
+front_terrace=[source_to_surface(scene,cam,p,(1944,1294),deck_z)[:2] for p in SOURCE_POLYGON]
 regrade_restaurant(scene,batch,roof,entrance,front_terrace)
 
 
@@ -89,8 +89,9 @@ def open_lower_landings_v12(scene,batch,spec,front_terrace):
 
 
 polygons=connect_outfield_v12(batch,front_terrace)
-park=[source_to_grade(scene,cam,p,(1944,1294),ROAD_Y,ROAD_Z,GRADE)[:2] for p in PARK_PIXELS]
-build_terrace_surface(batch,polygons+[roof,entrance,park])
+park=[source_to_surface(scene,cam,p,(1944,1294),deck_z)[:2] for p in PARK_PIXELS]
+build_terrace_surface_v12(batch,polygons+[roof,entrance,park],[STAIR_Y_TOP,STAIR_Y_BOTTOM])
+front=build_terrace_front(scene,batch,spec,materials,park,roof)
 open_lower_landings_v12(scene,batch,spec,front_terrace)
 rng=random.Random(1212)
 lc=build_lc_bank(scene,batch,spec,front_terrace,roof,rng)
@@ -110,7 +111,7 @@ for obj in bpy.data.collections['D2_Scoreboards'].objects:
     elif obj.name.startswith('D2_cf_scoreboard_top'):obj.location.z+=delta
 scene['v11_circulation']='Public deck continues onto graded restaurant terrace; source-led riverfront arcade, stepped quay and corner stair.'
 scene['v11_cf_board_bottom']=screen_bottom
-scene['v12_proportions']=json.dumps({'bowl_front':spec['bowl_front_basis'],'left_center_bank':lc,'rf_corner':corner,'river_gallery':gallery,
+scene['v12_proportions']=json.dumps({'bowl_front':spec['bowl_front_basis'],'left_center_bank':lc,'rf_corner':corner,'river_gallery':gallery,'terrace_front':front,
  'dugouts':'both 20 m, 12.8 m off the foul lines','flag':'mast on the tower roof cap','rf_board':'brick board house on the podium ring'})
 scene['v12_source_boundaries']='Source establishes plaza-to-bleacher continuity, a solid RF corner under the board and a roof mast; foul clearances, rakes, row counts, cut lines and understructure are inferred.'
 scene['stage']='V12: stadium proportions (bowl front, left-center bank, RF corner, flag)'
