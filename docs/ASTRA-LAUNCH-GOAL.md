@@ -7,7 +7,7 @@ User request, 2026-09-07: after the GPT Pro website PR and Fable's Blender corre
 1. Identify the actual website PR from the ChatGPT task “Tweet stadium visualization website” (conversation 6a9f1489-07bc-83e9-b147-2b58bb7c833e). Do not mistake V11 PR #1 for that new website work. Confirm pushed source/head and actual build output.
 2. Fable's fresh Claude task “Railyards stadium proportions” must have finished and pushed its V12 geometry, with saved scene and visual evidence recoverable. Its worktree began at `.claude/worktrees/railyards-stadium-proportions-cb24d4`; discover current status instead of assuming completion from silence or a clean worktree. Preserve ownership and avoid overwriting active scene writes.
 3. Record both delivered commits/PRs and paths to scene/export artifacts. Integrate from those heads in a new isolated Codex worktree, preserving the earlier versions. If integration needs merging/cherry-picking, do it locally on the integration branch; do not silently merge unfinished source PRs to main.
-4. The requested Astra name was “GPT 5.6 Astra Ultra”; this host currently exposes `gpt-6-astra` with `ultra`. A model-name confirmation is pending in the coordinating task. Use the confirmed Astra model, never silently substitute a different family.
+4. Josh confirmed the available Astra Ultra model: use `gpt-6-astra` with `ultra` reasoning for the new task.
 
 ## Goal for the new task
 
