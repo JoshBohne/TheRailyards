@@ -1,30 +1,24 @@
 (() => {
   'use strict';
-  const comparison = document.querySelector('[data-comparison]');
-  const opacity = document.querySelector('#compare-opacity');
-  const output = document.querySelector('#compare-output');
-  document.querySelectorAll('[data-compare]').forEach(button => {
-    button.addEventListener('click', () => {
-      const view = button.dataset.compare;
-      document.querySelectorAll('[data-compare]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      for (const kind of ['source', 'model']) {
-        const image = document.querySelector(`#compare-${kind}`);
-        image.src = `media/${kind}-${view}.jpg`;
-        image.alt = `${button.textContent}: ${kind === 'source' ? 'published concept by AECOM / Canal Edge' : 'V12 reconstruction'}`;
-      }
+  document.querySelectorAll('[data-compare-section]').forEach(section => {
+    const comparison = section.querySelector('[data-comparison]');
+    const opacityControl = section.querySelector('.opacity-control');
+    const swipe = section.querySelector('.swipe-input');
+    const handle = section.querySelector('.swipe-handle');
+    section.querySelectorAll('[data-mode]').forEach(button => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.mode;
+        comparison.dataset.layout = mode;
+        opacityControl.hidden = mode !== 'overlay';
+        swipe.hidden = handle.hidden = mode !== 'swipe';
+        section.querySelectorAll('[data-mode]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      });
     });
-  });
-  document.querySelectorAll('[data-layout]').forEach(button => {
-    if (button.tagName !== 'BUTTON') return;
-    button.addEventListener('click', () => {
-      comparison.dataset.layout = button.dataset.layout;
-      document.querySelector('.opacity-control').hidden = button.dataset.layout !== 'overlay';
-      document.querySelectorAll('button[data-layout]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    section.querySelector('[data-opacity]').addEventListener('input', event => {
+      comparison.style.setProperty('--source-opacity', String(Number(event.target.value) / 100));
+      section.querySelector('output').value = `${event.target.value}%`;
     });
-  });
-  opacity?.addEventListener('input', () => {
-    comparison.style.setProperty('--source-opacity', String(Number(opacity.value) / 100));
-    output.value = `${opacity.value}%`;
+    swipe.addEventListener('input', () => comparison.style.setProperty('--swipe-position', `${swipe.value}%`));
   });
   document.querySelectorAll('[data-filter]').forEach(button => {
     button.addEventListener('click', () => {

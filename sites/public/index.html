@@ -23,7 +23,7 @@
 <a href="index.html" aria-current="page">Overview</a>
 <a href="gallery.html">Gallery</a>
 <a href="3d.html">3D</a>
-<a href="build.html">Build</a>
+<a href="build.html">Details</a>
 </nav>
 </header>
 <main id="content" class="page-shell">
@@ -39,38 +39,18 @@
 <span>Illustrative play</span>
 </figcaption>
 </figure>
-<section class="section" id="compare">
-<h2>Concept / reconstruction</h2>
-<div class="compare-toolbar">
-<div class="compare-tabs" role="group" aria-label="Choose comparison">
-<button type="button" aria-pressed="true" data-compare="north">North aerial</button>
-<button type="button" aria-pressed="false" data-compare="south">South aerial</button>
-<button type="button" aria-pressed="false" data-compare="bridge">Roosevelt bridge</button>
-</div>
-<div class="compare-tabs" role="group" aria-label="Comparison layout">
-<button type="button" aria-pressed="true" data-layout="side">Side by side</button>
-<button type="button" aria-pressed="false" data-layout="overlay">Overlay</button>
-</div>
-</div>
-<div class="comparison" data-comparison data-layout="side">
-<figure class="comparison-source">
-<img id="compare-source" src="media/source-north.jpg" alt="Published north aerial concept by AECOM / Canal Edge">
-<figcaption>Published concept · AECOM / Canal Edge</figcaption>
-</figure>
-<figure class="comparison-model">
-<img id="compare-model" src="media/model-north.jpg" alt="V12 reconstruction viewed from the north">
-<figcaption>Our reconstruction</figcaption>
-</figure>
-</div>
-<div class="opacity-control" hidden>
-<label for="compare-opacity">Concept opacity</label>
-<input type="range" id="compare-opacity" min="0" max="100" value="50">
-<output for="compare-opacity" id="compare-output">50%</output>
-</div>
-<p class="section-note">
-<a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Source: Crain’s Chicago Business ↗</a>
-</p>
-</section>
+<section class="section comparison-section" data-compare-section><h2>North aerial</h2>
+<div class="compare-tabs" role="group" aria-label="North aerial comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-north.jpg" alt="Published north aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-north.jpg" alt="Our north aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe north aerial comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="opacity-control" hidden><label for="opacity-north">Concept opacity</label><input id="opacity-north" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section>
+<section class="section comparison-section" data-compare-section><h2>South aerial</h2>
+<div class="compare-tabs" role="group" aria-label="South aerial comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-south.jpg" alt="Published south aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-south.jpg" alt="Our south aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe south aerial comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="opacity-control" hidden><label for="opacity-south">Concept opacity</label><input id="opacity-south" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section>
+<section class="section comparison-section" data-compare-section><h2>Roosevelt bridge</h2>
+<div class="compare-tabs" role="group" aria-label="Roosevelt bridge comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-bridge.jpg" alt="Published roosevelt bridge concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-bridge.jpg" alt="Our roosevelt bridge reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe roosevelt bridge comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="opacity-control" hidden><label for="opacity-bridge">Concept opacity</label><input id="opacity-bridge" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section><p class="section-note"><a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Source: Crain’s Chicago Business ↗</a></p>
 </main>
 <footer class="site-footer">
 <p class="site-disclosure">Independent fan study. Not affiliated with, sponsored by, or endorsed by the Chicago White Sox, Major League Baseball, Crain’s Chicago Business, AECOM, or Canal Edge. <a href="build.html#credits">Credits &amp; disclosures</a>
