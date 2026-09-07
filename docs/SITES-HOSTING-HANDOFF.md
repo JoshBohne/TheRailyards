@@ -6,9 +6,9 @@ Sites slug therailyards was accepted. Sites returned the workspace-qualified URL
 Site project: appgprj_6a9f369e05c0819187b6fd8d2f4ad167
 Manifest: sites/public/.openai/hosting.json
 Isolated Sites source checkout: /Users/joshbohne/Developer/TheRailyards-pro-site/work/hosted-site
-Sites source commit: 935cc2a130e960706d99a8c4800ad3fc8147ae18
-Version 3: appgprj_6a9f369e05c0819187b6fd8d2f4ad167~appgver_04fb46cc2fa08191a92689e2e0178eb2
-Successful deployment: appgdep_6a9f3b06558c8191acb8521d08cc18c1
+Sites source commit: 35ea2d312dfb456af8a0108fbdb007d97ddf8fc8
+Version 4: appgprj_6a9f369e05c0819187b6fd8d2f4ad167~appgver_e990b81251e88191bbaab88dbdc37959
+Successful deployment: appgdep_6a9f3fa1856481919d9b4005e907c917
 
 Central implementation is PR #3, stacked over Pro PR #2. The exact requested title is Recreating The Railyards. Use a whole-stadium aerial, direct exploration, short viewpoint labels, comparisons, and a secondary build page. The user rejected the long headline, filler prose, diagram map, and Roosevelt-first framing. Do not restore those.
 
