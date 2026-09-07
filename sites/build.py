@@ -11,7 +11,7 @@ MODEL=ROOT/'railyards-v4'
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--encode',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--encode',action='store_true');parser.add_argument('--replay',action='store_true');args=parser.parse_args()
     import imageio_ffmpeg
     ffmpeg=imageio_ffmpeg.get_ffmpeg_exe()
     movies=MODEL/'review/v9/movies';movies.mkdir(exist_ok=True)
@@ -23,6 +23,8 @@ def main():
             target=movies/f'{name}.mp4'
             if target.exists() and target.stat().st_mtime>max((folder/f'{i:04d}.png').stat().st_mtime for i in range(count)):continue
             subprocess.run([ffmpeg,'-y','-loglevel','error','-framerate','24','-i',str(folder/'%04d.png'),'-frames:v',str(count),'-c:v','libx264','-crf','18','-pix_fmt','yuv420p','-movflags','+faststart',str(target)],check=True)
+    if args.replay:
+        subprocess.run(['pnpm','--dir',str(ROOT/'sites/replay'),'build'],check=True)
     images={name:MODEL/f'review/v9/{name}.png' for name in ['arrival','left_center','boat','skyline_west','skyline_east']}
     images['river-poster']=MODEL/'review/v9/river/0110.png'
     images['v8-left_center']=MODEL/'review/v8-experiences/left_center.png'
@@ -50,6 +52,9 @@ def main():
             source=movies/f'{name}.mp4'
             if not source.is_file():raise FileNotFoundError(source)
             shutil.copy2(source,media/source.name)
+        if kind=='public' and args.replay:
+            if (dest/'replay').exists():shutil.rmtree(dest/'replay')
+            shutil.copytree(ROOT/'sites/replay/dist',dest/'replay')
         manifest={'site':kind,'files':[{'path':str(p.relative_to(dest)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size} for p in sorted(dest.rglob('*')) if p.is_file() and p.name!='build-manifest.json']}
         (dest/'build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
         print(f'{kind}: {dest} ({len(manifest["files"])} files)')

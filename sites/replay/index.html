@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Watch an imagined White Sox home run reach the Chicago River. Replay it from a modeled seat, the boat, or the ball's flight."><link rel="icon" href="data:,"><title>Into the River · The Railyards</title></head>
+<body>
+<main class="experience" id="experience">
+  <div id="viewport" role="img" aria-label="Interactive Railyards stadium replay. Use the camera and playback controls to explore."></div>
+  <header><a class="brand" href="../">THE RAILYARDS <span>FROM HERE</span></a><div class="heading"><span>AN IMAGINED FIRST</span><h1>Into the river.</h1></div><button id="fullscreen" class="quiet">Fullscreen</button></header>
+  <div id="loading" role="status"><span class="eyebrow">TAKE YOUR SEAT</span><h2>The park is coming into view.</h2><p id="loading-status">Loading the stadium…</p><progress id="load-progress" max="100" value="0"></progress><a href="../">Watch the rendered films</a></div>
+  <aside id="camera-panel" class="panel" aria-label="Choose your view">
+    <div class="panel-title"><h2>Your view</h2><button id="collapse-views" aria-expanded="true" aria-controls="view-options">Hide</button></div>
+    <div id="view-options"><div class="view-list" role="group" aria-label="Camera perspectives">
+      <button data-camera="overview" aria-pressed="true">The whole flight <span>Aerial</span></button>
+      <button data-camera="home" aria-pressed="false">Behind the plate <span>Lower bowl</span></button>
+      <button data-camera="upper" aria-pressed="false">Above the diamond <span>Upper deck</span></button>
+      <button data-camera="left_center" aria-pressed="false">Left-center terrace <span>Field reveal</span></button>
+      <button data-camera="boat" aria-pressed="false">On the river <span>Boat level</span></button>
+      <button data-camera="follow" aria-pressed="false">Follow the ball <span>Chase camera</span></button>
+      <button data-camera="arrival" aria-pressed="false">Off Roosevelt <span>Moving approach</span></button>
+    </div>
+    <button id="choose-seat" aria-expanded="false" aria-controls="seat-picker">Choose a modeled seat <span>↗</span></button>
+    <div id="seat-picker" hidden>
+      <p class="small">Pick a point on the bowl or use the controls. This is the model’s seating, not an official ticket map.</p>
+      <canvas id="seat-map" width="500" height="360" aria-label="Modeled seating map. Tier, row and seat selectors provide a keyboard alternative."></canvas>
+      <div class="seat-controls"><label>Tier<select id="tier"><option value="0">Lower bowl</option><option value="1">Club</option><option value="2">Middle</option><option value="3">Upper deck</option><option value="4">Outfield</option></select></label><label>Row<select id="row"></select></label><label>Seat<select id="seat"></select></label></div>
+    </div>
+    <label class="toggle"><input id="track-ball" type="checkbox" checked>Keep the ball in view</label>
+    <label class="toggle"><input id="show-trail" type="checkbox" checked>Trail + ball locator</label>
+    <label class="toggle"><input id="crowd" type="checkbox" checked>Crowd</label>
+    <p class="hint">Drag to look · scroll or pinch to zoom</p></div>
+  </aside>
+  <div class="view-caption"><span id="camera-label">The whole flight</span><p id="camera-description">One hit. The ballpark, the skyline, and the river beyond.</p></div>
+  <div class="metrics" aria-label="Modeled distances"><div><strong>429 <small>ft</small></strong><span>to the water</span></div><div><strong>476 <small>ft</small></strong><span>to the splash</span></div></div>
+  <section class="transport" aria-label="Replay controls">
+    <div class="time-heading"><span id="beat" aria-live="off">The pitch</span><span id="clock">0.0 / 10.5 s</span></div>
+    <label class="sr-only" for="timeline">Replay time</label><input id="timeline" type="range" min="0" max="10.5" step="0.01" value="0">
+    <div class="playback"><button id="play" class="primary" disabled>Play the hit</button><button id="restart" disabled>Restart</button><label>Speed<select id="speed"><option value="0.25">¼×</option><option value="0.5">½×</option><option value="1" selected>1×</option></select></label><label class="loop"><input id="loop" type="checkbox">Loop</label><button id="share">Copy this view</button><button id="about-open" class="quiet">About this scene</button></div>
+  </section>
+  <div id="toast" role="status"></div>
+  <dialog id="about"><button id="about-close" autofocus>Close</button><p class="eyebrow">A POSSIBLE FUTURE</p><h2>A seat at a park that doesn’t exist yet.</h2><p>This is an independent fan reconstruction of the AECOM Railyards concept. The venue comes from our Blender model; the play, generic players, camera paths and splash are authored illustrations.</p><p>The river distance is measured horizontally from home plate in that model. The flight arc clears its static structures, but it is not an aerodynamic prediction or an official future field dimension.</p><p>Every selectable seat comes from the saved geometry. Architecture, clearances and sightlines remain inferred. Some seats and the boat have genuinely obstructed views; the ball marker is enlarged so you can follow the action. The optional locator also shows its position through obstructions.</p><p>Inspired by the shared-timeline approach in <a href="https://the-garden-og-game-four.vercel.app/" target="_blank" rel="noopener">The Garden’s OG Game 4 replay</a>. No player, venue, audio or animation assets were copied.</p><p class="small">Space: play/pause · ←/→: step through time · R: restart. Rendered films remain available on the main site.</p><a href="../">Back to the films</a></dialog>
+</main><script type="module" src="/src/main.ts"></script></body></html>

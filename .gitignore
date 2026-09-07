@@ -29,3 +29,10 @@ site/img-lite/
 # V9 experience render frames, movies and runtime receipts
 railyards-v*/review/v9/
 railyards-v*/review/v8-experiences/
+
+# V10 browser export and bundled application
+node_modules/
+sites/replay/dist/
+sites/replay/public/model/
+railyards-v*/review/v10/
+sites/replay/public/draco/

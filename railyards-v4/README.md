@@ -1,6 +1,8 @@
-# White Sox Railyards — V4–V9 generators
+# White Sox Railyards — V4–V10 generators
 
-Current continuation: [V9 rendered experiences and verification](../docs/V9-SCOPE.md), saved separately as `railyards-v9.blend`.
+Current continuation: [V10 interactive replay](../docs/V10-HANDOFF.md), saved as `railyards-v10.blend`.
+
+Previous continuation: [V9 rendered experiences and verification](../docs/V9-SCOPE.md), saved separately as `railyards-v9.blend`.
 
 Previous continuation: [V8 night pass and verification](../docs/V8-HANDOFF.md). Fable’s V7 is tagged `v7-baseline`; V8 saves separately as `railyards-v8.blend`.
 

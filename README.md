@@ -4,8 +4,9 @@ Editable Blender reconstruction of AECOM’s White Sox Railyards concept in Chic
 
 ## Current work
 
-Fable’s V4–V7 work is preserved in the `v7-baseline` tag. It includes the right-field scoreboard and structure corrections, lake geography, expanded skyline, gatehouse, concourses and night views. V8 adds a separate night preset with individual landmark windows. V9 corrects the left-center arrival terrace and landmark forms, and adds two browser sites with four rendered experience films. The generators remain in `railyards-v4/` because later iterations build on that scene; legacy object names are functional.
+Fable’s V4–V7 work is preserved in the `v7-baseline` tag. It includes the right-field scoreboard and structure corrections, lake geography, expanded skyline, gatehouse, concourses and night views. V8 adds a separate night preset with individual landmark windows. V9 corrects the left-center arrival terrace and landmark forms, and adds two browser sites with four rendered experience films. V10 adds a shared-clock river home-run replay with seven perspectives and every modeled seat. The generators remain in `railyards-v4/` because later iterations build on that scene; legacy object names are functional.
 
+- [V10 interactive river replay](docs/V10-HANDOFF.md)
 - [V9 scope, rebuild and verification](docs/V9-SCOPE.md)
 - [Two sites: build and serve](sites/README.md)
 - [Current model and rebuild commands](railyards-v4/README.md)
