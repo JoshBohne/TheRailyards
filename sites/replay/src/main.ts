@@ -83,7 +83,7 @@ async function start():Promise<void>{
  try{
   const response=await fetch(new URL('model/replay.json',document.baseURI));if(!response.ok)throw new Error(`Replay data failed (${response.status})`);
   data=await response.json() as ReplayData;
-  if(![10,11].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
+  if(!(Number.isInteger(data.version)&&data.version>=10)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
   const bowl=data.instances.find(g=>g.name==='D2_Individual seats');if(!bowl)throw new Error('The seat geometry is missing');
   // V12: every other '... individual seats' group (outfield terraces, left-center bank, RF corner) is an outfield tier.
   const outfieldGroups=data.instances.filter(g=>g!==bowl&&g.name.toLowerCase().includes('individual seats'));
