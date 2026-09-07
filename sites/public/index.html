@@ -3,31 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore an unofficial 3D reconstruction of Chicago's proposed Railyards White Sox ballpark from the seats, Roosevelt Road, and the Chicago River.">
+  <meta name="description" content="Explore an unofficial 3D reconstruction of Chicago's proposed Railyards White Sox ballpark from the seats and the Chicago River.">
   <meta name="theme-color" content="#0a0b0d">
   <meta property="og:type" content="website">
   <link rel="canonical" href="{{SITE_URL}}/">
   <meta property="og:url" content="{{SITE_URL}}/">
-  <meta property="og:title" content="The Railyards, From Here">
-  <meta property="og:description" content="The renderings showed the proposal. This interactive study explores the views between them.">
-  <meta property="og:image" content="{{SITE_URL}}/media/arrival.jpg">
+  <meta property="og:title" content="Recreating The Railyards">
+  <meta property="og:description" content="Explore the proposed White Sox ballpark in 3D.">
+  <meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
   <meta property="og:image:width" content="1600">
   <meta property="og:image:height" content="900">
   <meta property="og:image:alt" content="An aerial reconstruction of the proposed Railyards White Sox ballpark district along the Chicago River">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Railyards, From Here">
+  <meta name="twitter:title" content="Recreating The Railyards">
   <meta name="twitter:description" content="Explore an unofficial 3D reconstruction of the proposed White Sox riverfront ballpark.">
-  <meta name="twitter:image" content="{{SITE_URL}}/media/arrival.jpg">
-  <title>The Railyards, From Here | Interactive White Sox Ballpark Study</title>
+  <meta name="twitter:image" content="{{SITE_URL}}/media/model-north.jpg">
+  <title>Recreating The Railyards | Interactive White Sox Ballpark Study</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="media/arrival.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="media/model-north.jpg" fetchpriority="high">
   <link rel="stylesheet" href="site.css">
   <script src="site.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
-    "name": "The Railyards, From Here",
+    "name": "Recreating The Railyards",
     "description": "An independent, interactive 3D study of the proposed Railyards White Sox ballpark concept in Chicago.",
     "creator": {"@type": "Person", "name": "Josh Bohne"},
     "isBasedOn": "https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/"
@@ -35,106 +35,52 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#tour">Skip to the interactive tour</a>
-  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
-
-  <header class="site-header" data-header>
-    <a class="brand" href="#top" aria-label="The Railyards, From Here home">
-      <span class="brand-mark" aria-hidden="true">R</span>
-      <span class="brand-copy">THE RAILYARDS<small>FROM HERE</small></span>
-    </a>
-    <button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
-      <span class="sr-only">Open navigation</span>
-      <span aria-hidden="true"></span><span aria-hidden="true"></span>
-    </button>
-    <nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav>
-      <a href="#tour">Guided tour</a>
-      <a href="#map">Experience map</a>
-      <a href="#compare">Source vs. model</a>
-      <a href="replay/">3D replay</a>
-      <a href="process.html">How it was made</a>
-    </nav>
-    <button class="theme-toggle icon-button" type="button" aria-label="Switch to light theme" data-theme-toggle>
-      <span aria-hidden="true">◐</span>
-    </button>
-  </header>
-
-  <main id="top">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-backdrop" aria-hidden="true">
-        <img src="media/arrival.jpg" alt="" width="1600" height="900" fetchpriority="high">
-      </div>
-      <div class="hero-vignette" aria-hidden="true"></div>
-      <div class="hero-content page-shell">
-        <p class="eyebrow"><span></span> Unofficial 3D reconstruction</p>
-        <h1 id="hero-title">See the ballpark from the views the renderings didn’t show.</h1>
-        <p class="hero-lede">Walk in from Roosevelt. Look out from the seats. Drop to the river. This independent Blender study turns a handful of concept images into a place you can explore.</p>
-        <div class="hero-actions">
-          <button class="button button-primary" type="button" data-start-tour>Start the guided tour <span aria-hidden="true">↓</span></button>
-          <a class="button button-secondary" href="replay/">Choose a seat in 3D <span aria-hidden="true">↗</span></a>
-        </div>
-        <p class="hero-note">A fan-made interpretation, not an official design, architectural model, or promise of what will be built.</p>
-      </div>
-      <div class="hero-bottom page-shell">
-        <div class="hero-questions" aria-label="Jump to a question">
-          <button type="button" data-scene="arrival" data-jump-tour>How would fans arrive?</button>
-          <button type="button" data-scene="left_center" data-jump-tour>What would the field reveal feel like?</button>
-          <button type="button" data-scene="boat" data-jump-tour>How would it look from the river?</button>
-          <button type="button" data-scene="river" data-jump-tour>Could a homer reach the water?</button>
-        </div>
-        <dl class="hero-stats" aria-label="Experience highlights">
-          <div><dt>4</dt><dd>guided films</dd></div>
-          <div><dt>8</dt><dd>replay cameras</dd></div>
-          <div><dt>26,950</dt><dd>modeled seats</dd></div>
-        </dl>
-      </div>
-      <div class="hero-scroll" aria-hidden="true"><span></span> Explore</div>
-    </section>
-
-    <section class="intro-strip" aria-label="Project summary">
-      <div class="page-shell intro-strip-grid">
-        <p class="kicker">THE IDEA</p>
-        <p>The published images establish the big picture. The reconstruction connects those fixed views so you can ask the questions a still rendering cannot answer.</p>
-        <a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/" target="_blank" rel="noopener">Read the original reporting <span aria-hidden="true">↗</span></a>
-      </div>
-    </section>
-
+<a class="skip-link" href="#tour">Skip to viewpoints</a>
+<header class="site-header" data-header>
+<a class="brand" href="index.html">Recreating The Railyards</a>
+<button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="sr-only">Open navigation</span><span></span><span></span></button>
+<nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav><a href="#tour">Views</a><a href="#compare">Compare</a><a href="process.html">The build</a><a href="replay/">Explore in 3D ↗</a></nav>
+<button class="theme-toggle icon-button" type="button" aria-label="Switch to light theme" data-theme-toggle>◐</button>
+</header>
+<main id="top">
+<section class="opening page-shell" aria-labelledby="hero-title">
+<div class="opening-heading"><div><p class="eyebrow">Chicago · A proposed White Sox ballpark</p><h1 id="hero-title">Recreating<br>The Railyards</h1></div>
+<div class="opening-intro"><p>The ballpark, the river, the view from your seat.</p><div class="hero-actions"><a class="button button-primary" href="replay/">Explore in 3D ↗</a><a class="button button-secondary" href="#tour">Watch the films ↓</a></div><p class="opening-note">An unofficial reconstruction by Josh Bohne.</p></div></div>
+<a class="opening-image" href="replay/" aria-label="Explore the reconstructed ballpark in 3D"><img src="media/model-north.jpg" alt="The reconstructed Railyards ballpark beside the Chicago River" width="1600" height="1065" fetchpriority="high"><span>Pick a seat. Look around. ↗</span></a>
+</section>
     <section class="tour-section section" id="tour" aria-labelledby="tour-title">
       <div class="page-shell">
-        <div class="section-heading split-heading">
-          <div>
-            <p class="eyebrow"><span></span> Guided tour</p>
-            <h2 id="tour-title">Four questions.<br>Four ways in.</h2>
-          </div>
-          <p>Choose a perspective below. Each scene is a short, rendered path through the Blender model, with a clear note about what came from the source images and what had to be interpreted.</p>
-        </div>
+        <div class="section-heading"><h2 id="tour-title">Around the ballpark</h2></div>
 
         <div class="tour-shell" data-tour-shell tabindex="0" aria-label="Interactive scene viewer. Use the scene buttons or left and right arrow keys to change views.">
-          <div class="scene-rail" role="tablist" aria-label="Choose a perspective">
-            <button class="scene-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="scene-panel" data-scene="arrival">
+          <div class="scene-rail" role="tablist" aria-label="Choose a perspective"><button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="boat">
               <span class="scene-number">01</span>
-              <span><strong>How do fans arrive?</strong><small>Roosevelt Road</small></span>
+              <span><strong>From the river</strong><small>Boat level</small></span>
             </button>
-            <button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="left_center">
+<button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="left_center">
               <span class="scene-number">02</span>
-              <span><strong>Where does the field reveal itself?</strong><small>Left-center terrace</small></span>
+              <span><strong>Inside the bowl</strong><small>Left-center terrace</small></span>
             </button>
-            <button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="boat">
+<button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="river">
               <span class="scene-number">03</span>
-              <span><strong>What does the river side feel like?</strong><small>Boat level</small></span>
+              <span><strong>Into the river</strong><small>Illustrated flight</small></span>
             </button>
-            <button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="river">
+<button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="arrival">
               <span class="scene-number">04</span>
-              <span><strong>Could a home run reach the river?</strong><small>Illustrated flight</small></span>
+              <span><strong>Park walk</strong><small>Arrival terrace</small></span>
             </button>
+
+
+
+
           </div>
 
           <article class="scene-panel" id="scene-panel" role="tabpanel">
             <div class="scene-stage">
-              <video id="scene-video" controls playsinline preload="metadata" poster="media/arrival.jpg" aria-label="The approach from Roosevelt Road">
-                <source src="media/arrival.mp4" type="video/mp4">
+              <video id="scene-video" controls playsinline preload="metadata" poster="media/boat.jpg" aria-label="The ballpark from the river">
+                <source src="media/boat.mp4" type="video/mp4">
               </video>
-              <button class="scene-play" type="button" data-scene-play aria-label="Play the approach from Roosevelt Road">
+              <button class="scene-play" type="button" data-scene-play aria-label="Play the river view">
                 <span aria-hidden="true">▶</span><small>Play film</small>
               </button>
               <div class="scene-stage-top">
@@ -144,14 +90,11 @@
             </div>
             <div class="scene-copy">
               <div>
-                <p class="scene-location" id="scene-location">Roosevelt Road · North approach</p>
-                <h3 id="scene-title">Off Roosevelt, into the park.</h3>
+                <p class="scene-location" id="scene-location">Chicago River</p>
+                <h3 id="scene-title">From the river.</h3>
               </div>
-              <p class="scene-description" id="scene-description">Follow the raised public park toward the outfield as the pavilion, clock tower, and seating bowl come into view.</p>
-              <div class="scene-basis">
-                <span>What you are seeing</span>
-                <p id="scene-basis">The park elevation is visible in the concept artwork. The route, grading transitions, and camera travel connect gaps the still images do not resolve.</p>
-              </div>
+              <p class="scene-description" id="scene-description">A boat-level view of the ballpark and waterfront.</p>
+
             </div>
             <div class="scene-actions">
               <div class="scene-stepper">
@@ -159,95 +102,16 @@
                 <button type="button" data-scene-next><span>Next</span> →</button>
               </div>
               <div>
-                <a id="scene-still" href="media/arrival.jpg" target="_blank" rel="noopener">Open full still <span aria-hidden="true">↗</span></a>
+                <a id="scene-still" href="media/boat.jpg" target="_blank" rel="noopener">Open full still <span aria-hidden="true">↗</span></a>
                 <button type="button" data-share-scene>Share this view</button>
               </div>
             </div>
           </article>
         </div>
-        <p class="keyboard-hint">Tip: focus the viewer and use <kbd>←</kbd> <kbd>→</kbd> to move between perspectives.</p>
       </div>
-    </section>
-
-    <section class="map-section section" id="map" aria-labelledby="map-title">
-      <div class="page-shell map-grid">
-        <div class="map-copy">
-          <p class="eyebrow"><span></span> Experience map</p>
-          <h2 id="map-title">Move through the district, not just around a render.</h2>
-          <p>Select a marker to load its scene in the guided tour. This diagram explains the relationships between Roosevelt Road, the raised park, the bowl, and the river. It is an orientation graphic, not an official site plan.</p>
-          <div class="map-selection" aria-live="polite">
-            <span id="map-selection-index">01</span>
-            <div><strong id="map-selection-title">Roosevelt arrival</strong><p id="map-selection-copy">Enter from the city at the raised public park.</p></div>
-          </div>
-          <button class="text-button" type="button" data-map-open>Open selected perspective <span aria-hidden="true">→</span></button>
-        </div>
-
-        <div class="experience-map" aria-label="Interactive orientation diagram">
-          <div class="map-label map-label-north">N <span>↑</span></div>
-          <div class="map-label map-label-roosevelt">ROOSEVELT ROAD</div>
-          <div class="map-label map-label-canal">CANAL STREET</div>
-          <div class="map-label map-label-river">CHICAGO RIVER</div>
-          <svg viewBox="0 0 960 620" role="img" aria-labelledby="map-svg-title map-svg-desc">
-            <title id="map-svg-title">Simplified Railyards orientation diagram</title>
-            <desc id="map-svg-desc">A conceptual diagram showing Canal Street to the west, Roosevelt Road to the north, the ballpark and raised park in the middle, and the Chicago River to the east.</desc>
-            <defs>
-              <pattern id="railPattern" width="16" height="16" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
-                <line x1="0" y1="0" x2="0" y2="16" class="map-rail-line"></line>
-              </pattern>
-            </defs>
-            <path class="map-river" d="M746 -15 C700 90 788 154 736 246 C690 328 780 402 724 635 L1000 635 L1000 -15 Z"></path>
-            <path class="map-river-edge" d="M746 -15 C700 90 788 154 736 246 C690 328 780 402 724 635"></path>
-            <path class="map-road" d="M24 102 L768 102"></path>
-            <path class="map-road map-road-west" d="M142 0 L142 620"></path>
-            <rect class="map-rails" x="478" y="0" width="156" height="620" fill="url(#railPattern)"></rect>
-            <path class="map-park" d="M178 126 L466 126 L515 178 L492 258 L414 296 L284 282 L194 224 Z"></path>
-            <path class="map-stadium-outer" d="M264 174 C314 116 434 112 524 156 C612 198 654 296 610 382 C570 462 462 494 360 466 C260 438 202 354 214 270 C220 230 236 202 264 174 Z"></path>
-            <path class="map-stadium-inner" d="M315 218 C355 180 436 177 498 208 C558 238 586 301 556 355 C527 407 454 426 386 409 C321 392 281 341 288 286 C291 258 300 236 315 218 Z"></path>
-            <path class="map-field" d="M397 354 L350 291 L419 222 L487 286 L438 355 Z"></path>
-            <path class="map-home-line" d="M397 354 L600 274 L748 256"></path>
-            <circle class="map-home" cx="397" cy="354" r="6"></circle>
-            <rect class="map-building" x="188" y="370" width="106" height="118" rx="3"></rect>
-            <rect class="map-building" x="582" y="132" width="116" height="96" rx="3"></rect>
-            <rect class="map-building" x="532" y="448" width="145" height="94" rx="3"></rect>
-            <path class="map-walk" d="M186 153 C238 165 235 210 276 223"></path>
-            <path class="map-walk" d="M574 383 C646 394 678 358 731 340"></path>
-            <text class="map-stadium-label" x="409" y="316" text-anchor="middle">BALLPARK</text>
-            <text class="map-park-label" x="315" y="160" text-anchor="middle">RAISED PARK</text>
-          </svg>
-          <button class="map-hotspot is-active" style="--x:25%;--y:21%" type="button" data-scene="arrival" aria-label="Load Roosevelt arrival perspective"><span>1</span><small>Arrival</small></button>
-          <button class="map-hotspot" style="--x:43%;--y:38%" type="button" data-scene="left_center" aria-label="Load left-center terrace perspective"><span>2</span><small>Terrace</small></button>
-          <button class="map-hotspot" style="--x:82%;--y:55%" type="button" data-scene="boat" aria-label="Load river perspective"><span>3</span><small>River</small></button>
-          <button class="map-hotspot" style="--x:70%;--y:40%" type="button" data-scene="river" aria-label="Load river home run perspective"><span>4</span><small>Flight</small></button>
-          <p class="map-notice">Orientation only · Not to scale</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="replay-section section" aria-labelledby="replay-title">
-      <div class="replay-backdrop" aria-hidden="true"><img src="media/skyline_west.jpg" alt="" width="1600" height="900" loading="lazy"></div>
-      <div class="page-shell replay-content">
-        <p class="eyebrow"><span></span> Interactive 3D replay</p>
-        <h2 id="replay-title">Pick a seat.<br>Watch one into the river.</h2>
-        <p>The rendered tour controls the camera. The replay hands it to you: choose from every modeled seat, switch among eight perspectives, scrub the same home-run timeline, and look around the stadium in real time.</p>
-        <div class="replay-actions"><a class="button button-primary" href="replay/">Enter the 3D replay <span aria-hidden="true">↗</span></a><a class="replay-deep-link" href="replay/#view=riverwalk">Start along the riverwalk <span aria-hidden="true">→</span></a></div>
-        <div class="replay-features" aria-label="Replay features">
-          <div><strong>26,950</strong><span>modeled seat positions</span></div>
-          <div><strong>8</strong><span>curated camera paths</span></div>
-          <div><strong>1</strong><span>shared replay clock</span></div>
-        </div>
-        <p class="replay-note">The 3D experience loads a larger venue model. The guided films above are the lighter option.</p>
-      </div>
-    </section>
-
-    <section class="compare-section section" id="compare" aria-labelledby="compare-title">
+    </section>    <section class="compare-section section" id="compare" aria-labelledby="compare-title">
       <div class="page-shell">
-        <div class="section-heading split-heading">
-          <div>
-            <p class="eyebrow"><span></span> Source vs. model</p>
-            <h2 id="compare-title">Grounded in the images.<br>Honest about the seams.</h2>
-          </div>
-          <p>Drag across a matched camera to compare the published concept image with the reconstruction. The goal is not to hide the differences. It is to make the source, the fit, and the interpretation legible.</p>
-        </div>
+        <div class="section-heading"><h2 id="compare-title">Concept / reconstruction</h2><p>Drag to compare.</p></div>
 
         <div class="compare-tabs" role="tablist" aria-label="Choose a source comparison">
           <button type="button" role="tab" aria-selected="true" data-compare="north">North aerial</button>
@@ -266,77 +130,8 @@
           <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50">
         </div>
         <div class="compare-caption">
-          <p id="compare-caption"><strong>North aerial.</strong> This is the broadest source view and the main test for the bowl, park, river edge, and surrounding district.</p>
+          <p id="compare-caption"><strong>North aerial.</strong> </p>
           <span id="compare-output" aria-live="polite">50% source</span>
         </div>
       </div>
-    </section>
-
-    <section class="skyline-section section" id="skyline" aria-labelledby="skyline-title">
-      <div class="page-shell">
-        <div class="section-heading skyline-heading">
-          <p class="eyebrow"><span></span> The view beyond the field</p>
-          <h2 id="skyline-title">Chicago is not a backdrop.<br>It is part of the ballpark.</h2>
-        </div>
-        <div class="skyline-gallery">
-          <figure class="skyline-card skyline-card-wide">
-            <img src="media/skyline_west.jpg" width="1600" height="900" loading="lazy" alt="Modeled view toward the west side of Chicago's skyline from the ballpark">
-            <figcaption><span>LOOK TOWARD THE LOOP</span><strong>Willis Tower and 311 South Wacker rise through the outfield view.</strong><p>Buildings remain at their mapped locations, so familiar silhouettes overlap the way they would from a seat rather than lining up for a postcard.</p></figcaption>
-          </figure>
-          <figure class="skyline-card">
-            <img src="media/skyline_east.jpg" width="1600" height="900" loading="lazy" alt="Modeled eastward skyline view from the ballpark">
-            <figcaption><span>LOOK FARTHER EAST</span><strong>Landmark crowns appear between nearer South Loop towers.</strong><p>The forms are simplified. Occlusion and distance are part of the answer.</p></figcaption>
-          </figure>
-          <aside class="skyline-note">
-            <span class="big-number">33 m</span>
-            <p>An early city-data registration mismatch had shifted landmarks relative to the stadium. The correction was made once in the shared geographic frame rather than moving towers to improve individual views.</p>
-            <a href="process.html#verification">See how the model was checked <span aria-hidden="true">→</span></a>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="context-section section" aria-labelledby="context-title">
-      <div class="page-shell context-grid">
-        <div>
-          <p class="eyebrow"><span></span> Read this correctly</p>
-          <h2 id="context-title">A possible future,<br>not a prediction.</h2>
-        </div>
-        <div class="context-copy">
-          <p>This project can make relative scale, sightlines, routes, and modeled distances easier to understand. It cannot establish final architecture, construction feasibility, official field dimensions, access, safety, or what will ultimately be approved.</p>
-          <div class="evidence-legend" aria-label="Evidence labels used throughout the project">
-            <div><span class="evidence-chip evidence-referenced">Referenced</span><p>Visible directly in published source material.</p></div>
-            <div><span class="evidence-chip evidence-reconstructed">Reconstructed</span><p>Connected from multiple sources, measurements, or geographic data.</p></div>
-            <div><span class="evidence-chip evidence-interpretive">Interpretive</span><p>Added where the public images do not resolve the space.</p></div>
-            <div><span class="evidence-chip evidence-illustrative">Illustrative</span><p>An authored event or motion, not a prediction.</p></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="process-teaser section" aria-labelledby="process-teaser-title">
-      <div class="page-shell process-teaser-grid">
-        <div>
-          <p class="eyebrow"><span></span> Behind the build</p>
-          <h2 id="process-teaser-title">The experience is the story.<br>The agents are the footnotes.</h2>
-        </div>
-        <div>
-          <p>Astra calibrated and generated the first scene. Fable audited the weak spots, corrected the geography and architecture, rendered the routes, and built toward the browser replay. The separate build log covers the prompts, versions, validation, failures, and an instrumented token snapshot.</p>
-          <a class="button button-secondary" href="process.html">See how it was made <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="page-shell footer-grid">
-      <div><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">R</span><span class="brand-copy">THE RAILYARDS<small>FROM HERE</small></span></a></div>
-      <div><p>An independent fan study created by Josh Bohne. Not affiliated with or endorsed by the Chicago White Sox, MLB, AECOM, Canal Edge, Northwestern Medicine, or Crain’s Chicago Business.</p><p>Source concept imagery remains the property of its creators. Areas not visible in the source material were interpreted for continuity.</p></div>
-      <div class="footer-links"><a href="replay/">3D replay</a><a href="process.html">Build log</a><a href="https://github.com/JoshBohne/TheRailyards" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a><button type="button" data-back-top>Back to top ↑</button></div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <noscript><p class="noscript">The films and source images remain available, but the scene switching, comparison slider, and experience map require JavaScript.</p></noscript>
-</body>
-</html>
+    </section></main><footer class="site-footer"><div class="page-shell"><a class="brand" href="#top">Recreating The Railyards</a><p>Fan-made, not an official design. Unseen details are interpreted.</p><nav aria-label="Project links"><a href="process.html">Built with Astra + Fable</a><a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Original reporting</a><a href="https://github.com/JoshBohne/TheRailyards">Source code</a></nav><p>Concept imagery: AECOM / Canal Edge. Reconstruction: Josh Bohne.</p></div></footer><div class="toast" id="toast" role="status" aria-live="polite"></div></body></html>
