@@ -6,18 +6,19 @@ The application uses TypeScript, Three.js and Vite. Blender exports the venue as
 
 ## Rebuild
 
-From the repository root, restore the saved V9 model if needed, then:
+From the repository root, restore the saved V9 model if needed, then follow [the V11 rebuild](../../docs/V11-CIRCULATION.md):
 
 ```sh
 pnpm --dir sites/replay install --frozen-lockfile
-/Applications/Blender.app/Contents/MacOS/Blender -b railyards-v4/railyards-v9.blend --python railyards-v4/build_replay_v10.py
+/Applications/Blender.app/Contents/MacOS/Blender -b railyards-v4/railyards-v9.blend --python-exit-code 1 --python railyards-v4/build_circulation_v11.py
+/Applications/Blender.app/Contents/MacOS/Blender -b railyards-v4/railyards-v11-static.blend --python-exit-code 1 --python railyards-v4/build_replay_v10.py -- --version 11
 pnpm --dir sites/replay test
 uv run --with imageio-ffmpeg==0.6.0 python sites/build.py --replay
 ```
 
-Serve `work/web-dist/public` on port 8854, then open `/replay/`. This integrated build keeps the existing rendered films available. `pnpm --dir sites/replay dev` serves development on 8855; its parent link is intended for the integrated site.
+Serve `work/web-dist/public` on port 8854, then open `/replay/`. This integrated build includes the V11 rendered films (render them using the linked instructions first). `pnpm --dir sites/replay dev` serves development on 8855; its parent link is intended for the integrated site.
 
-Generated GLBs, JSON point data, decoder copies, scene files and `dist/` are excluded from Git. The private release contains self-contained sites and the saved V10 scene. Rebuild the assets before running the tests, which validate actual export data.
+Generated GLBs, JSON point data, decoder copies, scene files and `dist/` are excluded from Git. The private release contains self-contained sites and the saved V11 scenes. Rebuild the assets before running the tests, which validate actual export data.
 
 ## Honest boundaries
 

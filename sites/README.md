@@ -6,10 +6,10 @@ Two independent static sites share rendered artifacts, not a live Blender viewpo
 - `review/`: working version comparisons, unresolved issues, form studies, and the same experience films.
 - Earlier `../site/` remains preserved as Fable’s draft.
 
-Build both after rendering the documented V9 artifacts:
+Build both after rendering the [documented V11 artifacts](../docs/V11-CIRCULATION.md):
 
 ```sh
-uv run --with imageio-ffmpeg==0.6.0 python sites/build.py --encode
+uv run --with imageio-ffmpeg==0.6.0 python sites/build.py --encode --replay
 python3 -m http.server 8853 --bind 127.0.0.1 --directory work/web-dist/review
 # In another terminal:
 python3 -m http.server 8854 --bind 127.0.0.1 --directory work/web-dist/public
@@ -19,4 +19,4 @@ Open `http://127.0.0.1:8853/` for review and `http://127.0.0.1:8854/` for the pu
 
 Build outputs and frame caches are ignored by Git. The builder fails on missing frames or media; it never silently substitutes a still for a movie. All films are H.264 MP4 with native browser controls and no autoplay. Theme selection and reduced-motion preferences are respected by the public page.
 
-V10 adds the [interactive replay](replay/README.md) at `/replay/`. After exporting its model, use `sites/build.py --replay` to include the application in the public build.
+V11 includes the [interactive replay](replay/README.md) at `/replay/`. After exporting its model, use `sites/build.py --replay` to include the application in the public build.
