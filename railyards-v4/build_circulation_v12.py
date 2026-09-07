@@ -16,7 +16,7 @@ from r3_public_realm import build_public_realm,ROOF_PIXELS as PARK_PIXELS,ROAD_Y
 from r3_reference_projection import source_to_grade,source_to_plane
 from r3_restaurant import ROOF_PIXELS
 from r11_circulation import regrade_restaurant,terrace_z,build_terrace_surface,rail,slab,stairs
-from r12_outfield import build_lc_bank,build_rf_corner,in_lc_bank,in_corner_bank
+from r12_outfield import build_lc_bank,build_rf_corner,build_river_deck,in_lc_bank,in_corner_bank
 from r2_lighting import apply_lighting
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 spec=json.loads((OUT/'scene-spec.json').read_text())
@@ -95,6 +95,7 @@ open_lower_landings_v12(scene,batch,spec,front_terrace)
 rng=random.Random(1212)
 lc=build_lc_bank(scene,batch,spec,front_terrace,roof,rng)
 corner=build_rf_corner(scene,batch,spec,materials,rng)
+gallery=build_river_deck(scene,batch,spec,materials,rng)
 batch.flush()
 scene['seat_count']=int(scene['seat_count'])+lc['seats']+corner['seats']
 scene['spectator_count']=int(scene['spectator_count'])+lc['spectators']+corner['spectators']
@@ -109,7 +110,7 @@ for obj in bpy.data.collections['D2_Scoreboards'].objects:
     elif obj.name.startswith('D2_cf_scoreboard_top'):obj.location.z+=delta
 scene['v11_circulation']='Public deck continues onto graded restaurant terrace; source-led riverfront arcade, stepped quay and corner stair.'
 scene['v11_cf_board_bottom']=screen_bottom
-scene['v12_proportions']=json.dumps({'bowl_front':spec['bowl_front_basis'],'left_center_bank':lc,'rf_corner':corner,
+scene['v12_proportions']=json.dumps({'bowl_front':spec['bowl_front_basis'],'left_center_bank':lc,'rf_corner':corner,'river_gallery':gallery,
  'dugouts':'both 20 m, 12.8 m off the foul lines','flag':'mast on the tower roof cap','rf_board':'brick board house on the podium ring'})
 scene['v12_source_boundaries']='Source establishes plaza-to-bleacher continuity, a solid RF corner under the board and a roof mast; foul clearances, rakes, row counts, cut lines and understructure are inferred.'
 scene['stage']='V12: stadium proportions (bowl front, left-center bank, RF corner, flag)'

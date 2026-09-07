@@ -11,7 +11,7 @@ V12 answers the V12 handoff: the interior and outfield read as one coherent bowl
 | First-base foul clearance | 12.8 m (trace kept) | — |
 | Third-base dugout | 17 m long, its front on the foul line | Mirror of the first-base dugout |
 | Plaza edge above left-center | z 22.0, 17–24 m behind the wall; bleachers topped out at z 17, 9 m behind the wall; one 4 m stair bridged the 5–9 m drop | Plaza flows straight down into a bleacher bank (`reconstruction-references/v12-user-north-transition.png`) |
-| Right-field corner | Bare 13.4 m terrace behind the foul-pole diagonal with a railing; board on lattice legs | Solid brick corner under the board, seating wrapping the pole |
+| Right-field corner | Bare 13.4 m terrace behind the foul-pole diagonal with a railing; board on lattice legs from the ring; nothing between tower and board along the river | Seating wrapping the pole on a solid base; a two-level lit gallery on posts along the river from the tower past the board, the board frame standing on its upper level |
 | Tower flag | Pole 1.7 m outside the shaft face, from z 56 to 72, flags below the roof line | Mast on the tower roof |
 | Field-edge wall | Void between the field (z 12) and the tier fascia (z 13.1) | Padded wall |
 
@@ -22,7 +22,7 @@ V12 answers the V12 handoff: the interior and outfield read as one coherent bowl
 - **Field-edge wall** (`r3_bowl_details.py`): padded wall from the field to the fascia along the whole bowl front.
 - **Left-center bank** (`r12_outfield.py`): 18 level rows (0.78 m tread, 0.467 m rise, about 31°) parallel to the plaza edge, from 1.6 m behind the wall up to a 2.4 m cross-aisle flush with the plaza. Aisles run straight down from the plaza. The bank extends 10 m west of the plaza and east to the batter's eye, with brick end walls following the rake and a paved landing joining the plaza corner to the restaurant roof edge. It replaces the V11 stair and the elevated path over the void.
 - **Right-field corner** (`r12_outfield.py`): 12 rows (0.85 m tread, 0.40 m rise) parallel to the foul-pole diagonal, a 2.4 m rear aisle with a brick parapet, brick end walls, and an arcade on the south-east face (ground z 8) and the east face (riverwalk z 4.95). The block replaces the V4 terrace railing on that edge.
-- **Right-field board** (`r3_scoreboards.py`): the board bears on a brick board house on the podium ring, with arches to the riverwalk; the lattice pylons are gone. The field face keeps the V4 wall clearance (0.4 m minimum at the wall bend).
+- **Right-field river gallery** (`r12_outfield.py` `build_river_deck`): the north aerial shows a two-level open gallery on slender posts along the river between the clock tower and the board, people on both levels, festoons below and the board's dark frame rising from the upper terrace. V12 builds it from y −62 to 57: decks at z 11.3 and 16.5 over the riverwalk, a canopy at 20.7, the upper deck widened over the podium ring to the outfield wall in the board zone, stairs to the quay, between levels and to the ring, festoons and crowd. The board's steel pylons now bear on that upper deck (`rf_scoreboard.support_base_z` 16.5); its anchor, size and angle are unchanged.
 - **Outfield terraces** (`r3_outfield.py`): only the board-to-center-field bank and the small left-field-pole bank remain as low terraces.
 - **Flag** (`r3_bowl_details.py`): a 12.8 m mast on the tower roof cap with a base sleeve and finial; the city flag and team pennant fly above the roof.
 

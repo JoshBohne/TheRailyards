@@ -138,7 +138,7 @@ Brief: `../docs/FABLE-5.1-V12-HANDOFF.md`; decisive reference `../reconstruction
 | Third-base line to seats, y 20 / 60 / 80 | nothing hit within 40 m at field level (no wall) | 12.6 / 12.6 / 8.2 m | `v12-geometry.json` |
 | Backstop, home plate to wall | no wall hit (trace was 5.7 m) | 17.7 m | `D4_backstop`, `P1_plan_stadium` |
 | Left-center plaza to bleachers | plaza z 22 over bleachers topping at z 17; one 4 m stair | 18-row bank from the wall to a cross-aisle flush with the plaza; first aisle max step 1.38 m (the field wall), no gaps | `N1`–`N5`, `S1_section_left_center`, `H_entrance_from_field` |
-| Right-field corner | railing terrace at z 13.4, board on lattice legs | 12-row corner bank on a brick block with arcades; brick board house | `R1`–`R5`, `S2_section_rf_corner` |
+| Right-field corner | railing terrace at z 13.4, board on lattice legs, nothing along the river between tower and board | 12-row corner bank on a brick block; two-level river gallery on posts (z 11.3 / 16.5, canopy 20.7) from the tower past the board with the board's steel legs on its upper deck | `R1`–`R5`, `S2_section_rf_corner`, `work/src-rf-deck-crop.png` vs `work/v12-rf-deck-crop.png` |
 | Tower flag | pole at x 90.7 (shaft face 89.0), z 56–72, flags below the roof | mast on the roof cap, flags above the roof | `F1_flag_close`, `F2_tower_context` |
 | Field-edge wall | void z 12–13.1 under the first row | padded wall | `D1`, `D3` |
 | Arrival route probes | 163 samples, no gap | 163 samples, no gap | `v12-geometry.json` |
