@@ -127,3 +127,24 @@ Residual: window lighting is uniform per material (no per-window variation at ni
 - **Blender CLI** for the reproducible chain and batch renders (`build_*.py`, `render_*.py`, `run_v4_renders.sh`).
 - **Blender MCP** for live inspection and edits. The `blender-mcp` server is registered in `/Users/joshbohne/Developer/TheRailyards/.mcp.json` (`uvx blender-mcp`) for future sessions; in this session it was not loaded, so the add-on socket was driven directly with `tools/blender_mcp_client.py` (same JSON protocol: `get_scene_info`, `execute_code`, `get_viewport_screenshot`). A second Blender GUI instance was started on the V7 scene with the add-on on port 9877 (`tools/start_live_mcp.py`) because the existing instance on 9876 holds unsaved Codex work on the V3 file and was left alone. Live checks: concourse objects and vertex counts, 39 vomitory openings, tunnel z-range 24.0–38.8 m below the next tiers' first rows (27/33/39), viewport set to the tier-junction camera and captured offscreen: `review/live-viewport-tier_junction.png`.
 - **Computer use** for UI review: the granted Blender window reachable to the computer-use tools was the Codex instance on another Space (V3 file), so UI screenshots of the V7 instance were not possible this session; the add-on's offscreen viewport capture stands in.
+
+## V12 — stadium proportions (2026-09-07)
+
+Brief: `../docs/FABLE-5.1-V12-HANDOFF.md`; decisive reference `../reconstruction-references/v12-user-north-transition.png`. All "before" images are the saved V11 scene rendered through the V12 acceptance cameras (`review/v12/before/v11-*.png`); all "after" images are the saved `railyards-v12-static.blend` (`review/v12/v12-*.png`). Cameras are identical. Numbers come from `review/v12/{v11,v12}-geometry.json` (ray probes in the built scenes).
+
+| Item | Before (V11) | After (V12) | Evidence |
+| --- | --- | --- | --- |
+| Third-base line to seats/dugout, y 40 | 3.2 m | 10.1 m (first base 10.1 m) | `D1_third_base_line`, `D2_dugouts_from_upper`, `D3_home_to_3b` |
+| Third-base line to seats, y 20 / 60 / 80 | nothing hit within 40 m at field level (no wall) | 12.6 / 12.6 / 8.2 m | `v12-geometry.json` |
+| Backstop, home plate to wall | no wall hit (trace was 5.7 m) | 17.7 m | `D4_backstop`, `P1_plan_stadium` |
+| Left-center plaza to bleachers | plaza z 22 over bleachers topping at z 17; one 4 m stair | 18-row bank from the wall to a cross-aisle flush with the plaza; first aisle max step 1.38 m (the field wall), no gaps | `N1`–`N5`, `S1_section_left_center`, `H_entrance_from_field` |
+| Right-field corner | railing terrace at z 13.4, board on lattice legs | 12-row corner bank on a brick block with arcades; brick board house | `R1`–`R5`, `S2_section_rf_corner` |
+| Tower flag | pole at x 90.7 (shaft face 89.0), z 56–72, flags below the roof | mast on the roof cap, flags above the roof | `F1_flag_close`, `F2_tower_context` |
+| Field-edge wall | void z 12–13.1 under the first row | padded wall | `D1`, `D3` |
+| Arrival route probes | 163 samples, no gap | 163 samples, no gap | `v12-geometry.json` |
+
+Status: **resolved** for the dugout/foul-line clearance, the backstop, the flag mounting and the field-edge void; **improved / inferred** for the left-center bank and right-field corner (the artwork establishes the relationships, not the dimensions). Deliberately unchanged: the traced `bowl_back`, outfield wall, board anchors, geographic registration and camera calibration.
+
+Generator owners: `tools/correct_bowl_front_v12.py` (spec), `r3_bowl_details.py` (dugouts, front wall, flag), `r3_outfield.py` (terrace ranges), `r3_scoreboards.py` (board house), `r4_rf_structure.py` (corner rail removed), `r12_outfield.py` (banks), `build_circulation_v12.py` (stage), `verify_v12.py` (probes and cameras).
+
+Residual: the lower outfield concourse behind the right-field terraces is still a covered corridor (`E_outfield_concourse`); the left-center bank's lowest row is clipped by the wall for about 1 m where the plaza edge is closest to the wall; crowd figures and materials remain schematic. The seat export grew from 26,950 to 29,566, so V11 `seat=N` share links select different seats.

@@ -210,8 +210,7 @@ def build_rf_corner(scene,batch,spec,materials,rng):
     rear0=CLEAR+12*C_TREAD;rear1=rear0+2.4;top=13.65+12*C_RISE
     rows.row(u0,u1,rear0,rear1,lambda y:top,seats=False,material='brick',surface='paving')
     # Brick parapet along the rear aisle and the two cut sides, following the rake.
-    par=rows.row(u0,u1,rear1,rear1+.45,lambda y:top+1.1,seats=False,material='brick')
-    rows.row(u0,u1,rear1-.05,rear1+.55,lambda y:top+1.22,seats=False,material='stone')
+    rows.row(u0,u1,rear1,rear1+.45,lambda y:top+1.1,seats=False,material='brick',surface='stone')
     def level_at(p):
         off=m.dot(Vector(p)-a);return min(top,13.65+max(0,(off-CLEAR)/C_TREAD)*C_RISE)
     # east cut (x = CORNER_X_MAX): from the front row to the rear parapet

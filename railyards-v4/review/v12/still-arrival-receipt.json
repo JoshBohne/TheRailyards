@@ -1,0 +1,62 @@
+{
+  "scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-stadium-proportions-cb24d4/railyards-v4/railyards-v12-static.blend",
+  "engine": "CYCLES",
+  "width": 1600,
+  "frames": [
+    {
+      "view": "arrival",
+      "frame": 0,
+      "path": "review/v12/arrival.png",
+      "seconds": 27.46,
+      "camera": [
+        50.0,
+        227.0,
+        19.145000457763672
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 0,
+      "path": "review/v12/left_center.png",
+      "seconds": 24.79,
+      "camera": [
+        45.0,
+        132.0,
+        23.420000076293945
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 0,
+      "path": "review/v12/boat.png",
+      "seconds": 23.07,
+      "camera": [
+        179.0,
+        165.0,
+        2.5999999046325684
+      ]
+    },
+    {
+      "view": "skyline_west",
+      "frame": 0,
+      "path": "review/v12/skyline_west.png",
+      "seconds": 19.11,
+      "camera": [
+        -25.0,
+        25.0,
+        44.0
+      ]
+    },
+    {
+      "view": "skyline_east",
+      "frame": 0,
+      "path": "review/v12/skyline_east.png",
+      "seconds": 20.85,
+      "camera": [
+        -25.0,
+        25.0,
+        44.0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+ "scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-stadium-proportions-cb24d4/railyards-v4/railyards-v11-static.blend",
+ "arrival_gaps": [],
+ "arrival_obstructions": [],
+ "arrival_samples": 163,
+ "clearance_from_3b_line_to_seats": {
+  "20": null,
+  "40": 3.2,
+  "60": null,
+  "80": null
+ },
+ "clearance_from_1b_line_to_seats": {
+  "20": null,
+  "40": 10.1,
+  "60": null,
+  "80": 16.85
+ },
+ "backstop_from_home": null
+}
