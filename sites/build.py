@@ -47,7 +47,7 @@ def main():
         for view in ['N1_lc_bank_from_plaza','N2_lc_bank_from_field','N3_lc_bank_aerial','N5_park_to_bleachers','R1_rf_corner_from_field','R2_rf_corner_from_river','R3_rf_corner_aerial','D1_third_base_line','D2_dugouts_from_upper','F1_flag_close','F2_tower_context','P1_plan_stadium','S1_section_left_center','S2_section_rf_corner','N4_lc_bank_top_aisle','R4_rf_board_from_lf','R5_rf_from_upper_deck','D3_home_to_3b','D4_backstop','P2_plan_north_end','S3_section_third_base']:
             images[f'{view}-before']=current/'before'/f'v11-{view}.png';images[f'{view}-after']=current/f'v12-{view}.png'
     images['model-north']=images[f'v{args.scene_version}-north']
-    for kind in ['public','review']:
+    for kind in ['review']:
         dest=ROOT/'work/web-dist'/kind;dest.mkdir(parents=True,exist_ok=True)
         for file in (ROOT/'sites'/kind).iterdir():
             if file.is_file():shutil.copy2(file,dest/file.name)
@@ -68,5 +68,7 @@ def main():
         manifest={'site':kind,'sceneVersion':args.scene_version,'commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'workingTreeDirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip()),'files':[{'path':str(p.relative_to(dest)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'bytes':p.stat().st_size} for p in sorted(dest.rglob('*')) if p.is_file() and p.name!='build-manifest.json']}
         (dest/'build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
         print(f'{kind}: {dest} ({len(manifest["files"])} files)')
+
+    subprocess.run(['python3',str(ROOT/'sites/build-hosted.py'),'--templates',str(ROOT/'sites/public'),'--output',str(ROOT/'work/web-dist/public'),'--assets',str(ROOT/'work/hosting-assets')],check=True)
 
 if __name__=='__main__':main()

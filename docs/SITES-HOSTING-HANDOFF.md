@@ -35,3 +35,9 @@ Source assets are the checksum-pinned V12 public/review release ZIPs plus railya
 Validation: five exported-data tests, TypeScript/Vite production build, JavaScript syntax, 72-file hosted build, local links/media, picture/video counts, V12 scene/seat metadata, disclosures, file-size limits, and clean diff. No new browser QA claimed.
 
 Disclosures name the White Sox, MLB, Crain’s Chicago Business, AECOM and Canal Edge, distinguish concept imagery from our reconstruction, and state that the design/play/sightlines are unofficial and inferred. These statements do not establish image permission or guarantee legal protection.
+
+## Consolidated delivery
+
+Completed V11, Pro site, current showcase, and Fable V12 source are consolidated. New Fable right-field work remains in progress and is not deployed. Public content uses sites/build-hosted.py as the single packaging entry point, including when invoked by sites/build.py. The legacy review builder supports V12 only, requires its evidence files, and includes every requested acceptance pair.
+
+Overview now shows all three source comparisons at once, each with Side by side / Opacity / Swipe. The three section images are excluded from the public gallery (33 pictures and 5 films); they remain in internal review evidence. Build navigation is renamed Details. The Astra automation remains paused under the weekly allowance guard; do not start further large work automatically.
