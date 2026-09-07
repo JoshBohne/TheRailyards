@@ -109,5 +109,5 @@ apply_window_tones(scene)
 scene.world.node_tree.nodes.get('Background').inputs[0].default_value=(.24,.34,.48,1);scene.world.node_tree.nodes.get('Background').inputs[1].default_value=.55
 bpy.data.objects['R2_Sun'].data.energy=1.5;bpy.data.objects['R2_Sun'].data.color=(1,.78,.54)
 scene['stage']='V4 in progress: source-backed stadium and immediate-area reconstruction; not visually accepted'
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'railyards-v4-detail.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(__import__('pathlib').Path(__import__('os').environ.get('RAILYARDS_STAGE_DIR',str(OUT)))/'railyards-v4-detail.blend'))
 print(json.dumps({'stage':scene['stage'],'objects':len(scene.objects),'new_meshes':len(objects),'vertices':sum(len(o.data.vertices)for o in scene.objects if o.type=='MESH')}))

@@ -1,7 +1,40 @@
-const descriptions={arrival:{title:'The approach from Roosevelt',body:'Follow the raised park toward the outfield. The skyline gives way to the pavilion, the clock tower, and the bowl. Camera travel is compressed.'},left_center:{title:'The field opens up at left-center',body:'Move through the arrival terrace toward the field. This connection is reconstructed from the north aerial; the route, level changes, and rail details are still inferred.'},boat:{title:'The ballpark from the river',body:'A low view along the riverfront. The raised quay, restaurant, and boards dominate from here; the playing surface stays mostly hidden. Camera travel is compressed.'}};
-const player=document.querySelector('#scene-video');
-document.querySelectorAll('[data-scene]').forEach(button=>button.addEventListener('click',()=>{const key=button.dataset.scene;const scene=descriptions[key];player.pause();player.poster=`media/${key}.jpg`;player.querySelector('source').src=`media/${key}.mp4`;player.setAttribute('aria-label',scene.title);player.load();document.querySelector('#scene-title').textContent=scene.title;document.querySelector('#scene-description').textContent=scene.body;document.querySelector('#scene-still').href=`media/${key}.jpg`;document.querySelectorAll('[data-scene]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));}));
-document.querySelector('#units').addEventListener('click',event=>{const button=event.currentTarget;const meters=button.getAttribute('aria-pressed')!=='true';button.setAttribute('aria-pressed',String(meters));button.textContent=meters?'Show feet':'Show meters';document.querySelectorAll('.distance-value').forEach(value=>{value.textContent=meters?`${value.dataset.meters} m`:`${value.dataset.feet} ft`;});});
-document.querySelector('.theme').addEventListener('click',()=>{const root=document.documentElement;const dark=root.dataset.theme?root.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;root.dataset.theme=dark?'light':'dark';});
-
-const heroVideo=document.querySelector('.hero-media video');const heroPlay=document.querySelector('#hero-play');heroPlay.addEventListener('click',async()=>{if(!heroVideo.paused){heroVideo.pause();return;}try{await heroVideo.play();document.querySelector('#play-error').textContent='';}catch(error){document.querySelector('#play-error').textContent='The film could not start. Try the video controls.';}});heroVideo.addEventListener('play',()=>heroPlay.textContent='Pause river film');heroVideo.addEventListener('pause',()=>heroPlay.textContent='Play river film');
+(() => {
+  'use strict';
+  document.querySelectorAll('[data-compare-section]').forEach(section => {
+    const comparison = section.querySelector('[data-comparison]');
+    const opacityControl = section.querySelector('.opacity-control');
+    const swipe = section.querySelector('.swipe-input');
+    const handle = section.querySelector('.swipe-handle');
+    section.querySelectorAll('[data-mode]').forEach(button => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.mode;
+        comparison.dataset.layout = mode;
+        opacityControl.hidden = mode !== 'overlay';
+        swipe.hidden = handle.hidden = mode !== 'swipe';
+        section.querySelectorAll('[data-mode]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      });
+    });
+    section.querySelector('[data-opacity]').addEventListener('input', event => {
+      comparison.style.setProperty('--source-opacity', String(Number(event.target.value) / 100));
+      section.querySelector('output').value = `${event.target.value}%`;
+    });
+    swipe.addEventListener('input', () => comparison.style.setProperty('--swipe-position', `${swipe.value}%`));
+  });
+  document.querySelectorAll('[data-filter]').forEach(button => {
+    button.addEventListener('click', () => {
+      const filter = button.dataset.filter;
+      let visible = 0;
+      document.querySelectorAll('[data-media]').forEach(item => {
+        item.hidden = filter !== 'all' && item.dataset.media !== filter;
+        if (item.hidden) item.querySelector('video')?.pause();
+        else visible++;
+      });
+      document.querySelectorAll('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      document.querySelector('#gallery-count').textContent = `${visible} ${filter === 'all' ? 'views' : filter}`;
+    });
+  });
+  const film = document.querySelector('#overview-film');
+  if (film && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    film.play().catch(() => { film.controls = true; });
+  }
+})();

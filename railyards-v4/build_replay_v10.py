@@ -4,6 +4,7 @@ Run against preserved railyards-v9.blend. Static geometry stays source-derived;
 hero motion, flight, splash and browser material approximations are illustrative.
 """
 import bpy
+import argparse
 import json
 import math
 import sys
@@ -13,6 +14,11 @@ from mathutils import Vector
 OUT = Path(__file__).resolve().parent
 sys.path.insert(0, str(OUT))
 from r2_lighting import apply_lighting
+
+parser=argparse.ArgumentParser()
+parser.add_argument('--version',type=int,choices=[10,11,12],default=10)
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+VERSION=args.version
 
 DEST = OUT.parent / 'sites/replay/public/model'
 DEST.mkdir(parents=True, exist_ok=True)
@@ -32,9 +38,10 @@ for obj in scene.objects:
 
 FPS = 60
 CONTACT = 1.55
-FLIGHT = math.sqrt(464 / 9.81)
+FLIGHT = 6.1 if VERSION >= 11 else math.sqrt(464 / 9.81)
 DURATION = 10.5
-LANDING = Vector((142, 30, 0))
+LANDING = Vector((142, 16 if VERSION >= 11 else 30, 0))
+ARC = 150 if VERSION >= 11 else 232
 
 def ball_at(t):
     if t < .35:
@@ -43,7 +50,7 @@ def ball_at(t):
         u = (t - .35) / (CONTACT - .35)
         return Vector((12.72 * (1-u), 12.72 * (1-u), 13.9 - .9*u + .20*math.sin(u*math.pi)))
     u = min(1, (t-CONTACT)/FLIGHT)
-    return Vector((142*u, 30*u, 13*(1-u)+232*u*(1-u)))
+    return Vector((LANDING.x*u, LANDING.y*u, 13*(1-u)+ARC*u*(1-u)))
 
 def web(v):
     return [round(v[0], 5), round(v[2], 5), round(-v[1], 5)]
@@ -182,7 +189,7 @@ for frame in range(round(DURATION*FPS)+1):
     ball.location=ball_at(frame/FPS)
     ball.keyframe_insert(data_path='location',frame=frame)
 scene.frame_start=0;scene.frame_end=round(DURATION*FPS);scene.render.fps=FPS
-scene['stage']='V10: shared-clock interactive river replay, exported from V9 geometry'
+scene['stage']=f'V{VERSION}: shared-clock interactive river replay'
 scene['replay_note']='Imagined future play. Authored generic figures and flight; modeled seats are not ticket sightline guarantees.'
 for name, position, target, lens in [
     ('contact',(3,-5,14.8),(0,0,13),48),
@@ -193,15 +200,19 @@ for name, position, target, lens in [
     cam.location=position;cam.rotation_euler=(Vector(target)-cam.location).to_track_quat('-Z','Y').to_euler();cam.data.lens=lens;cam.data.clip_end=18000
 scene.camera=bpy.data.objects['R10_contact']
 scene.frame_set(round(CONTACT*FPS))
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'railyards-v10.blend'),compress=True)
+bpy.ops.wm.save_as_mainfile(filepath=str(OUT/f'railyards-v{VERSION}.blend'),compress=True)
 
 samples=[web(ball_at(i/FPS)) for i in range(round(DURATION*FPS)+1)]
-metadata={'version':10,'duration':DURATION,'sampleRate':FPS,'contact':CONTACT,'splash':CONTACT+FLIGHT,
+metadata={'version':VERSION,'duration':DURATION,'sampleRate':FPS,'contact':CONTACT,'splash':CONTACT+FLIGHT,
           'waterCrossing':CONTACT+FLIGHT*128/142,'ballSamples':samples,'landing':web(LANDING),
-          'waterDistanceFt':round(math.hypot(142,30)*128/142/.3048),'splashDistanceFt':round(math.hypot(142,30)/.3048),
-          'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),'sourceScene':'railyards-v10.blend','instances':instances,
+          'waterDistanceFt':round(math.hypot(LANDING.x,LANDING.y)*128/142/.3048),'splashDistanceFt':round(math.hypot(LANDING.x,LANDING.y)/.3048),
+          'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),'sourceScene':f'railyards-v{VERSION}.blend','instances':instances,
           'cameras':json.loads((OUT/'experience-cameras.json').read_text()),
           'note':'Imagined future play. Seat positions come from the saved model, not an official seating plan. Flight and animation are illustrative.'}
+if VERSION >= 11:
+    from r11_circulation import ARRIVAL_XY,terrace_z
+    metadata['arrivalPath']=[web((x,y,terrace_z(y)+1.7)) for x,y in ARRIVAL_XY]
+    metadata['architectureVersion']=11
 (DEST/'replay.json').write_text(json.dumps(metadata,separators=(',',':'))+'\n')
 
 # Export authored figures as glTF transform animation. Ball is sampled separately.
@@ -213,7 +224,7 @@ bpy.ops.export_scene.gltf(filepath=str(DEST/'actors.glb'),use_selection=True,use
     export_lights=False,export_cameras=False)
 
 # Make an isolated, disposable export scene; never flatten the saved authoring file.
-export_scene=bpy.data.scenes.new('V10 browser export')
+export_scene=bpy.data.scenes.new(f'V{VERSION} browser export')
 visible=[o for o in scene.objects if o.visible_get() and not o.hide_render
          and o.type in {'MESH','CURVE','FONT'} and o not in list(actors.objects)
          and not (o.type=='MESH' and len(o.data.polygons)==0)]
@@ -249,10 +260,10 @@ bpy.ops.export_scene.gltf(filepath=str(DEST/'venue.glb'),use_selection=True,use_
     export_animations=False,export_lights=False,export_cameras=False,export_extras=True,export_apply=True,
     export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6,
     export_draco_position_quantization=22,export_draco_normal_quantization=10)
-receipt={'savedScene':str(OUT/'railyards-v10.blend'),'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),
+receipt={'savedScene':str(OUT/f'railyards-v{VERSION}.blend'),'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),
          'staticVertices':len(venue.data.vertices),'staticPolygons':len(venue.data.polygons),
          'flightCollisions':collisions,'contact':CONTACT,'splash':CONTACT+FLIGHT,
          'files':{p.name:p.stat().st_size for p in DEST.iterdir() if p.is_file() and p.name!='export-receipt.json'},
          'limitations':'Browser materials flatten procedural textures. Seats and crowd use simplified instanced geometry.'}
 (DEST/'export-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-print('V10_EXPORT '+json.dumps(receipt))
+print(f'V{VERSION}_EXPORT '+json.dumps(receipt))

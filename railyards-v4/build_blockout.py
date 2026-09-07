@@ -146,5 +146,5 @@ scene.render.image_settings.file_format='PNG';scene.render.resolution_percentage
 scene.render.resolution_x=1200;scene.render.resolution_y=round(1200*1294/1944)
 scene['stage']='Gray blockout: source and camera calibration, not final fidelity approval'
 scene['specification']=str(OUT/'scene-spec.json')
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'railyards-v4-gray.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(__import__('pathlib').Path(__import__('os').environ.get('RAILYARDS_STAGE_DIR',str(OUT)))/'railyards-v4-gray.blend'))
 print(json.dumps({'stage':'gray scene built','scene':scene.name,'objects':len(scene.objects),'collections':len(scene.collection.children),'vertices':sum(len(o.data.vertices)for o in scene.objects if o.type=='MESH'),'file':bpy.data.filepath}))

@@ -1,7 +1,62 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Explore a fan reconstruction of the Railyards ballpark from Roosevelt Road, left-center field and the Chicago River."><link rel="icon" href="data:,"><title>The Railyards, from here</title><link rel="preload" as="image" href="media/river-poster.jpg" fetchpriority="high"><link rel="stylesheet" href="site.css"><script src="site.js" defer></script></head>
-<body><a class="skip" href="#main">Skip to experiences</a><header class="top"><a class="brand" href="#">THE RAILYARDS<span>FROM HERE</span></a><nav aria-label="Main"><a href="replay/">Take a seat</a><a href="#experiences">Experiences</a><a href="#skyline">Skyline</a><a href="#sources">The references</a></nav><button class="theme" type="button" aria-label="Change color theme">◐</button></header>
-<main id="main"><section class="hero"><div class="intro"><h1>See the park.<br>From here.</h1><div><p>From the walk off Roosevelt to a home run over the river. Explore the views between the renderings.</p><a class="replay-link" href="replay/">Watch from your seat ↗</a><button id="hero-play" type="button">Play river film</button><p id="play-error" role="status"></p></div></div><figure class="hero-media"><video controls playsinline preload="none" poster="media/river-poster.jpg" aria-label="Illustrated home run from home plate into the Chicago River"><source src="media/river.mp4" type="video/mp4"></video><figcaption>A river home run, imagined from above. Ball marker enlarged for visibility.</figcaption></figure><div class="distance"><div><span class="distance-value" data-feet="429" data-meters="131">429 ft</span><span>to the water on this line</span></div><div><span class="distance-value" data-feet="476" data-meters="145">476 ft</span><span>to the illustrated splash</span></div><button id="units" type="button" aria-pressed="false">Show meters</button></div><p class="explain">The river is close. Clearing the board is another question. This arc clears the modeled structures and lands beyond the river’s edge. Distances come from our reconstruction; the arc is illustrative, not a prediction of ball flight or an official field dimension.</p></section>
-<section class="experiences" id="experiences"><h2>Come in from the city.</h2><p class="section-copy">Choose a perspective. Each short film reveals a different relationship between the park, the field, and the river.</p><div class="viewer"><div class="scene-select" role="group" aria-label="Choose an experience"><button data-scene="arrival" aria-pressed="true">From Roosevelt</button><button data-scene="left_center" aria-pressed="false">Into left-center</button><button data-scene="boat" aria-pressed="false">From a boat</button></div><video id="scene-video" controls playsinline preload="none" poster="media/arrival.jpg" aria-label="Approach from Roosevelt Road"><source src="media/arrival.mp4" type="video/mp4"></video><div class="scene-caption"><h3 id="scene-title">The approach from Roosevelt</h3><p id="scene-description">Follow the raised park toward the outfield. The skyline gives way to the pavilion, the clock tower, and the bowl. Camera travel is compressed.</p><a id="scene-still" href="media/arrival.jpg" target="_blank" rel="noopener">Open the still ↗</a></div></div></section>
-<section id="skyline" class="skyline"><h2>The city is part of the view.</h2><div class="skyline-pair"><figure><img src="media/skyline_west.jpg" width="1600" height="900" loading="lazy" alt="West skyline view with Willis Tower rising behind 311 South Wacker"><figcaption><strong>Look toward the Loop.</strong> Willis’s stepped tubes and twin antennae rise behind 311 South Wacker. Buildings overlap from a seat; the famous ones do not all get a clear stage.</figcaption></figure><figure><img src="media/skyline_east.jpg" width="1600" height="900" loading="lazy" alt="East skyline view with distant landmark crowns visible above nearer buildings"><figcaption><strong>Look farther east.</strong> St. Regis’s alternating forms and the Prudential crown sit among nearer towers. Some of their defining features are partly hidden from the bowl.</figcaption></figure></div><p class="section-copy">Landmarks stay at their mapped locations. Their shapes are simplified; these views show sightlines in a developing model, not an approved future view.</p></section>
-<section id="sources" class="sources"><h2>Grounded in the renderings.<br>Honest about the gaps.</h2><p class="section-copy">The AECOM artwork establishes the concept. We fit cameras to those pictures, then explore places they do not show. Hidden architecture, heights, materials, and circulation still involve interpretation.</p><div class="source-pair"><figure><img src="media/source-north.jpg" width="1600" height="1065" loading="lazy" alt="AECOM north aerial concept rendering"><figcaption>AECOM’s north aerial concept. Artwork belongs to its creators.</figcaption></figure><figure><img src="media/model-north.jpg" width="1600" height="1065" loading="lazy" alt="Current reconstruction from the matched north aerial camera"><figcaption>The reconstruction, through the matched camera. Differences remain visible.</figcaption></figure></div><details><summary>What this study can and cannot tell you</summary><p>It can illustrate relative scale, modeled distances, overlapping sightlines, and possible experiences. It cannot establish final architecture, access arrangements, seat quality, safety, or what will be approved and built.</p><p>The arrival terrace, gatehouse, restaurant connection, and public park grades remain inferred. The river movie uses an enlarged marker and a chosen arc; it does not simulate air resistance, spin, or wind.</p><p>Landmark references: <a href="https://www.som.com/projects/willis-tower-formerly-sears-tower/">SOM, Willis Tower</a>; <a href="https://studiogang.com/projects/vista-tower/">Studio Gang, St. Regis</a>; <a href="https://www.skyscrapercenter.com/building/two-prudential-plaza/489">CTBUH, Two Prudential Plaza</a>.</p></details></section></main><footer><span>THE RAILYARDS, FROM HERE</span><p>An independent fan study. Not affiliated with the White Sox, AECOM, or the project team. Public-site preview.</p></footer></body></html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview | Recreating The Railyards</title>
+<meta name="description" content="Explore an unofficial reconstruction of the proposed Railyards White Sox ballpark.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer>
+</script>
+<link rel="canonical" href="{{SITE_URL}}/">
+<meta property="og:title" content="Recreating The Railyards">
+<meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-header">
+<a class="brand" href="index.html">The Railyards
+</a>
+<nav aria-label="Main navigation">
+<a href="index.html" aria-current="page">Overview</a>
+<a href="gallery.html">Gallery</a>
+<a href="3d.html">3D</a>
+<a href="build.html">Details</a>
+</nav>
+</header>
+<main id="content" class="page-shell">
+<section class="intro">
+<h1>Recreating The Railyards</h1>
+</section>
+<figure class="hero-render">
+<video id="overview-film" controls muted playsinline loop preload="metadata" poster="media/home-run-poster.jpg" aria-label="Illustrative home run from above the diamond, cutting to the river as the ball crosses">
+<source src="media/home-run.mp4" type="video/mp4">
+</video>
+<figcaption>
+<span>Above the diamond → the river</span>
+<span>Illustrative play</span>
+</figcaption>
+</figure>
+<section class="section comparison-section" data-compare-section><h2>North aerial</h2>
+<div class="compare-tabs" role="group" aria-label="North aerial comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-north.jpg" alt="Published north aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-north.jpg" alt="Our north aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe north aerial comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="opacity-control" hidden><label for="opacity-north">Concept opacity</label><input id="opacity-north" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section>
+<section class="section comparison-section" data-compare-section><h2>South aerial</h2>
+<div class="compare-tabs" role="group" aria-label="South aerial comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-south.jpg" alt="Published south aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-south.jpg" alt="Our south aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe south aerial comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="opacity-control" hidden><label for="opacity-south">Concept opacity</label><input id="opacity-south" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section>
+<section class="section comparison-section" data-compare-section><h2>Roosevelt bridge</h2>
+<div class="compare-tabs" role="group" aria-label="Roosevelt bridge comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-bridge.jpg" alt="Published roosevelt bridge concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-bridge.jpg" alt="Our roosevelt bridge reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe roosevelt bridge comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="opacity-control" hidden><label for="opacity-bridge">Concept opacity</label><input id="opacity-bridge" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section><p class="section-note"><a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Source: Crain’s Chicago Business ↗</a></p>
+</main>
+<footer class="site-footer">
+<p class="site-disclosure">Independent fan study. Not affiliated with, sponsored by, or endorsed by the Chicago White Sox, Major League Baseball, Crain’s Chicago Business, AECOM, or Canal Edge. <a href="build.html#credits">Credits &amp; disclosures</a>
+</p>
+<span>Josh Bohne</span>
+<a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
+</footer>
+</body>
+</html>

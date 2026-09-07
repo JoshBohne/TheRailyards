@@ -1,0 +1,6343 @@
+{
+  "scene": "/Users/joshbohne/Developer/TheRailyards/.claude/worktrees/railyards-stadium-proportions-cb24d4/railyards-v4/railyards-v12-static.blend",
+  "engine": "BLENDER_EEVEE",
+  "width": 1280,
+  "frames": [
+    {
+      "view": "arrival",
+      "frame": 0,
+      "path": "review/v12/arrival/0000.png",
+      "seconds": 0.95,
+      "camera": [
+        50.0,
+        294.0,
+        16.125
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 1,
+      "path": "review/v12/arrival/0001.png",
+      "seconds": 0.68,
+      "camera": [
+        49.99964141845703,
+        293.9866943359375,
+        16.125598907470703
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 2,
+      "path": "review/v12/arrival/0002.png",
+      "seconds": 0.65,
+      "camera": [
+        49.998565673828125,
+        293.9468994140625,
+        16.12738800048828
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 3,
+      "path": "review/v12/arrival/0003.png",
+      "seconds": 0.62,
+      "camera": [
+        49.99678039550781,
+        293.8809509277344,
+        16.13035774230957
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 4,
+      "path": "review/v12/arrival/0004.png",
+      "seconds": 0.62,
+      "camera": [
+        49.994300842285156,
+        293.7890930175781,
+        16.134490966796875
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 5,
+      "path": "review/v12/arrival/0005.png",
+      "seconds": 0.6,
+      "camera": [
+        49.99112319946289,
+        293.671630859375,
+        16.1397762298584
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 6,
+      "path": "review/v12/arrival/0006.png",
+      "seconds": 0.61,
+      "camera": [
+        49.987266540527344,
+        293.5288391113281,
+        16.146202087402344
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 7,
+      "path": "review/v12/arrival/0007.png",
+      "seconds": 0.64,
+      "camera": [
+        49.98272705078125,
+        293.3609619140625,
+        16.153757095336914
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 8,
+      "path": "review/v12/arrival/0008.png",
+      "seconds": 0.61,
+      "camera": [
+        49.97752380371094,
+        293.1683349609375,
+        16.162424087524414
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 9,
+      "path": "review/v12/arrival/0009.png",
+      "seconds": 0.61,
+      "camera": [
+        49.971656799316406,
+        292.9512023925781,
+        16.172195434570312
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 10,
+      "path": "review/v12/arrival/0010.png",
+      "seconds": 0.6,
+      "camera": [
+        49.96512985229492,
+        292.7098693847656,
+        16.183055877685547
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 11,
+      "path": "review/v12/arrival/0011.png",
+      "seconds": 0.61,
+      "camera": [
+        49.95796203613281,
+        292.444580078125,
+        16.19499397277832
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 12,
+      "path": "review/v12/arrival/0012.png",
+      "seconds": 0.59,
+      "camera": [
+        49.95015335083008,
+        292.1556396484375,
+        16.207996368408203
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 13,
+      "path": "review/v12/arrival/0013.png",
+      "seconds": 0.61,
+      "camera": [
+        49.94171142578125,
+        291.84332275390625,
+        16.2220516204834
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 14,
+      "path": "review/v12/arrival/0014.png",
+      "seconds": 0.62,
+      "camera": [
+        49.932647705078125,
+        291.5079040527344,
+        16.237144470214844
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 15,
+      "path": "review/v12/arrival/0015.png",
+      "seconds": 0.62,
+      "camera": [
+        49.92296600341797,
+        291.149658203125,
+        16.253265380859375
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 16,
+      "path": "review/v12/arrival/0016.png",
+      "seconds": 0.64,
+      "camera": [
+        49.91267395019531,
+        290.7688903808594,
+        16.27039909362793
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 17,
+      "path": "review/v12/arrival/0017.png",
+      "seconds": 0.61,
+      "camera": [
+        49.90177917480469,
+        290.3658752441406,
+        16.288536071777344
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 18,
+      "path": "review/v12/arrival/0018.png",
+      "seconds": 0.61,
+      "camera": [
+        49.89029312133789,
+        289.9408874511719,
+        16.307659149169922
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 19,
+      "path": "review/v12/arrival/0019.png",
+      "seconds": 0.6,
+      "camera": [
+        49.87821960449219,
+        289.4941711425781,
+        16.327762603759766
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 20,
+      "path": "review/v12/arrival/0020.png",
+      "seconds": 0.63,
+      "camera": [
+        49.865570068359375,
+        289.02606201171875,
+        16.348827362060547
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 21,
+      "path": "review/v12/arrival/0021.png",
+      "seconds": 0.65,
+      "camera": [
+        49.85234832763672,
+        288.53680419921875,
+        16.37084197998047
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 22,
+      "path": "review/v12/arrival/0022.png",
+      "seconds": 0.67,
+      "camera": [
+        49.838558197021484,
+        288.0267028808594,
+        16.393798828125
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 23,
+      "path": "review/v12/arrival/0023.png",
+      "seconds": 0.68,
+      "camera": [
+        49.824214935302734,
+        287.4960021972656,
+        16.417678833007812
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 24,
+      "path": "review/v12/arrival/0024.png",
+      "seconds": 0.68,
+      "camera": [
+        49.809326171875,
+        286.945068359375,
+        16.442472457885742
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 25,
+      "path": "review/v12/arrival/0025.png",
+      "seconds": 0.66,
+      "camera": [
+        49.79389190673828,
+        286.3740234375,
+        16.468168258666992
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 26,
+      "path": "review/v12/arrival/0026.png",
+      "seconds": 0.65,
+      "camera": [
+        49.77792739868164,
+        285.7833251953125,
+        16.4947509765625
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 27,
+      "path": "review/v12/arrival/0027.png",
+      "seconds": 0.65,
+      "camera": [
+        49.761436462402344,
+        285.173095703125,
+        16.52220916748047
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 28,
+      "path": "review/v12/arrival/0028.png",
+      "seconds": 0.66,
+      "camera": [
+        49.744422912597656,
+        284.5437316894531,
+        16.5505313873291
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 29,
+      "path": "review/v12/arrival/0029.png",
+      "seconds": 0.67,
+      "camera": [
+        49.726905822753906,
+        283.8954772949219,
+        16.579702377319336
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 30,
+      "path": "review/v12/arrival/0030.png",
+      "seconds": 0.64,
+      "camera": [
+        49.70888137817383,
+        283.22857666015625,
+        16.609712600708008
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 31,
+      "path": "review/v12/arrival/0031.png",
+      "seconds": 0.71,
+      "camera": [
+        49.69036102294922,
+        282.5433654785156,
+        16.640548706054688
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 32,
+      "path": "review/v12/arrival/0032.png",
+      "seconds": 0.65,
+      "camera": [
+        49.67135238647461,
+        281.840087890625,
+        16.672195434570312
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 33,
+      "path": "review/v12/arrival/0033.png",
+      "seconds": 0.63,
+      "camera": [
+        49.6518669128418,
+        281.1190490722656,
+        16.70464324951172
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 34,
+      "path": "review/v12/arrival/0034.png",
+      "seconds": 0.66,
+      "camera": [
+        49.63190460205078,
+        280.3804931640625,
+        16.737878799438477
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 35,
+      "path": "review/v12/arrival/0035.png",
+      "seconds": 0.64,
+      "camera": [
+        49.611480712890625,
+        279.62469482421875,
+        16.771888732910156
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 36,
+      "path": "review/v12/arrival/0036.png",
+      "seconds": 0.63,
+      "camera": [
+        49.59059524536133,
+        278.85198974609375,
+        16.806659698486328
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 37,
+      "path": "review/v12/arrival/0037.png",
+      "seconds": 0.64,
+      "camera": [
+        49.56925964355469,
+        278.0626220703125,
+        16.842182159423828
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 38,
+      "path": "review/v12/arrival/0038.png",
+      "seconds": 0.66,
+      "camera": [
+        49.547481536865234,
+        277.25689697265625,
+        16.878440856933594
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 39,
+      "path": "review/v12/arrival/0039.png",
+      "seconds": 0.63,
+      "camera": [
+        49.5252685546875,
+        276.43505859375,
+        16.915422439575195
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 40,
+      "path": "review/v12/arrival/0040.png",
+      "seconds": 0.61,
+      "camera": [
+        49.50263214111328,
+        275.597412109375,
+        16.95311737060547
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 41,
+      "path": "review/v12/arrival/0041.png",
+      "seconds": 0.62,
+      "camera": [
+        49.47957229614258,
+        274.74420166015625,
+        16.99151039123535
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 42,
+      "path": "review/v12/arrival/0042.png",
+      "seconds": 0.62,
+      "camera": [
+        49.45610046386719,
+        273.875732421875,
+        17.03059196472168
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 43,
+      "path": "review/v12/arrival/0043.png",
+      "seconds": 0.63,
+      "camera": [
+        49.432228088378906,
+        272.9923095703125,
+        17.07034683227539
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 44,
+      "path": "review/v12/arrival/0044.png",
+      "seconds": 0.61,
+      "camera": [
+        49.40795135498047,
+        272.09417724609375,
+        17.110761642456055
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 45,
+      "path": "review/v12/arrival/0045.png",
+      "seconds": 0.61,
+      "camera": [
+        49.38328552246094,
+        271.181640625,
+        17.151826858520508
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 46,
+      "path": "review/v12/arrival/0046.png",
+      "seconds": 0.65,
+      "camera": [
+        49.35824203491211,
+        270.25494384765625,
+        17.193527221679688
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 47,
+      "path": "review/v12/arrival/0047.png",
+      "seconds": 0.64,
+      "camera": [
+        49.33282470703125,
+        269.31439208984375,
+        17.235851287841797
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 48,
+      "path": "review/v12/arrival/0048.png",
+      "seconds": 0.63,
+      "camera": [
+        49.30703353881836,
+        268.3602600097656,
+        17.27878761291504
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 49,
+      "path": "review/v12/arrival/0049.png",
+      "seconds": 0.62,
+      "camera": [
+        49.280887603759766,
+        267.3928527832031,
+        17.32232093811035
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 50,
+      "path": "review/v12/arrival/0050.png",
+      "seconds": 0.61,
+      "camera": [
+        49.254390716552734,
+        266.41241455078125,
+        17.36644172668457
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 51,
+      "path": "review/v12/arrival/0051.png",
+      "seconds": 0.63,
+      "camera": [
+        49.22754669189453,
+        265.41925048828125,
+        17.411134719848633
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 52,
+      "path": "review/v12/arrival/0052.png",
+      "seconds": 0.61,
+      "camera": [
+        49.20036697387695,
+        264.4136047363281,
+        17.45638656616211
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 53,
+      "path": "review/v12/arrival/0053.png",
+      "seconds": 0.6,
+      "camera": [
+        49.17285919189453,
+        263.39581298828125,
+        17.50218963623047
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 54,
+      "path": "review/v12/arrival/0054.png",
+      "seconds": 0.63,
+      "camera": [
+        49.14502716064453,
+        262.3660888671875,
+        17.548526763916016
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 55,
+      "path": "review/v12/arrival/0055.png",
+      "seconds": 0.63,
+      "camera": [
+        49.116886138916016,
+        261.32476806640625,
+        17.595386505126953
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 56,
+      "path": "review/v12/arrival/0056.png",
+      "seconds": 0.62,
+      "camera": [
+        49.08843231201172,
+        260.2720947265625,
+        17.642757415771484
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 57,
+      "path": "review/v12/arrival/0057.png",
+      "seconds": 0.62,
+      "camera": [
+        49.05968475341797,
+        259.2083740234375,
+        17.690624237060547
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 58,
+      "path": "review/v12/arrival/0058.png",
+      "seconds": 0.64,
+      "camera": [
+        49.03064727783203,
+        258.13385009765625,
+        17.738975524902344
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 59,
+      "path": "review/v12/arrival/0059.png",
+      "seconds": 0.62,
+      "camera": [
+        49.001319885253906,
+        257.0488586425781,
+        17.78780174255371
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 60,
+      "path": "review/v12/arrival/0060.png",
+      "seconds": 0.63,
+      "camera": [
+        48.971717834472656,
+        255.95362854003906,
+        17.837085723876953
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 61,
+      "path": "review/v12/arrival/0061.png",
+      "seconds": 0.63,
+      "camera": [
+        48.94184875488281,
+        254.8484649658203,
+        17.886817932128906
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 62,
+      "path": "review/v12/arrival/0062.png",
+      "seconds": 0.64,
+      "camera": [
+        48.911720275878906,
+        253.73365783691406,
+        17.93698501586914
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 63,
+      "path": "review/v12/arrival/0063.png",
+      "seconds": 0.67,
+      "camera": [
+        48.8813362121582,
+        252.6094512939453,
+        17.98757553100586
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 64,
+      "path": "review/v12/arrival/0064.png",
+      "seconds": 0.61,
+      "camera": [
+        48.8507080078125,
+        251.47616577148438,
+        18.038572311401367
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 65,
+      "path": "review/v12/arrival/0065.png",
+      "seconds": 0.6,
+      "camera": [
+        48.81983947753906,
+        250.33404541015625,
+        18.089967727661133
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 66,
+      "path": "review/v12/arrival/0066.png",
+      "seconds": 0.62,
+      "camera": [
+        48.78874206542969,
+        249.1833953857422,
+        18.141746520996094
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 67,
+      "path": "review/v12/arrival/0067.png",
+      "seconds": 0.65,
+      "camera": [
+        48.757415771484375,
+        248.02447509765625,
+        18.193897247314453
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 68,
+      "path": "review/v12/arrival/0068.png",
+      "seconds": 0.62,
+      "camera": [
+        48.72588348388672,
+        246.8575897216797,
+        18.246408462524414
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 69,
+      "path": "review/v12/arrival/0069.png",
+      "seconds": 0.62,
+      "camera": [
+        48.69413757324219,
+        245.68299865722656,
+        18.299264907836914
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 70,
+      "path": "review/v12/arrival/0070.png",
+      "seconds": 0.69,
+      "camera": [
+        48.66218948364258,
+        244.50099182128906,
+        18.352455139160156
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 71,
+      "path": "review/v12/arrival/0071.png",
+      "seconds": 0.65,
+      "camera": [
+        48.63004684448242,
+        243.3118438720703,
+        18.405967712402344
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 72,
+      "path": "review/v12/arrival/0072.png",
+      "seconds": 0.63,
+      "camera": [
+        48.59772491455078,
+        242.1158447265625,
+        18.459787368774414
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 73,
+      "path": "review/v12/arrival/0073.png",
+      "seconds": 0.63,
+      "camera": [
+        48.565223693847656,
+        240.9132537841797,
+        18.51390266418457
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 74,
+      "path": "review/v12/arrival/0074.png",
+      "seconds": 0.61,
+      "camera": [
+        48.532554626464844,
+        239.70437622070312,
+        18.568302154541016
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 75,
+      "path": "review/v12/arrival/0075.png",
+      "seconds": 0.64,
+      "camera": [
+        48.499717712402344,
+        238.48947143554688,
+        18.622974395751953
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 76,
+      "path": "review/v12/arrival/0076.png",
+      "seconds": 0.62,
+      "camera": [
+        48.46672439575195,
+        237.26882934570312,
+        18.677902221679688
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 77,
+      "path": "review/v12/arrival/0077.png",
+      "seconds": 0.62,
+      "camera": [
+        48.43358612060547,
+        236.042724609375,
+        18.733078002929688
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 78,
+      "path": "review/v12/arrival/0078.png",
+      "seconds": 0.63,
+      "camera": [
+        48.400306701660156,
+        234.81143188476562,
+        18.788484573364258
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 79,
+      "path": "review/v12/arrival/0079.png",
+      "seconds": 0.62,
+      "camera": [
+        48.36689758300781,
+        233.5752716064453,
+        18.844112396240234
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 80,
+      "path": "review/v12/arrival/0080.png",
+      "seconds": 0.61,
+      "camera": [
+        48.33336639404297,
+        232.33447265625,
+        18.899948120117188
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 81,
+      "path": "review/v12/arrival/0081.png",
+      "seconds": 0.61,
+      "camera": [
+        48.29970932006836,
+        231.08932495117188,
+        18.95598030090332
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 82,
+      "path": "review/v12/arrival/0082.png",
+      "seconds": 0.61,
+      "camera": [
+        48.26594924926758,
+        229.84011840820312,
+        19.012195587158203
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 83,
+      "path": "review/v12/arrival/0083.png",
+      "seconds": 0.61,
+      "camera": [
+        48.232086181640625,
+        228.587158203125,
+        19.068578720092773
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 84,
+      "path": "review/v12/arrival/0084.png",
+      "seconds": 0.62,
+      "camera": [
+        48.19812774658203,
+        227.33067321777344,
+        19.125120162963867
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 85,
+      "path": "review/v12/arrival/0085.png",
+      "seconds": 0.63,
+      "camera": [
+        48.16408157348633,
+        226.0709686279297,
+        19.181806564331055
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 86,
+      "path": "review/v12/arrival/0086.png",
+      "seconds": 0.66,
+      "camera": [
+        48.12995529174805,
+        224.80833435058594,
+        19.238624572753906
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 87,
+      "path": "review/v12/arrival/0087.png",
+      "seconds": 0.62,
+      "camera": [
+        48.095760345458984,
+        223.5430450439453,
+        19.295562744140625
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 88,
+      "path": "review/v12/arrival/0088.png",
+      "seconds": 0.61,
+      "camera": [
+        48.06149673461914,
+        222.27536010742188,
+        19.352609634399414
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 89,
+      "path": "review/v12/arrival/0089.png",
+      "seconds": 0.61,
+      "camera": [
+        48.02717590332031,
+        221.00559997558594,
+        19.40974998474121
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 90,
+      "path": "review/v12/arrival/0090.png",
+      "seconds": 0.62,
+      "camera": [
+        48.030216217041016,
+        219.73561096191406,
+        19.466896057128906
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 91,
+      "path": "review/v12/arrival/0091.png",
+      "seconds": 0.62,
+      "camera": [
+        48.17483139038086,
+        218.47023010253906,
+        19.523839950561523
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 92,
+      "path": "review/v12/arrival/0092.png",
+      "seconds": 0.6,
+      "camera": [
+        48.31958770751953,
+        217.20361328125,
+        19.58083724975586
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 93,
+      "path": "review/v12/arrival/0093.png",
+      "seconds": 0.61,
+      "camera": [
+        48.464454650878906,
+        215.93600463867188,
+        19.637880325317383
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 94,
+      "path": "review/v12/arrival/0094.png",
+      "seconds": 0.62,
+      "camera": [
+        48.609405517578125,
+        214.66769409179688,
+        19.69495391845703
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 95,
+      "path": "review/v12/arrival/0095.png",
+      "seconds": 0.65,
+      "camera": [
+        48.75440216064453,
+        213.39898681640625,
+        19.752046585083008
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 96,
+      "path": "review/v12/arrival/0096.png",
+      "seconds": 0.61,
+      "camera": [
+        48.8994140625,
+        212.130126953125,
+        19.809144973754883
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 97,
+      "path": "review/v12/arrival/0097.png",
+      "seconds": 0.62,
+      "camera": [
+        49.044410705566406,
+        210.8614044189453,
+        19.86623764038086
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 98,
+      "path": "review/v12/arrival/0098.png",
+      "seconds": 0.63,
+      "camera": [
+        49.189361572265625,
+        209.59310913085938,
+        19.923309326171875
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 99,
+      "path": "review/v12/arrival/0099.png",
+      "seconds": 0.62,
+      "camera": [
+        49.334228515625,
+        208.32550048828125,
+        19.9803524017334
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 100,
+      "path": "review/v12/arrival/0100.png",
+      "seconds": 0.61,
+      "camera": [
+        49.47898483276367,
+        207.05886840820312,
+        20.037349700927734
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 101,
+      "path": "review/v12/arrival/0101.png",
+      "seconds": 0.61,
+      "camera": [
+        49.623600006103516,
+        205.7935028076172,
+        20.09429168701172
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 102,
+      "path": "review/v12/arrival/0102.png",
+      "seconds": 0.63,
+      "camera": [
+        49.768043518066406,
+        204.52963256835938,
+        20.151166915893555
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 103,
+      "path": "review/v12/arrival/0103.png",
+      "seconds": 0.64,
+      "camera": [
+        49.91227340698242,
+        203.26760864257812,
+        20.207958221435547
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 104,
+      "path": "review/v12/arrival/0104.png",
+      "seconds": 0.62,
+      "camera": [
+        50.05626678466797,
+        202.00765991210938,
+        20.26465606689453
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 105,
+      "path": "review/v12/arrival/0105.png",
+      "seconds": 0.63,
+      "camera": [
+        50.199989318847656,
+        200.75006103515625,
+        20.321247100830078
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 106,
+      "path": "review/v12/arrival/0106.png",
+      "seconds": 0.63,
+      "camera": [
+        50.343414306640625,
+        199.4951171875,
+        20.37771987915039
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 107,
+      "path": "review/v12/arrival/0107.png",
+      "seconds": 0.64,
+      "camera": [
+        50.48650360107422,
+        198.24310302734375,
+        20.43406105041504
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 108,
+      "path": "review/v12/arrival/0108.png",
+      "seconds": 0.65,
+      "camera": [
+        50.62922668457031,
+        196.99427795410156,
+        20.490257263183594
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 109,
+      "path": "review/v12/arrival/0109.png",
+      "seconds": 0.64,
+      "camera": [
+        50.771549224853516,
+        195.74893188476562,
+        20.54629898071289
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 110,
+      "path": "review/v12/arrival/0110.png",
+      "seconds": 0.64,
+      "camera": [
+        50.913448333740234,
+        194.50735473632812,
+        20.602169036865234
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 111,
+      "path": "review/v12/arrival/0111.png",
+      "seconds": 0.63,
+      "camera": [
+        51.05488204956055,
+        193.26979064941406,
+        20.657859802246094
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 112,
+      "path": "review/v12/arrival/0112.png",
+      "seconds": 0.63,
+      "camera": [
+        51.195823669433594,
+        192.0365447998047,
+        20.713356018066406
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 113,
+      "path": "review/v12/arrival/0113.png",
+      "seconds": 0.62,
+      "camera": [
+        51.336238861083984,
+        190.8079071044922,
+        20.768644332885742
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 114,
+      "path": "review/v12/arrival/0114.png",
+      "seconds": 0.61,
+      "camera": [
+        51.47610092163086,
+        189.58412170410156,
+        20.823715209960938
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 115,
+      "path": "review/v12/arrival/0115.png",
+      "seconds": 0.63,
+      "camera": [
+        51.61537170410156,
+        188.365478515625,
+        20.878555297851562
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 116,
+      "path": "review/v12/arrival/0116.png",
+      "seconds": 0.63,
+      "camera": [
+        51.754024505615234,
+        187.15228271484375,
+        20.933147430419922
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 117,
+      "path": "review/v12/arrival/0117.png",
+      "seconds": 0.64,
+      "camera": [
+        51.892024993896484,
+        185.94479370117188,
+        20.987483978271484
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 118,
+      "path": "review/v12/arrival/0118.png",
+      "seconds": 0.65,
+      "camera": [
+        52.13968276977539,
+        184.7825164794922,
+        21.03978729248047
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 119,
+      "path": "review/v12/arrival/0119.png",
+      "seconds": 0.65,
+      "camera": [
+        52.78997802734375,
+        183.7699737548828,
+        21.085351943969727
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 120,
+      "path": "review/v12/arrival/0120.png",
+      "seconds": 0.64,
+      "camera": [
+        53.43671417236328,
+        182.76296997070312,
+        21.130666732788086
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 121,
+      "path": "review/v12/arrival/0121.png",
+      "seconds": 0.66,
+      "camera": [
+        54.079742431640625,
+        181.76173400878906,
+        21.175722122192383
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 122,
+      "path": "review/v12/arrival/0122.png",
+      "seconds": 0.64,
+      "camera": [
+        54.718910217285156,
+        180.7665252685547,
+        21.22050666809082
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 123,
+      "path": "review/v12/arrival/0123.png",
+      "seconds": 0.66,
+      "camera": [
+        55.35406494140625,
+        179.77755737304688,
+        21.265010833740234
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 124,
+      "path": "review/v12/arrival/0124.png",
+      "seconds": 0.65,
+      "camera": [
+        55.98505783081055,
+        178.79507446289062,
+        21.309221267700195
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 125,
+      "path": "review/v12/arrival/0125.png",
+      "seconds": 0.65,
+      "camera": [
+        56.61173629760742,
+        177.81930541992188,
+        21.353132247924805
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 126,
+      "path": "review/v12/arrival/0126.png",
+      "seconds": 0.67,
+      "camera": [
+        57.233951568603516,
+        176.85049438476562,
+        21.396728515625
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 127,
+      "path": "review/v12/arrival/0127.png",
+      "seconds": 0.66,
+      "camera": [
+        57.85154724121094,
+        175.8888702392578,
+        21.44000244140625
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 128,
+      "path": "review/v12/arrival/0128.png",
+      "seconds": 0.65,
+      "camera": [
+        58.46437454223633,
+        174.93466186523438,
+        21.482940673828125
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 129,
+      "path": "review/v12/arrival/0129.png",
+      "seconds": 0.66,
+      "camera": [
+        59.07228088378906,
+        173.98812866210938,
+        21.525535583496094
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 130,
+      "path": "review/v12/arrival/0130.png",
+      "seconds": 0.65,
+      "camera": [
+        59.67511749267578,
+        173.04949951171875,
+        21.567771911621094
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 131,
+      "path": "review/v12/arrival/0131.png",
+      "seconds": 0.64,
+      "camera": [
+        60.272727966308594,
+        172.1189727783203,
+        21.60964584350586
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 132,
+      "path": "review/v12/arrival/0132.png",
+      "seconds": 0.65,
+      "camera": [
+        60.86496353149414,
+        171.19683837890625,
+        21.651142120361328
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 133,
+      "path": "review/v12/arrival/0133.png",
+      "seconds": 0.66,
+      "camera": [
+        61.45167541503906,
+        170.28329467773438,
+        21.692251205444336
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 134,
+      "path": "review/v12/arrival/0134.png",
+      "seconds": 0.69,
+      "camera": [
+        62.032711029052734,
+        169.37860107421875,
+        21.73296356201172
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 135,
+      "path": "review/v12/arrival/0135.png",
+      "seconds": 0.65,
+      "camera": [
+        62.60791778564453,
+        168.48297119140625,
+        21.773265838623047
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 136,
+      "path": "review/v12/arrival/0136.png",
+      "seconds": 0.64,
+      "camera": [
+        63.177146911621094,
+        167.59666442871094,
+        21.81315040588379
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 137,
+      "path": "review/v12/arrival/0137.png",
+      "seconds": 0.66,
+      "camera": [
+        63.7402458190918,
+        166.7198944091797,
+        21.85260581970215
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 138,
+      "path": "review/v12/arrival/0138.png",
+      "seconds": 0.64,
+      "camera": [
+        64.29705810546875,
+        165.8529052734375,
+        21.891618728637695
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 139,
+      "path": "review/v12/arrival/0139.png",
+      "seconds": 0.67,
+      "camera": [
+        64.8474349975586,
+        164.99594116210938,
+        21.9301815032959
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 140,
+      "path": "review/v12/arrival/0140.png",
+      "seconds": 0.64,
+      "camera": [
+        65.3912353515625,
+        164.14923095703125,
+        21.968284606933594
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 141,
+      "path": "review/v12/arrival/0141.png",
+      "seconds": 0.66,
+      "camera": [
+        65.92829132080078,
+        163.31300354003906,
+        22.00591278076172
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 142,
+      "path": "review/v12/arrival/0142.png",
+      "seconds": 0.65,
+      "camera": [
+        66.45845794677734,
+        162.4875030517578,
+        22.043062210083008
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 143,
+      "path": "review/v12/arrival/0143.png",
+      "seconds": 0.63,
+      "camera": [
+        66.9000015258789,
+        161.64906311035156,
+        22.080791473388672
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 144,
+      "path": "review/v12/arrival/0144.png",
+      "seconds": 0.63,
+      "camera": [
+        66.9000015258789,
+        160.69459533691406,
+        22.123743057250977
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 145,
+      "path": "review/v12/arrival/0145.png",
+      "seconds": 0.64,
+      "camera": [
+        66.9000015258789,
+        159.75372314453125,
+        22.16608238220215
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 146,
+      "path": "review/v12/arrival/0146.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        158.82667541503906,
+        22.20779800415039
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 147,
+      "path": "review/v12/arrival/0147.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        157.91380310058594,
+        22.248878479003906
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 148,
+      "path": "review/v12/arrival/0148.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        157.01535034179688,
+        22.289310455322266
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 149,
+      "path": "review/v12/arrival/0149.png",
+      "seconds": 0.67,
+      "camera": [
+        66.9000015258789,
+        156.131591796875,
+        22.329078674316406
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 150,
+      "path": "review/v12/arrival/0150.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        155.2628173828125,
+        22.36817169189453
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 151,
+      "path": "review/v12/arrival/0151.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        154.40931701660156,
+        22.406579971313477
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 152,
+      "path": "review/v12/arrival/0152.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        153.57135009765625,
+        22.444290161132812
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 153,
+      "path": "review/v12/arrival/0153.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        152.74920654296875,
+        22.481285095214844
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 154,
+      "path": "review/v12/arrival/0154.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        151.94317626953125,
+        22.51755714416504
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 155,
+      "path": "review/v12/arrival/0155.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        151.1535186767578,
+        22.553091049194336
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 156,
+      "path": "review/v12/arrival/0156.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        150.38052368164062,
+        22.587875366210938
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 157,
+      "path": "review/v12/arrival/0157.png",
+      "seconds": 0.69,
+      "camera": [
+        66.9000015258789,
+        149.62448120117188,
+        22.621898651123047
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 158,
+      "path": "review/v12/arrival/0158.png",
+      "seconds": 0.64,
+      "camera": [
+        66.9000015258789,
+        148.88565063476562,
+        22.6551456451416
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 159,
+      "path": "review/v12/arrival/0159.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        148.16433715820312,
+        22.687604904174805
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 160,
+      "path": "review/v12/arrival/0160.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        147.4608154296875,
+        22.71926498413086
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 161,
+      "path": "review/v12/arrival/0161.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        146.77532958984375,
+        22.750110626220703
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 162,
+      "path": "review/v12/arrival/0162.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        146.10821533203125,
+        22.78013038635254
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 163,
+      "path": "review/v12/arrival/0163.png",
+      "seconds": 0.64,
+      "camera": [
+        66.9000015258789,
+        145.45970153808594,
+        22.809314727783203
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 164,
+      "path": "review/v12/arrival/0164.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        144.83010864257812,
+        22.837646484375
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 165,
+      "path": "review/v12/arrival/0165.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        144.2196807861328,
+        22.865114212036133
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 166,
+      "path": "review/v12/arrival/0166.png",
+      "seconds": 0.64,
+      "camera": [
+        66.9000015258789,
+        143.62872314453125,
+        22.891708374023438
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 167,
+      "path": "review/v12/arrival/0167.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        143.05752563476562,
+        22.91741180419922
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 168,
+      "path": "review/v12/arrival/0168.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        142.50634765625,
+        22.942214965820312
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 169,
+      "path": "review/v12/arrival/0169.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        141.9754638671875,
+        22.96610450744629
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 170,
+      "path": "review/v12/arrival/0170.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        141.46517944335938,
+        22.98906898498535
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 171,
+      "path": "review/v12/arrival/0171.png",
+      "seconds": 0.67,
+      "camera": [
+        66.9000015258789,
+        140.97573852539062,
+        23.011093139648438
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 172,
+      "path": "review/v12/arrival/0172.png",
+      "seconds": 0.68,
+      "camera": [
+        66.9000015258789,
+        140.50746154785156,
+        23.03216552734375
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 173,
+      "path": "review/v12/arrival/0173.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        140.0605926513672,
+        23.05227279663086
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 174,
+      "path": "review/v12/arrival/0174.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        139.6354522705078,
+        23.0714054107666
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 175,
+      "path": "review/v12/arrival/0175.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        139.23226928710938,
+        23.089548110961914
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 176,
+      "path": "review/v12/arrival/0176.png",
+      "seconds": 0.67,
+      "camera": [
+        66.9000015258789,
+        138.8513641357422,
+        23.106689453125
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 177,
+      "path": "review/v12/arrival/0177.png",
+      "seconds": 0.67,
+      "camera": [
+        66.9000015258789,
+        138.49301147460938,
+        23.122814178466797
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 178,
+      "path": "review/v12/arrival/0178.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        138.157470703125,
+        23.137914657592773
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 179,
+      "path": "review/v12/arrival/0179.png",
+      "seconds": 0.69,
+      "camera": [
+        66.9000015258789,
+        137.84503173828125,
+        23.151973724365234
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 180,
+      "path": "review/v12/arrival/0180.png",
+      "seconds": 0.69,
+      "camera": [
+        66.9000015258789,
+        137.55599975585938,
+        23.164981842041016
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 181,
+      "path": "review/v12/arrival/0181.png",
+      "seconds": 0.68,
+      "camera": [
+        66.9000015258789,
+        137.29061889648438,
+        23.176921844482422
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 182,
+      "path": "review/v12/arrival/0182.png",
+      "seconds": 0.68,
+      "camera": [
+        66.9000015258789,
+        137.04916381835938,
+        23.187788009643555
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 183,
+      "path": "review/v12/arrival/0183.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        136.83197021484375,
+        23.197561264038086
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 184,
+      "path": "review/v12/arrival/0184.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        136.63926696777344,
+        23.206233978271484
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 185,
+      "path": "review/v12/arrival/0185.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        136.47134399414062,
+        23.213788986206055
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 186,
+      "path": "review/v12/arrival/0186.png",
+      "seconds": 0.67,
+      "camera": [
+        66.9000015258789,
+        136.3284912109375,
+        23.220218658447266
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 187,
+      "path": "review/v12/arrival/0187.png",
+      "seconds": 0.7,
+      "camera": [
+        66.9000015258789,
+        136.2109832763672,
+        23.225507736206055
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 188,
+      "path": "review/v12/arrival/0188.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        136.1190948486328,
+        23.22964096069336
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 189,
+      "path": "review/v12/arrival/0189.png",
+      "seconds": 0.66,
+      "camera": [
+        66.9000015258789,
+        136.05313110351562,
+        23.23261070251465
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 190,
+      "path": "review/v12/arrival/0190.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        136.01332092285156,
+        23.23440170288086
+      ]
+    },
+    {
+      "view": "arrival",
+      "frame": 191,
+      "path": "review/v12/arrival/0191.png",
+      "seconds": 0.65,
+      "camera": [
+        66.9000015258789,
+        136.0,
+        23.235000610351562
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 0,
+      "path": "review/v12/left_center/0000.png",
+      "seconds": 0.7,
+      "camera": [
+        66.9000015258789,
+        166.0,
+        21.885000228881836
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 1,
+      "path": "review/v12/left_center/0001.png",
+      "seconds": 0.63,
+      "camera": [
+        66.89885711669922,
+        165.99746704101562,
+        21.885114669799805
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 2,
+      "path": "review/v12/left_center/0002.png",
+      "seconds": 0.66,
+      "camera": [
+        66.89546203613281,
+        165.9898681640625,
+        21.885456085205078
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 3,
+      "path": "review/v12/left_center/0003.png",
+      "seconds": 0.64,
+      "camera": [
+        66.88982391357422,
+        165.977294921875,
+        21.886022567749023
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 4,
+      "path": "review/v12/left_center/0004.png",
+      "seconds": 0.64,
+      "camera": [
+        66.88196563720703,
+        165.95977783203125,
+        21.886810302734375
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 5,
+      "path": "review/v12/left_center/0005.png",
+      "seconds": 0.63,
+      "camera": [
+        66.8719253540039,
+        165.9373779296875,
+        21.8878173828125
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 6,
+      "path": "review/v12/left_center/0006.png",
+      "seconds": 0.63,
+      "camera": [
+        66.85971069335938,
+        165.91014099121094,
+        21.8890438079834
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 7,
+      "path": "review/v12/left_center/0007.png",
+      "seconds": 0.63,
+      "camera": [
+        66.8453598022461,
+        165.87814331054688,
+        21.890483856201172
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 8,
+      "path": "review/v12/left_center/0008.png",
+      "seconds": 0.63,
+      "camera": [
+        66.82888793945312,
+        165.84140014648438,
+        21.89213752746582
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 9,
+      "path": "review/v12/left_center/0009.png",
+      "seconds": 0.63,
+      "camera": [
+        66.81031799316406,
+        165.8000030517578,
+        21.894001007080078
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 10,
+      "path": "review/v12/left_center/0010.png",
+      "seconds": 0.65,
+      "camera": [
+        66.78968048095703,
+        165.75396728515625,
+        21.89607048034668
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 11,
+      "path": "review/v12/left_center/0011.png",
+      "seconds": 0.65,
+      "camera": [
+        66.76699829101562,
+        165.70338439941406,
+        21.898347854614258
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 12,
+      "path": "review/v12/left_center/0012.png",
+      "seconds": 0.66,
+      "camera": [
+        66.74229431152344,
+        165.64828491210938,
+        21.900827407836914
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 13,
+      "path": "review/v12/left_center/0013.png",
+      "seconds": 0.67,
+      "camera": [
+        66.71559143066406,
+        165.58871459960938,
+        21.903507232666016
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 14,
+      "path": "review/v12/left_center/0014.png",
+      "seconds": 0.65,
+      "camera": [
+        66.68690490722656,
+        165.52476501464844,
+        21.90638542175293
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 15,
+      "path": "review/v12/left_center/0015.png",
+      "seconds": 0.65,
+      "camera": [
+        66.6562728881836,
+        165.45645141601562,
+        21.909460067749023
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 16,
+      "path": "review/v12/left_center/0016.png",
+      "seconds": 0.65,
+      "camera": [
+        66.62371826171875,
+        165.3838348388672,
+        21.91272735595703
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 17,
+      "path": "review/v12/left_center/0017.png",
+      "seconds": 0.65,
+      "camera": [
+        66.5892562866211,
+        165.30697631835938,
+        21.91618537902832
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 18,
+      "path": "review/v12/left_center/0018.png",
+      "seconds": 0.69,
+      "camera": [
+        66.55291748046875,
+        165.22592163085938,
+        21.91983413696289
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 19,
+      "path": "review/v12/left_center/0019.png",
+      "seconds": 0.66,
+      "camera": [
+        66.51471710205078,
+        165.1407470703125,
+        21.92366600036621
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 20,
+      "path": "review/v12/left_center/0020.png",
+      "seconds": 0.65,
+      "camera": [
+        66.47469329833984,
+        165.0514678955078,
+        21.927682876586914
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 21,
+      "path": "review/v12/left_center/0021.png",
+      "seconds": 0.65,
+      "camera": [
+        66.432861328125,
+        164.9581756591797,
+        21.931882858276367
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 22,
+      "path": "review/v12/left_center/0022.png",
+      "seconds": 0.66,
+      "camera": [
+        66.38924407958984,
+        164.86090087890625,
+        21.936260223388672
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 23,
+      "path": "review/v12/left_center/0023.png",
+      "seconds": 0.65,
+      "camera": [
+        66.34386444091797,
+        164.7596893310547,
+        21.940813064575195
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 24,
+      "path": "review/v12/left_center/0024.png",
+      "seconds": 0.66,
+      "camera": [
+        66.2967529296875,
+        164.6546173095703,
+        21.945541381835938
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 25,
+      "path": "review/v12/left_center/0025.png",
+      "seconds": 0.67,
+      "camera": [
+        66.2479248046875,
+        164.5457305908203,
+        21.950441360473633
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 26,
+      "path": "review/v12/left_center/0026.png",
+      "seconds": 0.68,
+      "camera": [
+        66.19741821289062,
+        164.43309020996094,
+        21.95551109313965
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 27,
+      "path": "review/v12/left_center/0027.png",
+      "seconds": 0.64,
+      "camera": [
+        66.1452407836914,
+        164.3167266845703,
+        21.96074676513672
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 28,
+      "path": "review/v12/left_center/0028.png",
+      "seconds": 0.64,
+      "camera": [
+        66.09142303466797,
+        164.1967010498047,
+        21.966148376464844
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 29,
+      "path": "review/v12/left_center/0029.png",
+      "seconds": 0.63,
+      "camera": [
+        66.03599548339844,
+        164.0730743408203,
+        21.971712112426758
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 30,
+      "path": "review/v12/left_center/0030.png",
+      "seconds": 0.64,
+      "camera": [
+        65.97896575927734,
+        163.94590759277344,
+        21.977434158325195
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 31,
+      "path": "review/v12/left_center/0031.png",
+      "seconds": 0.64,
+      "camera": [
+        65.92037963867188,
+        163.8152313232422,
+        21.983314514160156
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 32,
+      "path": "review/v12/left_center/0032.png",
+      "seconds": 0.64,
+      "camera": [
+        65.86024475097656,
+        163.68112182617188,
+        21.989349365234375
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 33,
+      "path": "review/v12/left_center/0033.png",
+      "seconds": 0.65,
+      "camera": [
+        65.798583984375,
+        163.54360961914062,
+        21.99553680419922
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 34,
+      "path": "review/v12/left_center/0034.png",
+      "seconds": 0.64,
+      "camera": [
+        65.73543548583984,
+        163.40277099609375,
+        22.001874923706055
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 35,
+      "path": "review/v12/left_center/0035.png",
+      "seconds": 0.63,
+      "camera": [
+        65.67080688476562,
+        163.25863647460938,
+        22.00836181640625
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 36,
+      "path": "review/v12/left_center/0036.png",
+      "seconds": 0.63,
+      "camera": [
+        65.604736328125,
+        163.1112823486328,
+        22.014991760253906
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 37,
+      "path": "review/v12/left_center/0037.png",
+      "seconds": 0.64,
+      "camera": [
+        65.53723907470703,
+        162.96075439453125,
+        22.021766662597656
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 38,
+      "path": "review/v12/left_center/0038.png",
+      "seconds": 0.64,
+      "camera": [
+        65.46834564208984,
+        162.80709838867188,
+        22.0286808013916
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 39,
+      "path": "review/v12/left_center/0039.png",
+      "seconds": 0.63,
+      "camera": [
+        65.3980712890625,
+        162.65037536621094,
+        22.03573226928711
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 40,
+      "path": "review/v12/left_center/0040.png",
+      "seconds": 0.64,
+      "camera": [
+        65.32644653320312,
+        162.49063110351562,
+        22.04292106628418
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 41,
+      "path": "review/v12/left_center/0041.png",
+      "seconds": 0.66,
+      "camera": [
+        65.25349426269531,
+        162.3279266357422,
+        22.050243377685547
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 42,
+      "path": "review/v12/left_center/0042.png",
+      "seconds": 0.64,
+      "camera": [
+        65.17922973632812,
+        162.16232299804688,
+        22.057695388793945
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 43,
+      "path": "review/v12/left_center/0043.png",
+      "seconds": 0.64,
+      "camera": [
+        65.10369110107422,
+        161.9938507080078,
+        22.065277099609375
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 44,
+      "path": "review/v12/left_center/0044.png",
+      "seconds": 0.64,
+      "camera": [
+        65.02689361572266,
+        161.82257080078125,
+        22.07298469543457
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 45,
+      "path": "review/v12/left_center/0045.png",
+      "seconds": 0.65,
+      "camera": [
+        64.94886779785156,
+        161.6485595703125,
+        22.080814361572266
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 46,
+      "path": "review/v12/left_center/0046.png",
+      "seconds": 0.63,
+      "camera": [
+        64.86962890625,
+        161.47183227539062,
+        22.088768005371094
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 47,
+      "path": "review/v12/left_center/0047.png",
+      "seconds": 0.64,
+      "camera": [
+        64.7892074584961,
+        161.29248046875,
+        22.096837997436523
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 48,
+      "path": "review/v12/left_center/0048.png",
+      "seconds": 0.64,
+      "camera": [
+        64.7076187133789,
+        161.1105194091797,
+        22.105026245117188
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 49,
+      "path": "review/v12/left_center/0049.png",
+      "seconds": 0.69,
+      "camera": [
+        64.6249008178711,
+        160.92604064941406,
+        22.11332893371582
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 50,
+      "path": "review/v12/left_center/0050.png",
+      "seconds": 0.64,
+      "camera": [
+        64.54106903076172,
+        160.73907470703125,
+        22.121742248535156
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 51,
+      "path": "review/v12/left_center/0051.png",
+      "seconds": 0.65,
+      "camera": [
+        64.45613861083984,
+        160.54966735839844,
+        22.130264282226562
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 52,
+      "path": "review/v12/left_center/0052.png",
+      "seconds": 0.63,
+      "camera": [
+        64.37015533447266,
+        160.35789489746094,
+        22.13889503479004
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 53,
+      "path": "review/v12/left_center/0053.png",
+      "seconds": 0.64,
+      "camera": [
+        64.28311920166016,
+        160.16380310058594,
+        22.147628784179688
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 54,
+      "path": "review/v12/left_center/0054.png",
+      "seconds": 0.63,
+      "camera": [
+        64.19507598876953,
+        159.96743774414062,
+        22.156465530395508
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 55,
+      "path": "review/v12/left_center/0055.png",
+      "seconds": 0.63,
+      "camera": [
+        64.10603332519531,
+        159.76885986328125,
+        22.165401458740234
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 56,
+      "path": "review/v12/left_center/0056.png",
+      "seconds": 0.65,
+      "camera": [
+        64.01602172851562,
+        159.568115234375,
+        22.174434661865234
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 57,
+      "path": "review/v12/left_center/0057.png",
+      "seconds": 0.68,
+      "camera": [
+        63.92506790161133,
+        159.36526489257812,
+        22.183563232421875
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 58,
+      "path": "review/v12/left_center/0058.png",
+      "seconds": 0.64,
+      "camera": [
+        63.83319091796875,
+        159.1603546142578,
+        22.19278335571289
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 59,
+      "path": "review/v12/left_center/0059.png",
+      "seconds": 0.65,
+      "camera": [
+        63.740413665771484,
+        158.9534454345703,
+        22.20209503173828
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 60,
+      "path": "review/v12/left_center/0060.png",
+      "seconds": 0.65,
+      "camera": [
+        63.646766662597656,
+        158.7445831298828,
+        22.21149444580078
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 61,
+      "path": "review/v12/left_center/0061.png",
+      "seconds": 0.65,
+      "camera": [
+        63.55226516723633,
+        158.53382873535156,
+        22.220977783203125
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 62,
+      "path": "review/v12/left_center/0062.png",
+      "seconds": 0.65,
+      "camera": [
+        63.456939697265625,
+        158.3212432861328,
+        22.230545043945312
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 63,
+      "path": "review/v12/left_center/0063.png",
+      "seconds": 0.66,
+      "camera": [
+        63.36081314086914,
+        158.1068572998047,
+        22.240192413330078
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 64,
+      "path": "review/v12/left_center/0064.png",
+      "seconds": 0.66,
+      "camera": [
+        63.26390838623047,
+        157.89073181152344,
+        22.249916076660156
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 65,
+      "path": "review/v12/left_center/0065.png",
+      "seconds": 0.67,
+      "camera": [
+        63.16625213623047,
+        157.6729278564453,
+        22.25971794128418
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 66,
+      "path": "review/v12/left_center/0066.png",
+      "seconds": 0.65,
+      "camera": [
+        63.06786346435547,
+        157.45350646972656,
+        22.26959228515625
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 67,
+      "path": "review/v12/left_center/0067.png",
+      "seconds": 0.65,
+      "camera": [
+        62.96876525878906,
+        157.2324981689453,
+        22.279537200927734
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 68,
+      "path": "review/v12/left_center/0068.png",
+      "seconds": 0.65,
+      "camera": [
+        62.868988037109375,
+        157.00997924804688,
+        22.28955078125
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 69,
+      "path": "review/v12/left_center/0069.png",
+      "seconds": 0.67,
+      "camera": [
+        62.7685546875,
+        156.78598022460938,
+        22.299631118774414
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 70,
+      "path": "review/v12/left_center/0070.png",
+      "seconds": 0.65,
+      "camera": [
+        62.667484283447266,
+        156.56057739257812,
+        22.30977439880371
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 71,
+      "path": "review/v12/left_center/0071.png",
+      "seconds": 0.63,
+      "camera": [
+        62.56580352783203,
+        156.33380126953125,
+        22.319978713989258
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 72,
+      "path": "review/v12/left_center/0072.png",
+      "seconds": 0.68,
+      "camera": [
+        62.46353530883789,
+        156.10572814941406,
+        22.330242156982422
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 73,
+      "path": "review/v12/left_center/0073.png",
+      "seconds": 0.65,
+      "camera": [
+        62.3607063293457,
+        155.8763885498047,
+        22.34056282043457
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 74,
+      "path": "review/v12/left_center/0074.png",
+      "seconds": 0.65,
+      "camera": [
+        62.25733947753906,
+        155.64585876464844,
+        22.350936889648438
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 75,
+      "path": "review/v12/left_center/0075.png",
+      "seconds": 0.63,
+      "camera": [
+        62.1534538269043,
+        155.4141845703125,
+        22.36136245727539
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 76,
+      "path": "review/v12/left_center/0076.png",
+      "seconds": 0.63,
+      "camera": [
+        62.04907989501953,
+        155.18141174316406,
+        22.371837615966797
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 77,
+      "path": "review/v12/left_center/0077.png",
+      "seconds": 0.65,
+      "camera": [
+        61.94424057006836,
+        154.9475860595703,
+        22.38235855102539
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 78,
+      "path": "review/v12/left_center/0078.png",
+      "seconds": 0.64,
+      "camera": [
+        61.838958740234375,
+        154.71278381347656,
+        22.392925262451172
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 79,
+      "path": "review/v12/left_center/0079.png",
+      "seconds": 0.66,
+      "camera": [
+        61.73325729370117,
+        154.47705078125,
+        22.403532028198242
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 80,
+      "path": "review/v12/left_center/0080.png",
+      "seconds": 0.7,
+      "camera": [
+        61.627159118652344,
+        154.2404327392578,
+        22.414180755615234
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 81,
+      "path": "review/v12/left_center/0081.png",
+      "seconds": 0.65,
+      "camera": [
+        61.52069091796875,
+        154.0029754638672,
+        22.42486572265625
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 82,
+      "path": "review/v12/left_center/0082.png",
+      "seconds": 0.65,
+      "camera": [
+        61.413875579833984,
+        153.76475524902344,
+        22.435585021972656
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 83,
+      "path": "review/v12/left_center/0083.png",
+      "seconds": 0.65,
+      "camera": [
+        61.30673599243164,
+        153.52581787109375,
+        22.446338653564453
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 84,
+      "path": "review/v12/left_center/0084.png",
+      "seconds": 0.66,
+      "camera": [
+        61.19929885864258,
+        153.2862091064453,
+        22.457120895385742
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 85,
+      "path": "review/v12/left_center/0085.png",
+      "seconds": 0.68,
+      "camera": [
+        61.09158706665039,
+        153.0459747314453,
+        22.467931747436523
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 86,
+      "path": "review/v12/left_center/0086.png",
+      "seconds": 0.66,
+      "camera": [
+        60.983619689941406,
+        152.80519104003906,
+        22.4787654876709
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 87,
+      "path": "review/v12/left_center/0087.png",
+      "seconds": 0.67,
+      "camera": [
+        60.875431060791016,
+        152.56390380859375,
+        22.4896240234375
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 88,
+      "path": "review/v12/left_center/0088.png",
+      "seconds": 0.67,
+      "camera": [
+        60.767032623291016,
+        152.32215881347656,
+        22.500503540039062
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 89,
+      "path": "review/v12/left_center/0089.png",
+      "seconds": 0.65,
+      "camera": [
+        60.6584587097168,
+        152.08001708984375,
+        22.511398315429688
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 90,
+      "path": "review/v12/left_center/0090.png",
+      "seconds": 0.64,
+      "camera": [
+        60.54972839355469,
+        151.8375244140625,
+        22.52231216430664
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 91,
+      "path": "review/v12/left_center/0091.png",
+      "seconds": 0.65,
+      "camera": [
+        60.44086837768555,
+        151.59474182128906,
+        22.53323745727539
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 92,
+      "path": "review/v12/left_center/0092.png",
+      "seconds": 0.63,
+      "camera": [
+        60.3318977355957,
+        151.35171508789062,
+        22.544172286987305
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 93,
+      "path": "review/v12/left_center/0093.png",
+      "seconds": 0.63,
+      "camera": [
+        60.222843170166016,
+        151.10850524902344,
+        22.555116653442383
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 94,
+      "path": "review/v12/left_center/0094.png",
+      "seconds": 0.64,
+      "camera": [
+        60.113731384277344,
+        150.8651580810547,
+        22.566068649291992
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 95,
+      "path": "review/v12/left_center/0095.png",
+      "seconds": 0.67,
+      "camera": [
+        60.004581451416016,
+        150.62171936035156,
+        22.577022552490234
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 96,
+      "path": "review/v12/left_center/0096.png",
+      "seconds": 0.64,
+      "camera": [
+        59.89542007446289,
+        150.37828063964844,
+        22.58797836303711
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 97,
+      "path": "review/v12/left_center/0097.png",
+      "seconds": 0.64,
+      "camera": [
+        59.78627014160156,
+        150.1348419189453,
+        22.59893226623535
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 98,
+      "path": "review/v12/left_center/0098.png",
+      "seconds": 0.64,
+      "camera": [
+        59.67715835571289,
+        149.89149475097656,
+        22.609882354736328
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 99,
+      "path": "review/v12/left_center/0099.png",
+      "seconds": 0.64,
+      "camera": [
+        59.5681037902832,
+        149.64828491210938,
+        22.620826721191406
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 100,
+      "path": "review/v12/left_center/0100.png",
+      "seconds": 0.64,
+      "camera": [
+        59.45913314819336,
+        149.40525817871094,
+        22.631763458251953
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 101,
+      "path": "review/v12/left_center/0101.png",
+      "seconds": 0.64,
+      "camera": [
+        59.35026931762695,
+        149.1624755859375,
+        22.642688751220703
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 102,
+      "path": "review/v12/left_center/0102.png",
+      "seconds": 0.65,
+      "camera": [
+        59.241539001464844,
+        148.91998291015625,
+        22.653600692749023
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 103,
+      "path": "review/v12/left_center/0103.png",
+      "seconds": 0.68,
+      "camera": [
+        59.132965087890625,
+        148.67784118652344,
+        22.66449737548828
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 104,
+      "path": "review/v12/left_center/0104.png",
+      "seconds": 0.64,
+      "camera": [
+        59.02457046508789,
+        148.43609619140625,
+        22.67537498474121
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 105,
+      "path": "review/v12/left_center/0105.png",
+      "seconds": 0.63,
+      "camera": [
+        58.916378021240234,
+        148.19480895996094,
+        22.686233520507812
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 106,
+      "path": "review/v12/left_center/0106.png",
+      "seconds": 0.64,
+      "camera": [
+        58.808414459228516,
+        147.9540252685547,
+        22.69706916809082
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 107,
+      "path": "review/v12/left_center/0107.png",
+      "seconds": 0.64,
+      "camera": [
+        58.70070266723633,
+        147.7137908935547,
+        22.7078800201416
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 108,
+      "path": "review/v12/left_center/0108.png",
+      "seconds": 0.64,
+      "camera": [
+        58.593265533447266,
+        147.47418212890625,
+        22.71866226196289
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 109,
+      "path": "review/v12/left_center/0109.png",
+      "seconds": 0.64,
+      "camera": [
+        58.48612594604492,
+        147.23524475097656,
+        22.729413986206055
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 110,
+      "path": "review/v12/left_center/0110.png",
+      "seconds": 0.66,
+      "camera": [
+        58.379310607910156,
+        146.9970245361328,
+        22.74013328552246
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 111,
+      "path": "review/v12/left_center/0111.png",
+      "seconds": 0.65,
+      "camera": [
+        58.27284240722656,
+        146.7595672607422,
+        22.750818252563477
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 112,
+      "path": "review/v12/left_center/0112.png",
+      "seconds": 0.64,
+      "camera": [
+        58.166744232177734,
+        146.52294921875,
+        22.76146697998047
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 113,
+      "path": "review/v12/left_center/0113.png",
+      "seconds": 0.63,
+      "camera": [
+        58.06104278564453,
+        146.28721618652344,
+        22.772075653076172
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 114,
+      "path": "review/v12/left_center/0114.png",
+      "seconds": 0.63,
+      "camera": [
+        57.95575714111328,
+        146.0524139404297,
+        22.782642364501953
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 115,
+      "path": "review/v12/left_center/0115.png",
+      "seconds": 0.63,
+      "camera": [
+        57.85091781616211,
+        145.81858825683594,
+        22.793163299560547
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 116,
+      "path": "review/v12/left_center/0116.png",
+      "seconds": 0.64,
+      "camera": [
+        57.746543884277344,
+        145.5858154296875,
+        22.803638458251953
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 117,
+      "path": "review/v12/left_center/0117.png",
+      "seconds": 0.63,
+      "camera": [
+        57.642662048339844,
+        145.35414123535156,
+        22.814064025878906
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 118,
+      "path": "review/v12/left_center/0118.png",
+      "seconds": 0.66,
+      "camera": [
+        57.5392951965332,
+        145.1236114501953,
+        22.824438095092773
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 119,
+      "path": "review/v12/left_center/0119.png",
+      "seconds": 0.64,
+      "camera": [
+        57.43646240234375,
+        144.89427185058594,
+        22.83475685119629
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 120,
+      "path": "review/v12/left_center/0120.png",
+      "seconds": 0.63,
+      "camera": [
+        57.334197998046875,
+        144.66619873046875,
+        22.845020294189453
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 121,
+      "path": "review/v12/left_center/0121.png",
+      "seconds": 0.63,
+      "camera": [
+        57.23251724243164,
+        144.43942260742188,
+        22.855226516723633
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 122,
+      "path": "review/v12/left_center/0122.png",
+      "seconds": 0.64,
+      "camera": [
+        57.131446838378906,
+        144.21401977539062,
+        22.86536979675293
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 123,
+      "path": "review/v12/left_center/0123.png",
+      "seconds": 0.64,
+      "camera": [
+        57.031009674072266,
+        143.99002075195312,
+        22.87544822692871
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 124,
+      "path": "review/v12/left_center/0124.png",
+      "seconds": 0.63,
+      "camera": [
+        56.93123245239258,
+        143.7675018310547,
+        22.885461807250977
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 125,
+      "path": "review/v12/left_center/0125.png",
+      "seconds": 0.63,
+      "camera": [
+        56.83213806152344,
+        143.54649353027344,
+        22.895408630371094
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 126,
+      "path": "review/v12/left_center/0126.png",
+      "seconds": 0.66,
+      "camera": [
+        56.73374938964844,
+        143.3270721435547,
+        22.90528106689453
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 127,
+      "path": "review/v12/left_center/0127.png",
+      "seconds": 0.65,
+      "camera": [
+        56.63608932495117,
+        143.10926818847656,
+        22.915082931518555
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 128,
+      "path": "review/v12/left_center/0128.png",
+      "seconds": 0.65,
+      "camera": [
+        56.5391845703125,
+        142.8931427001953,
+        22.924808502197266
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 129,
+      "path": "review/v12/left_center/0129.png",
+      "seconds": 0.65,
+      "camera": [
+        56.443058013916016,
+        142.6787567138672,
+        22.93445587158203
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 130,
+      "path": "review/v12/left_center/0130.png",
+      "seconds": 0.64,
+      "camera": [
+        56.34773254394531,
+        142.46617126464844,
+        22.94402313232422
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 131,
+      "path": "review/v12/left_center/0131.png",
+      "seconds": 0.65,
+      "camera": [
+        56.25323486328125,
+        142.2554168701172,
+        22.953506469726562
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 132,
+      "path": "review/v12/left_center/0132.png",
+      "seconds": 0.64,
+      "camera": [
+        56.159584045410156,
+        142.0465545654297,
+        22.96290397644043
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 133,
+      "path": "review/v12/left_center/0133.png",
+      "seconds": 0.65,
+      "camera": [
+        56.066810607910156,
+        141.8396453857422,
+        22.97221565246582
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 134,
+      "path": "review/v12/left_center/0134.png",
+      "seconds": 0.69,
+      "camera": [
+        55.97493362426758,
+        141.63473510742188,
+        22.981435775756836
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 135,
+      "path": "review/v12/left_center/0135.png",
+      "seconds": 0.65,
+      "camera": [
+        55.883975982666016,
+        141.431884765625,
+        22.990564346313477
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 136,
+      "path": "review/v12/left_center/0136.png",
+      "seconds": 0.65,
+      "camera": [
+        55.79396438598633,
+        141.23114013671875,
+        22.999597549438477
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 137,
+      "path": "review/v12/left_center/0137.png",
+      "seconds": 0.63,
+      "camera": [
+        55.704925537109375,
+        141.03256225585938,
+        23.008535385131836
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 138,
+      "path": "review/v12/left_center/0138.png",
+      "seconds": 0.64,
+      "camera": [
+        55.616878509521484,
+        140.83619689941406,
+        23.017370223999023
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 139,
+      "path": "review/v12/left_center/0139.png",
+      "seconds": 0.64,
+      "camera": [
+        55.52984619140625,
+        140.64210510253906,
+        23.026105880737305
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 140,
+      "path": "review/v12/left_center/0140.png",
+      "seconds": 0.64,
+      "camera": [
+        55.4438591003418,
+        140.45033264160156,
+        23.03473472595215
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 141,
+      "path": "review/v12/left_center/0141.png",
+      "seconds": 0.67,
+      "camera": [
+        55.35893249511719,
+        140.26092529296875,
+        23.043258666992188
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 142,
+      "path": "review/v12/left_center/0142.png",
+      "seconds": 0.66,
+      "camera": [
+        55.27510070800781,
+        140.07395935058594,
+        23.051671981811523
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 143,
+      "path": "review/v12/left_center/0143.png",
+      "seconds": 0.64,
+      "camera": [
+        55.192378997802734,
+        139.8894805908203,
+        23.059972763061523
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 144,
+      "path": "review/v12/left_center/0144.png",
+      "seconds": 0.64,
+      "camera": [
+        55.11079406738281,
+        139.70751953125,
+        23.068161010742188
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 145,
+      "path": "review/v12/left_center/0145.png",
+      "seconds": 0.65,
+      "camera": [
+        55.030372619628906,
+        139.52816772460938,
+        23.07623291015625
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 146,
+      "path": "review/v12/left_center/0146.png",
+      "seconds": 0.66,
+      "camera": [
+        54.951133728027344,
+        139.3514404296875,
+        23.084184646606445
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 147,
+      "path": "review/v12/left_center/0147.png",
+      "seconds": 0.64,
+      "camera": [
+        54.873104095458984,
+        139.17742919921875,
+        23.092016220092773
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 148,
+      "path": "review/v12/left_center/0148.png",
+      "seconds": 0.64,
+      "camera": [
+        54.79630661010742,
+        139.0061492919922,
+        23.09972381591797
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 149,
+      "path": "review/v12/left_center/0149.png",
+      "seconds": 0.66,
+      "camera": [
+        54.720767974853516,
+        138.83767700195312,
+        23.107303619384766
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 150,
+      "path": "review/v12/left_center/0150.png",
+      "seconds": 0.66,
+      "camera": [
+        54.646507263183594,
+        138.6720733642578,
+        23.114757537841797
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 151,
+      "path": "review/v12/left_center/0151.png",
+      "seconds": 0.64,
+      "camera": [
+        54.57355499267578,
+        138.50936889648438,
+        23.12207794189453
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 152,
+      "path": "review/v12/left_center/0152.png",
+      "seconds": 0.64,
+      "camera": [
+        54.50192642211914,
+        138.34962463378906,
+        23.1292667388916
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 153,
+      "path": "review/v12/left_center/0153.png",
+      "seconds": 0.64,
+      "camera": [
+        54.43165588378906,
+        138.19290161132812,
+        23.136320114135742
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 154,
+      "path": "review/v12/left_center/0154.png",
+      "seconds": 0.63,
+      "camera": [
+        54.36275863647461,
+        138.03924560546875,
+        23.143234252929688
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 155,
+      "path": "review/v12/left_center/0155.png",
+      "seconds": 0.6,
+      "camera": [
+        54.29526138305664,
+        137.8887176513672,
+        23.150007247924805
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 156,
+      "path": "review/v12/left_center/0156.png",
+      "seconds": 0.65,
+      "camera": [
+        54.229190826416016,
+        137.74136352539062,
+        23.156639099121094
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 157,
+      "path": "review/v12/left_center/0157.png",
+      "seconds": 0.67,
+      "camera": [
+        54.16456604003906,
+        137.59722900390625,
+        23.163124084472656
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 158,
+      "path": "review/v12/left_center/0158.png",
+      "seconds": 0.65,
+      "camera": [
+        54.10141372680664,
+        137.45639038085938,
+        23.169462203979492
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 159,
+      "path": "review/v12/left_center/0159.png",
+      "seconds": 0.64,
+      "camera": [
+        54.039756774902344,
+        137.31887817382812,
+        23.175649642944336
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 160,
+      "path": "review/v12/left_center/0160.png",
+      "seconds": 0.64,
+      "camera": [
+        53.97962188720703,
+        137.1847686767578,
+        23.181684494018555
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 161,
+      "path": "review/v12/left_center/0161.png",
+      "seconds": 0.64,
+      "camera": [
+        53.9210319519043,
+        137.05409240722656,
+        23.187564849853516
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 162,
+      "path": "review/v12/left_center/0162.png",
+      "seconds": 0.64,
+      "camera": [
+        53.864009857177734,
+        136.9269256591797,
+        23.193288803100586
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 163,
+      "path": "review/v12/left_center/0163.png",
+      "seconds": 0.65,
+      "camera": [
+        53.80857849121094,
+        136.8032989501953,
+        23.198850631713867
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 164,
+      "path": "review/v12/left_center/0164.png",
+      "seconds": 0.66,
+      "camera": [
+        53.7547607421875,
+        136.6832733154297,
+        23.204252243041992
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 165,
+      "path": "review/v12/left_center/0165.png",
+      "seconds": 0.68,
+      "camera": [
+        53.70258712768555,
+        136.56690979003906,
+        23.209487915039062
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 166,
+      "path": "review/v12/left_center/0166.png",
+      "seconds": 0.65,
+      "camera": [
+        53.65207290649414,
+        136.4542694091797,
+        23.214557647705078
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 167,
+      "path": "review/v12/left_center/0167.png",
+      "seconds": 0.64,
+      "camera": [
+        53.603248596191406,
+        136.3453826904297,
+        23.219457626342773
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 168,
+      "path": "review/v12/left_center/0168.png",
+      "seconds": 0.65,
+      "camera": [
+        53.55613708496094,
+        136.2403106689453,
+        23.224185943603516
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 169,
+      "path": "review/v12/left_center/0169.png",
+      "seconds": 0.66,
+      "camera": [
+        53.51075744628906,
+        136.13909912109375,
+        23.228740692138672
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 170,
+      "path": "review/v12/left_center/0170.png",
+      "seconds": 0.64,
+      "camera": [
+        53.467140197753906,
+        136.0418243408203,
+        23.233118057250977
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 171,
+      "path": "review/v12/left_center/0171.png",
+      "seconds": 0.65,
+      "camera": [
+        53.42530822753906,
+        135.9485321044922,
+        23.237316131591797
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 172,
+      "path": "review/v12/left_center/0172.png",
+      "seconds": 0.65,
+      "camera": [
+        53.38528060913086,
+        135.8592529296875,
+        23.2413330078125
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 173,
+      "path": "review/v12/left_center/0173.png",
+      "seconds": 0.65,
+      "camera": [
+        53.347084045410156,
+        135.77407836914062,
+        23.245166778564453
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 174,
+      "path": "review/v12/left_center/0174.png",
+      "seconds": 0.64,
+      "camera": [
+        53.31074142456055,
+        135.69302368164062,
+        23.24881362915039
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 175,
+      "path": "review/v12/left_center/0175.png",
+      "seconds": 0.64,
+      "camera": [
+        53.276283264160156,
+        135.6161651611328,
+        23.25227165222168
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 176,
+      "path": "review/v12/left_center/0176.png",
+      "seconds": 0.64,
+      "camera": [
+        53.24372482299805,
+        135.54354858398438,
+        23.25554084777832
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 177,
+      "path": "review/v12/left_center/0177.png",
+      "seconds": 0.63,
+      "camera": [
+        53.21309280395508,
+        135.47523498535156,
+        23.25861358642578
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 178,
+      "path": "review/v12/left_center/0178.png",
+      "seconds": 0.64,
+      "camera": [
+        53.184410095214844,
+        135.41128540039062,
+        23.261491775512695
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 179,
+      "path": "review/v12/left_center/0179.png",
+      "seconds": 0.64,
+      "camera": [
+        53.15770721435547,
+        135.35171508789062,
+        23.26417350769043
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 180,
+      "path": "review/v12/left_center/0180.png",
+      "seconds": 0.66,
+      "camera": [
+        53.132999420166016,
+        135.29661560058594,
+        23.266653060913086
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 181,
+      "path": "review/v12/left_center/0181.png",
+      "seconds": 0.65,
+      "camera": [
+        53.11031723022461,
+        135.24603271484375,
+        23.26892852783203
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 182,
+      "path": "review/v12/left_center/0182.png",
+      "seconds": 0.64,
+      "camera": [
+        53.08967971801758,
+        135.1999969482422,
+        23.270999908447266
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 183,
+      "path": "review/v12/left_center/0183.png",
+      "seconds": 0.64,
+      "camera": [
+        53.07111358642578,
+        135.15859985351562,
+        23.272863388061523
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 184,
+      "path": "review/v12/left_center/0184.png",
+      "seconds": 0.64,
+      "camera": [
+        53.05464172363281,
+        135.12185668945312,
+        23.274517059326172
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 185,
+      "path": "review/v12/left_center/0185.png",
+      "seconds": 0.64,
+      "camera": [
+        53.040287017822266,
+        135.08985900878906,
+        23.275957107543945
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 186,
+      "path": "review/v12/left_center/0186.png",
+      "seconds": 0.64,
+      "camera": [
+        53.028076171875,
+        135.0626220703125,
+        23.27718162536621
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 187,
+      "path": "review/v12/left_center/0187.png",
+      "seconds": 0.65,
+      "camera": [
+        53.01803207397461,
+        135.04022216796875,
+        23.27819061279297
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 188,
+      "path": "review/v12/left_center/0188.png",
+      "seconds": 0.68,
+      "camera": [
+        53.01018142700195,
+        135.022705078125,
+        23.27897834777832
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 189,
+      "path": "review/v12/left_center/0189.png",
+      "seconds": 0.64,
+      "camera": [
+        53.004539489746094,
+        135.0101318359375,
+        23.279544830322266
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 190,
+      "path": "review/v12/left_center/0190.png",
+      "seconds": 0.64,
+      "camera": [
+        53.00114059448242,
+        135.00253295898438,
+        23.27988624572754
+      ]
+    },
+    {
+      "view": "left_center",
+      "frame": 191,
+      "path": "review/v12/left_center/0191.png",
+      "seconds": 0.64,
+      "camera": [
+        53.0,
+        135.0,
+        23.280000686645508
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 0,
+      "path": "review/v12/boat/0000.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        200.0,
+        2.5999999046325684
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 1,
+      "path": "review/v12/boat/0001.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.9930419921875,
+        2.602302312850952
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 2,
+      "path": "review/v12/boat/0002.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.97222900390625,
+        2.604602098464966
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 3,
+      "path": "review/v12/boat/0003.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.937744140625,
+        2.6068971157073975
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 4,
+      "path": "review/v12/boat/0004.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        199.8897247314453,
+        2.609184503555298
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 5,
+      "path": "review/v12/boat/0005.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.82830810546875,
+        2.611461877822876
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 6,
+      "path": "review/v12/boat/0006.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.75363159179688,
+        2.613726854324341
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 7,
+      "path": "review/v12/boat/0007.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.66586303710938,
+        2.6159770488739014
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 8,
+      "path": "review/v12/boat/0008.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        199.5651397705078,
+        2.6182100772857666
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 9,
+      "path": "review/v12/boat/0009.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.45159912109375,
+        2.6204230785369873
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 10,
+      "path": "review/v12/boat/0010.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        199.32540893554688,
+        2.6226143836975098
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 11,
+      "path": "review/v12/boat/0011.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        199.1866912841797,
+        2.6247808933258057
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 12,
+      "path": "review/v12/boat/0012.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        199.03561401367188,
+        2.626920700073242
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 13,
+      "path": "review/v12/boat/0013.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        198.87229919433594,
+        2.6290314197540283
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 14,
+      "path": "review/v12/boat/0014.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        198.69691467285156,
+        2.631110668182373
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 15,
+      "path": "review/v12/boat/0015.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        198.50961303710938,
+        2.6331562995910645
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 16,
+      "path": "review/v12/boat/0016.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        198.3105010986328,
+        2.6351661682128906
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 17,
+      "path": "review/v12/boat/0017.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        198.0997772216797,
+        2.6371376514434814
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 18,
+      "path": "review/v12/boat/0018.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        197.87754821777344,
+        2.6390693187713623
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 19,
+      "path": "review/v12/boat/0019.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        197.64398193359375,
+        2.640958547592163
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 20,
+      "path": "review/v12/boat/0020.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        197.39920043945312,
+        2.642803430557251
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 21,
+      "path": "review/v12/boat/0021.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        197.1433868408203,
+        2.644601821899414
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 22,
+      "path": "review/v12/boat/0022.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        196.8766632080078,
+        2.6463522911071777
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 23,
+      "path": "review/v12/boat/0023.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        196.5991668701172,
+        2.648052453994751
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 24,
+      "path": "review/v12/boat/0024.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        196.31106567382812,
+        2.64970064163208
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 25,
+      "path": "review/v12/boat/0025.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        196.0124969482422,
+        2.6512949466705322
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 26,
+      "path": "review/v12/boat/0026.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        195.70361328125,
+        2.652833938598633
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 27,
+      "path": "review/v12/boat/0027.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        195.38455200195312,
+        2.65431547164917
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 28,
+      "path": "review/v12/boat/0028.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        195.0554656982422,
+        2.655738592147827
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 29,
+      "path": "review/v12/boat/0029.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        194.71649169921875,
+        2.6571011543273926
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 30,
+      "path": "review/v12/boat/0030.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        194.3677978515625,
+        2.6584019660949707
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 31,
+      "path": "review/v12/boat/0031.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        194.00950622558594,
+        2.659639596939087
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 32,
+      "path": "review/v12/boat/0032.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        193.6417694091797,
+        2.6608128547668457
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 33,
+      "path": "review/v12/boat/0033.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        193.26473999023438,
+        2.6619200706481934
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 34,
+      "path": "review/v12/boat/0034.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        192.87855529785156,
+        2.6629602909088135
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 35,
+      "path": "review/v12/boat/0035.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        192.48336791992188,
+        2.6639325618743896
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 36,
+      "path": "review/v12/boat/0036.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        192.07933044433594,
+        2.6648354530334473
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 37,
+      "path": "review/v12/boat/0037.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        191.66659545898438,
+        2.665668487548828
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 38,
+      "path": "review/v12/boat/0038.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        191.24526977539062,
+        2.6664302349090576
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 39,
+      "path": "review/v12/boat/0039.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        190.8155517578125,
+        2.6671202182769775
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 40,
+      "path": "review/v12/boat/0040.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        190.37754821777344,
+        2.6677374839782715
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 41,
+      "path": "review/v12/boat/0041.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        189.93142700195312,
+        2.668281316757202
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 42,
+      "path": "review/v12/boat/0042.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        189.47732543945312,
+        2.6687514781951904
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 43,
+      "path": "review/v12/boat/0043.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        189.01539611816406,
+        2.669147253036499
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 44,
+      "path": "review/v12/boat/0044.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        188.5457763671875,
+        2.6694681644439697
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 45,
+      "path": "review/v12/boat/0045.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        188.06861877441406,
+        2.6697137355804443
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 46,
+      "path": "review/v12/boat/0046.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        187.5840606689453,
+        2.669883966445923
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 47,
+      "path": "review/v12/boat/0047.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        187.09226989746094,
+        2.669978618621826
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 48,
+      "path": "review/v12/boat/0048.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        186.59336853027344,
+        2.6699976921081543
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 49,
+      "path": "review/v12/boat/0049.png",
+      "seconds": 0.57,
+      "camera": [
+        179.0,
+        186.0875244140625,
+        2.669940710067749
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 50,
+      "path": "review/v12/boat/0050.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        185.57485961914062,
+        2.6698083877563477
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 51,
+      "path": "review/v12/boat/0051.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        185.0555419921875,
+        2.669600248336792
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 52,
+      "path": "review/v12/boat/0052.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        184.5297088623047,
+        2.6693170070648193
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 53,
+      "path": "review/v12/boat/0053.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        183.9975128173828,
+        2.6689586639404297
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 54,
+      "path": "review/v12/boat/0054.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        183.45909118652344,
+        2.6685256958007812
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 55,
+      "path": "review/v12/boat/0055.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        182.9145965576172,
+        2.6680185794830322
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 56,
+      "path": "review/v12/boat/0056.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        182.3641815185547,
+        2.667437791824341
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 57,
+      "path": "review/v12/boat/0057.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        181.80796813964844,
+        2.6667842864990234
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 58,
+      "path": "review/v12/boat/0058.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        181.24612426757812,
+        2.666058301925659
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 59,
+      "path": "review/v12/boat/0059.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        180.6787872314453,
+        2.6652607917785645
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 60,
+      "path": "review/v12/boat/0060.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        180.1061248779297,
+        2.6643927097320557
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 61,
+      "path": "review/v12/boat/0061.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        179.5282440185547,
+        2.663455009460449
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 62,
+      "path": "review/v12/boat/0062.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        178.94532775878906,
+        2.6624486446380615
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 63,
+      "path": "review/v12/boat/0063.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        178.3574981689453,
+        2.661374807357788
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 64,
+      "path": "review/v12/boat/0064.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        177.76492309570312,
+        2.6602344512939453
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 65,
+      "path": "review/v12/boat/0065.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        177.167724609375,
+        2.6590287685394287
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 66,
+      "path": "review/v12/boat/0066.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        176.56605529785156,
+        2.657759428024292
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 67,
+      "path": "review/v12/boat/0067.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        175.9600830078125,
+        2.6564273834228516
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 68,
+      "path": "review/v12/boat/0068.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        175.3499298095703,
+        2.6550345420837402
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 69,
+      "path": "review/v12/boat/0069.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        174.7357635498047,
+        2.6535818576812744
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 70,
+      "path": "review/v12/boat/0070.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        174.11770629882812,
+        2.652071475982666
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 71,
+      "path": "review/v12/boat/0071.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        173.49591064453125,
+        2.6505045890808105
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 72,
+      "path": "review/v12/boat/0072.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        172.87054443359375,
+        2.648883104324341
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 73,
+      "path": "review/v12/boat/0073.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        172.24172973632812,
+        2.6472086906433105
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 74,
+      "path": "review/v12/boat/0074.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        171.609619140625,
+        2.6454832553863525
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 75,
+      "path": "review/v12/boat/0075.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        170.974365234375,
+        2.6437084674835205
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 76,
+      "path": "review/v12/boat/0076.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        170.3361053466797,
+        2.6418864727020264
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 77,
+      "path": "review/v12/boat/0077.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        169.6949920654297,
+        2.640019178390503
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 78,
+      "path": "review/v12/boat/0078.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        169.05117797851562,
+        2.638108730316162
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 79,
+      "path": "review/v12/boat/0079.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        168.40480041503906,
+        2.6361567974090576
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 80,
+      "path": "review/v12/boat/0080.png",
+      "seconds": 0.65,
+      "camera": [
+        179.0,
+        167.75601196289062,
+        2.6341657638549805
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 81,
+      "path": "review/v12/boat/0081.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        167.1049346923828,
+        2.6321377754211426
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 82,
+      "path": "review/v12/boat/0082.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        166.45175170898438,
+        2.630075216293335
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 83,
+      "path": "review/v12/boat/0083.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        165.7965850830078,
+        2.6279799938201904
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 84,
+      "path": "review/v12/boat/0084.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        165.1396026611328,
+        2.625854253768921
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 85,
+      "path": "review/v12/boat/0085.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        164.48092651367188,
+        2.6237008571624756
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 86,
+      "path": "review/v12/boat/0086.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        163.82070922851562,
+        2.6215217113494873
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 87,
+      "path": "review/v12/boat/0087.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        163.1591033935547,
+        2.619319200515747
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 88,
+      "path": "review/v12/boat/0088.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        162.49624633789062,
+        2.617095947265625
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 89,
+      "path": "review/v12/boat/0089.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        161.83230590820312,
+        2.614854097366333
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 90,
+      "path": "review/v12/boat/0090.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        161.1674041748047,
+        2.612596035003662
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 91,
+      "path": "review/v12/boat/0091.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        160.501708984375,
+        2.6103246212005615
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 92,
+      "path": "review/v12/boat/0092.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        159.83534240722656,
+        2.608041763305664
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 93,
+      "path": "review/v12/boat/0093.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        159.16847229003906,
+        2.605750322341919
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 94,
+      "path": "review/v12/boat/0094.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        158.501220703125,
+        2.603452682495117
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 95,
+      "path": "review/v12/boat/0095.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        157.83377075195312,
+        2.60115122795105
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 96,
+      "path": "review/v12/boat/0096.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        157.16622924804688,
+        2.598848581314087
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 97,
+      "path": "review/v12/boat/0097.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        156.498779296875,
+        2.5965473651885986
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 98,
+      "path": "review/v12/boat/0098.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        155.83152770996094,
+        2.594249725341797
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 99,
+      "path": "review/v12/boat/0099.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        155.16465759277344,
+        2.5919582843780518
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 100,
+      "path": "review/v12/boat/0100.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        154.498291015625,
+        2.5896754264831543
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 101,
+      "path": "review/v12/boat/0101.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        153.8325958251953,
+        2.5874040126800537
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 102,
+      "path": "review/v12/boat/0102.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        153.16769409179688,
+        2.585145950317383
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 103,
+      "path": "review/v12/boat/0103.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        152.50375366210938,
+        2.582904100418091
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 104,
+      "path": "review/v12/boat/0104.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        151.8408966064453,
+        2.5806808471679688
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 105,
+      "path": "review/v12/boat/0105.png",
+      "seconds": 0.65,
+      "camera": [
+        179.0,
+        151.17929077148438,
+        2.5784783363342285
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 106,
+      "path": "review/v12/boat/0106.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        150.51907348632812,
+        2.5762991905212402
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 107,
+      "path": "review/v12/boat/0107.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        149.8603973388672,
+        2.574145555496216
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 108,
+      "path": "review/v12/boat/0108.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        149.2034149169922,
+        2.5720200538635254
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 109,
+      "path": "review/v12/boat/0109.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        148.54824829101562,
+        2.569924831390381
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 110,
+      "path": "review/v12/boat/0110.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        147.8950653076172,
+        2.567862033843994
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 111,
+      "path": "review/v12/boat/0111.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        147.24398803710938,
+        2.5658342838287354
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 112,
+      "path": "review/v12/boat/0112.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        146.59519958496094,
+        2.563843250274658
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 113,
+      "path": "review/v12/boat/0113.png",
+      "seconds": 0.65,
+      "camera": [
+        179.0,
+        145.94882202148438,
+        2.5618913173675537
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 114,
+      "path": "review/v12/boat/0114.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        145.3050079345703,
+        2.559980630874634
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 115,
+      "path": "review/v12/boat/0115.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        144.6638946533203,
+        2.5581133365631104
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 116,
+      "path": "review/v12/boat/0116.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        144.025634765625,
+        2.556291341781616
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 117,
+      "path": "review/v12/boat/0117.png",
+      "seconds": 0.62,
+      "camera": [
+        179.0,
+        143.390380859375,
+        2.5545167922973633
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 118,
+      "path": "review/v12/boat/0118.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        142.75827026367188,
+        2.5527913570404053
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 119,
+      "path": "review/v12/boat/0119.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        142.12945556640625,
+        2.551116943359375
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 120,
+      "path": "review/v12/boat/0120.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        141.50408935546875,
+        2.5494954586029053
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 121,
+      "path": "review/v12/boat/0121.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        140.88229370117188,
+        2.54792857170105
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 122,
+      "path": "review/v12/boat/0122.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        140.2642364501953,
+        2.5464179515838623
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 123,
+      "path": "review/v12/boat/0123.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        139.6500701904297,
+        2.5449655055999756
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 124,
+      "path": "review/v12/boat/0124.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        139.0399169921875,
+        2.543572425842285
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 125,
+      "path": "review/v12/boat/0125.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        138.43394470214844,
+        2.542240619659424
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 126,
+      "path": "review/v12/boat/0126.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        137.832275390625,
+        2.540971279144287
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 127,
+      "path": "review/v12/boat/0127.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        137.23507690429688,
+        2.5397655963897705
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 128,
+      "path": "review/v12/boat/0128.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        136.6425018310547,
+        2.5386252403259277
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 129,
+      "path": "review/v12/boat/0129.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        136.05467224121094,
+        2.5375514030456543
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 130,
+      "path": "review/v12/boat/0130.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        135.4717559814453,
+        2.5365450382232666
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 131,
+      "path": "review/v12/boat/0131.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        134.8938751220703,
+        2.53560733795166
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 132,
+      "path": "review/v12/boat/0132.png",
+      "seconds": 0.58,
+      "camera": [
+        179.0,
+        134.3212127685547,
+        2.5347392559051514
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 133,
+      "path": "review/v12/boat/0133.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        133.75387573242188,
+        2.5339417457580566
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 134,
+      "path": "review/v12/boat/0134.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        133.19203186035156,
+        2.5332157611846924
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 135,
+      "path": "review/v12/boat/0135.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        132.6358184814453,
+        2.532562017440796
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 136,
+      "path": "review/v12/boat/0136.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        132.0854034423828,
+        2.5319814682006836
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 137,
+      "path": "review/v12/boat/0137.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        131.54090881347656,
+        2.5314743518829346
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 138,
+      "path": "review/v12/boat/0138.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        131.0024871826172,
+        2.531041383743286
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 139,
+      "path": "review/v12/boat/0139.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        130.4702911376953,
+        2.5306830406188965
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 140,
+      "path": "review/v12/boat/0140.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        129.9444580078125,
+        2.530399799346924
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 141,
+      "path": "review/v12/boat/0141.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        129.42514038085938,
+        2.530191659927368
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 142,
+      "path": "review/v12/boat/0142.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        128.9124755859375,
+        2.5300590991973877
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 143,
+      "path": "review/v12/boat/0143.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        128.40663146972656,
+        2.5300023555755615
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 144,
+      "path": "review/v12/boat/0144.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        127.9077377319336,
+        2.5300211906433105
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 145,
+      "path": "review/v12/boat/0145.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        127.41593933105469,
+        2.530116081237793
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 146,
+      "path": "review/v12/boat/0146.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        126.93138885498047,
+        2.5302863121032715
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 147,
+      "path": "review/v12/boat/0147.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        126.45423126220703,
+        2.530531883239746
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 148,
+      "path": "review/v12/boat/0148.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        125.98461151123047,
+        2.530852794647217
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 149,
+      "path": "review/v12/boat/0149.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        125.52267456054688,
+        2.5312485694885254
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 150,
+      "path": "review/v12/boat/0150.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        125.06857299804688,
+        2.5317187309265137
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 151,
+      "path": "review/v12/boat/0151.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        124.62245178222656,
+        2.5322625637054443
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 152,
+      "path": "review/v12/boat/0152.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        124.1844482421875,
+        2.5328798294067383
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 153,
+      "path": "review/v12/boat/0153.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        123.75472259521484,
+        2.533569812774658
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 154,
+      "path": "review/v12/boat/0154.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        123.33341217041016,
+        2.5343315601348877
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 155,
+      "path": "review/v12/boat/0155.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        122.92066192626953,
+        2.5351643562316895
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 156,
+      "path": "review/v12/boat/0156.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        122.5166244506836,
+        2.536067485809326
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 157,
+      "path": "review/v12/boat/0157.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        122.12144470214844,
+        2.5370395183563232
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 158,
+      "path": "review/v12/boat/0158.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        121.73526763916016,
+        2.5380799770355225
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 159,
+      "path": "review/v12/boat/0159.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        121.35823822021484,
+        2.53918719291687
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 160,
+      "path": "review/v12/boat/0160.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        120.9905014038086,
+        2.540360450744629
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 161,
+      "path": "review/v12/boat/0161.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        120.63220977783203,
+        2.541598081588745
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 162,
+      "path": "review/v12/boat/0162.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        120.28350067138672,
+        2.5428988933563232
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 163,
+      "path": "review/v12/boat/0163.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        119.94453430175781,
+        2.5442614555358887
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 164,
+      "path": "review/v12/boat/0164.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        119.61544799804688,
+        2.545684337615967
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 165,
+      "path": "review/v12/boat/0165.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        119.29638671875,
+        2.547166109085083
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 166,
+      "path": "review/v12/boat/0166.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        118.98749542236328,
+        2.5487051010131836
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 167,
+      "path": "review/v12/boat/0167.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        118.68893432617188,
+        2.5502994060516357
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 168,
+      "path": "review/v12/boat/0168.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        118.40083312988281,
+        2.551947593688965
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 169,
+      "path": "review/v12/boat/0169.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        118.12334442138672,
+        2.553647756576538
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 170,
+      "path": "review/v12/boat/0170.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        117.85661315917969,
+        2.5553979873657227
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 171,
+      "path": "review/v12/boat/0171.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        117.60079193115234,
+        2.557196617126465
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 172,
+      "path": "review/v12/boat/0172.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        117.35602569580078,
+        2.5590415000915527
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 173,
+      "path": "review/v12/boat/0173.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        117.12245178222656,
+        2.5609307289123535
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 174,
+      "path": "review/v12/boat/0174.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        116.90023040771484,
+        2.5628621578216553
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 175,
+      "path": "review/v12/boat/0175.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        116.68949127197266,
+        2.564833879470825
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 176,
+      "path": "review/v12/boat/0176.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        116.49039459228516,
+        2.5668437480926514
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 177,
+      "path": "review/v12/boat/0177.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        116.3030776977539,
+        2.5688893795013428
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 178,
+      "path": "review/v12/boat/0178.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        116.12770080566406,
+        2.5709686279296875
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 179,
+      "path": "review/v12/boat/0179.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        115.96439361572266,
+        2.5730793476104736
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 180,
+      "path": "review/v12/boat/0180.png",
+      "seconds": 0.63,
+      "camera": [
+        179.0,
+        115.81330871582031,
+        2.57521915435791
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 181,
+      "path": "review/v12/boat/0181.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        115.67459869384766,
+        2.577385663986206
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 182,
+      "path": "review/v12/boat/0182.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        115.54840087890625,
+        2.5795767307281494
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 183,
+      "path": "review/v12/boat/0183.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        115.43486785888672,
+        2.581789970397949
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 184,
+      "path": "review/v12/boat/0184.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        115.33413696289062,
+        2.5840229988098145
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 185,
+      "path": "review/v12/boat/0185.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        115.24636840820312,
+        2.586273193359375
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 186,
+      "path": "review/v12/boat/0186.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        115.17169952392578,
+        2.58853816986084
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 187,
+      "path": "review/v12/boat/0187.png",
+      "seconds": 0.6,
+      "camera": [
+        179.0,
+        115.11027526855469,
+        2.590815544128418
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 188,
+      "path": "review/v12/boat/0188.png",
+      "seconds": 0.64,
+      "camera": [
+        179.0,
+        115.06224822998047,
+        2.5931029319763184
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 189,
+      "path": "review/v12/boat/0189.png",
+      "seconds": 0.61,
+      "camera": [
+        179.0,
+        115.02776336669922,
+        2.59539794921875
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 190,
+      "path": "review/v12/boat/0190.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        115.00696563720703,
+        2.5976977348327637
+      ]
+    },
+    {
+      "view": "boat",
+      "frame": 191,
+      "path": "review/v12/boat/0191.png",
+      "seconds": 0.59,
+      "camera": [
+        179.0,
+        115.0,
+        2.5999999046325684
+      ]
+    }
+  ]
+}

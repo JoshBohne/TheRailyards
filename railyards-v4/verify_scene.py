@@ -5,6 +5,7 @@ from mathutils import Vector
 from bpy_extras.object_utils import world_to_camera_view
 OUT=Path(__file__).resolve().parent;scene=bpy.data.scenes['Railyards v4'];spec=json.loads((OUT/'scene-spec.json').read_text())
 required=['R2_Cameras','R2_Site','R2_Bowl','D2_Stadium envelope','D2_Canopy','D2_Clock tower','D2_Scoreboards','D2_Seating and spectators','D2_Landscape','D2_Adjacent buildings','D2_Public realm','D2_Field','D2_Players','D2_Outfield','D2_Skyline landmarks','D2_Riverfront retail','D2_Future development','D2_South source rail links','D2_South source landing buildings','D2_Proposed soccer stadium','D2_Southern rail bascules']
+if scene.get('v11_circulation'):required=[name for name in required if name!='D2_Riverfront retail']+['D2_V11 Riverfront arcade','D2_V11 Continuous terrace']
 missing=[name for name in required if bpy.data.collections.get(name)is None]
 assets=[]
 for image in bpy.data.images:

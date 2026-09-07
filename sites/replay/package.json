@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node scripts/copy-decoders.mjs && vite --host 127.0.0.1 --port 8855",
     "build": "node scripts/copy-decoders.mjs && tsc --noEmit && vite build",
-    "test": "node --experimental-strip-types --test src/replay.test.ts"
+    "test": "node --experimental-strip-types --test src/replay.test.ts",
+    "verify:browser": "node scripts/verify-browser.mjs"
   },
   "dependencies": {
     "three": "0.185.1"
@@ -13,6 +14,7 @@
   "devDependencies": {
     "@types/node": "^26.4.1",
     "@types/three": "0.185.4",
+    "playwright": "1.63.0",
     "typescript": "7.0.2",
     "vite": "8.2.2"
   }

@@ -104,8 +104,10 @@ def build_outfield(scene, spec, batch, materials):
     # clearance, computed from the boundary path lengths (board spans wall
     # y 18.5-55.5).  Terraces stay within the 9.5 m podium ring so nothing
     # overhangs the lower riverwalk (quay slab starts at x 112).
-    bank_ranges = [(0.02, 0.094), (0.317, 0.47),
-                   (0.70, 0.90), (0.94, 0.985)]
+    # V12: the RF corner (to the board) and the left-center range are built
+    # by r12_outfield as taller banks; only the RF-board-to-CF bank and the
+    # small LF-pole bank remain as low terraces here.
+    bank_ranges = [(0.0445, 0.094), (0.317, 0.47), (0.94, 0.985)]
     terraces = [(1.45, 4.10, 13.65),
                 (4.10, 6.80, 15.05),
                 (6.80, 9.40, 16.45)]

@@ -18,4 +18,4 @@ for name,shot in shots.items():
     obj.data.lens=shot['lens_mm'];obj.data.sensor_width=36;obj.data.sensor_fit='HORIZONTAL';obj.data.clip_start=.12;obj.data.clip_end=15000
     obj['purpose']='Interior outfield visibility and architecture review; not fitted to an existing source image.'
 (OUT/'interior-cameras.json').write_text(json.dumps(shots,indent=2)+'\n')
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'railyards-v4-detail.blend'))
+bpy.ops.wm.save_as_mainfile(filepath=str(__import__('pathlib').Path(__import__('os').environ.get('RAILYARDS_STAGE_DIR',str(OUT)))/'railyards-v4-detail.blend'))
