@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build | Recreating The Railyards</title>
+<meta name="description" content="Models, software, workflow, and recorded token usage behind the Railyards reconstruction.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer>
+</script>
+<link rel="canonical" href="{{SITE_URL}}/build.html">
+<meta property="og:title" content="Recreating The Railyards">
+<meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-header">
+<a class="brand" href="index.html">The Railyards <span>/ A reconstruction</span>
+</a>
+<nav aria-label="Main navigation">
+<a href="index.html">Overview</a>
+<a href="gallery.html">Gallery</a>
+<a href="3d.html">3D</a>
+<a href="build.html" aria-current="page">Build</a>
+</nav>
+</header>
+<main id="content" class="page-shell">
+<section class="intro">
+<h1>The build</h1>
+<p>From concept images to a Blender scene and an interactive ballpark.</p>
+</section>
+<section class="section first-section">
+<h2>Tools &amp; models</h2>
+<dl class="build-details">
+<div>
+<dt>Models</dt>
+<dd>GPT-6 Astra · GPT-5.6 Luna · Claude Fable 5.1 · GPT-5.6 Pro</dd>
+</div>
+<div>
+<dt>Workflow</dt>
+<dd>Calibrate source cameras, generate geometry, render, compare, correct.</dd>
+</div>
+<div>
+<dt>Software</dt>
+<dd>Blender · Python · Three.js · Sites</dd>
+</div>
+<div>
+<dt>Current scene</dt>
+<dd>V11 · Further stadium corrections in progress</dd>
+</div>
+</dl>
+</section>
+<section class="section" id="tokens">
+<h2>Usage &amp; cost</h2>
+<p class="section-note">Early-build snapshot: the initial Astra/Luna build and first Fable correction session. Later work, including Pro, is not included.</p>
+<div class="token-summary">
+<div>
+<strong>291 M</strong>
+<span>Tokens, including cache reads</span>
+</div>
+<div>
+<strong>2,217</strong>
+<span>Model responses</span>
+</div>
+<div>
+<strong>$102.78</strong>
+<span>API-equivalent estimate</span>
+</div>
+</div>
+<div class="table-scroll" tabindex="0" aria-label="Scrollable token usage table">
+          <table class="token-table">
+            <thead>
+<tr>
+<th>Model and role</th>
+<th>Responses</th>
+<th>Input</th>
+<th>Output</th>
+<th>Cache read</th>
+<th>Cache write</th>
+<th>Model time</th>
+<th>Est. cost</th>
+</tr>
+</thead>
+            <tbody>
+              <tr>
+<th scope="row">GPT-6 Astra<small>Calibration, stadium, district, handoff</small>
+</th>
+<td>922</td>
+<td>2.18 M</td>
+<td>248 K</td>
+<td>112.3 M</td>
+<td>—</td>
+<td>6.1 h</td>
+<td>$77.01</td>
+</tr>
+              <tr>
+<th scope="row">GPT-5.6 Luna<small>Six parallel V3 component workers</small>
+</th>
+<td>1,218</td>
+<td>4.77 M</td>
+<td>369 K</td>
+<td>143.6 M</td>
+<td>—</td>
+<td>4.7 h</td>
+<td>$4.60</td>
+</tr>
+              <tr>
+<th scope="row">Claude Fable 5.1<small>Initial audit, V4 corrections, first site pass</small>
+</th>
+<td>77</td>
+<td>19 K</td>
+<td>161 K</td>
+<td>27.0 M</td>
+<td>0.49 M</td>
+<td>0.7 h</td>
+<td>$21.17</td>
+</tr>
+            </tbody>
+            <tfoot>
+<tr>
+<th scope="row">Recorded snapshot</th>
+<td>2,217</td>
+<td>6.97 M</td>
+<td>778 K</td>
+<td>282.9 M</td>
+<td>0.49 M</td>
+<td>11.5 h</td>
+<td>$102.78</td>
+</tr>
+</tfoot>
+          </table>
+        </div>
+        <p class="section-note">The estimate is from the recorded usage snapshot, not an invoice or the complete project cost. Work ran through subscriptions and local agent tools. Cache reads count repeated context; summed model time includes parallel workers.</p>
+</section>
+<section class="section">
+<h2>Source &amp; limitations</h2>
+<p class="section-note">Published concept images anchor the model. Unseen architecture is interpreted, and geographic registration is approximate.</p>
+<div class="text-links">
+<a href="https://github.com/JoshBohne/TheRailyards">Code &amp; history ↗</a>
+<a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Original reporting ↗</a>
+</div>
+<p class="section-note">Concept imagery: AECOM / Canal Edge. Reconstruction: Josh Bohne.</p>
+</section>
+</main>
+<footer class="site-footer">
+<span>Josh Bohne · Unofficial reconstruction</span>
+<a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
+</footer>
+</body>
+</html>

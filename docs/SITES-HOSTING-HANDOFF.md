@@ -19,3 +19,9 @@ The build and link/media/anchor checks passed. Deployment succeeded. No fresh br
 At September 7 22:18 UTC the account reported 92% weekly usage used, 8% remaining. The Astra launch automation is PAUSED under the existing allowance guard. Do not launch the large task or consume a fresh allowance automatically. Fable checkout was at 27baf11 with an untracked move-arrival receipt; verify completion and pushed artifacts separately.
 
 Reuse this existing Site and source checkout. Do not create another Sites project. Source credentials are short-lived and not saved; obtain a fresh credential for this project when needed. New source/template changes must be committed/pushed to the Sites source repository, built, packaged with the Sites helper, saved as a version, and deployed to existing access.
+
+## Four-page simplification
+
+User reference: https://chat-archive.mweinbach.chatgpt.site/ . Use Overview / Gallery / 3D / Build navigation and the exact title Recreating The Railyards. Light, restrained typography and large renders replace the dense dark landing page. Gallery retains films and source comparison; 3D embeds the existing replay with full-screen access. Build preserves the explicitly incomplete early usage snapshot and distinguishes the API-equivalent estimate from actual charges. Legacy process.html redirects to build.html.
+
+Validation: static production build, all local HTML links/media, four-page navigation, JavaScript syntax, hosting file-size limits, and diff checks. No browser QA requested or claimed.

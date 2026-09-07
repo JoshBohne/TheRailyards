@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery | Recreating The Railyards</title>
+<meta name="description" content="Railyards renders, films, and source comparisons.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer>
+</script>
+<link rel="canonical" href="{{SITE_URL}}/gallery.html">
+<meta property="og:title" content="Recreating The Railyards">
+<meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-header">
+<a class="brand" href="index.html">The Railyards <span>/ A reconstruction</span>
+</a>
+<nav aria-label="Main navigation">
+<a href="index.html">Overview</a>
+<a href="gallery.html" aria-current="page">Gallery</a>
+<a href="3d.html">3D</a>
+<a href="build.html">Build</a>
+</nav>
+</header>
+<main id="content" class="page-shell">
+<section class="intro">
+<h1>Gallery</h1>
+<p>Renders, films, and the original concept alongside the reconstruction.</p>
+</section>
+<section class="section first-section">
+<div class="image-grid gallery-grid">
+<figure>
+<a href="media/model-north.jpg" target="_blank" rel="noopener">
+<img src="media/model-north.jpg" alt="North aerial" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>North aerial</figcaption>
+</figure>
+<figure>
+<a href="media/model-south.jpg" target="_blank" rel="noopener">
+<img src="media/model-south.jpg" alt="South aerial" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>South aerial</figcaption>
+</figure>
+<figure>
+<a href="media/model-bridge.jpg" target="_blank" rel="noopener">
+<img src="media/model-bridge.jpg" alt="Roosevelt bridge" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>Roosevelt bridge</figcaption>
+</figure>
+<figure>
+<a href="media/boat.jpg" target="_blank" rel="noopener">
+<img src="media/boat.jpg" alt="From the river" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>From the river</figcaption>
+</figure>
+<figure>
+<a href="media/left_center.jpg" target="_blank" rel="noopener">
+<img src="media/left_center.jpg" alt="Inside the bowl" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>Inside the bowl</figcaption>
+</figure>
+<figure>
+<a href="media/arrival.jpg" target="_blank" rel="noopener">
+<img src="media/arrival.jpg" alt="Park walk" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>Park walk</figcaption>
+</figure>
+</div>
+</section>
+<section class="section" id="films">
+<h2>Films</h2>
+<div class="image-grid gallery-grid">
+<figure id="boat">
+<video controls playsinline preload="none" poster="media/boat.jpg" aria-label="From the river">
+<source src="media/boat.mp4" type="video/mp4">
+</video>
+<figcaption>From the river</figcaption>
+</figure>
+<figure id="left_center">
+<video controls playsinline preload="none" poster="media/left_center.jpg" aria-label="Inside the bowl">
+<source src="media/left_center.mp4" type="video/mp4">
+</video>
+<figcaption>Inside the bowl</figcaption>
+</figure>
+<figure id="river">
+<video controls playsinline preload="none" poster="media/river-poster.jpg" aria-label="Into the river · Illustrative flight">
+<source src="media/river.mp4" type="video/mp4">
+</video>
+<figcaption>Into the river · Illustrative flight</figcaption>
+</figure>
+<figure id="arrival">
+<video controls playsinline preload="none" poster="media/arrival.jpg" aria-label="Park walk">
+<source src="media/arrival.mp4" type="video/mp4">
+</video>
+<figcaption>Park walk</figcaption>
+</figure>
+</div>
+</section>    <section class="compare-section section" id="compare" aria-labelledby="compare-title">
+      <div class="section-inner">
+        <div class="section-heading">
+<h2 id="compare-title">Concept / reconstruction</h2>
+<p>Drag to compare.</p>
+</div>
+
+        <div class="compare-tabs" aria-label="Choose a source comparison">
+          <button type="button" aria-pressed="true" data-compare="north">North aerial</button>
+          <button type="button" aria-pressed="false" data-compare="south">South aerial</button>
+          <button type="button" aria-pressed="false" data-compare="bridge">Roosevelt bridge</button>
+        </div>
+        <div class="compare-frame" data-compare-frame style="--compare-position:50%">
+          <img class="compare-base" id="compare-model" src="media/model-north.jpg" width="1600" height="1065" loading="lazy" alt="The reconstruction through the matched north aerial camera">
+          <div class="compare-overlay" id="compare-overlay">
+            <img id="compare-source" src="media/source-north.jpg" width="1600" height="1065" loading="lazy" alt="The published north aerial concept rendering">
+          </div>
+          <span class="compare-label compare-label-source">Published concept</span>
+          <span class="compare-label compare-label-model">3D reconstruction</span>
+          <div class="compare-handle" aria-hidden="true">
+<span>↔</span>
+</div>
+          <label class="sr-only" for="compare-range">Reveal the source image or reconstruction</label>
+          <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50">
+        </div>
+        <div class="compare-caption">
+          <p id="compare-caption">
+<strong>North aerial.</strong> </p>
+          <span id="compare-output" aria-live="polite">50% source</span>
+        </div>
+      </div>
+    </section>
+</main>
+<footer class="site-footer">
+<span>Josh Bohne · Unofficial reconstruction</span>
+<a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
+</footer>
+</body>
+</html>

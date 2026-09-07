@@ -1,59 +1,11 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="How Astra and Fable reconstructed the Railyards ballpark proposal in Blender, including workflow, validation, versions, and an instrumented token snapshot.">
-  <meta name="theme-color" content="#0a0b0d">
-  <link rel="canonical" href="{{SITE_URL}}/process.html">
-  <meta property="og:url" content="{{SITE_URL}}/process.html">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="How The Railyards Reconstruction Was Made">
-  <meta property="og:description" content="From published concept images to a reproducible Blender scene and interactive browser experience.">
-  <meta property="og:image" content="{{SITE_URL}}/media/arrival.jpg">
-  <meta property="og:image:width" content="1600">
-  <meta property="og:image:height" content="900">
-  <meta property="og:image:alt" content="An aerial reconstruction of the proposed Railyards White Sox ballpark district along the Chicago River">
-  <title>How It Was Made | Recreating The Railyards</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="site.css">
-  <script src="site.js" defer></script>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0;url=build.html">
+<title>The build</title>
 </head>
 <body>
-<a class="skip-link" href="index.html#tour">Skip to viewpoints</a>
-<header class="site-header" data-header>
-<a class="brand" href="index.html">Recreating The Railyards</a>
-<button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="sr-only">Open navigation</span><span></span><span></span></button>
-<nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav><a href="index.html#tour">Views</a><a href="index.html#compare">Compare</a><a href="process.html">The build</a><a href="replay/">Explore in 3D ↗</a></nav>
-<button class="theme-toggle icon-button" type="button" aria-label="Switch to light theme" data-theme-toggle>◐</button>
-</header>
-<main id="top"><section class="opening page-shell"><p class="eyebrow">Astra · Fable · Blender</p><h1 style="margin:24px 0">The build.</h1><p class="opening-intro">Josh Bohne used AI agents to reconstruct the published ballpark concept, compare it with the source images, and turn the model into views you can explore.</p><div class="hero-actions"><a class="button button-primary" href="index.html">Back to the ballpark</a><a class="button button-secondary" href="https://github.com/JoshBohne/TheRailyards">Code &amp; model history ↗</a></div></section><section class="section"><div class="page-shell"><h2>Build. Compare. Correct.</h2><p style="max-width:70ch;margin-top:24px">Astra established the model and source cameras. Fable and Codex iterated on the geometry, Chicago context, renderings, and browser experience. The original images remain the reference; areas they do not show are interpreted.</p><p style="max-width:70ch;margin-top:16px">The current films and replay use V11. Further stadium corrections are in progress. The replay’s flight and splash are illustrative.</p></div></section>    <section class="section token-section" id="tokens" aria-labelledby="tokens-title">
-      <div class="page-shell">
-        <div class="section-heading token-heading">
-          <div><p class="eyebrow"><span></span> Instrumented early-build snapshot</p><h2 id="tokens-title">Usage snapshot</h2></div>
-          <div class="snapshot-warning"><strong>Not the final project total.</strong><p>These Tokscale figures cover the first Astra/Luna build and the initial Fable correction session. Work continued afterward, so treat this as a documented floor rather than a complete accounting.</p></div>
-        </div>
-        <div class="token-summary" aria-label="Token snapshot summary">
-          <div><strong>291 M</strong><span>tokens processed, including cache reads</span></div>
-          <div><strong>2,217</strong><span>recorded model responses</span></div>
-          <div><strong>11.5 h</strong><span>summed model-response time</span></div>
-          <div><strong>$102.78</strong><span>API-equivalent estimate</span></div>
-        </div>
-        <div class="table-scroll" tabindex="0" aria-label="Scrollable token usage table">
-          <table class="token-table">
-            <thead><tr><th>Model and role</th><th>Responses</th><th>Input</th><th>Output</th><th>Cache read</th><th>Cache write</th><th>Model time</th><th>Est. cost</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">GPT-6 Astra<small>Calibration, stadium, district, handoff</small></th><td>922</td><td>2.18 M</td><td>248 K</td><td>112.3 M</td><td>—</td><td>6.1 h</td><td>$77.01</td></tr>
-              <tr><th scope="row">GPT-5.6 Luna<small>Six parallel V3 component workers</small></th><td>1,218</td><td>4.77 M</td><td>369 K</td><td>143.6 M</td><td>—</td><td>4.7 h</td><td>$4.60</td></tr>
-              <tr><th scope="row">Claude Fable 5.1<small>Initial audit, V4 corrections, first site pass</small></th><td>77</td><td>19 K</td><td>161 K</td><td>27.0 M</td><td>0.49 M</td><td>0.7 h</td><td>$21.17</td></tr>
-            </tbody>
-            <tfoot><tr><th scope="row">Recorded snapshot</th><td>2,217</td><td>6.97 M</td><td>778 K</td><td>282.9 M</td><td>0.49 M</td><td>11.5 h</td><td>$102.78</td></tr></tfoot>
-          </table>
-        </div>
-        <div class="token-notes">
-          <p><strong>Why “API-equivalent”?</strong> The work ran through subscriptions and local agent tools. The estimate applies public list pricing to the logged usage; it is not a claim that $102.78 was charged.</p>
-          <p><strong>Why can model time exceed wall time?</strong> Luna’s six workers ran concurrently. Adding their response durations produces more model time than elapsed clock time.</p>
-          <p><strong>Why so many cached tokens?</strong> Long agent sessions repeatedly read the repository, scene specifications, and prior context. Cache reads describe processing, not newly authored output.</p>
-        </div>
-      </div>
-    </section></main><footer class="site-footer"><div class="page-shell"><a href="index.html">Recreating The Railyards</a><p>Concept imagery: AECOM / Canal Edge. Unofficial reconstruction: Josh Bohne.</p></div></footer><div class="toast" id="toast" role="status"></div></body></html>
+<a href="build.html">The build has moved.</a>
+</body>
+</html>

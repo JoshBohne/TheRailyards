@@ -1,137 +1,79 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore an unofficial 3D reconstruction of Chicago's proposed Railyards White Sox ballpark from the seats and the Chicago River.">
-  <meta name="theme-color" content="#0a0b0d">
-  <meta property="og:type" content="website">
-  <link rel="canonical" href="{{SITE_URL}}/">
-  <meta property="og:url" content="{{SITE_URL}}/">
-  <meta property="og:title" content="Recreating The Railyards">
-  <meta property="og:description" content="Explore the proposed White Sox ballpark in 3D.">
-  <meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
-  <meta property="og:image:width" content="1600">
-  <meta property="og:image:height" content="900">
-  <meta property="og:image:alt" content="An aerial reconstruction of the proposed Railyards White Sox ballpark district along the Chicago River">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Recreating The Railyards">
-  <meta name="twitter:description" content="Explore an unofficial 3D reconstruction of the proposed White Sox riverfront ballpark.">
-  <meta name="twitter:image" content="{{SITE_URL}}/media/model-north.jpg">
-  <title>Recreating The Railyards | Interactive White Sox Ballpark Study</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preload" as="image" href="media/model-north.jpg" fetchpriority="high">
-  <link rel="stylesheet" href="site.css">
-  <script src="site.js" defer></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": "Recreating The Railyards",
-    "description": "An independent, interactive 3D study of the proposed Railyards White Sox ballpark concept in Chicago.",
-    "creator": {"@type": "Person", "name": "Josh Bohne"},
-    "isBasedOn": "https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/"
-  }
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview | Recreating The Railyards</title>
+<meta name="description" content="Explore an unofficial reconstruction of the proposed Railyards White Sox ballpark.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="site.css">
+<script src="site.js" defer>
+</script>
+<link rel="canonical" href="{{SITE_URL}}/">
+<meta property="og:title" content="Recreating The Railyards">
+<meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
-<a class="skip-link" href="#tour">Skip to viewpoints</a>
-<header class="site-header" data-header>
-<a class="brand" href="index.html">Recreating The Railyards</a>
-<button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="sr-only">Open navigation</span><span></span><span></span></button>
-<nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav><a href="#tour">Views</a><a href="#compare">Compare</a><a href="process.html">The build</a><a href="replay/">Explore in 3D ↗</a></nav>
-<button class="theme-toggle icon-button" type="button" aria-label="Switch to light theme" data-theme-toggle>◐</button>
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="site-header">
+<a class="brand" href="index.html">The Railyards <span>/ A reconstruction</span>
+</a>
+<nav aria-label="Main navigation">
+<a href="index.html" aria-current="page">Overview</a>
+<a href="gallery.html">Gallery</a>
+<a href="3d.html">3D</a>
+<a href="build.html">Build</a>
+</nav>
 </header>
-<main id="top">
-<section class="opening page-shell" aria-labelledby="hero-title">
-<div class="opening-heading"><div><p class="eyebrow">Chicago · A proposed White Sox ballpark</p><h1 id="hero-title">Recreating<br>The Railyards</h1></div>
-<div class="opening-intro"><p>The ballpark, the river, the view from your seat.</p><div class="hero-actions"><a class="button button-primary" href="replay/">Explore in 3D ↗</a><a class="button button-secondary" href="#tour">Watch the films ↓</a></div><p class="opening-note">An unofficial reconstruction by Josh Bohne.</p></div></div>
-<a class="opening-image" href="replay/" aria-label="Explore the reconstructed ballpark in 3D"><img src="media/model-north.jpg" alt="The reconstructed Railyards ballpark beside the Chicago River" width="1600" height="1065" fetchpriority="high"><span>Pick a seat. Look around. ↗</span></a>
+<main id="content" class="page-shell">
+<section class="intro">
+<p class="eyebrow">Chicago · Blender · AI</p>
+<h1>Recreating The Railyards</h1>
+<p>An exploration of the proposed White Sox ballpark, built from the published concept images.</p>
 </section>
-    <section class="tour-section section" id="tour" aria-labelledby="tour-title">
-      <div class="page-shell">
-        <div class="section-heading"><h2 id="tour-title">Around the ballpark</h2></div>
-
-        <div class="tour-shell" data-tour-shell tabindex="0" aria-label="Interactive scene viewer. Use the scene buttons or left and right arrow keys to change views.">
-          <div class="scene-rail" role="tablist" aria-label="Choose a perspective"><button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="boat">
-              <span class="scene-number">01</span>
-              <span><strong>From the river</strong><small>Boat level</small></span>
-            </button>
-<button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="left_center">
-              <span class="scene-number">02</span>
-              <span><strong>Inside the bowl</strong><small>Left-center terrace</small></span>
-            </button>
-<button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="river">
-              <span class="scene-number">03</span>
-              <span><strong>Into the river</strong><small>Illustrated flight</small></span>
-            </button>
-<button class="scene-tab" type="button" role="tab" aria-selected="false" aria-controls="scene-panel" data-scene="arrival">
-              <span class="scene-number">04</span>
-              <span><strong>Park walk</strong><small>Arrival terrace</small></span>
-            </button>
-
-
-
-
-          </div>
-
-          <article class="scene-panel" id="scene-panel" role="tabpanel">
-            <div class="scene-stage">
-              <video id="scene-video" controls playsinline preload="metadata" poster="media/boat.jpg" aria-label="The ballpark from the river">
-                <source src="media/boat.mp4" type="video/mp4">
-              </video>
-              <button class="scene-play" type="button" data-scene-play aria-label="Play the river view">
-                <span aria-hidden="true">▶</span><small>Play film</small>
-              </button>
-              <div class="scene-stage-top">
-                <span class="scene-count" id="scene-count">01 / 04</span>
-                <span class="evidence-chip evidence-reconstructed" id="scene-evidence">Reconstructed</span>
-              </div>
-            </div>
-            <div class="scene-copy">
-              <div>
-                <p class="scene-location" id="scene-location">Chicago River</p>
-                <h3 id="scene-title">From the river.</h3>
-              </div>
-              <p class="scene-description" id="scene-description">A boat-level view of the ballpark and waterfront.</p>
-
-            </div>
-            <div class="scene-actions">
-              <div class="scene-stepper">
-                <button type="button" data-scene-prev aria-label="Previous perspective">← <span>Previous</span></button>
-                <button type="button" data-scene-next><span>Next</span> →</button>
-              </div>
-              <div>
-                <a id="scene-still" href="media/boat.jpg" target="_blank" rel="noopener">Open full still <span aria-hidden="true">↗</span></a>
-                <button type="button" data-share-scene>Share this view</button>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>    <section class="compare-section section" id="compare" aria-labelledby="compare-title">
-      <div class="page-shell">
-        <div class="section-heading"><h2 id="compare-title">Concept / reconstruction</h2><p>Drag to compare.</p></div>
-
-        <div class="compare-tabs" role="tablist" aria-label="Choose a source comparison">
-          <button type="button" role="tab" aria-selected="true" data-compare="north">North aerial</button>
-          <button type="button" role="tab" aria-selected="false" data-compare="south">South aerial</button>
-          <button type="button" role="tab" aria-selected="false" data-compare="bridge">Roosevelt bridge</button>
-        </div>
-        <div class="compare-frame" data-compare-frame style="--compare-position:50%">
-          <img class="compare-base" id="compare-model" src="media/model-north.jpg" width="1600" height="1065" loading="lazy" alt="The reconstruction through the matched north aerial camera">
-          <div class="compare-overlay" id="compare-overlay">
-            <img id="compare-source" src="media/source-north.jpg" width="1600" height="1065" loading="lazy" alt="The published north aerial concept rendering">
-          </div>
-          <span class="compare-label compare-label-source">Published concept</span>
-          <span class="compare-label compare-label-model">3D reconstruction</span>
-          <div class="compare-handle" aria-hidden="true"><span>↔</span></div>
-          <label class="sr-only" for="compare-range">Reveal the source image or reconstruction</label>
-          <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50">
-        </div>
-        <div class="compare-caption">
-          <p id="compare-caption"><strong>North aerial.</strong> </p>
-          <span id="compare-output" aria-live="polite">50% source</span>
-        </div>
-      </div>
-    </section></main><footer class="site-footer"><div class="page-shell"><a class="brand" href="#top">Recreating The Railyards</a><p>Fan-made, not an official design. Unseen details are interpreted.</p><nav aria-label="Project links"><a href="process.html">Built with Astra + Fable</a><a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Original reporting</a><a href="https://github.com/JoshBohne/TheRailyards">Source code</a></nav><p>Concept imagery: AECOM / Canal Edge. Reconstruction: Josh Bohne.</p></div></footer><div class="toast" id="toast" role="status" aria-live="polite"></div></body></html>
+<figure class="hero-render">
+<a href="3d.html">
+<img src="media/model-north.jpg" alt="The reconstructed Railyards ballpark and Chicago River, viewed from the north" width="1600" height="1065" fetchpriority="high">
+</a>
+<figcaption>
+<span>01 / The ballpark and riverfront</span>
+<span>Blender reconstruction · V11</span>
+</figcaption>
+</figure>
+<div class="text-links">
+<a href="gallery.html">Browse the gallery ↗</a>
+<a href="3d.html">Explore in 3D ↗</a>
+<a href="build.html">See the build ↗</a>
+</div>
+<p class="project-note">Based on the AECOM / Canal Edge concept. Unseen details are interpreted; this is a work in progress.</p>
+<section class="section">
+<h2>A closer look</h2>
+<div class="image-grid">
+<figure>
+<a href="media/boat.jpg" target="_blank" rel="noopener">
+<img src="media/boat.jpg" alt="02 / From the river" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>02 / From the river</figcaption>
+</figure>
+<figure>
+<a href="media/left_center.jpg" target="_blank" rel="noopener">
+<img src="media/left_center.jpg" alt="03 / Inside the bowl" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>03 / Inside the bowl</figcaption>
+</figure>
+<figure>
+<a href="media/model-south.jpg" target="_blank" rel="noopener">
+<img src="media/model-south.jpg" alt="04 / South aerial" loading="lazy" width="1600" height="1065">
+</a>
+<figcaption>04 / South aerial</figcaption>
+</figure>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<span>Josh Bohne · Unofficial reconstruction</span>
+<a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
+</footer>
+</body>
+</html>

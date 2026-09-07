@@ -97,6 +97,11 @@ def main():
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_bytes(source.read(item))
     split_venue(output)
+    replay_page = output / "replay/index.html"
+    replay_html = replay_page.read_text().replace('href="../"', 'href="../index.html" target="_top"')
+    replay_html = replay_html.replace('href="../index.html" target="_top">Watch the rendered films',
+                                      'href="../gallery.html#films" target="_top">Watch the rendered films')
+    replay_page.write_text(replay_html)
     for source in args.templates.iterdir():
         if source.is_file() and source.suffix in (".html", ".css", ".js", ".svg"):
             target = output / source.name
