@@ -1,6 +1,8 @@
-# White Sox Railyards — V4–V8 generators
+# White Sox Railyards — V4–V9 generators
 
-Current continuation: [V8 night pass and verification](../docs/V8-HANDOFF.md). Fable’s V7 is tagged `v7-baseline`; V8 saves separately as `railyards-v8.blend`.
+Current continuation: [V9 rendered experiences and verification](../docs/V9-SCOPE.md), saved separately as `railyards-v9.blend`.
+
+Previous continuation: [V8 night pass and verification](../docs/V8-HANDOFF.md). Fable’s V7 is tagged `v7-baseline`; V8 saves separately as `railyards-v8.blend`.
 
 Editable, source-driven Blender reconstruction of the September 2026 AECOM concept. V4 starts from the preserved V3 generators (`../railyards-v3/`) and corrects spatial relationships, structure and geography before further surface detail. Read `ISSUE-LEDGER.md` for the before/after record and `../docs/FABLE-5.1-HANDOFF.md` for the brief.
 

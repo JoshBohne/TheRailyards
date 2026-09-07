@@ -133,22 +133,36 @@ def _facade_rhythm(batch, cx, cy, z0, z1, width, depth, spacing=8.0,
 
 
 def _st_regis(batch):
-    """Three offset frustum stems, the most distinctive direct-view crown."""
+    """Alternating 12-story frustums, following Studio Gang's stated geometry.
+
+    Floor-plate widths follow the CTBUH case study (24.7-27.4 m); the
+    shorter heights approximate MKA's 100/75/50-story volumes. The wind
+    opening height is inferred. Geographic registration is unchanged.
+    """
     cx, cy = _center('st-regis-chicago')
-    stems = [(-31.0, 362.9, 35.0, 25.0),
-             (0.0, 329.0, 39.0, 28.0),
-             (29.0, 292.0, 34.0, 25.0)]
-    for index, (offset, top_height, width, depth) in enumerate(stems):
-        x = cx + offset
-        _tapered_prism(batch, f'St Regis stem {index + 1}', x, cy,
-                       GROUND_Z, GROUND_Z + top_height,
-                       width * 0.74, depth * 0.82, width, depth, 'glass_blue')
-        # Repeated slab edges carry the Studio Gang frustum rhythm at distance.
-        for z in range(25, int(top_height), 24):
-            scale = 1.0 if (z // 24) % 2 else 0.78
-            batch.prism(GROUP, 'crown_white',
-                        _ellipse(x, cy, width * scale, depth * scale),
-                        GROUND_Z + z, GROUND_Z + z + 0.28)
+    for index, (offset, height) in enumerate([(-26.5,362.9),(0,272.2),(26.5,181.5)]):
+        step = 43.5
+        z0 = 0.0
+        while z0 < height:
+            z1 = min(height,z0+step)
+            module = int(round(z0/step))
+            w0,w1 = ((24.7,27.4) if (module+index)%2==0 else (27.4,24.7))
+            # Leave an actual wind opening near the top of the tallest stem.
+            pieces=[(z0,z1)]
+            if index==0 and z0<310 and z1>304:
+                pieces=[(z0,304),(310,z1)]
+            for low,high in pieces:
+                if high<=low:continue
+                f0=(low-z0)/step;f1=(high-z0)/step
+                wa=w0+(w1-w0)*f0;wb=w0+(w1-w0)*f1
+                _tapered_prism(batch,'St Regis frustum',cx+offset,cy,
+                    GROUND_Z+low,GROUND_Z+high,wa,wa*.86,wb,wb*.86,
+                    'glass_blue' if module%2 else 'glass_green')
+            z0=z1
+        if index==0:
+            for dx in (-8,8):
+                batch.cylinder(GROUP,'metal',(cx+offset+dx,cy,GROUND_Z+304),
+                    (cx+offset+dx,cy,GROUND_Z+310),.65,sides=8)
 
 
 def _aqua(batch):
@@ -178,24 +192,24 @@ def _aon(batch):
 
 
 def _prudential(batch, identifier, two=False):
-    cx, cy = _center(identifier)
-    height = 303.3 if two else 183.0
-    width, depth = (57.0, 43.0) if two else (46.0, 36.0)
-    body_top = GROUND_Z + height - (18.0 if two else 4.0)
-    _tapered_prism(batch, 'Two Prudential Plaza body' if two else 'One Prudential Plaza body',
-                   cx, cy, GROUND_Z, body_top,
-                   width * 0.94, depth * 0.94, width, depth, 'glass_grey')
-    _horizontal_bands(batch, cx, cy, GROUND_Z + 6, body_top,
-                       width, depth, material='aluminum', spacing=14.0)
-    if two:
-        # Stepped/chevron crown, kept as nested blocks instead of a generic cap.
-        levels = [(8.0, 0.92), (6.0, 0.70), (4.0, 0.48)]
-        z = body_top
-        for rise, scale in levels:
-            batch.prism(GROUP, 'crown_white',
-                        _rect(cx, cy, width * scale, depth * scale),
-                        z, z + rise)
-            z += rise
+    cx,cy=_center(identifier)
+    if not two:
+        _tapered_prism(batch,'One Prudential',cx,cy,GROUND_Z,GROUND_Z+179,
+                       46,36,46,36,'glass_grey')
+        _horizontal_bands(batch,cx,cy,GROUND_Z+6,GROUND_Z+179,46,36,spacing=12)
+        return
+    # Two Pru: stepped shoulders, rotated pyramidal crown, and slender spire.
+    # The total stays at 303.3 m; crown proportions are estimated from images.
+    for z0,z1,w,d in [(0,230,57,43),(230,242,49,37),(242,253,40,30)]:
+        _tapered_prism(batch,'Two Pru shoulder',cx,cy,GROUND_Z+z0,GROUND_Z+z1,
+                       w,d,w,d,'glass_grey')
+        _horizontal_bands(batch,cx,cy,GROUND_Z+z0,GROUND_Z+z1,w,d,spacing=4)
+    base=[(cx,cy-20,GROUND_Z+253),(cx+20,cy,GROUND_Z+253),
+          (cx,cy+20,GROUND_Z+253),(cx-20,cy,GROUND_Z+253)]
+    batch.add(GROUP,'crown_white',base+[(cx,cy,GROUND_Z+279)],
+              [(0,1,4),(1,2,4),(2,3,4),(3,0,4),(3,2,1,0)])
+    batch.cylinder(GROUP,'aluminum',(cx,cy,GROUND_Z+279),
+                   (cx,cy,GROUND_Z+303.3),.60,.10,sides=8)
 
 
 def _trump(batch):
@@ -241,32 +255,23 @@ def _hancock(batch):
 
 
 def _willis(batch):
-    cx, cy = _center('willis-tower')
-    # Bundled-tube setbacks preserve the black, stepped Sears/Willis profile.
-    # The four heights follow the visible tube groups rather than a generic
-    # taper; the final body stays at the audited 442.1 m architectural height.
-    sections = [(0.0, 205.0, 86.0, 68.0),
-                (205.0, 283.0, 76.0, 61.0),
-                (283.0, 342.0, 62.0, 51.0),
-                (342.0, 442.1, 48.0, 43.0)]
-    for index, (z0, z1, width, depth) in enumerate(sections):
-        _tapered_prism(batch, f'Willis Tower stepped tube {index + 1}',
-                       cx, cy, GROUND_Z + z0, GROUND_Z + z1,
-                       width, depth, width * 0.97, depth * 0.97, 'metal')
-        # Keep each tube group visually separate at long range.  Repeated
-        # glazing strips and slab lines create scale while the stepped ends
-        # still read as one bundled structure.
-        _facade_rhythm(batch, cx, cy, GROUND_Z + z0 + 1.0,
-                       GROUND_Z + z1 - 1.0, width * 0.97, depth * 0.97,
-                       spacing=8.0, band_spacing=12.0, glass_width=2.8)
-        if z1 < 442.1:
-            # A thin dark setback ledge makes the tube transition legible
-            # without adding an unsupported crown or changing the footprint.
-            batch.box(GROUP, 'metal', (cx, cy, GROUND_Z + z1 + 0.35),
-                      (width + 3.0, depth + 3.0, 0.70))
-    for dx in (-14.0, 14.0):
-        batch.cylinder(GROUP, 'metal', (cx + dx, cy, GROUND_Z + 442.1),
-                       (cx + dx, cy, GROUND_Z + 527.0), 0.85, sides=8)
+    """Nine 75-foot square tubes, with asymmetric terminations (SOM).
+
+    Heights of intermediate terminations are visual estimates; the overall
+    roof and antenna heights retain the existing source specification.
+    """
+    cx,cy=_center('willis-tower');pitch=22.86
+    heights=[(205,283,342),(283,442.1,442.1),(205,283,342)]
+    for row in range(3):
+        for column in range(3):
+            h=heights[row][column];x=cx+(column-1)*pitch;y=cy+(row-1)*pitch
+            batch.box(GROUP,'black_steel',(x,y,GROUND_Z+h/2),(pitch,pitch,h))
+            _facade_rhythm(batch,x,y,GROUND_Z+.5,GROUND_Z+h-.5,pitch,pitch,
+                spacing=3.3,band_spacing=12,glass_width=2.0)
+            batch.box(GROUP,'metal',(x,y,GROUND_Z+h+.2),(pitch,pitch,.4))
+    for x in (cx,cx+pitch):
+        batch.cylinder(GROUP,'white',(x,cy,GROUND_Z+442.1),
+                       (x,cy,GROUND_Z+527),.70,sides=10)
 
 
 def _secondary_landmarks(batch):

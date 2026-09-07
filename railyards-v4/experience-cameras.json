@@ -1,0 +1,80 @@
+{
+  "arrival": {
+    "position": [
+      50,
+      227,
+      19.145
+    ],
+    "target": [
+      29,
+      110,
+      27
+    ],
+    "lens": 26
+  },
+  "left_center": {
+    "position": [
+      45,
+      132,
+      23.42
+    ],
+    "target": [
+      8,
+      40,
+      19
+    ],
+    "lens": 24
+  },
+  "boat": {
+    "position": [
+      179,
+      165,
+      2.6
+    ],
+    "target": [
+      50,
+      20,
+      23
+    ],
+    "lens": 24
+  },
+  "river_shot": {
+    "position": [
+      232,
+      -140,
+      170
+    ],
+    "target": [
+      63,
+      48,
+      18
+    ],
+    "lens": 33
+  },
+  "skyline_west": {
+    "position": [
+      -25,
+      25,
+      44
+    ],
+    "target": [
+      52,
+      1574,
+      255
+    ],
+    "lens": 52
+  },
+  "skyline_east": {
+    "position": [
+      -25,
+      25,
+      44
+    ],
+    "target": [
+      1350,
+      2420,
+      255
+    ],
+    "lens": 55
+  }
+}

@@ -33,6 +33,7 @@ from r5_lakefront import build_lakefront
 from r5_skyline_icons import build_skyline_icons
 from r6_lf_end import build_lf_end
 from r7_concourses import build_concourses
+from r9_arrival import build_arrival
 import r5_palette
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window_manager.windows[0].scene=scene
 for obj in list(bpy.data.objects):
@@ -80,6 +81,7 @@ build_scoreboards(scene,spec,batch,materials)
 build_seating(scene,spec,batch,materials)
 build_bowl_details(scene,spec,batch,materials)
 build_concourses(scene,spec,batch,materials)
+build_arrival(scene,spec,batch,materials)
 build_landscape(scene,spec,batch,materials)
 build_bridges(scene,spec,batch,materials)
 build_field(scene,spec,batch,materials)

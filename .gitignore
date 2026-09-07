@@ -26,3 +26,6 @@ site/img-lite/
 
 # Host-specific Blender MCP configuration
 .mcp.json
+# V9 experience render frames, movies and runtime receipts
+railyards-v*/review/v9/
+railyards-v*/review/v8-experiences/

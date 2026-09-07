@@ -4,25 +4,24 @@ Editable Blender reconstruction of AECOM’s White Sox Railyards concept in Chic
 
 ## Current work
 
-Fable’s V4–V7 work is preserved in the `v7-baseline` tag. It includes the right-field scoreboard and structure corrections, lake geography, expanded skyline, gatehouse, concourses and night views. V8 adds a separate night preset with individual landmark windows. The generators remain in `railyards-v4/` because later iterations build on that scene; legacy object names are functional.
+Fable’s V4–V7 work is preserved in the `v7-baseline` tag. It includes the right-field scoreboard and structure corrections, lake geography, expanded skyline, gatehouse, concourses and night views. V8 adds a separate night preset with individual landmark windows. V9 corrects the left-center arrival terrace and landmark forms, and adds two browser sites with four rendered experience films. The generators remain in `railyards-v4/` because later iterations build on that scene; legacy object names are functional.
 
+- [V9 scope, rebuild and verification](docs/V9-SCOPE.md)
+- [Two sites: build and serve](sites/README.md)
 - [Current model and rebuild commands](railyards-v4/README.md)
 - [V8 scope and verification](docs/V8-HANDOFF.md)
 - [Spatial issue ledger](railyards-v4/ISSUE-LEDGER.md)
 - [Original V4 priorities](docs/FABLE-5.1-HANDOFF.md)
-- `site/`: Fable’s fan website and build script; its historical version/cost copy has not yet been refreshed for V8.
+- `sites/public/` and `sites/review/`: current public preview and working review site.
+- `site/`: preserved earlier Fable draft.
 - `railyards-v3/`: preserved baseline, also tagged `v3-baseline`.
 - `reconstruction-references/`, `reference-audit/`: artwork, source data and historical research. Older completion labels are not visual acceptance.
 
 ## Review locally
 
-From the repository root:
+Build and serve the two independent sites using [these commands](sites/README.md). Open [the working review](http://127.0.0.1:8853/) or [the public preview](http://127.0.0.1:8854/). These are local previews, not a public deployment. Release archives contain self-contained copies with all media.
 
-```sh
-python3 -m http.server 8852 --bind 127.0.0.1
-```
-
-Open [the V8 comparison](http://127.0.0.1:8852/railyards-v4/review/v8.html), [Fable’s website](http://127.0.0.1:8852/site/), or [the V4–V7 review gallery](http://127.0.0.1:8852/railyards-v4/review/). Generated renders must be rebuilt or restored from a delivery archive first.
+Earlier V8 and V4–V7 review pages remain under `railyards-v4/review/`.
 
 ## Repository and artifacts
 

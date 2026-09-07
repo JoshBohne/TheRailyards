@@ -1,0 +1,17 @@
+{
+  "landing_xy_m": [
+    142.0,
+    30.0
+  ],
+  "water_edge_x_m": 128.0,
+  "to_water_m": 130.83,
+  "to_water_ft": 429,
+  "landing_m": 145.13,
+  "landing_ft": 476,
+  "arc_peak_z_m": 64.68,
+  "static_structure_collisions": [],
+  "source_scene": "/Users/joshbohne/Developer/TheRailyards/railyards-v4/railyards-v9.blend",
+  "frames": 168,
+  "fps": 24,
+  "note": "Horizontal distances in an inferred stadium model. Arc and enlarged ball marker illustrate a route, not aerodynamic flight, exit velocity, or an official home-run distance."
+}

@@ -44,13 +44,16 @@ def build_lf_end(scene,spec,batch,materials):
         batch.box(GROUP,'brick_light',(c.x,c.y,(BASE_Z+top)/2),(.55,.62,top-BASE_Z),math.atan2(line.y,line.x))
     c=a.lerp(b,.5)+out*(.15+END_WALL_THICKNESS/2)
     batch.box(GROUP,'stone',(c.x,c.y,BASE_Z+1.7),(length+.3,END_WALL_THICKNESS+.5,3.4),math.atan2(line.y,line.x))
+    # V9: the former full-depth block extended to the first row and created
+    # an unsupported 34 m blank wall beside left field. The source arch is
+    # above the rear pavilion, so leave the front 40% to the tier end wall.
     # 2. Gatehouse: brick block between the bowl end line and the pavilion,
     #    full canopy-junction height, with a tall arch on the park face and
     #    a stone belt at the pavilion roof line.
-    x_left=min(p[0] for p in pav['footprint'])+.5;x_right=max(a.x,b.x)+1.0
+    x_left=min(p[0] for p in pav['footprint'])+.5;x_right=a.lerp(b,.40).x
     def y_on_line(x):return a.y+(b.y-a.y)*(x-a.x)/(b.x-a.x)
     gate=[(x_right,y_on_line(x_right)+.2),(x_right,pav_y-.4),(x_left,pav_y-.4),(x_left,y_on_line(x_left)+.2)]
-    gate_top=47.6  # rises to the fascia top so the end reads as one brick gatehouse above the pavilion
+    gate_top=44.0  # V9: confine the inferred gatehouse to the rear tier, below the 44 m roof trace
     batch.prism(GROUP,'brick',gate,BASE_Z,gate_top)
     batch.prism(GROUP,'stone',[(x-.2 if i in (2,3) else x+.2,y) for i,(x,y) in enumerate(gate)],gate_top,gate_top+.35)
     batch.prism(GROUP,'roof',gate,gate_top+.35,gate_top+.8)

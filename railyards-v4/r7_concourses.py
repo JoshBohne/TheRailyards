@@ -48,7 +48,16 @@ def build_concourses(scene,spec,batch,materials):
                     back_dir=(at(i,t_wall+.02,floor)-at(i,t_wall,floor)).normalized()
                     centre=mid+back_dir*2.6;centre.z=floor+1.4
                     angle=math.atan2(tangent.y,tangent.x)
-                    batch.box(GROUP,'interior',(centre.x,centre.y,centre.z),(width-.4,5.2,2.8),angle)
+                    # Open-front tunnel: floor, rear wall, ceiling and side
+                    # walls. A solid box here used to seal the entrance.
+                    for depth,height,thick in [(2.6,.05,.14),(2.6,2.75,.14)]:
+                        q=mid+back_dir*depth
+                        batch.box(GROUP,'interior',(q.x,q.y,floor+height),(width-.4,5.2,thick),angle)
+                    q=mid+back_dir*5.15
+                    batch.box(GROUP,'interior',(q.x,q.y,floor+1.4),(width-.4,.14,2.8),angle)
+                    for side in (-1,1):
+                        q=mid+tangent*(side*(width/2-.27))+back_dir*2.6
+                        batch.box(GROUP,'interior',(q.x,q.y,floor+1.4),(.14,5.2,2.8),angle)
                     lamp=mid+back_dir*1.2;batch.box(GROUP,'lamp',(lamp.x,lamp.y,floor+2.55),(width*.5,.18,.08),angle)
                     for u in (-width/2+.1,width/2-.1):
                         q=mid+tangent*u;batch.box(GROUP,'stone',(q.x,q.y,floor+1.4),(.35,.4,2.8),angle)
