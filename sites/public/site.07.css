@@ -1,0 +1,25 @@
+.map-river-edge { fill: none; stroke: color-mix(in srgb, var(--accent) 45%, var(--line-strong)); stroke-width: 2; }
+.map-road { fill: none; stroke: var(--line-strong); stroke-width: 13; }
+.map-road-west { stroke-width: 9; }
+.map-rail-line { stroke: color-mix(in srgb, var(--line-strong) 60%, transparent); stroke-width: 2; }
+.map-rails { opacity: .7; }
+.map-park { fill: color-mix(in srgb, #6e8164 42%, var(--panel)); stroke: color-mix(in srgb, #8fa080 62%, var(--line)); stroke-width: 2; }
+.map-stadium-outer { fill: color-mix(in srgb, var(--rust) 31%, var(--panel-strong)); stroke: var(--line-strong); stroke-width: 3; }
+.map-stadium-inner { fill: var(--bg); stroke: var(--line-strong); stroke-width: 2; }
+.map-field { fill: color-mix(in srgb, #456648 72%, var(--panel)); stroke: color-mix(in srgb, #9fb07b 55%, var(--line)); stroke-width: 2; }
+.map-home-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 8; }
+.map-home { fill: var(--accent); }
+.map-building { fill: var(--panel-strong); stroke: var(--line-strong); }
+.map-walk { fill: none; stroke: color-mix(in srgb, var(--ink) 53%, transparent); stroke-width: 8; stroke-linecap: round; stroke-dasharray: 2 13; }
+.map-stadium-label, .map-park-label { fill: color-mix(in srgb, var(--ink) 58%, transparent); font: 700 13px var(--body); letter-spacing: .17em; }
+.map-park-label { font-size: 10px; }
+.map-label { position: absolute; z-index: 2; color: var(--soft); font: 700 8px/1 var(--body); letter-spacing: .18em; pointer-events: none; }
+.map-label-north { top: 18px; right: 18px; display: flex; gap: 8px; font-size: 10px; }
+.map-label-roosevelt { top: 12.5%; left: 17%; }
+.map-label-canal { left: 9%; top: 50%; transform: rotate(-90deg); }
+.map-label-river { right: 3.5%; top: 48%; transform: rotate(90deg); color: color-mix(in srgb, var(--ink) 64%, transparent); }
+.map-hotspot { position: absolute; z-index: 4; left: var(--x); top: var(--y); display: flex; align-items: center; gap: 8px; transform: translate(-50%, -50%); padding: 5px 10px 5px 5px; border: 1px solid var(--line-strong); border-radius: 99px; background: color-mix(in srgb, var(--bg) 88%, transparent); box-shadow: 0 8px 28px rgba(0, 0, 0, .22); backdrop-filter: blur(8px); }
+.map-hotspot span { display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: var(--ink); color: var(--bg); font: 700 10px/1 var(--mono); }
+.map-hotspot small { font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+.map-hotspot:hover, .map-hotspot.is-active { border-color: var(--accent); }
+.map-hotspot.is-active span { background: var(--accent); color: #0a0b0d; }

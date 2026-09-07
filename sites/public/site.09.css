@@ -1,0 +1,30 @@
+.compare-label { position: absolute; z-index: 4; top: 18px; padding: 7px 9px; background: rgba(5, 7, 9, .72); color: #f4f1ea; font: 700 9px/1 var(--body); letter-spacing: .12em; text-transform: uppercase; backdrop-filter: blur(8px); }
+.compare-label-source { left: 18px; }
+.compare-label-model { right: 18px; }
+.compare-handle { position: absolute; z-index: 5; left: var(--compare-position); top: 50%; display: grid; place-items: center; width: 42px; height: 42px; transform: translate(-50%, -50%); border: 1px solid rgba(255, 255, 255, .8); border-radius: 50%; background: rgba(5, 7, 9, .72); color: #fff; pointer-events: none; }
+.compare-range { position: absolute; z-index: 6; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; }
+.compare-caption { display: flex; justify-content: space-between; gap: 30px; padding-top: 18px; color: var(--muted); font-size: 13px; }
+.compare-caption p { max-width: 76ch; }
+.compare-caption strong { color: var(--ink); }
+.compare-caption span { font: 700 10px/1.5 var(--mono); white-space: nowrap; }
+
+.skyline-section { background: var(--bg-elevated); }
+.skyline-heading .eyebrow { margin-bottom: 20px; }
+.skyline-heading h2 { max-width: 14ch; }
+.skyline-gallery { display: grid; grid-template-columns: 1.45fr .85fr; grid-template-rows: auto auto; gap: 22px; }
+.skyline-card { border: 1px solid var(--line); background: var(--panel); }
+.skyline-card-wide { grid-row: span 2; }
+.skyline-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+.skyline-card-wide img { min-height: 490px; height: calc(100% - 190px); }
+.skyline-card figcaption { padding: 24px 25px 27px; }
+.skyline-card figcaption span { display: block; color: var(--accent-soft); font-size: 9px; font-weight: 750; letter-spacing: .16em; }
+.skyline-card figcaption strong { display: block; margin-top: 12px; font: 700 24px/1.15 var(--display); letter-spacing: -.025em; }
+.skyline-card figcaption p { margin-top: 12px; color: var(--muted); font-size: 13px; }
+.skyline-note { display: flex; flex-direction: column; justify-content: center; min-height: 250px; padding: 35px; border: 1px solid var(--line); background: var(--panel-strong); }
+.big-number { color: var(--accent); font: 700 clamp(48px, 6vw, 84px)/.9 var(--display); letter-spacing: -.05em; }
+.skyline-note p { margin-top: 20px; color: var(--muted); font-size: 13px; }
+.skyline-note a { margin-top: 24px; font-size: 12px; font-weight: 700; }
+
+.context-section { background: var(--bg); }
+.context-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, .9fr); gap: 9vw; }
+.context-grid .eyebrow { margin-bottom: 20px; }

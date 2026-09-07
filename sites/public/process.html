@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Astra and Fable reconstructed the Railyards ballpark proposal in Blender, including workflow, validation, versions, and an instrumented token snapshot.">
+  <meta name="theme-color" content="#0a0b0d">
+  <link rel="canonical" href="{{SITE_URL}}/process.html">
+  <meta property="og:url" content="{{SITE_URL}}/process.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How The Railyards Reconstruction Was Made">
+  <meta property="og:description" content="From published concept images to a reproducible Blender scene and interactive browser experience.">
+  <meta property="og:image" content="{{SITE_URL}}/media/arrival.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta property="og:image:alt" content="An aerial reconstruction of the proposed Railyards White Sox ballpark district along the Chicago River">
+  <title>How It Was Made | The Railyards, From Here</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
+</head>
+<body class="process-page">
+  <a class="skip-link" href="#process-main">Skip to the build log</a>
+  <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress"></span></div>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="index.html" aria-label="Back to The Railyards, From Here">
+      <span class="brand-mark" aria-hidden="true">R</span>
+      <span class="brand-copy">THE RAILYARDS<small>FROM HERE</small></span>
+    </a>
+    <button class="menu-toggle icon-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+      <span class="sr-only">Open navigation</span>
+      <span aria-hidden="true"></span><span aria-hidden="true"></span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav>
+      <a href="index.html#tour">Guided tour</a>
+      <a href="index.html#compare">Source vs. model</a>
+      <a href="replay/">3D replay</a>
+      <a href="#timeline">Versions</a>
+      <a href="#tokens" aria-current="page">Build log</a>
+    </nav>
+    <button class="theme-toggle icon-button" type="button" aria-label="Switch to light theme" data-theme-toggle><span aria-hidden="true">◐</span></button>
+  </header>
+
+  <main id="process-main">
+    <section class="process-hero">
+      <div class="page-shell process-hero-grid">
+        <div>
+          <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back to the experience</a>
+          <p class="eyebrow"><span></span> Build log</p>
+          <h1>From three renderings<br>to a place you can enter.</h1>
+        </div>
+        <div class="process-hero-copy">
+          <p>Astra built the first reproducible Blender world from public concept images. Fable inherited the scene, challenged the parts that looked convincing but were spatially wrong, and turned the corrected model into rendered routes and an interactive browser replay.</p>
+          <p>This page documents the method, the handoffs, the failures, and what the numbers actually mean.</p>
+        </div>
+      </div>
+      <div class="page-shell process-principles" aria-label="Project principles">
+        <div><span>01</span><strong>Sources before aesthetics</strong><p>Every source-backed trace records where it came from.</p></div>
+        <div><span>02</span><strong>Render before declaring victory</strong><p>Object counts do not prove the view works.</p></div>
+        <div><span>03</span><strong>Inference stays labeled</strong><p>Unknown architecture is not quietly promoted to fact.</p></div>
+        <div><span>04</span><strong>Scripts preserve the work</strong><p>Live fixes return to generators so a rebuild survives.</p></div>
+      </div>
+    </section>
+
+    <section class="section agent-section" aria-labelledby="agents-title">
+      <div class="page-shell">
+        <div class="section-heading split-heading">
+          <div><p class="eyebrow"><span></span> Division of labor</p><h2 id="agents-title">Two agents.<br>Different jobs.</h2></div>
+          <p>The useful story is not that an agent pressed a Blender button. It is that one agent built a documented system and another could audit, challenge, and extend it without starting over.</p>
+        </div>
+        <div class="agent-grid">
+          <article class="agent-card agent-astra">
+            <header><span class="agent-index">A</span><div><p>GPT-6 Astra · Codex</p><h3>Construct the world.</h3></div></header>
+            <p>Astra inventoried the source images, solved the fixed cameras, established scale, generated the stadium and district through Python, coordinated component workers, and wrote a handoff that named its own unresolved problems.</p>
+            <ul>
+              <li>Reference inventory and pixel controls</li>
+              <li>Camera calibration and site registration</li>
+              <li>Blender generators for bowl, field, facade, park, river, and city</li>
+              <li>Repeatable builds, renders, and a defect handoff</li>
+            </ul>
+          </article>
+          <article class="agent-card agent-fable">
+            <header><span class="agent-index">F</span><div><p>Claude Fable 5.1 · Claude Code</p><h3>Interrogate the result.</h3></div></header>
+            <p>Fable reopened the actual scene, rendered diagnostic views, proved where geometry and geography disagreed, corrected the generators, expanded the skyline and concourses, created the guided films, and delivered the browser experiences.</p>
+            <ul>
+              <li>Scoreboard, support, lake, and skyline corrections</li>
+              <li>Same-camera before-and-after evidence</li>
+              <li>Arrival, terrace, river, and night experience films</li>
+              <li>Shared-clock 3D replay and seat-level views</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workflow-section" aria-labelledby="workflow-title">
+      <div class="page-shell">
+        <div class="section-heading split-heading">
+          <div><p class="eyebrow"><span></span> The loop</p><h2 id="workflow-title">A reconstruction pipeline,<br>not a one-shot prompt.</h2></div>
+          <p>The scene improved by cycling between evidence, code, geometry, and rendered output. When the render exposed a defect, the fix went back into the generator rather than remaining a fragile manual edit.</p>
+        </div>
+        <ol class="workflow-loop" aria-label="Reconstruction workflow">
+          <li><span>01</span><strong>Read</strong><p>Inventory published imagery, maps, and known dimensions.</p></li>
+          <li><span>02</span><strong>Calibrate</strong><p>Fit fixed cameras and a shared coordinate frame.</p></li>
+          <li><span>03</span><strong>Generate</strong><p>Build the scene from versioned Python modules.</p></li>
+          <li><span>04</span><strong>Render</strong><p>Inspect the same views people will actually see.</p></li>
+          <li><span>05</span><strong>Challenge</strong><p>Measure clearances, projections, bearings, and failures.</p></li>
+          <li><span>06</span><strong>Preserve</strong><p>Push accepted corrections back into reproducible code.</p></li>
+        </ol>
+        <div class="code-path" aria-label="Simplified build chain"><code>sources</code><span>→</span><code>scene-spec.json</code><span>→</span><code>build_blockout.py</code><span>→</span><code>build_detail.py</code><span>→</span><code>render</code><span>→</span><code>browser</code></div>
+      </div>
+    </section>
+
+    <section class="section timeline-section" id="timeline" aria-labelledby="timeline-title">
+      <div class="page-shell">
+        <div class="section-heading split-heading">
+          <div><p class="eyebrow"><span></span> Versions</p><h2 id="timeline-title">The model learned<br>in public.</h2></div>
+          <p>Each version had a bounded job. Older scenes and fixed cameras stayed available so an improvement could be compared instead of merely remembered.</p>
+        </div>
+        <div class="version-timeline">
+          <article><span>V1</span><div><small>Astra</small><h3>Block out the proposal</h3><p>Read the published views, establish a baseball scale prior, and create the first massing model.</p></div></article>
+          <article><span>V2</span><div><small>Astra</small><h3>Calibrate the cameras</h3><p>Fit the source viewpoints, trace the bowl and field, and register the district to real geography.</p></div></article>
+          <article><span>V3</span><div><small>Astra + Luna workers</small><h3>Build the district</h3><p>Add the facade, seats, scoreboards, riverwalk, park, medical building, rail links, and first skyline.</p></div></article>
+          <article><span>V4</span><div><small>Fable</small><h3>Fix what the eye catches</h3><p>Move the right-field board out of the playable polygon, support the floating bowl end, add the missing lake, and correct the city frame.</p></div></article>
+          <article><span>V5–V8</span><div><small>Fable</small><h3>Make Chicago recognizable</h3><p>Refine landmark forms and materials, add the left-field gatehouse and real concourses, then build a reversible night preset.</p></div></article>
+          <article><span>V9</span><div><small>Fable</small><h3>Turn the model into an experience</h3><p>Complete the arrival terrace, render three moving routes and a river-distance film, and separate the fan site from the review surface.</p></div></article>
+          <article><span>V10</span><div><small>Fable</small><h3>Hand the camera to the fan</h3><p>Export a browser-ready venue, put every modeled seat on a picker, and synchronize seven views to one home-run replay.</p></div></article>
+          <article><span>V11</span><div><small>Fable</small><h3>Connect the park to the water</h3><p>Continue the Roosevelt approach onto the outfield terrace, rebuild the riverwalk with arches and stepped seating, add an eighth replay camera, and regenerate the public films.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section evidence-section" id="verification" aria-labelledby="evidence-title">
+      <div class="page-shell evidence-grid">
+        <div>
+          <p class="eyebrow"><span></span> Verification</p>
+          <h2 id="evidence-title">The failures were more useful than the beauty renders.</h2>
+          <p>A reconstruction can look plausible while still being wrong. The project used plans, sections, fixed-camera comparisons, geographic maps, and browser tests to find defects that an aerial hero image could hide.</p>
+        </div>
+        <div class="evidence-cases">
+          <article><span class="case-state">Geometry</span><h3>The scoreboard was inside the field.</h3><p>A point-in-polygon check put its center 5.2 meters inside the modeled boundary. The complete board and support footprints were re-triangulated from the source cameras and moved behind the wall.</p></article>
+          <article><span class="case-state">Structure</span><h3>The right-field bowl ended in midair.</h3><p>Low exterior views and a section exposed the gap. A podium, river-facing arcade, pylons, and a tower link gave the visible decks a continuous support path.</p></article>
+          <article><span class="case-state">Geography</span><h3>Chicago ended in pavement, not Lake Michigan.</h3><p>The original background plane continued east across the shoreline. Geographic data replaced it with separate land, river, harbor, and lake geometry.</p></article>
+          <article><span class="case-state">Interface</span><h3>The first replay hid the feature people wanted.</h3><p>Browser review showed that the seat picker needed to be visible immediately, the boat camera needed a clearer splash, and the arrival path should stop before an empty endpoint.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section token-section" id="tokens" aria-labelledby="tokens-title">
+      <div class="page-shell">
+        <div class="section-heading token-heading">
+          <div><p class="eyebrow"><span></span> Instrumented early-build snapshot</p><h2 id="tokens-title">What it took,<br>as far as the logs can prove.</h2></div>
+          <div class="snapshot-warning"><strong>Not the final project total.</strong><p>These Tokscale figures cover the first Astra/Luna build and the initial Fable correction session. Fable continued through V11 afterward, so treat this as a documented floor rather than a complete accounting.</p></div>
+        </div>
+        <div class="token-summary" aria-label="Token snapshot summary">
+          <div><strong>291 M</strong><span>tokens processed, including cache reads</span></div>
+          <div><strong>2,217</strong><span>recorded model responses</span></div>
+          <div><strong>11.5 h</strong><span>summed model-response time</span></div>
+          <div><strong>$102.78</strong><span>API-equivalent estimate</span></div>
+        </div>
+        <div class="table-scroll" tabindex="0" aria-label="Scrollable token usage table">
+          <table class="token-table">
+            <thead><tr><th>Model and role</th><th>Responses</th><th>Input</th><th>Output</th><th>Cache read</th><th>Cache write</th><th>Model time</th><th>Est. cost</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">GPT-6 Astra<small>Calibration, stadium, district, handoff</small></th><td>922</td><td>2.18 M</td><td>248 K</td><td>112.3 M</td><td>—</td><td>6.1 h</td><td>$77.01</td></tr>
+              <tr><th scope="row">GPT-5.6 Luna<small>Six parallel V3 component workers</small></th><td>1,218</td><td>4.77 M</td><td>369 K</td><td>143.6 M</td><td>—</td><td>4.7 h</td><td>$4.60</td></tr>
+              <tr><th scope="row">Claude Fable 5.1<small>Initial audit, V4 corrections, first site pass</small></th><td>77</td><td>19 K</td><td>161 K</td><td>27.0 M</td><td>0.49 M</td><td>0.7 h</td><td>$21.17</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Recorded snapshot</th><td>2,217</td><td>6.97 M</td><td>778 K</td><td>282.9 M</td><td>0.49 M</td><td>11.5 h</td><td>$102.78</td></tr></tfoot>
+          </table>
+        </div>
+        <div class="token-notes">
+          <p><strong>Why “API-equivalent”?</strong> The work ran through subscriptions and local agent tools. The estimate applies public list pricing to the logged usage; it is not a claim that $102.78 was charged.</p>
+          <p><strong>Why can model time exceed wall time?</strong> Luna’s six workers ran concurrently. Adding their response durations produces more model time than elapsed clock time.</p>
+          <p><strong>Why so many cached tokens?</strong> Long agent sessions repeatedly read the repository, scene specifications, and prior context. Cache reads describe processing, not newly authored output.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section snapshot-section" aria-labelledby="snapshot-title">
+      <div class="page-shell snapshot-grid">
+        <div><p class="eyebrow"><span></span> Scene snapshot</p><h2 id="snapshot-title">A city-scale model,<br>kept deliberately inspectable.</h2></div>
+        <dl>
+          <div><dt>26,950</dt><dd>enumerated modeled seat positions retained through V11</dd></div>
+          <div><dt>40+</dt><dd>saved cameras across source, diagnostic, and experience views</dd></div>
+          <div><dt>35+</dt><dd>Python scene generators in the original V3 build</dd></div>
+          <div><dt>Blender 5.2.1 LTS</dt><dd>authoring and repeatable command-line rendering</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section limits-section" aria-labelledby="limits-title">
+      <div class="page-shell limits-grid">
+        <div><p class="eyebrow"><span></span> Limits</p><h2 id="limits-title">What the project still does not know.</h2></div>
+        <div>
+          <p>The public imagery does not resolve every level, support, circulation path, material, or dimension. The browser export also simplifies materials, trees, crowds, and geometry for performance. The replay’s players, ball flight, camera paths, and splash are authored illustrations.</p>
+          <p>No amount of token usage converts those unknowns into approved architecture. The honest output is a navigable interpretation with explicit uncertainty, not a digital twin.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="process-cta section">
+      <div class="page-shell process-cta-grid">
+        <div><p class="eyebrow"><span></span> See the result</p><h2>The build log is evidence.<br>The experience is the point.</h2></div>
+        <div><a class="button button-primary" href="index.html#tour">Enter the guided tour <span aria-hidden="true">→</span></a><a class="button button-secondary" href="replay/">Choose a seat in 3D <span aria-hidden="true">↗</span></a><a class="repo-link" href="https://github.com/JoshBohne/TheRailyards" target="_blank" rel="noopener">Inspect the public repository <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-grid">
+      <div><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">R</span><span class="brand-copy">THE RAILYARDS<small>FROM HERE</small></span></a></div>
+      <div><p>An independent fan study created by Josh Bohne. Not affiliated with or endorsed by the Chicago White Sox, MLB, AECOM, Canal Edge, Northwestern Medicine, or Crain’s Chicago Business.</p><p>Token and cost figures are an instrumented early-build snapshot, not a final project total.</p></div>
+      <div class="footer-links"><a href="index.html">Experience</a><a href="replay/">3D replay</a><a href="#tokens">Usage snapshot</a><button type="button" data-back-top>Back to top ↑</button></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+:root {
+  color-scheme: dark;
+  --bg: #0a0b0d;
+  --bg-elevated: #101317;
+  --panel: #15191e;
+  --panel-strong: #1c2127;
+  --ink: #f3f1eb;
+  --muted: #a7adb4;
+  --soft: #777f87;
+  --line: rgba(243, 241, 235, .16);
+  --line-strong: rgba(243, 241, 235, .28);
+  --accent: #d68a32;
+  --accent-soft: #f0b66f;
+  --rust: #9c432f;
+  --river: #24424d;
+  --shadow: 0 24px 80px rgba(0, 0, 0, .34);
+  --header-height: 78px;
+  --page: min(1480px, calc(100vw - 64px));
+  --display: "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f1eee7;
+  --bg-elevated: #e8e4dc;
+  --panel: #e1ddd4;
+  --panel-strong: #d7d2c8;
+  --ink: #121519;
+  --muted: #555d64;
+  --soft: #7a807f;
+  --line: rgba(18, 21, 25, .17);
+  --line-strong: rgba(18, 21, 25, .3);
+  --accent: #92571d;
+  --accent-soft: #a86a29;
+  --rust: #813725;
+  --river: #86a5aa;
+  --shadow: 0 24px 80px rgba(36, 30, 22, .15);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 24px); }
+body { margin: 0; overflow-x: hidden; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--body); text-rendering: optimizeLegibility; }
+body.menu-open { overflow: hidden; }
+a { color: inherit; text-underline-offset: 4px; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+img, video, svg { display: block; max-width: 100%; }
+figure, h1, h2, h3, p, dl, dd { margin: 0; }
+::selection { background: var(--accent); color: #0a0b0d; }
+
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; border: 0 !important; }
+.skip-link { position: fixed; z-index: 999; top: 12px; left: 12px; padding: 11px 15px; transform: translateY(-150%); background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 700; }
+.skip-link:focus { transform: none; }
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 4px; }
+.page-shell { width: var(--page); margin-inline: auto; }
+.section { position: relative; padding: 128px 0; border-top: 1px solid var(--line); }
+
+.scroll-progress { position: fixed; z-index: 1001; inset: 0 0 auto; height: 2px; background: transparent; pointer-events: none; }
