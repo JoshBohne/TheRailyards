@@ -1,4 +1,4 @@
-"""Build the public site from templates and checksum-pinned V11 release media."""
+"""Build the public site from templates and checksum-pinned V12 release media."""
 import argparse
 import hashlib
 import json
@@ -9,10 +9,11 @@ import urllib.request
 import zipfile
 from pathlib import Path
 
-RELEASE = "https://github.com/JoshBohne/TheRailyards/releases/download/v11-circulation/"
+RELEASE = "https://github.com/JoshBohne/TheRailyards/releases/download/v12-proportions/"
 ARCHIVES = {
-    "public": "a2be2ae15cbc16f82fe78ec2ef71152f6a3df9a33d0314ea0d32133e8b56172d",
-    "review": "cf99f94fe9ee93f8709507fa90c7cb500ecf92b91a7318b08dcd169e54e1d3af",
+    "public": "025eeee304a2d8d0463c45ddc22f412d21dd207f53a4e9b5e9876b309800e283",
+    "additions": "8a1485004dee0f312d94e896be2f3da5128218b918e398be82876c0f639f7fb8",
+    "review": "81aa3dbbea9d33efa399314fb152e7cfa3dcde0987c89140f98ceaa0fefdb5eb",
 }
 
 
@@ -71,27 +72,30 @@ def main():
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
-    for kind, expected in ARCHIVES.items():
-        name = f"railyards-v11-{kind}-site.zip"
+    for kind in ("public", "review", "additions"):
+        expected = ARCHIVES[kind]
+        name = "railyards-v12-site-additions.zip" if kind == "additions" else f"railyards-v12-{kind}-site.zip"
         archive = args.assets / name
         if not archive.exists():
             with urllib.request.urlopen(RELEASE + name, timeout=60) as response:
                 archive.write_bytes(response.read())
         if hashlib.sha256(archive.read_bytes()).hexdigest() != expected:
             raise ValueError(f"Release checksum mismatch: {name}")
+        if kind == "additions" and (output / "replay").exists():
+            shutil.rmtree(output / "replay")
         with zipfile.ZipFile(archive) as source:
             for item in source.infolist():
                 path = Path(item.filename)
                 if item.is_dir() or path.is_absolute() or ".." in path.parts:
                     continue
                 relative = path.relative_to(kind)
-                if kind == "public" and relative.parts[0] in ("media", "replay"):
+                if kind in ("public", "additions") and relative.parts[0] in ("media", "replay"):
                     target = output / relative
                 elif kind == "review" and str(relative) in (
                     "media/source-south.jpg", "media/source-bridge.jpg",
-                    "media/v11-south.jpg", "media/v11-bridge.jpg",
+                    "media/v12-south.jpg", "media/v12-bridge.jpg",
                 ):
-                    target = output / str(relative).replace("v11-", "model-")
+                    target = output / str(relative).replace("v12-", "model-")
                 else:
                     continue
                 target.parent.mkdir(parents=True, exist_ok=True)
@@ -115,7 +119,7 @@ def main():
             else:
                 shutil.copy2(source, target)
     commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-    manifest = {"commit": commit, "sceneVersion": 11, "releaseChecksums": ARCHIVES,
+    manifest = {"commit": commit, "sceneVersion": 12, "releaseChecksums": ARCHIVES,
                 "files": [{"path": str(p.relative_to(output)), "bytes": p.stat().st_size,
                            "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
                           for p in sorted(output.rglob("*")) if p.is_file()]}

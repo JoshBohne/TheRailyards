@@ -25,3 +25,13 @@ Reuse this existing Site and source checkout. Do not create another Sites projec
 User reference: https://chat-archive.mweinbach.chatgpt.site/ . Use Overview / Gallery / 3D / Build navigation and the exact title Recreating The Railyards. Light, restrained typography and large renders replace the dense dark landing page. Gallery retains films and source comparison; 3D embeds the existing replay with full-screen access. Build preserves the explicitly incomplete early usage snapshot and distinguishes the API-equivalent estimate from actual charges. Legacy process.html redirects to build.html.
 
 Validation: static production build, all local HTML links/media, four-page navigation, JavaScript syntax, hosting file-size limits, and diff checks. No browser QA requested or claimed.
+
+## V12 content and interaction update
+
+Integrated Fable V12 release from feat/v12-stadium-proportions (fc06d26), including all 29,566 seats. Overview starts with a new 10.5-second native V12 film: above the diamond until 6.549 seconds, then river level, with a single shared play clock and an illustrative splash. The ball is enlarged for legibility. Native frame samples were inspected at contact, flight, river level, and splash. Source comparisons moved to Overview, with side-by-side and true opacity-overlay modes. Gallery has all 36 V12 stills and five videos with All / Videos / Pictures filtering. 3D uses persistent Pick your seat / Pick your view modes; four main cameras plus More viewpoints.
+
+Source assets are the checksum-pinned V12 public/review release ZIPs plus railyards-v12-site-additions.zip on the same release. The additions archive contains the new film, supplemental V12 stills, and the rebuilt replay. Reproduce with sites/render-overview.py and sites/build-v12-media.py; saved model source remains in Fable’s worktree and V12 release. The hosted build verifies all three archive hashes.
+
+Validation: five exported-data tests, TypeScript/Vite production build, JavaScript syntax, 72-file hosted build, local links/media, picture/video counts, V12 scene/seat metadata, disclosures, file-size limits, and clean diff. No new browser QA claimed.
+
+Disclosures name the White Sox, MLB, Crain’s Chicago Business, AECOM and Canal Edge, distinguish concept imagery from our reconstruction, and state that the design/play/sightlines are unofficial and inferred. These statements do not establish image permission or guarantee legal protection.

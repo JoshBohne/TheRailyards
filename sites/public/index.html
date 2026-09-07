@@ -33,12 +33,12 @@
 <p>An exploration of the proposed White Sox ballpark, built from the published concept images.</p>
 </section>
 <figure class="hero-render">
-<a href="3d.html">
-<img src="media/model-north.jpg" alt="The reconstructed Railyards ballpark and Chicago River, viewed from the north" width="1600" height="1065" fetchpriority="high">
-</a>
+<video id="overview-film" controls muted playsinline loop preload="metadata" poster="media/home-run-poster.jpg" aria-label="Illustrative home run from above the diamond, cutting to the river as the ball crosses">
+<source src="media/home-run.mp4" type="video/mp4">
+</video>
 <figcaption>
-<span>01 / The ballpark and riverfront</span>
-<span>Blender reconstruction · V11</span>
+<span>Above the diamond → the river</span>
+<span>V12 · Illustrative play</span>
 </figcaption>
 </figure>
 <div class="text-links">
@@ -47,31 +47,43 @@
 <a href="build.html">See the build ↗</a>
 </div>
 <p class="project-note">Based on the AECOM / Canal Edge concept. Unseen details are interpreted; this is a work in progress.</p>
-<section class="section">
-<h2>A closer look</h2>
-<div class="image-grid">
-<figure>
-<a href="media/boat.jpg" target="_blank" rel="noopener">
-<img src="media/boat.jpg" alt="02 / From the river" loading="lazy" width="1600" height="1065">
-</a>
-<figcaption>02 / From the river</figcaption>
+<section class="section" id="compare">
+<h2>Concept / reconstruction</h2>
+<p class="section-note">Published concept images from Crain’s Chicago Business beside our V12 reconstruction. Concept imagery: AECOM / Canal Edge.</p>
+<div class="compare-toolbar">
+<div class="compare-tabs" role="group" aria-label="Choose comparison">
+<button type="button" aria-pressed="true" data-compare="north">North aerial</button>
+<button type="button" aria-pressed="false" data-compare="south">South aerial</button>
+<button type="button" aria-pressed="false" data-compare="bridge">Roosevelt bridge</button>
+</div>
+<div class="compare-tabs" role="group" aria-label="Comparison layout">
+<button type="button" aria-pressed="true" data-layout="side">Side by side</button>
+<button type="button" aria-pressed="false" data-layout="overlay">Overlay</button>
+</div>
+</div>
+<div class="comparison" data-comparison data-layout="side">
+<figure class="comparison-source">
+<img id="compare-source" src="media/source-north.jpg" alt="Published north aerial concept by AECOM / Canal Edge">
+<figcaption>Published concept · AECOM / Canal Edge</figcaption>
 </figure>
-<figure>
-<a href="media/left_center.jpg" target="_blank" rel="noopener">
-<img src="media/left_center.jpg" alt="03 / Inside the bowl" loading="lazy" width="1600" height="1065">
-</a>
-<figcaption>03 / Inside the bowl</figcaption>
-</figure>
-<figure>
-<a href="media/model-south.jpg" target="_blank" rel="noopener">
-<img src="media/model-south.jpg" alt="04 / South aerial" loading="lazy" width="1600" height="1065">
-</a>
-<figcaption>04 / South aerial</figcaption>
+<figure class="comparison-model">
+<img id="compare-model" src="media/model-north.jpg" alt="V12 reconstruction viewed from the north">
+<figcaption>Our reconstruction · V12</figcaption>
 </figure>
 </div>
+<div class="opacity-control" hidden>
+<label for="compare-opacity">Concept opacity</label>
+<input type="range" id="compare-opacity" min="0" max="100" value="50">
+<output for="compare-opacity" id="compare-output">50%</output>
+</div>
+<p class="section-note">
+<a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Read the original reporting ↗</a>
+</p>
 </section>
 </main>
 <footer class="site-footer">
+<p class="site-disclosure">Independent fan study. Not affiliated with, sponsored by, or endorsed by the Chicago White Sox, Major League Baseball, Crain’s Chicago Business, AECOM, or Canal Edge. <a href="build.html#credits">Credits &amp; disclosures</a>
+</p>
 <span>Josh Bohne · Unofficial reconstruction</span>
 <a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
 </footer>

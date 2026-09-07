@@ -15,15 +15,15 @@ test('arbitrary seek order preserves the exact same world position',()=>{
  assert.deepEqual(sampleBall(data,4.273),expected);assert.deepEqual(sampleBall(data,-10),data.ballSamples[0]);
 });
 test('every bowl and outfield seat survives export with a stable unique ID',()=>{
- const bowl=data.instances.find(g=>g.name==='D2_Individual seats')!;const outfield=data.instances.find(g=>g.name==='D2_Outfield individual seats')!;
- const seats=buildSeats([...bowl.points,...outfield.points],bowl.points.length);
- assert.equal(seats.length,26950);assert.equal(seats.length,data.seatCount);assert.equal(new Set(seats.map(s=>s.id)).size,seats.length);
- assert.equal(seats.filter(s=>s.tier===4).length,1221);assert.ok(seats.every(s=>s.row>0&&s.number>0));
+ const bowl=data.instances.find(g=>g.name==='D2_Individual seats')!;const outfieldGroups=data.instances.filter(g=>g!==bowl&&g.name.toLowerCase().includes('individual seats'));
+ const seats=buildSeats([...bowl.points,...outfieldGroups.flatMap(g=>g.points)],bowl.points.length);
+ assert.ok(outfieldGroups.length>=1);assert.ok(seats.length>26000);assert.equal(seats.length,data.seatCount);assert.equal(new Set(seats.map(s=>s.id)).size,seats.length);
+ assert.equal(seats.filter(s=>s.tier===4).length,outfieldGroups.reduce((n,g)=>n+g.points.length,0));assert.ok(seats.every(s=>s.row>0&&s.number>0));
  const picked=nearestSeat(seats,seats[23001].position);assert.equal(picked.id,23001);
 });
 
 test('V11 arrival reaches the open terrace with a continuous sampled route',()=>{
- if(data.version!==11)return;
+ if(data.version<11)return;
  assert.ok(data.arrivalPath);assert.deepEqual(samplePath(data.arrivalPath,1),data.arrivalPath.at(-1));
  const end=samplePath(data.arrivalPath,1);assert.ok(end[2]>-145);assert.ok(end[1]>22&&end[1]<24);
  let previous=samplePath(data.arrivalPath,0);

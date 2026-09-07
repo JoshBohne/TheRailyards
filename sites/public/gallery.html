@@ -29,110 +29,268 @@
 <main id="content" class="page-shell">
 <section class="intro">
 <h1>Gallery</h1>
-<p>Renders, films, and the original concept alongside the reconstruction.</p>
+<p>New views from the reconstructed ballpark.</p>
 </section>
+<div class="gallery-filters" role="group" aria-label="Filter gallery">
+<button data-filter="all" aria-pressed="true">All</button>
+<button data-filter="videos" aria-pressed="false">Videos</button>
+<button data-filter="pictures" aria-pressed="false">Pictures</button>
+<span id="gallery-count" role="status">36 pictures · 5 videos</span>
+</div>
 <section class="section first-section">
-<div class="image-grid gallery-grid">
-<figure>
+<div class="image-grid gallery-grid" id="gallery-items">
+<figure data-media="pictures">
 <a href="media/model-north.jpg" target="_blank" rel="noopener">
-<img src="media/model-north.jpg" alt="North aerial" loading="lazy" width="1600" height="1065">
+<img src="media/model-north.jpg" alt="North aerial in the V12 reconstruction" loading="lazy">
 </a>
 <figcaption>North aerial</figcaption>
 </figure>
-<figure>
+<figure data-media="pictures">
 <a href="media/model-south.jpg" target="_blank" rel="noopener">
-<img src="media/model-south.jpg" alt="South aerial" loading="lazy" width="1600" height="1065">
+<img src="media/model-south.jpg" alt="South aerial in the V12 reconstruction" loading="lazy">
 </a>
 <figcaption>South aerial</figcaption>
 </figure>
-<figure>
+<figure data-media="pictures">
 <a href="media/model-bridge.jpg" target="_blank" rel="noopener">
-<img src="media/model-bridge.jpg" alt="Roosevelt bridge" loading="lazy" width="1600" height="1065">
+<img src="media/model-bridge.jpg" alt="Roosevelt bridge in the V12 reconstruction" loading="lazy">
 </a>
 <figcaption>Roosevelt bridge</figcaption>
 </figure>
-<figure>
+<figure data-media="pictures">
 <a href="media/boat.jpg" target="_blank" rel="noopener">
-<img src="media/boat.jpg" alt="From the river" loading="lazy" width="1600" height="1065">
+<img src="media/boat.jpg" alt="From the river in the V12 reconstruction" loading="lazy">
 </a>
 <figcaption>From the river</figcaption>
 </figure>
-<figure>
+<figure data-media="pictures">
 <a href="media/left_center.jpg" target="_blank" rel="noopener">
-<img src="media/left_center.jpg" alt="Inside the bowl" loading="lazy" width="1600" height="1065">
+<img src="media/left_center.jpg" alt="Left-center terrace in the V12 reconstruction" loading="lazy">
 </a>
-<figcaption>Inside the bowl</figcaption>
+<figcaption>Left-center terrace</figcaption>
 </figure>
-<figure>
+<figure data-media="pictures">
 <a href="media/arrival.jpg" target="_blank" rel="noopener">
-<img src="media/arrival.jpg" alt="Park walk" loading="lazy" width="1600" height="1065">
+<img src="media/arrival.jpg" alt="Park walk in the V12 reconstruction" loading="lazy">
 </a>
 <figcaption>Park walk</figcaption>
 </figure>
-</div>
-</section>
-<section class="section" id="films">
-<h2>Films</h2>
-<div class="image-grid gallery-grid">
-<figure id="boat">
+<figure data-media="pictures">
+<a href="media/skyline_east.jpg" target="_blank" rel="noopener">
+<img src="media/skyline_east.jpg" alt="East skyline and lake in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>East skyline and lake</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/skyline_west.jpg" target="_blank" rel="noopener">
+<img src="media/skyline_west.jpg" alt="West skyline in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>West skyline</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/home_plate.jpg" target="_blank" rel="noopener">
+<img src="media/home_plate.jpg" alt="Behind home plate in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Behind home plate</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/home_upper_deck.jpg" target="_blank" rel="noopener">
+<img src="media/home_upper_deck.jpg" alt="Above the diamond in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Above the diamond</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/left_field_skyline.jpg" target="_blank" rel="noopener">
+<img src="media/left_field_skyline.jpg" alt="Left-field skyline in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Left-field skyline</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/third_base_seats.jpg" target="_blank" rel="noopener">
+<img src="media/third_base_seats.jpg" alt="Third-base seats in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Third-base seats</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/N1_lc_bank_from_plaza.jpg" target="_blank" rel="noopener">
+<img src="media/N1_lc_bank_from_plaza.jpg" alt="Left-center from the plaza in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Left-center from the plaza</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/N2_lc_bank_from_field.jpg" target="_blank" rel="noopener">
+<img src="media/N2_lc_bank_from_field.jpg" alt="Left-center from the field in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Left-center from the field</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/N3_lc_bank_aerial.jpg" target="_blank" rel="noopener">
+<img src="media/N3_lc_bank_aerial.jpg" alt="Left-center aerial in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Left-center aerial</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/N4_lc_bank_top_aisle.jpg" target="_blank" rel="noopener">
+<img src="media/N4_lc_bank_top_aisle.jpg" alt="Left-center top aisle in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Left-center top aisle</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/N5_park_to_bleachers.jpg" target="_blank" rel="noopener">
+<img src="media/N5_park_to_bleachers.jpg" alt="Park to bleachers in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Park to bleachers</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/R1_rf_corner_from_field.jpg" target="_blank" rel="noopener">
+<img src="media/R1_rf_corner_from_field.jpg" alt="Right-field corner from the field in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Right-field corner from the field</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/R2_rf_corner_from_river.jpg" target="_blank" rel="noopener">
+<img src="media/R2_rf_corner_from_river.jpg" alt="Right-field corner from the river in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Right-field corner from the river</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/R3_rf_corner_aerial.jpg" target="_blank" rel="noopener">
+<img src="media/R3_rf_corner_aerial.jpg" alt="Right-field aerial in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Right-field aerial</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/R4_rf_board_from_lf.jpg" target="_blank" rel="noopener">
+<img src="media/R4_rf_board_from_lf.jpg" alt="Right-field board from left field in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Right-field board from left field</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/R5_rf_from_upper_deck.jpg" target="_blank" rel="noopener">
+<img src="media/R5_rf_from_upper_deck.jpg" alt="Right field from the upper deck in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Right field from the upper deck</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/D1_third_base_line.jpg" target="_blank" rel="noopener">
+<img src="media/D1_third_base_line.jpg" alt="Third-base foul line in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Third-base foul line</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/D2_dugouts_from_upper.jpg" target="_blank" rel="noopener">
+<img src="media/D2_dugouts_from_upper.jpg" alt="Dugouts from above in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Dugouts from above</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/D3_home_to_3b.jpg" target="_blank" rel="noopener">
+<img src="media/D3_home_to_3b.jpg" alt="Home plate to third base in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Home plate to third base</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/D4_backstop.jpg" target="_blank" rel="noopener">
+<img src="media/D4_backstop.jpg" alt="Backstop in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Backstop</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/F1_flag_close.jpg" target="_blank" rel="noopener">
+<img src="media/F1_flag_close.jpg" alt="Tower flag in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Tower flag</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/F2_tower_context.jpg" target="_blank" rel="noopener">
+<img src="media/F2_tower_context.jpg" alt="Clock tower in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Clock tower</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/C_entrance_landing.jpg" target="_blank" rel="noopener">
+<img src="media/C_entrance_landing.jpg" alt="Entrance landing in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Entrance landing</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/E_outfield_concourse.jpg" target="_blank" rel="noopener">
+<img src="media/E_outfield_concourse.jpg" alt="Outfield concourse in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Outfield concourse</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/H_entrance_from_field.jpg" target="_blank" rel="noopener">
+<img src="media/H_entrance_from_field.jpg" alt="Entrance from the field in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Entrance from the field</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/P1_plan_stadium.jpg" target="_blank" rel="noopener">
+<img src="media/P1_plan_stadium.jpg" alt="Stadium plan in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Stadium plan</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/P2_plan_north_end.jpg" target="_blank" rel="noopener">
+<img src="media/P2_plan_north_end.jpg" alt="North-end plan in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>North-end plan</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/S1_section_left_center.jpg" target="_blank" rel="noopener">
+<img src="media/S1_section_left_center.jpg" alt="Left-center section in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Left-center section</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/S2_section_rf_corner.jpg" target="_blank" rel="noopener">
+<img src="media/S2_section_rf_corner.jpg" alt="Right-field section in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Right-field section</figcaption>
+</figure>
+<figure data-media="pictures">
+<a href="media/S3_section_third_base.jpg" target="_blank" rel="noopener">
+<img src="media/S3_section_third_base.jpg" alt="Third-base section in the V12 reconstruction" loading="lazy">
+</a>
+<figcaption>Third-base section</figcaption>
+</figure>
+<figure data-media="videos">
+<video controls playsinline preload="none" poster="media/home-run-poster.jpg" aria-label="Home run · Above the diamond to the river">
+<source src="media/home-run.mp4" type="video/mp4">
+</video>
+<figcaption>Home run · Above the diamond to the river</figcaption>
+</figure>
+<figure data-media="videos">
 <video controls playsinline preload="none" poster="media/boat.jpg" aria-label="From the river">
 <source src="media/boat.mp4" type="video/mp4">
 </video>
 <figcaption>From the river</figcaption>
 </figure>
-<figure id="left_center">
+<figure data-media="videos">
 <video controls playsinline preload="none" poster="media/left_center.jpg" aria-label="Inside the bowl">
 <source src="media/left_center.mp4" type="video/mp4">
 </video>
 <figcaption>Inside the bowl</figcaption>
 </figure>
-<figure id="river">
-<video controls playsinline preload="none" poster="media/river-poster.jpg" aria-label="Into the river · Illustrative flight">
+<figure data-media="videos">
+<video controls playsinline preload="none" poster="media/river-poster.jpg" aria-label="Into the river · Distance illustration">
 <source src="media/river.mp4" type="video/mp4">
 </video>
-<figcaption>Into the river · Illustrative flight</figcaption>
+<figcaption>Into the river · Distance illustration</figcaption>
 </figure>
-<figure id="arrival">
+<figure data-media="videos">
 <video controls playsinline preload="none" poster="media/arrival.jpg" aria-label="Park walk">
 <source src="media/arrival.mp4" type="video/mp4">
 </video>
 <figcaption>Park walk</figcaption>
 </figure>
 </div>
-</section>    <section class="compare-section section" id="compare" aria-labelledby="compare-title">
-      <div class="section-inner">
-        <div class="section-heading">
-<h2 id="compare-title">Concept / reconstruction</h2>
-<p>Drag to compare.</p>
-</div>
-
-        <div class="compare-tabs" aria-label="Choose a source comparison">
-          <button type="button" aria-pressed="true" data-compare="north">North aerial</button>
-          <button type="button" aria-pressed="false" data-compare="south">South aerial</button>
-          <button type="button" aria-pressed="false" data-compare="bridge">Roosevelt bridge</button>
-        </div>
-        <div class="compare-frame" data-compare-frame style="--compare-position:50%">
-          <img class="compare-base" id="compare-model" src="media/model-north.jpg" width="1600" height="1065" loading="lazy" alt="The reconstruction through the matched north aerial camera">
-          <div class="compare-overlay" id="compare-overlay">
-            <img id="compare-source" src="media/source-north.jpg" width="1600" height="1065" loading="lazy" alt="The published north aerial concept rendering">
-          </div>
-          <span class="compare-label compare-label-source">Published concept</span>
-          <span class="compare-label compare-label-model">3D reconstruction</span>
-          <div class="compare-handle" aria-hidden="true">
-<span>↔</span>
-</div>
-          <label class="sr-only" for="compare-range">Reveal the source image or reconstruction</label>
-          <input id="compare-range" class="compare-range" type="range" min="0" max="100" value="50">
-        </div>
-        <div class="compare-caption">
-          <p id="compare-caption">
-<strong>North aerial.</strong> </p>
-          <span id="compare-output" aria-live="polite">50% source</span>
-        </div>
-      </div>
-    </section>
+</section>
 </main>
 <footer class="site-footer">
+<p class="site-disclosure">Independent fan study. Not affiliated with, sponsored by, or endorsed by the Chicago White Sox, Major League Baseball, Crain’s Chicago Business, AECOM, or Canal Edge. <a href="build.html#credits">Credits &amp; disclosures</a>
+</p>
 <span>Josh Bohne · Unofficial reconstruction</span>
 <a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
 </footer>

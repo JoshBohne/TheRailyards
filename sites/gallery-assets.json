@@ -1,0 +1,118 @@
+{
+  "interiors": [
+    [
+      "home_plate",
+      "Behind home plate"
+    ],
+    [
+      "home_upper_deck",
+      "Above the diamond"
+    ],
+    [
+      "left_field_skyline",
+      "Left-field skyline"
+    ],
+    [
+      "third_base_seats",
+      "Third-base seats"
+    ]
+  ],
+  "details": [
+    [
+      "N1_lc_bank_from_plaza",
+      "Left-center from the plaza"
+    ],
+    [
+      "N2_lc_bank_from_field",
+      "Left-center from the field"
+    ],
+    [
+      "N3_lc_bank_aerial",
+      "Left-center aerial"
+    ],
+    [
+      "N4_lc_bank_top_aisle",
+      "Left-center top aisle"
+    ],
+    [
+      "N5_park_to_bleachers",
+      "Park to bleachers"
+    ],
+    [
+      "R1_rf_corner_from_field",
+      "Right-field corner from the field"
+    ],
+    [
+      "R2_rf_corner_from_river",
+      "Right-field corner from the river"
+    ],
+    [
+      "R3_rf_corner_aerial",
+      "Right-field aerial"
+    ],
+    [
+      "R4_rf_board_from_lf",
+      "Right-field board from left field"
+    ],
+    [
+      "R5_rf_from_upper_deck",
+      "Right field from the upper deck"
+    ],
+    [
+      "D1_third_base_line",
+      "Third-base foul line"
+    ],
+    [
+      "D2_dugouts_from_upper",
+      "Dugouts from above"
+    ],
+    [
+      "D3_home_to_3b",
+      "Home plate to third base"
+    ],
+    [
+      "D4_backstop",
+      "Backstop"
+    ],
+    [
+      "F1_flag_close",
+      "Tower flag"
+    ],
+    [
+      "F2_tower_context",
+      "Clock tower"
+    ],
+    [
+      "C_entrance_landing",
+      "Entrance landing"
+    ],
+    [
+      "E_outfield_concourse",
+      "Outfield concourse"
+    ],
+    [
+      "H_entrance_from_field",
+      "Entrance from the field"
+    ],
+    [
+      "P1_plan_stadium",
+      "Stadium plan"
+    ],
+    [
+      "P2_plan_north_end",
+      "North-end plan"
+    ],
+    [
+      "S1_section_left_center",
+      "Left-center section"
+    ],
+    [
+      "S2_section_rf_corner",
+      "Right-field section"
+    ],
+    [
+      "S3_section_third_base",
+      "Third-base section"
+    ]
+  ]
+}

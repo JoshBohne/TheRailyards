@@ -55,8 +55,16 @@ tierControl.addEventListener('change',()=>{const seat=seats.find(s=>s.tier===Num
 rowControl.addEventListener('change',()=>{const seat=seats.find(s=>s.tier===Number(tierControl.value)&&s.row===Number(rowControl.value));if(seat)chooseSeat(seat);});
 seatControl.addEventListener('change',()=>{const seat=seats[Number(seatControl.value)];if(seat)chooseSeat(seat);});
 for(const button of document.querySelectorAll<HTMLButtonElement>('[data-camera]'))button.addEventListener('click',()=>selectView(button.dataset.camera as CameraView));
-element('#choose-seat').addEventListener('click',event=>{const button=event.currentTarget as HTMLButtonElement;const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));element('#seat-picker').hidden=!open;element('.view-list').hidden=open;element('#camera-panel').scrollTop=0;button.firstChild!.textContent=open?'Back to camera views ':'Choose a modeled seat ';if(open&&seats.length){chooseSeat(selected??nearestSeat(seats,[-12,19,12],0));drawMap();}});
-element('#collapse-views').addEventListener('click',event=>{const button=event.currentTarget as HTMLButtonElement;const open=button.getAttribute('aria-expanded')!=='true';button.setAttribute('aria-expanded',String(open));button.textContent=open?'Hide':'Views';element('#view-options').hidden=!open;});
+function setPickerMode(mode:'seat'|'view'):void{
+ const pickSeat=mode==='seat';
+ element('#choose-seat').setAttribute('aria-pressed',String(pickSeat));
+ element('#choose-view').setAttribute('aria-pressed',String(!pickSeat));
+ element('#seat-picker').hidden=!pickSeat;element('#camera-presets').hidden=pickSeat;
+ if(pickSeat&&seats.length){chooseSeat(selected??nearestSeat(seats,[-12,19,12],0));drawMap();}
+}
+element('#choose-seat').addEventListener('click',()=>setPickerMode('seat'));
+element('#choose-view').addEventListener('click',()=>setPickerMode('view'));
+
 play.addEventListener('click',togglePlay);restart.addEventListener('click',()=>{seek(0);playing=true;previous=performance.now();updateControls();});
 timeline.addEventListener('input',()=>{if(!data)return;playing=false;seek(Number(timeline.value));});
 element<HTMLSelectElement>('#speed').addEventListener('change',event=>speed=Number((event.currentTarget as HTMLSelectElement).value));
@@ -83,18 +91,19 @@ async function start():Promise<void>{
  try{
   const response=await fetch(new URL('model/replay.json',document.baseURI));if(!response.ok)throw new Error(`Replay data failed (${response.status})`);
   data=await response.json() as ReplayData;
-  if(![10,11].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
-  const bowl=data.instances.find(g=>g.name==='D2_Individual seats');const outfield=data.instances.find(g=>g.name==='D2_Outfield individual seats');if(!bowl)throw new Error('The seat geometry is missing');
-  seats=buildSeats([...bowl.points,...outfield?.points??[]],bowl.points.length);
+  if(![10,11,12].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
+  const bowl=data.instances.find(g=>g.name==='D2_Individual seats');if(!bowl)throw new Error('The seat geometry is missing');
+  const outfieldGroups=data.instances.filter(g=>g!==bowl&&g.name.toLowerCase().includes('individual seats'));
+  seats=buildSeats([...bowl.points,...outfieldGroups.flatMap(g=>g.points)],bowl.points.length);
   if(seats.length!==data.seatCount)throw new Error('Seat export count does not match the replay');
   renderer=new ReplayRenderer(viewport,data);renderer.controls.addEventListener('change',()=>dirty=true);
   await renderer.load((text,percent)=>{element('#loading-status').textContent=text;element<HTMLProgressElement>('#load-progress').value=percent;});
   element('#water-distance').textContent=String(data.waterDistanceFt);element('#splash-distance').textContent=String(data.splashDistanceFt);timeline.max=String(data.duration);play.disabled=false;restart.disabled=false;loading.hidden=true;
   selected=nearestSeat(seats,[-12,19,12],0);updateSeatControls(selected);
   const hash=new URLSearchParams(location.hash.slice(1));const desired=hash.get('view');const seatId=Number(hash.get('seat'));
-  if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId])selectView('seat',seats[seatId]);else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');
+  if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId]){selectView('seat',seats[seatId]);setPickerMode('seat');}else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');
   const initial=Number(hash.get('t'));seek(Number.isFinite(initial)?initial:0);
-  if(innerWidth<800){element('#view-options').hidden=true;const collapse=element('#collapse-views');collapse.setAttribute('aria-expanded','false');collapse.textContent='Views';}
+
   viewport.dataset.ready='true';previous=performance.now();requestAnimationFrame(frame);
  }catch(error:unknown){console.error(error);element('#loading-status').textContent='The interactive scene could not load. You can still watch all four rendered films.';element<HTMLProgressElement>('#load-progress').hidden=true;viewport.dataset.error=error instanceof Error?error.message:'Unknown loading error';}
 }
