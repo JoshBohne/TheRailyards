@@ -7,29 +7,29 @@
       "view": "arrival",
       "frame": 0,
       "path": "review/v12/arrival.png",
-      "seconds": 27.46,
+      "seconds": 31.47,
       "camera": [
         50.0,
         227.0,
-        19.145000457763672
+        16.59000015258789
       ]
     },
     {
       "view": "left_center",
       "frame": 0,
       "path": "review/v12/left_center.png",
-      "seconds": 24.79,
+      "seconds": 27.62,
       "camera": [
         45.0,
         132.0,
-        23.420000076293945
+        23.760000228881836
       ]
     },
     {
       "view": "boat",
       "frame": 0,
       "path": "review/v12/boat.png",
-      "seconds": 23.07,
+      "seconds": 25.07,
       "camera": [
         179.0,
         165.0,
@@ -40,7 +40,7 @@
       "view": "skyline_west",
       "frame": 0,
       "path": "review/v12/skyline_west.png",
-      "seconds": 19.11,
+      "seconds": 17.92,
       "camera": [
         -25.0,
         25.0,
@@ -51,7 +51,7 @@
       "view": "skyline_east",
       "frame": 0,
       "path": "review/v12/skyline_east.png",
-      "seconds": 20.85,
+      "seconds": 20.36,
       "camera": [
         -25.0,
         25.0,

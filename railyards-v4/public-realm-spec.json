@@ -153,12 +153,17 @@
         1470,
         1180
       ]
-    ]
+    ],
+    "PLAZA_GRADE": 0.01,
+    "STAIR_Y_TOP": 172.0,
+    "STAIR_Y_BOTTOM": 160.0,
+    "TERRACE_Z": 22.0
   },
   "evidence": [
     "Parent-reviewed native source grid: roof/storefront return and continuous event lawn.",
     "User-provided contextual reading: Roosevelt-level public approach enters above bleachers.",
     "A3 bridge source corroborates raised deck above a separate lower waterside promenade."
   ],
-  "height_boundary": "Road sidewalk datum14.1 is retained from calibrated scene. Grade0.045 toward stadium is an inferred continuity solution, not a surveyed design. Source XY is recovered on that plane; hidden roof shape and supports remain inferred."
+  "height_boundary": "Road sidewalk datum14.1 is retained from calibrated scene. Grade0.045 toward stadium is an inferred continuity solution, not a surveyed design. Source XY is recovered on that plane; hidden roof shape and supports remain inferred.",
+  "v12_levels": "V12: the park/plaza is flat at street level (14.1 + 0.01 per m from Roosevelt), a grand stair between y 172 and 160 climbs to the outfield terrace at 22.0 (roof of the arcade building). The bridge and north renderings show a flat lawn, a two-storey arched building and a broad stair, not a continuous ramp. GRADE is retained for the V11 history."
 }
