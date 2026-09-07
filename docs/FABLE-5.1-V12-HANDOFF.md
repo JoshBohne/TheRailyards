@@ -13,6 +13,10 @@ The stadium interior and outfield still look awkward and disproportionate. Audit
 5. Clock/watchtower flag: inspect its actual flag, pole, roof mounting, offsets/orientation and support. Josh says it does not sit correctly on the tower. Correct the generator and saved scene; show a close-up and wider context.
 6. Catch other visibly wonky interior proportions while doing this pass. The outcome is a coherent stadium, with honest remaining uncertainty, not a checklist of instantiated objects.
 
+## Latest user clarification — exact attached north rendering
+
+The user supplied `reconstruction-references/v12-user-north-transition.png` as the decisive reference. Inspect this image directly. Their reading is a park off Roosevelt, attractive archways on the approach, and a natural transition down into the bleachers. They flag a giant gap/fall-off and overly steep transitions in the model. Prioritize the entire park → archways → terrace/bleacher sequence, the restaurant by the Roosevelt entrance, its approach walkway, and the whole right-field corner. Map which visible openings serve the upper approach versus the lower riverfront; do not assume all arches are interchangeable or assert unseen passage routes from one picture. Use source crops, plan and sections to establish levels and resolve the apparent cliff/gap through geometry, not camera concealment. Broad stairs, ramps, slab edges and bleacher connections must read proportionately from both aerial and walking views. This clarification supplements every interior/dugout/flag item above.
+
 ## Central repository and starting point
 
 - Repository: https://github.com/JoshBohne/TheRailyards (private).
