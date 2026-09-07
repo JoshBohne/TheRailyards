@@ -31,5 +31,5 @@ for obj in scene.objects:
   bmesh.ops.delete(mesh,geom=blocked,context='VERTS');mesh.to_mesh(obj.data);mesh.free()
 apply_lighting(scene,'south');scene.camera=bpy.data.objects['R9_arrival']
 scene['stage']='V9: source-guided left-center arrival, landmark silhouettes, rendered web experiences'
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'railyards-v9.blend'),compress=True)
+bpy.ops.wm.save_as_mainfile(filepath=str(__import__('pathlib').Path(__import__('os').environ.get('RAILYARDS_STAGE_DIR',str(OUT)))/'railyards-v9.blend'),compress=True)
 (OUT/'experience-cameras.json').write_text(json.dumps(shots,indent=2)+'\n')

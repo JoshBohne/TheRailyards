@@ -11,8 +11,9 @@ MODEL=ROOT/'railyards-v4'
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--encode',action='store_true');parser.add_argument('--replay',action='store_true');parser.add_argument('--scene-version',type=int,choices=[9,11],default=11);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--encode',action='store_true');parser.add_argument('--replay',action='store_true');parser.add_argument('--scene-version',type=int,choices=[9,11,12],default=12);args=parser.parse_args()
     current=MODEL/f'review/v{args.scene_version}'
+    v11=MODEL/'review/v11'
     import imageio_ffmpeg
     ffmpeg=imageio_ffmpeg.get_ffmpeg_exe()
     movies=current/'movies';movies.mkdir(exist_ok=True)
@@ -37,9 +38,14 @@ def main():
         images[f'v9-{name}']=MODEL/f'v9-{name}.png'
         images[f'v8-{name}']=MODEL/f'final-{name}.png'
         images[f'v3-{name}']=ROOT/f'railyards-v3/final-{name}.png'
-    if args.scene_version==11:
+    if args.scene_version>=11:
         for name in sources:images[f'v11-{name}']=MODEL/f'v11-{name}.png'
-        for name,file in {'entrance-before':'entrance-before.png','entrance-after':'C_entrance_landing.png','riverwalk-before':'riverwalk-before.png','riverwalk-after':'F_riverwalk_under_deck.png','corner-stair':'I_corner_stair_close.png','lf-stair':'M_lf_stair_side.png','rf-stair':'K_rf_stair.png'}.items():images[name]=current/file
+        for name,file in {'entrance-before':'entrance-before.png','entrance-after':'C_entrance_landing.png','riverwalk-before':'riverwalk-before.png','riverwalk-after':'F_riverwalk_under_deck.png','corner-stair':'I_corner_stair_close.png','lf-stair':'M_lf_stair_side.png','rf-stair':'K_rf_stair.png'}.items():images[name]=v11/file
+    if args.scene_version==12:
+        for name in sources:images[f'v12-{name}']=MODEL/f'v12-{name}.png'
+        # V12 before/after pairs: identical cameras on the saved V11 and V12 scenes.
+        for view in ['N1_lc_bank_from_plaza','N2_lc_bank_from_field','N3_lc_bank_aerial','N5_park_to_bleachers','R1_rf_corner_from_field','R2_rf_corner_from_river','R3_rf_corner_aerial','D1_third_base_line','D2_dugouts_from_upper','F1_flag_close','F2_tower_context','P1_plan_stadium','S1_section_left_center','S2_section_rf_corner']:
+            images[f'{view}-before']=current/'before'/f'v11-{view}.png';images[f'{view}-after']=current/f'v12-{view}.png'
     images['model-north']=images[f'v{args.scene_version}-north']
     for kind in ['public','review']:
         dest=ROOT/'work/web-dist'/kind;dest.mkdir(parents=True,exist_ok=True)

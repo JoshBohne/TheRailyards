@@ -22,9 +22,22 @@ def build_bowl_details(scene,spec,batch,materials):
                 batch.line('Aisle handrails','metal',[u,v],.026,sides=5)
                 for f in [.1,.5,.9]:
                     c=u.lerp(v,f);batch.cylinder('Aisle handrails','metal',(c.x,c.y,c.z-.84),c,.024,sides=5)
+    # V12: a padded field-edge wall closes the void between the playing
+    # surface (z12) and the lower-tier fascia (z13.1); the seats no longer
+    # hover over a dark slot behind the dugouts.
+    field_z=float(spec.get('field_z',12.0))
+    for a,b in zip(front,front[1:]):
+        p=Vector((a.x,a.y,0));q=Vector((b.x,b.y,0));t=q-p
+        if t.length<1e-6:continue
+        angle=math.atan2(t.y,t.x);c=(p+q)/2;outward=Vector((-t.y,t.x,0)).normalized()
+        if outward.dot(Vector((c.x,c.y,0)))<0:outward=-outward   # away from home plate
+        c=c+outward*.05
+        batch.box('Bowl front wall','seat',(c.x,c.y,(field_z+13.2)/2),(t.length+.06,.42,13.2-field_z),angle)
+        batch.box('Bowl front wall','concrete',(c.x,c.y,13.24),(t.length+.08,.5,.08),angle)
     # Team benches sit against the first/third-base seating fronts. Exact
     # hidden rooms are not inferred; only visible roofs, posts and benches.
-    for x,y,angle,length in [(38,-11.4,0,20),(-4.5,41,math.pi/2,17)]:
+    # V12: both dugouts sit against the corrected 12.8 m foul clearance, same length.
+    for x,y,angle,length in [(38,-11.4,0,20),(-11.4,41,math.pi/2,20)]:
         z=12.05;t=Vector((math.cos(angle),math.sin(angle),0));normal=Vector((-t.y,t.x,0))
         c=Vector((x,y,z))
         batch.box('Team dugouts','interior',(x,y,z+.7),(length,2.6,1.4),angle)
@@ -45,12 +58,16 @@ def build_bowl_details(scene,spec,batch,materials):
         for f in range(max(1,int((b-a).length))):
             p=a.lerp(b,f/max(1,int((b-a).length)))
             batch.line('Backstop protection','metal',[(p.x,p.y,13.5),(p.x,p.y,22)],.006,sides=4)
-    # Chicago civic flag and black team pennant beside the source clock lantern.
-    tx,ty,tz=spec['anchors']['tower_roof'];x,y=tx+9.2,ty+2.0
-    batch.cylinder('Clock tower flags','stone',(x,y,tz-12),(x,y,tz+4),.08,sides=8)
-    batch.ellipsoid('Clock tower flags','yellow',(x,y,tz+4.1),(.18,.18,.18),10,6)
-    def flag_point(u,v,top):return (x+u,y+.30*math.sin(u*2.1+v),top-v-.15*u)
-    for name,top,width,height in [('city',tz+3,4.4,2.6),('team',tz-1.2,3.8,2.4)]:
+    # V12: the flags fly from a mast mounted on the tower roof cap.  The V3
+    # pole stood 1.7 m outside the shaft face in mid-air with the flags below
+    # the roof line; the south and bridge artwork show a mast above the tower.
+    tx,ty,tz=spec['anchors']['tower_roof'];x,y=tx+4.6,ty+4.6;mast_top=tz+12.8
+    batch.box('Clock tower flags','stone',(x,y,tz+.45),(1.1,1.1,.9))
+    batch.cylinder('Clock tower flags','metal',(x,y,tz+.9),(x,y,tz+2.4),.22,.14,sides=10)
+    batch.cylinder('Clock tower flags','metal',(x,y,tz-.6),(x,y,mast_top),.11,.06,sides=8)
+    batch.ellipsoid('Clock tower flags','yellow',(x,y,mast_top+.15),(.2,.2,.2),10,6)
+    def flag_point(u,v,top):return (x+.08+u,y+.30*math.sin(u*2.1+v),top-v-.15*u)
+    for name,top,width,height in [('city',mast_top-.3,4.4,2.6),('team',mast_top-3.6,3.8,2.4)]:
         for col in range(22):
             for row in range(13):
                 u0,u1=width*col/22,width*(col+1)/22;v0,v1=height*row/13,height*(row+1)/13

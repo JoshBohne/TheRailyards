@@ -84,8 +84,10 @@ async function start():Promise<void>{
   const response=await fetch(new URL('model/replay.json',document.baseURI));if(!response.ok)throw new Error(`Replay data failed (${response.status})`);
   data=await response.json() as ReplayData;
   if(![10,11].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
-  const bowl=data.instances.find(g=>g.name==='D2_Individual seats');const outfield=data.instances.find(g=>g.name==='D2_Outfield individual seats');if(!bowl)throw new Error('The seat geometry is missing');
-  seats=buildSeats([...bowl.points,...outfield?.points??[]],bowl.points.length);
+  const bowl=data.instances.find(g=>g.name==='D2_Individual seats');if(!bowl)throw new Error('The seat geometry is missing');
+  // V12: every other '... individual seats' group (outfield terraces, left-center bank, RF corner) is an outfield tier.
+  const outfieldGroups=data.instances.filter(g=>g!==bowl&&g.name.toLowerCase().includes('individual seats'));
+  seats=buildSeats([...bowl.points,...outfieldGroups.flatMap(g=>g.points)],bowl.points.length);
   if(seats.length!==data.seatCount)throw new Error('Seat export count does not match the replay');
   renderer=new ReplayRenderer(viewport,data);renderer.controls.addEventListener('change',()=>dirty=true);
   await renderer.load((text,percent)=>{element('#loading-status').textContent=text;element<HTMLProgressElement>('#load-progress').value=percent;});
