@@ -3,9 +3,9 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { sampleBall, type ReplayData, type Seat } from './replay';
+import { sampleBall, samplePath, spatialChunks, type ReplayData, type Seat } from './replay';
 
-export type CameraView='overview'|'home'|'upper'|'left_center'|'boat'|'follow'|'arrival'|'seat';
+export type CameraView='overview'|'home'|'upper'|'left_center'|'boat'|'follow'|'arrival'|'riverwalk'|'seat';
 export const viewCopy:Record<Exclude<CameraView,'seat'>,{title:string;description:string}>={
  overview:{title:'The whole flight',description:'One hit. The ballpark, the skyline, and the river beyond.'},
  home:{title:'Behind the plate',description:'Watch contact, then follow the ball above right field.'},
@@ -13,6 +13,7 @@ export const viewCopy:Record<Exclude<CameraView,'seat'>,{title:string;descriptio
  left_center:{title:'Left-center terrace',description:'The raised arrival park opens toward the field.'},
  boat:{title:'On the river',description:'The quay hides the field. Watch the ball emerge above it.'},
  follow:{title:'Follow the ball',description:'An impossible camera, for a perspective only a replay can give.'},
+ riverwalk:{title:'Along the riverwalk',description:'Brick arches, café fronts and broad steps along the water.'},
  arrival:{title:'Off Roosevelt',description:'Approach through the raised park while the same play unfolds.'},
 };
 const up=new THREE.Vector3(0,1,0);
@@ -46,7 +47,7 @@ export class ReplayRenderer {
  private venue:THREE.Object3D|undefined;
  private instanceTransform=new THREE.Object3D();
  private baseMatrices=new Map<THREE.InstancedMesh,THREE.Matrix4[]>();
- private selectedHidden:number[]=[];
+ private selectedHidden=new Map<THREE.InstancedMesh,number[]>();
  constructor(viewport:HTMLElement,data:ReplayData){
   this.data=data;this.viewport=viewport;
   this.renderer=new THREE.WebGLRenderer({antialias:true,alpha:false,powerPreference:'high-performance',logarithmicDepthBuffer:true});
@@ -105,7 +106,9 @@ export class ReplayRenderer {
   const rightLeg=new THREE.CylinderGeometry(.065,.055,.98,6);rightLeg.translate(.10,.50,0);
   const legs=mergeGeometries([leftLeg,rightLeg]);if(!legs)throw new Error('Could not construct visitor legs');
   const crowdColors=[0x172129,0xc8c8bd,0x586363,0x253342,0x2b5572,0x864137];
-  for(const group of this.data.instances){
+  for(const source of this.data.instances){
+   for(const points of spatialChunks(source.points,source.prototype.toLowerCase().includes('tree')?80:35)){
+   const group={...source,points};
    const isSeat=group.name.toLowerCase().includes('individual seats'),isFan=group.name.toLowerCase().includes('spectators'),isTree=group.prototype.toLowerCase().includes('tree');
    if(isTree){
     const prototype=prototypes.get(group.prototype);if(!prototype)continue;
@@ -121,10 +124,11 @@ export class ReplayRenderer {
     const color=isSeat?0x263d38:part===1?0xb38d72:part===2?0x25313b:crowdColors[Number(group.name.match(/\d$/)?.[0]??3)%crowdColors.length];
     const mesh=new THREE.InstancedMesh(geometries[part],new THREE.MeshLambertMaterial({color}),group.points.length);mesh.name=group.name+(part?' heads':'');
     const matrices:THREE.Matrix4[]=[];
-    group.points.forEach((p,i)=>{this.instanceTransform.position.set(p[0],p[2],-p[1]);this.instanceTransform.rotation.set(0,p[5],0);this.instanceTransform.scale.set(p[6],p[8],p[7]);this.instanceTransform.updateMatrix();mesh.setMatrixAt(i,this.instanceTransform.matrix);if(isFan)matrices.push(this.instanceTransform.matrix.clone());});
+    group.points.forEach((p,i)=>{this.instanceTransform.position.set(p[0],p[2],-p[1]);this.instanceTransform.rotation.set(0,p[5],0);this.instanceTransform.scale.set(p[6],p[8],p[7]);this.instanceTransform.updateMatrix();mesh.setMatrixAt(i,this.instanceTransform.matrix);if(!isSeat)matrices.push(this.instanceTransform.matrix.clone());});
     mesh.receiveShadow=true;mesh.computeBoundingSphere();
     if(isSeat)this.scene.add(mesh);else this.crowd.add(mesh);
-    if(isFan)this.baseMatrices.set(mesh,matrices);
+    if(!isSeat)this.baseMatrices.set(mesh,matrices);
+   }
    }
   }
  }
@@ -132,17 +136,27 @@ export class ReplayRenderer {
  setView(view:CameraView,seat?:Seat):void{
   this.view=view;this.seat=seat;this.gaze.set(0,0);this.camera.fov=view==='overview'?48:57;this.camera.updateProjectionMatrix();this.controls.enabled=view==='overview';
   if(view==='overview'){this.camera.position.set(232,170,140);this.controls.target.set(48,24,-43);this.controls.update();}
-  this.hideSeatOccupants(seat);
+  this.hideForegroundPeople(seat);
  }
- private hideSeatOccupants(seat:Seat|undefined):void{
-  // The selected spectator's head would otherwise enclose the eye camera.
+ private hideForegroundPeople(seat:Seat|undefined):void{
+  for(const [mesh,indices] of this.selectedHidden){const matrices=this.baseMatrices.get(mesh)!;for(const i of indices)mesh.setMatrixAt(i,matrices[i]);mesh.instanceMatrix.needsUpdate=true;}
+  this.selectedHidden.clear();
+  const path=this.view==='arrival'?this.data.arrivalPath:this.view==='riverwalk'?[[121,5.95,-205],[121,5.95,-270]]:undefined;
+  if(!seat&&!path)return;
+  const p=new THREE.Vector3();
   for(const [mesh,matrices] of this.baseMatrices){
-   for(const i of this.selectedHidden){if(i<matrices.length)mesh.setMatrixAt(i,matrices[i]);}
-   if(seat){for(let i=0;i<matrices.length;i++){const p=new THREE.Vector3().setFromMatrixPosition(matrices[i]);if(Math.hypot(p.x-seat.position[0],p.z-seat.position[2])<.5&&Math.abs(p.y-(seat.position[1]-1.2))<.1){const hidden=matrices[i].clone().scale(new THREE.Vector3(0,0,0));mesh.setMatrixAt(i,hidden);}}}
-   mesh.instanceMatrix.needsUpdate=true;
+   const hidden:number[]=[];
+   for(let i=0;i<matrices.length;i++){
+    p.setFromMatrixPosition(matrices[i]);
+    let close=!!seat&&Math.hypot(p.x-seat.position[0],p.z-seat.position[2])<.5&&Math.abs(p.y-(seat.position[1]-1.2))<.1;
+    if(path)for(let k=1;k<path.length&&!close;k++){
+     const a=path[k-1],b=path[k];const dx=b[0]-a[0],dz=b[2]-a[2];const u=THREE.MathUtils.clamp(((p.x-a[0])*dx+(p.z-a[2])*dz)/(dx*dx+dz*dz),0,1);
+     close=Math.hypot(p.x-a[0]-dx*u,p.z-a[2]-dz*u)<8&&Math.abs(p.y-(a[1]+(b[1]-a[1])*u-1.7))<3;
+    }
+    if(close){mesh.setMatrixAt(i,matrices[i].clone().scale(new THREE.Vector3(0,0,0)));hidden.push(i);}
+   }
+   if(hidden.length){this.selectedHidden.set(mesh,hidden);mesh.instanceMatrix.needsUpdate=true;}
   }
-  // Restore all matrices next time; each color batch uses its own local indices.
-  this.selectedHidden=Array.from({length:Math.max(0,...[...this.baseMatrices.values()].map(v=>v.length))},(_,i)=>i);
  }
  private bindLook():void{
   const canvas=this.renderer.domElement;
@@ -167,12 +181,21 @@ export class ReplayRenderer {
   if(this.view!=='overview'){
    let aim=this.trackBall?ballPosition.clone():new THREE.Vector3(15,15,-22);
    if((this.view==='seat'||this.view==='home'||this.view==='upper')&&this.seat)this.camera.position.copy(vector(this.seat.position));
-   if(this.view==='left_center')this.camera.position.set(45,23.42,-132);
+   if(this.view==='left_center')this.camera.position.set(53,23.42,-135);
    if(this.view==='boat'){this.camera.position.set(181,2.6+.06*Math.sin(time*.7),-8-time*1.2);if(!this.trackBall)aim.set(60,24,-24);}
-   if(this.view==='arrival'){const y=294-67*smooth(time/this.data.duration);this.camera.position.set(50,14.1+.045*(300-y)+1.7,-y);aim.set(29,25,-112);}
+   if(this.view==='arrival'){
+    if(this.data.arrivalPath)this.camera.position.copy(vector(samplePath(this.data.arrivalPath,smooth(time/this.data.duration))));
+    else{const y=294-67*smooth(time/this.data.duration);this.camera.position.set(50,14.1+.045*(300-y)+1.7,-y);}
+    aim.set(45,18,-105);
+   }
+   if(this.view==='riverwalk'){const y=205+65*smooth(time/this.data.duration);this.camera.position.set(121,5.95,-y);aim.set(92,10,-y-12);}
    if(this.view==='follow'){
     if(time<this.data.contact){this.camera.position.set(-9,17,12);aim.set(0,13,0);}
     else{this.camera.position.copy(ballPosition).add(new THREE.Vector3(-15,5,7));this.camera.position.y=Math.max(12,this.camera.position.y);aim.copy(ballPosition).add(new THREE.Vector3(6,-1,-1));}
+   }
+   if(this.trackBall&&['seat','home','upper','left_center'].includes(this.view)){
+    const weight=.48*smooth((time-this.data.contact)/.7);aim.lerp(new THREE.Vector3(30,15,-30),weight);
+    const horizontal=Math.hypot(aim.x-this.camera.position.x,aim.z-this.camera.position.z);aim.y=Math.min(aim.y,this.camera.position.y+Math.tan(25*Math.PI/180)*horizontal);
    }
    const direction=aim.sub(this.camera.position).normalize();direction.applyAxisAngle(up,this.gaze.x);const right=new THREE.Vector3().crossVectors(direction,up).normalize();direction.applyAxisAngle(right,this.gaze.y);this.camera.lookAt(this.camera.position.clone().add(direction));
   }
@@ -180,7 +203,7 @@ export class ReplayRenderer {
   this.renderer.render(this.scene,this.camera);this.lastTime=time;
 
   this.frames++;const elapsed=performance.now()-this.fpsStart;if(elapsed>1500){this.viewport.dataset.fps=(1000*this.frames/elapsed).toFixed(1);this.frames=0;this.fpsStart=performance.now();}
-  this.viewport.dataset.time=time.toFixed(3);this.viewport.dataset.ball=ballPosition.toArray().map(n=>n.toFixed(3)).join(',');this.viewport.dataset.camera=this.view;const projected=ballPosition.clone().project(this.camera);this.locator.hidden=!this.showTrail||time>=this.data.splash||projected.z>1||Math.abs(projected.x)>1||Math.abs(projected.y)>1;this.locator.style.left=`${(projected.x+1)*this.viewport.clientWidth/2}px`;this.locator.style.top=`${(1-projected.y)*this.viewport.clientHeight/2}px`;this.viewport.dataset.triangles=String(this.renderer.info.render.triangles);
+  this.viewport.dataset.time=time.toFixed(3);this.viewport.dataset.ball=ballPosition.toArray().map(n=>n.toFixed(3)).join(',');this.viewport.dataset.camera=this.view;this.viewport.dataset.cameraPosition=this.camera.position.toArray().map(n=>n.toFixed(3)).join(',');const projected=ballPosition.clone().project(this.camera);this.locator.hidden=!this.showTrail||time>=this.data.splash||projected.z>1||Math.abs(projected.x)>1||Math.abs(projected.y)>1;this.locator.style.left=`${(projected.x+1)*this.viewport.clientWidth/2}px`;this.locator.style.top=`${(1-projected.y)*this.viewport.clientHeight/2}px`;this.viewport.dataset.triangles=String(this.renderer.info.render.triangles);
  }
  get time():number{return this.lastTime;}
  get triangleCount():number{return this.renderer.info.render.triangles;}

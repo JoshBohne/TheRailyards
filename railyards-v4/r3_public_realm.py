@@ -54,7 +54,7 @@ def _table(batch,x,y,z,scale=1):
         batch.box(GROUP,'seat',(cx,cy,z+.44),(.38,.38,.08),a)
         batch.box(GROUP,'metal',(cx,cy,z+.20),(.06,.06,.40))
 
-def build_public_realm(scene,spec,batch,materials):
+def build_public_realm(scene,spec,batch,materials,circulation=False):
     rng=random.Random(6026);camera=bpy.data.objects['R2_north']
     def project(p):return source_to_grade(scene,camera,p,SOURCE_SIZE,ROAD_Y,ROAD_Z,GRADE)[:2]
     roof=[project(p)for p in ROOF_PIXELS]
@@ -65,21 +65,26 @@ def build_public_realm(scene,spec,batch,materials):
     # V4: only the river-side strip north of the arcade (x 100-124, y -79..310)
     # is cut down to the lower riverwalk; the stadium, tower and arcade land
     # stays at the z8 ground datum instead of hovering over a z4.83 pit.
-    for poly in [[(-94,-1200),(6,-1200),(6,1800),(-94,1800)],
-                 [(6,-1200),(124,-1200),(124,-135),(6,-135)],
-                 [(6,310),(124,310),(124,1800),(6,1800)],
-                 [(6,-135),(124,-135),(124,-79),(6,-79)],
-                 [(6,-79),(100,-79),(100,310),(6,310)]]:
-        batch.prism(GROUP,'paving',poly,-2,8)
-    batch.prism(GROUP,'paving',[(100,-79),(124,-79),(124,310),(100,310)],-2,LOWER_Z-.12)
-    for ya,yb in [(-135,-80),(-80,170)]:
-        _slab(batch,'paving',[(112,ya),(124,ya),(124,yb),(112,yb)],quay_z,lambda y:LOWER_Z-.1)
-    for y in range(-120,170,18):
-        _table(batch,115,y,quay_z(y)+.03)
-        batch.line(GROUP,'metal',[(125,y,quay_z(y)+1.05),(125,y+18,quay_z(y+18)+1.05)],.04)
-        for yy in range(y,y+18,3):batch.cylinder(GROUP,'metal',(125,yy,quay_z(yy)),(125,yy,quay_z(yy)+1.05),.035,sides=6)
-    _slab(batch,'concrete',roof,deck_z,lambda y:deck_z(y)-.55)
-    _slab(batch,'stone',roof,lambda y:deck_z(y)+.055,deck_z)
+    if circulation:
+        from r11_circulation import build_quay,clear_arrival
+        build_quay(batch)
+    else:
+        for poly in [[(-94,-1200),(6,-1200),(6,1800),(-94,1800)],
+                     [(6,-1200),(124,-1200),(124,-135),(6,-135)],
+                     [(6,310),(124,310),(124,1800),(6,1800)],
+                     [(6,-135),(124,-135),(124,-79),(6,-79)],
+                     [(6,-79),(100,-79),(100,310),(6,310)]]:
+            batch.prism(GROUP,'paving',poly,-2,8)
+        batch.prism(GROUP,'paving',[(100,-79),(124,-79),(124,310),(100,310)],-2,LOWER_Z-.12)
+        for ya,yb in [(-135,-80),(-80,170)]:
+            _slab(batch,'paving',[(112,ya),(124,ya),(124,yb),(112,yb)],quay_z,lambda y:LOWER_Z-.1)
+        for y in range(-120,170,18):
+            _table(batch,115,y,quay_z(y)+.03)
+            batch.line(GROUP,'metal',[(125,y,quay_z(y)+1.05),(125,y+18,quay_z(y+18)+1.05)],.04)
+            for yy in range(y,y+18,3):batch.cylinder(GROUP,'metal',(125,yy,quay_z(yy)),(125,yy,quay_z(yy)+1.05),.035,sides=6)
+    if not circulation:
+        _slab(batch,'concrete',roof,deck_z,lambda y:deck_z(y)-.55)
+        _slab(batch,'stone',roof,lambda y:deck_z(y)+.055,deck_z)
     for lawn in lawns:_slab(batch,'lawn',lawn,lambda y:deck_z(y)+.12,lambda y:deck_z(y)+.05)
     # Short transverse paths and the long hall-side walk divide the event lawn.
     for a,b in [((969,731),(907,789)),((1110,795),(1045,866)),
@@ -93,31 +98,35 @@ def build_public_realm(scene,spec,batch,materials):
     for a,b in zip(entrance,entrance[1:]+entrance[:1]):
         center=(Vector(a)+Vector(b))/2
         batch.box(GROUP,'concrete',(center.x,center.y,(8+deck_z(center.y))/2),(.6,.8,deck_z(center.y)-8))
-    # Continuous tall shopfronts beneath the roof's source-visible bent edge.
-    for segment,(a,b) in enumerate(zip(edge,edge[1:])):
-        a,b=Vector(a),Vector(b);t=(b-a).normalized();n=Vector((t.y,-t.x));length=(b-a).length
-        # Face the river (+X); this also keeps storefront glazing outside mass.
-        if n.x<0:n=-n
-        count=max(2,round(length/6.0));bay=length/count;angle=math.atan2(t.y,t.x)
-        for i in range(count):
-            c=a.lerp(b,(i+.5)/count);height=deck_z(c.y)-LOWER_Z-.5
-            depth=5.2;mass=c-n*depth/2
-            batch.box('Riverfront retail','brick_dark',(mass.x,mass.y,LOWER_Z+height/2),(bay,depth,height),angle)
-            glass=c+n*.08
-            batch.box('Riverfront retail','glass_lit',(glass.x,glass.y,LOWER_Z+height*.49),(bay-.65,.14,height*.81),angle)
-            for u in [-bay/2+.18,bay/2-.18]:
-                q=c+t*u+n*.17
-                batch.box('Riverfront retail','stone',(q.x,q.y,LOWER_Z+height/2),(.30,.32,height),angle)
-            for f in [.33,.65]:
-                q=c+n*.17
-                batch.box('Riverfront retail','metal',(q.x,q.y,LOWER_Z+height*f),(bay,.25,.12),angle)
-            q=c+n*.22
-            batch.box('Riverfront retail','stone',(q.x,q.y,deck_z(c.y)-.35),(bay+.1,.55,.35),angle)
-            # A projecting striped awning and a lower café table activate the quay.
-            q=c+n*1.3
-            batch.box('Riverfront retail','roof',(q.x,q.y,LOWER_Z+3.1),(bay*.72,2.0,.15),angle)
-            if i%2==0:
-                q=c+n*3.4;_table(batch,q.x,q.y,LOWER_Z+.03)
+    if circulation:
+        from r11_circulation import build_arcade
+        build_arcade(scene,batch,materials,edge)
+    else:
+        # Continuous tall shopfronts beneath the roof's source-visible bent edge.
+        for segment,(a,b) in enumerate(zip(edge,edge[1:])):
+            a,b=Vector(a),Vector(b);t=(b-a).normalized();n=Vector((t.y,-t.x));length=(b-a).length
+            # Face the river (+X); this also keeps storefront glazing outside mass.
+            if n.x<0:n=-n
+            count=max(2,round(length/6.0));bay=length/count;angle=math.atan2(t.y,t.x)
+            for i in range(count):
+                c=a.lerp(b,(i+.5)/count);height=deck_z(c.y)-LOWER_Z-.5
+                depth=5.2;mass=c-n*depth/2
+                batch.box('Riverfront retail','brick_dark',(mass.x,mass.y,LOWER_Z+height/2),(bay,depth,height),angle)
+                glass=c+n*.08
+                batch.box('Riverfront retail','glass_lit',(glass.x,glass.y,LOWER_Z+height*.49),(bay-.65,.14,height*.81),angle)
+                for u in [-bay/2+.18,bay/2-.18]:
+                    q=c+t*u+n*.17
+                    batch.box('Riverfront retail','stone',(q.x,q.y,LOWER_Z+height/2),(.30,.32,height),angle)
+                for f in [.33,.65]:
+                    q=c+n*.17
+                    batch.box('Riverfront retail','metal',(q.x,q.y,LOWER_Z+height*f),(bay,.25,.12),angle)
+                q=c+n*.22
+                batch.box('Riverfront retail','stone',(q.x,q.y,deck_z(c.y)-.35),(bay+.1,.55,.35),angle)
+                # A projecting striped awning and a lower café table activate the quay.
+                q=c+n*1.3
+                batch.box('Riverfront retail','roof',(q.x,q.y,LOWER_Z+3.1),(bay*.72,2.0,.15),angle)
+                if i%2==0:
+                    q=c+n*3.4;_table(batch,q.x,q.y,LOWER_Z+.03)
     # Small shaded shelters are above the park, separate from the lower shops.
     for pixel in [(1120,743),(1183,779),(1470,926)]:
         x,y=project(pixel);z=deck_z(y)+.15
@@ -129,14 +138,18 @@ def build_public_realm(scene,spec,batch,materials):
     x,y=project((1481,1098));z=deck_z(y)+.15
     batch.cylinder(GROUP,'stone',(x,y,z),(x,y,z+.26),2.1,sides=32)
     batch.cylinder(GROUP,'metal',(x,y,z+.26),(x,y,z+3.1),.28,.12,sides=8)
-    # Broad stair descent from the corner roof to the lower waterside promenade.
-    a,b=[Vector(project(p))for p in [(1392,1190),(1480,1235)]]
-    t=(b-a).normalized();n=Vector((-t.y,t.x));mid=(a+b)/2
-    if n.x<0:n=-n
-    count=24;run=14.0;top=deck_z(mid.y)
-    for i in range(count):
-        c=mid+n*(i+.5)*run/count;z=top-(top-LOWER_Z)*(i+1)/count
-        batch.box(GROUP,'stone',(c.x,c.y,z-.12),((b-a).length,run/count,.24),math.atan2(t.y,t.x))
+    if circulation:
+        from r11_circulation import build_corner_stair
+        build_corner_stair(batch,edge)
+    else:
+        # Broad stair descent from the corner roof to the lower waterside promenade.
+        a,b=[Vector(project(p))for p in [(1392,1190),(1480,1235)]]
+        t=(b-a).normalized();n=Vector((-t.y,t.x));mid=(a+b)/2
+        if n.x<0:n=-n
+        count=24;run=14.0;top=deck_z(mid.y)
+        for i in range(count):
+            c=mid+n*(i+.5)*run/count;z=top-(top-LOWER_Z)*(i+1)/count
+            batch.box(GROUP,'stone',(c.x,c.y,z-.12),((b-a).length,run/count,.24),math.atan2(t.y,t.x))
     # Native linked trees use the detailed branching prototypes built earlier.
     tree=bpy.data.objects.get('D2_Broadleaf tree 0')
     if tree:
@@ -144,7 +157,7 @@ def build_public_realm(scene,spec,batch,materials):
         for p in [(953,757),(1010,850),(1130,805),(1200,858),(1360,950),(1455,1000),(1540,995)]:
             x,y=project(p);locations.append((x,y,deck_z(y)+.15));rotations.append((0,0,rng.random()*math.tau));scales.append((.82,.82,.88))
         for y in range(-110,300,13):
-            locations.append((120,y,quay_z(y)));rotations.append((0,0,rng.random()*math.tau));scales.append((.75,.75,.80))
+            locations.append((116.5 if circulation else 120,y,quay_z(y)));rotations.append((0,0,rng.random()*math.tau));scales.append((.75,.75,.80))
         instances(scene,batch.collection(GROUP),'North park and quay trees',tree,locations,rotations,scales)
     # Grounded tables occupy actual lawn polygons rather than arbitrary XY rows.
     for lawn in lawns[:1]:
@@ -159,13 +172,16 @@ def build_public_realm(scene,spec,batch,materials):
         for i in range(1500):
             x,y=rng.uniform(xmin,xmax),rng.uniform(ymin,ymax)
             if not inside((x,y),roof):continue
+
+            if circulation and clear_arrival(x,y):continue
             positions.append((x,y,deck_z(y)+.17));rotations.append((0,0,rng.random()*math.tau));scales.append((1,1,1))
         for i in range(650):
-            x,y=rng.uniform(104,123),rng.uniform(165,302)
+            x,y=rng.uniform(97 if circulation else 104,116.5 if circulation else 123),rng.uniform(165,292 if circulation else 302)
             if inside((x,y),roof):continue
+            if circulation and abs(x-110)<3:continue
             positions.append((x,y,LOWER_Z));rotations.append((0,0,rng.random()*math.tau));scales.append((1,1,1))
         for i in range(420):
-            x,y=rng.uniform(116,123),rng.uniform(-125,166)
+            x,y=rng.uniform(113 if circulation else 116,117 if circulation else 123),rng.uniform(-125,166)
             positions.append((x,y,quay_z(y)+.04));rotations.append((0,0,rng.random()*math.tau));scales.append((1,1,1))
         # V5: spread the crowd across the clothing variants (weighted toward grey/white/black).
         variants=[w for w in [bpy.data.objects.get('D2_Walking visitor'),bpy.data.objects.get('D2_Walking visitor cloth_white'),bpy.data.objects.get('D2_Walking visitor cloth_black'),bpy.data.objects.get('D2_Walking visitor cloth_blue'),bpy.data.objects.get('D2_Walking visitor cloth_red')] if w]

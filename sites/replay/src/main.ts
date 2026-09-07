@@ -28,7 +28,7 @@ function updateSeatControls(seat:Seat):void{
 }
 function selectView(view:CameraView,seat?:Seat):void{
  if(!renderer)return;
- if(view==='home')seat=nearestSeat(seats.filter(s=>s.row===1),[-7,15.2,7],0);
+ if(view==='home')seat=nearestSeat(seats.filter(s=>s.row===1),[-11,15.2,5],0);
  if(view==='upper')seat=nearestSeat(seats,[-35,43,35],3);
  selected=seat??selected;renderer.setView(view,seat);dirty=true;
  for(const button of document.querySelectorAll<HTMLButtonElement>('[data-camera]'))button.setAttribute('aria-pressed',String(button.dataset.camera===view));
@@ -83,13 +83,13 @@ async function start():Promise<void>{
  try{
   const response=await fetch(new URL('model/replay.json',document.baseURI));if(!response.ok)throw new Error(`Replay data failed (${response.status})`);
   data=await response.json() as ReplayData;
-  if(data.version!==10||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
+  if(![10,11].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
   const bowl=data.instances.find(g=>g.name==='D2_Individual seats');const outfield=data.instances.find(g=>g.name==='D2_Outfield individual seats');if(!bowl)throw new Error('The seat geometry is missing');
   seats=buildSeats([...bowl.points,...outfield?.points??[]],bowl.points.length);
   if(seats.length!==data.seatCount)throw new Error('Seat export count does not match the replay');
   renderer=new ReplayRenderer(viewport,data);renderer.controls.addEventListener('change',()=>dirty=true);
   await renderer.load((text,percent)=>{element('#loading-status').textContent=text;element<HTMLProgressElement>('#load-progress').value=percent;});
-  timeline.max=String(data.duration);play.disabled=false;restart.disabled=false;loading.hidden=true;
+  element('#water-distance').textContent=String(data.waterDistanceFt);element('#splash-distance').textContent=String(data.splashDistanceFt);timeline.max=String(data.duration);play.disabled=false;restart.disabled=false;loading.hidden=true;
   selected=nearestSeat(seats,[-12,19,12],0);updateSeatControls(selected);
   const hash=new URLSearchParams(location.hash.slice(1));const desired=hash.get('view');const seatId=Number(hash.get('seat'));
   if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId])selectView('seat',seats[seatId]);else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');

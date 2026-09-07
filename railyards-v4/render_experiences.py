@@ -8,6 +8,7 @@ from mathutils import Vector
 OUT=Path(__file__).resolve().parent;sys.path.insert(0,str(OUT))
 from r2_lighting import apply_lighting
 from r3_public_realm import deck_z
+from r11_circulation import ARRIVAL_XY,terrace_z
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 apply_lighting(scene,os.environ.get('RAILYARDS_PRESET','south'))
 for name in ['D2_Future development','D2_Proposed soccer stadium','D2_South source rail links','D2_South source landing buildings','D2_South source medical branding']:
@@ -39,12 +40,25 @@ for name in names:
   t=index/max(1,count-1);smooth=t*t*(3-2*t)
   if mode!='still':
    if name=='arrival':
-    y=294-111*smooth;x=50
-    scene.camera.location=(x,y,deck_z(y)+1.7)
-    aim=Vector((29,112,25))
+    if scene.get('v11_circulation'):
+     points=[Vector((x,y,terrace_z(y)+1.7)) for x,y in ARRIVAL_XY]
+     lengths=[(b-a).length for a,b in zip(points,points[1:])];distance=smooth*sum(lengths)
+     for k,length in enumerate(lengths):
+      if distance<=length or k==len(lengths)-1:
+       scene.camera.location=points[k].lerp(points[k+1],distance/length);break
+      distance-=length
+     aim=Vector((45,105,18))
+    else:
+     y=294-111*smooth;x=50
+     scene.camera.location=(x,y,deck_z(y)+1.7);aim=Vector((29,112,25))
    elif name=='left_center':
-    x=37+8*smooth-2.5*math.exp(-((smooth-.5)/.13)**2);y=166-34*smooth
-    scene.camera.location=(x,y,deck_z(y)+1.7);aim=Vector((8,40,19))
+    if scene.get('v11_circulation'):
+     x=66.9-13.9*smooth;y=166-31*smooth
+     scene.camera.location=(x,y,terrace_z(y)+1.7)
+    else:
+     x=37+8*smooth-2.5*math.exp(-((smooth-.5)/.13)**2);y=166-34*smooth
+     scene.camera.location=(x,y,deck_z(y)+1.7)
+    aim=Vector((8,40,19))
    elif name=='boat':
     scene.camera.location=(179,200-85*smooth,2.6+.07*math.sin(t*math.tau))
     aim=Vector((50,20,23))
