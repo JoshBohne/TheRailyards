@@ -38,3 +38,9 @@ railyards-v*/review/v10/
 railyards-v*/review/v11/
 railyards-v*/river-distance-study-v*.json
 sites/replay/public/draco/
+# V12 films, frames and encoded movies
+railyards-v*/review/v12/movies/
+railyards-v*/review/v12/arrival/
+railyards-v*/review/v12/left_center/
+railyards-v*/review/v12/boat/
+railyards-v*/review/v12/river/

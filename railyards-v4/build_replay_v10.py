@@ -16,7 +16,7 @@ sys.path.insert(0, str(OUT))
 from r2_lighting import apply_lighting
 
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',type=int,choices=[10,11],default=10)
+parser.add_argument('--version',type=int,choices=[10,11,12],default=10)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 VERSION=args.version
 
@@ -38,10 +38,10 @@ for obj in scene.objects:
 
 FPS = 60
 CONTACT = 1.55
-FLIGHT = 6.1 if VERSION == 11 else math.sqrt(464 / 9.81)
+FLIGHT = 6.1 if VERSION >= 11 else math.sqrt(464 / 9.81)
 DURATION = 10.5
-LANDING = Vector((142, 16 if VERSION == 11 else 30, 0))
-ARC = 150 if VERSION == 11 else 232
+LANDING = Vector((142, 16 if VERSION >= 11 else 30, 0))
+ARC = 150 if VERSION >= 11 else 232
 
 def ball_at(t):
     if t < .35:
@@ -209,7 +209,7 @@ metadata={'version':VERSION,'duration':DURATION,'sampleRate':FPS,'contact':CONTA
           'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),'sourceScene':f'railyards-v{VERSION}.blend','instances':instances,
           'cameras':json.loads((OUT/'experience-cameras.json').read_text()),
           'note':'Imagined future play. Seat positions come from the saved model, not an official seating plan. Flight and animation are illustrative.'}
-if VERSION == 11:
+if VERSION >= 11:
     from r11_circulation import ARRIVAL_XY,terrace_z
     metadata['arrivalPath']=[web((x,y,terrace_z(y)+1.7)) for x,y in ARRIVAL_XY]
     metadata['architectureVersion']=11

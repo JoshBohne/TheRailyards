@@ -72,7 +72,8 @@ def build_rf_structure(scene,spec,batch,materials):
     _prism_cdt(batch,'concrete',step,PODIUM_TOP,RING_TOP)
     # Stone coping and railing along the outer ring edge (terrace parapet).
     outer=[(front[0].x,front[0].y)]+ring+[(front[-1].x,front[-1].y)]
-    for a,b in zip(outer,outer[1:]):
+    for k,(a,b) in enumerate(zip(outer,outer[1:])):
+        if k==0:continue  # V12: the RF corner bank (r12_outfield) covers the foul-pole diagonal
         a,b=Vector(a),Vector(b);t=(b-a).normalized();angle=math.atan2(t.y,t.x);length=(b-a).length
         c=(a+b)/2
         batch.box(GROUP,'stone',(c.x,c.y,RING_TOP+.12),(length+.2,.9,.24),angle)

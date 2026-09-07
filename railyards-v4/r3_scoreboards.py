@@ -84,24 +84,26 @@ def build_scoreboards(scene,spec,batch,materials):
                     a=p+normal*(1.4*side);a.z=za
                     b=p-normal*(1.4*side);b.z=zb
                     batch.cylinder('Scoreboards','metal',a,b,.085,sides=6)
-        for u in [-width*(rf.get('pylon_fraction',.33) if is_rf else .33),width*(rf.get('pylon_fraction',.33) if is_rf else .33)]:
+        if is_rf:
+            # V12: the RF board bears on a brick board house standing on the
+            # podium ring behind the outfield wall.  The north and south
+            # artwork show the board rising from a low brick block, not
+            # from lattice legs.  The field face keeps the V4 wall clearance.
+            house_top=top.z-h-.25
+            def hp(u,d):
+                q=top+t*u+normal*d;return (q.x,q.y)
+            batch.prism('Scoreboards','brick',[hp(-width/2-.6,-1.6),hp(width/2+.6,-1.6),hp(width/2+.6,3.0),hp(-width/2-.6,3.0)],support_base-.05,house_top)
+            batch.prism('Scoreboards','stone',[hp(-width/2-.8,-1.8),hp(width/2+.8,-1.8),hp(width/2+.8,3.2),hp(-width/2-.8,3.2)],house_top,house_top+.35)
+            batch.prism('Scoreboards','stone',[hp(-width/2-.7,-1.7),hp(width/2+.7,-1.7),hp(width/2+.7,3.1),hp(-width/2-.7,3.1)],support_base+2.6,support_base+3.0)
+            from r3_envelope import _arch_bay
+            count=max(2,round(width/7.5))
+            for k in range(count):
+                c=top+t*((k+.5)/count*width-width/2)+normal*3.0
+                # _arch_bay opens toward the left normal of its tangent; -t faces the river.
+                _arch_bay(batch,'Scoreboards',Vector((c.x,c.y,0)),-t,4.2,support_base+.3,4.4,house_top,.5,materials)
+                c=top+t*((k+.5)/count*width-width/2)+normal*(-1.6)
+                batch.box('Scoreboards','glass_dim',(c.x,c.y,support_base+3.4),(3.0,.12,1.6),angle)
+        else:
+          for u in [-width*.33,width*.33]:
             p=top+t*u
             batch.box('Scoreboards','metal',(p.x,p.y,(support_base+top.z-h)/2),(1.15,2.7,max(.4,top.z-h-support_base)),angle)
-            if is_rf:
-                # Paired lattice pylons landing on the podium ring behind the
-                # outfield wall, with diagonal bracing between the legs.
-                for depth in [-1.2,1.2]:
-                    for du in [-1.0,1.0]:
-                        q=p+t*du+normal*depth
-                        batch.cylinder('Scoreboards','metal',(q.x,q.y,support_base),(q.x,q.y,top.z-h-.6),.17,sides=8)
-                span=top.z-h-.6-support_base;steps=max(1,int(span/2.6))
-                for k in range(steps):
-                    za=support_base+span*k/steps;zb=support_base+span*(k+1)/steps
-                    for depth in [-1.2,1.2]:
-                        q0=p+t*(-1.0)+normal*depth;q1=p+t*(1.0)+normal*depth
-                        batch.cylinder('Scoreboards','metal',(q0.x,q0.y,za),(q1.x,q1.y,zb),.06,sides=6)
-                        batch.cylinder('Scoreboards','metal',(q1.x,q1.y,za),(q0.x,q0.y,zb),.06,sides=6)
-                    for du in [-1.0,1.0]:
-                        q0=p+t*du+normal*(-1.2);q1=p+t*du+normal*1.2
-                        batch.cylinder('Scoreboards','metal',(q0.x,q0.y,za),(q1.x,q1.y,zb),.06,sides=6)
-                batch.box('Scoreboards','concrete',(p.x,p.y,support_base+.3),(3.2,3.6,.6),angle)

@@ -1,6 +1,10 @@
-# White Sox Railyards — V4–V10 generators
+# White Sox Railyards — V4–V12 generators
 
-Current continuation: [V10 interactive replay](../docs/V10-HANDOFF.md), saved as `railyards-v10.blend`.
+Current continuation: [V12 stadium proportions](../docs/V12-PROPORTIONS.md), built by `build_v12.sh` into `railyards-v12-static.blend` / `railyards-v12.blend`.
+
+Previous continuation: [V11 Roosevelt, outfield and riverwalk](../docs/V11-CIRCULATION.md), saved as `railyards-v11-static.blend` / `railyards-v11.blend`.
+
+Previous continuation: [V10 interactive replay](../docs/V10-HANDOFF.md), saved as `railyards-v10.blend`.
 
 Previous continuation: [V9 rendered experiences and verification](../docs/V9-SCOPE.md), saved separately as `railyards-v9.blend`.
 

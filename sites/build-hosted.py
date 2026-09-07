@@ -60,7 +60,7 @@ def split_venue(output):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--templates", type=Path, default=Path("templates"))
+    parser.add_argument("--templates", type=Path, default=Path(__file__).resolve().parent / ("public" if (Path(__file__).resolve().parent / "public").exists() else "templates"))
     parser.add_argument("--output", type=Path, default=Path("dist"))
     parser.add_argument("--assets", type=Path, default=Path(".cache"))
     parser.add_argument("--site-url", default="")
@@ -118,7 +118,8 @@ def main():
                 target.write_text(text)
             else:
                 shutil.copy2(source, target)
-    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    revision = subprocess.run(["git", "rev-parse", "HEAD"], text=True, capture_output=True)
+    commit = revision.stdout.strip() if revision.returncode == 0 else None
     manifest = {"commit": commit, "sceneVersion": 12, "releaseChecksums": ARCHIVES,
                 "files": [{"path": str(p.relative_to(output)), "bytes": p.stat().st_size,
                            "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}

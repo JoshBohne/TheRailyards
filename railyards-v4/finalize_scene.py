@@ -32,5 +32,5 @@ for screen in bpy.data.screens:
         if area.type=='VIEW_3D':
             area.spaces.active.overlay.show_overlays=False;area.spaces.active.shading.type='SOLID';area.spaces.active.shading.color_type='MATERIAL'
             area.spaces.active.clip_start=1;area.spaces.active.clip_end=10000;area.spaces.active.region_3d.view_perspective='CAMERA'
-bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'railyards-v4.blend'),compress=True)
+bpy.ops.wm.save_as_mainfile(filepath=str(__import__('pathlib').Path(__import__('os').environ.get('RAILYARDS_STAGE_DIR',str(OUT)))/'railyards-v4.blend'),compress=True)
 print(json.dumps({'saved':bpy.data.filepath,'scenes':[s.name for s in bpy.data.scenes],'objects':len(scene.objects),'cameras':[o.name for o in scene.objects if o.type=='CAMERA']}))
