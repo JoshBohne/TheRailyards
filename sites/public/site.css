@@ -310,3 +310,5 @@ nav{width:100%;
 @keyframes skyline-lights{0%,30%{opacity:0}55%{opacity:.85}70%{opacity:.3}100%{opacity:.85}}
 @media(max-width:700px){.city-footer{padding-top:26px}.footer-skyline{margin-top:28px}.footer-skyline svg{width:100%;max-width:none;margin-left:0}.city-footer .site-disclosure{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.skyline-arriving .skyline-building,.skyline-arriving .skyline-lights{animation:none}.skyline-lights{opacity:.85}}
+.field-dimensions dl{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin:1.5rem 0}.field-dimensions dt{font-size:.8rem;color:var(--muted,#777)}.field-dimensions dd{margin:.3rem 0 0;font-size:clamp(1.2rem,3vw,2rem);font-weight:600}.view-note{display:block;margin-top:.35rem;font-size:.72rem;font-weight:400;line-height:1.5;color:var(--muted,#777)}@media(max-width:540px){.field-dimensions dl{grid-template-columns:repeat(3,1fr);gap:1.25rem .5rem}}
+.gallery-grid figcaption:has(.view-note){display:block}.gallery-grid figcaption .view-note{max-width:none;text-align:left}

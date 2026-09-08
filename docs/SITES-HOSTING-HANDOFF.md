@@ -41,3 +41,11 @@ Disclosures name the White Sox, MLB, Crain’s Chicago Business, AECOM and Canal
 Completed V11, Pro site, current showcase, and Fable V12 source are consolidated. New Fable right-field work remains in progress and is not deployed. Public content uses sites/build-hosted.py as the single packaging entry point, including when invoked by sites/build.py. The legacy review builder supports V12 only, requires its evidence files, and includes every requested acceptance pair.
 
 Overview now shows all three source comparisons at once, each with Side by side / Opacity / Swipe. The three section images are excluded from the public gallery (33 pictures and 5 films); they remain in internal review evidence. Build navigation is renamed Details. The Astra automation remains paused under the weekly allowance guard; do not start further large work automatically.
+
+## Camera and field measurements update
+
+The overview now opens behind home plate for 2.4 seconds, cuts overhead, and retains the river cut and shared 10.5-second play clock. `sites/render-overview.py` recreates the edit. `sites/render-east-bank.py` renders three illustrative opposite-bank positions near the future McDonald's Park site; these are not surveyed seat sightlines. Rendered against an isolated copy of the existing V12 scene while the separate stadium audit continues.
+
+Overview distances are ray intersections with V12 `field_boundary`: LF 328, LC 375, CF 384, RC 368, RF 328 feet (rounded; gap rays at 67.5 and 22.5 degrees). They are explicitly model measurements, not official specifications. `sites/package-camera-media.py` replaces the film/poster and adds the three stills while preserving the published replay and existing media. The checksum-pinned release archive is `railyards-v12-camera-views.zip`.
+
+Validation: all 252 frames rendered; encoded film is 1280×720, 24 fps, 10.5 seconds; opening, overhead, and river frames inspected. Desktop/mobile browser checks passed with 36 gallery pictures, five distances, no horizontal overflow or page errors.

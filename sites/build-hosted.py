@@ -12,7 +12,7 @@ from pathlib import Path
 RELEASE = "https://github.com/JoshBohne/TheRailyards/releases/download/v12-proportions/"
 ARCHIVES = {
     "public": "025eeee304a2d8d0463c45ddc22f412d21dd207f53a4e9b5e9876b309800e283",
-    "additions": "a46c6b58f712c10aae5f008ca4b4f396c06e1c50691b27e933c64d7a4ed6a86e",
+    "additions": "a4e6dcf79fc3957ba9dbdc0f2932b5528b18ddd5c4270c0c24e4ecdf1879f586",
     "review": "81aa3dbbea9d33efa399314fb152e7cfa3dcde0987c89140f98ceaa0fefdb5eb",
 }
 
@@ -74,7 +74,7 @@ def main():
     output.mkdir(parents=True)
     for kind in ("public", "review", "additions"):
         expected = ARCHIVES[kind]
-        name = "railyards-v12-readable-controls.zip" if kind == "additions" else f"railyards-v12-{kind}-site.zip"
+        name = "railyards-v12-camera-views.zip" if kind == "additions" else f"railyards-v12-{kind}-site.zip"
         archive = args.assets / name
         if not archive.exists():
             with urllib.request.urlopen(RELEASE + name, timeout=60) as response:
