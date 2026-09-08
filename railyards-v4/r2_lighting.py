@@ -15,7 +15,7 @@ def apply_lighting(scene,name):
         col=bpy.data.collections.get('D2_'+group)
         if col:col.hide_render=name!='south'
     links=bpy.data.collections.get('D2_Pedestrian rail bridges')
-    if links:links.hide_render=name=='south'
+    if links:links.hide_render=True if scene.get('v14_transport_variant') else name=='south'
     sun=bpy.data.objects['R2_Sun'];sun.data.angle=math.radians(5)
     sun.data.energy=.11 if night else 2.8
     sun.data.color=(.42,.59,1)if night else(1,.73,.43)
