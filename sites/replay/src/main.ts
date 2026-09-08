@@ -82,7 +82,7 @@ async function start():Promise<void>{
  try{
   const response=await fetch(new URL('model/replay.json',document.baseURI));if(!response.ok)throw new Error(`Replay data failed (${response.status})`);
   data=await response.json() as ReplayData;
-  if(![10,11,12].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
+  if(![10,11,12,13].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
   const bowl=data.instances.find(g=>g.name==='D2_Individual seats');if(!bowl)throw new Error('The seat geometry is missing');
   const outfieldGroups=data.instances.filter(g=>g!==bowl&&g.name.toLowerCase().includes('individual seats'));
   seats=buildSeats([...bowl.points,...outfieldGroups.flatMap(g=>g.points)],bowl.points.length);

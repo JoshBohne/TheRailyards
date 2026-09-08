@@ -6,6 +6,12 @@ Preserve `railyards-v3/` as the baseline. Start changes in a separate `railyards
 
 Keep source-backed geometry, geographic data and inferred architecture distinguishable. When changing geography, inspect `scene-spec.json` and `skyline-buildings.json` together: coordinate registration is approximate and legacy metadata can be stale. When changing a component, inspect its current generator and actual saved render; old inventory completion labels are not visual approval.
 
-Use Blender CLI for repeatable builds/renders, Blender MCP for live scene inspection and edits, and actual rendered comparisons for acceptance. Reflect live edits in generators so a clean rebuild preserves them. Keep camera settings fixed during geometry comparisons. Serialize writes to shared scenes and render files if delegating.
+Required tool setup for every task in this repository:
+
+- Blender CLI for scripts, batch renders, and exports.
+- Blender MCP for live scene inspection and edits inside Blender.
+- Computer use for visual review and UI actions that CLI or MCP do not expose.
+
+Keep a visible live review surface open while changing geometry. Publish small fixed-camera previews as each bounded edit is ready, so Josh can watch and correct the work before a full render/export pass. Show source/current and before/after views; label stale frames while a new render is running. Use actual rendered comparisons for acceptance. Reflect live edits in generators so a clean rebuild preserves them. Keep camera settings fixed during geometry comparisons. Serialize writes to shared scenes and render files if delegating.
 
 Generated scenes, renders and caches belong outside Git. Include the scene and visual evidence in each deliverable package. Completion means the requested visible problems are resolved across the relevant views, with remaining uncertainty stated.

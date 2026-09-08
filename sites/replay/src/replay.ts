@@ -1,5 +1,5 @@
 export type Point = readonly [number, number, number];
-export type InstancePoint = readonly [number,number,number,number,number,number,number,number,number];
+export type InstancePoint = readonly [number,number,number,number,number,number,number,number,number,number?];
 export interface InstanceGroup {name:string;prototype:string;points:InstancePoint[]}
 export interface ReplayData {arrivalPath?:Point[];version:number;duration:number;sampleRate:number;contact:number;splash:number;waterCrossing:number;ballSamples:Point[];landing:Point;seatCount:number;instances:InstanceGroup[];waterDistanceFt:number;splashDistanceFt:number}
 export interface Seat {id:number;tier:number;row:number;number:number;position:Point;rotation:number}
@@ -11,10 +11,12 @@ export function sampleBall(data:Pick<ReplayData,'duration'|'sampleRate'|'ballSam
 }
 export function buildSeats(points:readonly InstancePoint[],outfieldStart=Infinity):Seat[] {
  const levels=[...new Set(points.slice(0,outfieldStart).map(p=>p[2].toFixed(3)))].map(Number).sort((a,b)=>a-b);
- const outfieldLevels=[...new Set(points.slice(outfieldStart).map(p=>p[2].toFixed(3)))].map(Number).sort((a,b)=>a-b);
+ // Curved returns may slope along a row; the generator supplies its shared row datum.
+ const rowElevation=(p:InstancePoint)=>p[9]??p[2];
+ const outfieldLevels=[...new Set(points.slice(outfieldStart).map(p=>rowElevation(p).toFixed(3)))].map(Number).sort((a,b)=>a-b);
  const tierFor=(z:number)=>z<26?0:z<32?1:z<38?2:3;
  const rows=[...levels.map(z=>({z,tier:tierFor(z)})),...outfieldLevels.map(z=>({z,tier:4}))];const counts=new Map<string,number>();
- return points.map((p,id)=>{const tier=id>=outfieldStart?4:tierFor(p[2]);const row=rows.filter(r=>r.tier===tier).findIndex(r=>Math.abs(r.z-p[2])<.002)+1;
+ return points.map((p,id)=>{const tier=id>=outfieldStart?4:tierFor(p[2]);const row=rows.filter(r=>r.tier===tier).findIndex(r=>Math.abs(r.z-(tier===4?rowElevation(p):p[2]))<.002)+1;
  const key=`${tier}:${row}`;const number=(counts.get(key)??0)+1;counts.set(key,number);
  return {id,tier,row,number,position:[p[0],p[2]+1.2,-p[1]],rotation:p[5]};});
 }
@@ -29,6 +31,8 @@ export function beatAt(data:Pick<ReplayData,'contact'|'waterCrossing'|'splash'>,
 
 export function samplePath(points:readonly Point[],progress:number):Point {
  if(points.length<2)throw new Error('A camera path needs at least two points');
+ if(progress<=0)return points[0];
+ if(progress>=1)return points[points.length-1];
  const lengths=points.slice(1).map((p,i)=>Math.hypot(...p.map((v,k)=>v-points[i][k])));
  let remaining=Math.max(0,Math.min(1,progress))*lengths.reduce((a,b)=>a+b,0);
  for(let i=0;i<lengths.length;i++){
