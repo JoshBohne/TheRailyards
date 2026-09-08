@@ -71,13 +71,8 @@ element<HTMLInputElement>('#track-ball').addEventListener('change',event=>{if(re
 element<HTMLInputElement>('#show-trail').addEventListener('change',event=>{if(renderer){renderer.showTrail=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
 element<HTMLInputElement>('#crowd').addEventListener('change',event=>{if(renderer){renderer.crowd.visible=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
 viewport.addEventListener('pointermove',()=>dirty=true);viewport.addEventListener('wheel',()=>dirty=true);window.addEventListener('resize',()=>dirty=true);
-const about=element<HTMLDialogElement>('#about');element('#about-open').addEventListener('click',()=>about.showModal());element('#about-close').addEventListener('click',()=>about.close());
 element('#fullscreen').addEventListener('click',async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await element('#experience').requestFullscreen();}catch{toast('Fullscreen is unavailable in this browser.');}});
-element('#share').addEventListener('click',async()=>{
- if(!renderer)return;const hash=new URLSearchParams({view:renderer.view,t:time.toFixed(2)});if(renderer.seat)hash.set('seat',String(renderer.seat.id));const url=new URL(location.href);url.hash=hash.toString();
- try{await navigator.clipboard.writeText(url.href);history.replaceState(null,'',url);toast('Link copied with this camera and replay time.');}catch{history.replaceState(null,'',url);toast('This view is saved in the address bar. Copy its link to share.');}
-});
-window.addEventListener('keydown',event=>{const target=event.target;if(target instanceof HTMLElement&&['INPUT','SELECT','BUTTON','A','TEXTAREA'].includes(target.tagName)||about.open||!data)return;
+window.addEventListener('keydown',event=>{const target=event.target;if(target instanceof HTMLElement&&['INPUT','SELECT','BUTTON','A','TEXTAREA'].includes(target.tagName)||!data)return;
  if(event.code==='Space'){event.preventDefault();togglePlay();}else if(event.key==='ArrowRight'){event.preventDefault();playing=false;seek(time+.1);}else if(event.key==='ArrowLeft'){event.preventDefault();playing=false;seek(time-.1);}else if(event.key.toLowerCase()==='r'){playing=false;seek(0);}
 });
 document.addEventListener('visibilitychange',()=>{previous=performance.now();dirty=true;});

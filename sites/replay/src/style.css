@@ -9,8 +9,7 @@
 
 .picker-modes{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:8px 10px 16px;border:1px solid #677780;border-radius:4px;overflow:hidden}.picker-modes #choose-seat,.picker-modes #choose-view{display:block;width:auto;margin:0;padding:13px 7px;border:0;border-radius:0;background:transparent;color:#d7e0e5;font-size:14px;font-weight:500;text-align:center}.picker-modes button[aria-pressed=true]{background:#e6b66a!important;color:#171c1f!important}.picker-modes button:focus-visible{outline-offset:-3px}.panel-title{padding-bottom:3px}
 
-/* Keep the scene dominant on narrow screens: the chooser sits in a shallow top sheet,
-   while the timeline becomes a translucent control rail. */
+/* Compact controls leave the center of the scene clear. */
 html{-webkit-font-smoothing:antialiased}
 h1,h2{text-wrap:balance}
 .panel{top:72px;left:24px;right:24px;width:min(560px,calc(100% - 48px));max-height:min(238px,calc(100svh - 220px));overflow:auto;background:rgba(16,24,29,.72);backdrop-filter:blur(12px) saturate(1.1);box-shadow:0 12px 35px rgba(0,0,0,.18)}
@@ -31,4 +30,15 @@ h1,h2{text-wrap:balance}
  .time-heading{font-size:10px}.time-heading #clock{font-size:10px}#timeline{height:18px;margin:0 0 2px}
  .playback{gap:6px;flex-wrap:nowrap}.playback button{min-height:42px;padding:7px 10px;font-size:11px}.playback .primary{min-width:78px}.playback #share,.playback #about-open{font-size:10px;padding-inline:8px}
  #share{margin-left:auto}
+}
+
+.panel{top:auto;bottom:12px;left:12px;right:auto;width:min(280px,calc(50% - 18px));max-height:230px}
+.transport{bottom:12px;right:12px;left:auto;width:min(320px,calc(50% - 18px))}
+.panel,.transport{background:rgba(10,18,22,.2);backdrop-filter:none;box-shadow:none;border-color:rgba(255,255,255,.22);text-shadow:0 1px 4px #000}
+.picker-modes button[aria-pressed=true]{background:rgba(230,182,106,.28)!important;color:#fff!important}
+.view-list button[aria-pressed=true],.playback .primary{background:rgba(230,182,106,.28);color:#fff;border-color:rgba(230,182,106,.5)}
+.metrics{bottom:260px}
+@media(max-width:800px){
+ .panel{max-height:175px}.panel-title{padding:8px}.picker-modes{margin:4px 6px}.picker-modes #choose-seat,.picker-modes #choose-view{font-size:12px;padding:7px 3px}
+ .view-list{grid-template-columns:1fr}.transport{padding:8px}.time-heading{flex-direction:column;gap:4px}.playback .primary{width:100%;min-width:0}.metrics{bottom:205px}
 }
