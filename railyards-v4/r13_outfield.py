@@ -110,7 +110,7 @@ def trim_pavilion(scene):
     remove_collection('D2_Left field terrace dining')
 
 
-def curved_returns(scene, batch, spec, side, rng):
+def curved_returns(scene, batch, spec, side, rng, point_mapper=None):
     group = 'V13 '+side+' seating return'
     is_rf = side == 'RF'
     front = [Vector(p) for p in spec['bowl_front']]
@@ -141,6 +141,8 @@ def curved_returns(scene, batch, spec, side, rng):
     for tier,(ta,tb,za,zb,rows) in enumerate(tiers):
         ea,eb = [Vector((*p,0)) for p in ends[tier]]
         def at(t, z, s):
+            if point_mapper is not None:
+                return point_mapper(f, b, t, z, s)
             fraction=(t-ta)/(tb-ta)
             start=f.lerp(b,t)
             direction=(start-fn.lerp(bn,t)).normalized()
@@ -179,7 +181,7 @@ def curved_returns(scene, batch, spec, side, rng):
                 # Two half-risers in every aisle; the seating rake itself is
                 # deliberately steeper than a pedestrian stair.
                 batch.quad(group,'concrete',[tuple(p),tuple(q),tuple(at(t1,z+rise,s1)),tuple(at(t1,z+rise,s0))])
-                if aisle:
+                if aisle and point_mapper is None:
                     a=at(midt,z+rise/2,s0);c=at(midt,z+rise/2,s1)
                     batch.quad(group,'stone',[tuple(a),tuple(c),tuple(at(t1,z+rise/2,s1)),tuple(at(t1,z+rise/2,s0))])
             # Uniform seat spacing, with the same radial aisle stations on each row.
@@ -213,7 +215,7 @@ def curved_returns(scene, batch, spec, side, rng):
                 rail(batch,group,tuple(p2),tuple(q2),1.05)
         # Rakers connect tread undersides, and columns connect those rakers to
         # the z8 foundation datum. Avoid both field and tower shaft.
-        for s in [.04,.18,.34,.50,.66,.82,.98]:
+        for s in ([] if point_mapper is not None else [.04,.18,.34,.50,.66,.82,.98]):
             a,c=at(ta,za-.4,s),at(tb,zb-.4,s)
             if allowed(a) and allowed(c):
                 batch.cylinder(group,'concrete',a,c,.26,sides=8)
