@@ -11,8 +11,8 @@ Run `railyards-v4/build_replay_v10.py -- --version 14` against that consolidated
 Render these from the consolidated **static** scene:
 
 - `railyards-v4/render_audit_v14.py`, with `REVIEW_OUT=work/night-game/stills` and `VIEWS=frontage,south-extension,south-extension-plan,tower-corner,south,north,bridge,lf-roof-field,lf-roof-rear`.
-- `sites/render-current-gallery.py` for the interior, riverbank and skyline stills.
-- `sites/render-social-preview.py`, with `RAILYARDS_SOCIAL_OUT=work/night-game/og-home-run.png`.
+- `sites/render-current-gallery.py` for the interior, riverbank and skyline stills. Set `VIEWS=home-plate` to render only the skyline-focused home-plate camera; the default renders all views.
+- `sites/render-social-preview.py`, with `RAILYARDS_SOCIAL_OUT=work/night-game/og-home-run.png`. The published typography edit also requires `og-home-run-layout2.png` and its hash receipt; see [Social card layout](SOCIAL-CARD-LAYOUT.md).
 - `sites/verify-current-scene.py`, with `RAILYARDS_SCENE_CHECK=work/night-game/scene-check.json`.
 
 Render `sites/render-night-game.py` from the **animated** scene, setting `RAILYARDS_HERO_OUT=work/night-game/frames`. It renders 288 frames at 24 fps. Use `RAILYARDS_HERO_FRAMES=36,84,138,202` and a separate output directory for camera previews. A preview receipt cannot be packaged as a complete film.
