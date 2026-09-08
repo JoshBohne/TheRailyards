@@ -297,3 +297,16 @@ nav{width:100%;
 .timeline-note,.timeline-sources{font-size:12px;color:#62625d;max-width:75ch}
 .timeline-sources{margin-top:8px}
 @media(max-width:850px){.project-timeline{display:block;margin-top:28px}.project-timeline li{border-top:0;border-left:1px solid #b8b8b0;padding:0 0 28px 24px;margin-left:4px}.project-timeline li:last-child{padding-bottom:0;border-left-color:transparent}.project-timeline li::before{left:-5px;top:5px}.timeline-date{margin-bottom:6px}.project-timeline h3{margin-bottom:6px}.project-timeline li>p:last-child{max-width:55ch}}
+
+.city-footer{background:#f0efe8;overflow:hidden;margin-top:24px;padding-top:32px}
+.city-footer .site-footer{border:0;padding-block:0 12px}
+.footer-skyline{width:100%;max-width:1600px;margin:20px auto 0;overflow:hidden;line-height:0}
+.footer-skyline svg{display:block;width:100%;height:auto;max-height:390px}
+.skyline-building{transform-box:view-box;transform-origin:center bottom}
+.skyline-arriving .skyline-building{animation:skyline-rise 1.4s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--rise-delay)}
+.skyline-lights{opacity:0}
+.skyline-arriving .skyline-lights{animation:skyline-lights 2.5s ease-out 1.1s both}
+@keyframes skyline-rise{from{transform:translateY(85%)}to{transform:translateY(0)}}
+@keyframes skyline-lights{0%,30%{opacity:0}55%{opacity:.85}70%{opacity:.3}100%{opacity:.85}}
+@media(max-width:700px){.city-footer{padding-top:26px}.footer-skyline{margin-top:28px}.footer-skyline svg{width:150%;max-width:none;margin-left:-25%}.city-footer .site-disclosure{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.skyline-arriving .skyline-building,.skyline-arriving .skyline-lights{animation:none}.skyline-lights{opacity:.85}}
