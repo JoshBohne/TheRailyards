@@ -1,0 +1,18 @@
+{
+  "scene": "railyards-v13-static.blend",
+  "sha256": "a7a91eb210a7904ca3678ae2e8c823ab3f53ad9587ff24fb87eb42db8c3101c8",
+  "checks": [
+    "speculative layer absent",
+    "old venue and bascules replaced",
+    "generic powerhouse hidden",
+    "new context visible in four lighting modes",
+    "external images available or packed"
+  ],
+  "visual_evidence": [
+    "riverfront",
+    "district",
+    "powerhouse",
+    "bridges"
+  ],
+  "limits": "Image-derived architecture and raised bridge pose, not surveyed geometry or operational status. Local saved-scene proof only."
+}
