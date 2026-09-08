@@ -27,7 +27,7 @@ for page in root.glob('*.html'):
         if parsed.fragment and path.suffix=='.html' and '=' not in parsed.fragment:
             other=Links();other.feed(path.read_text());assert parsed.fragment in other.ids,(page,url)
     if 'og:image' in parser.meta:
-        assert parser.meta['og:image'].endswith('/media/og-home-run-v14.jpg')
+        assert parser.meta['og:image'].endswith('/media/og-home-run-v14-layout2.jpg')
         assert parser.meta['twitter:image']==parser.meta['og:image']
         assert parser.meta['og:image:width']=='1200' and parser.meta['og:image:height']=='630'
     assert not re.search(r'media/(?:model-|v12-|v13-)',text),page

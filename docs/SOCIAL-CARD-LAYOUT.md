@@ -1,0 +1,11 @@
+# Social card layout
+
+The second V14 social card uses the built-in image generation tool to edit the native Blender card. It is an illustrative promotional edit, not additional saved-scene verification. The native render remains preserved as `work/night-game/og-home-run.png`.
+
+The layout gives the stadium and trajectory the left side, groups the headline in the upper right, and places both distances together in the lower right. The published image is 1200 × 630 with a new URL, `media/og-home-run-v14-layout2.jpg`, shared by Open Graph and Twitter metadata on all five pages.
+
+The generated PNG and its provenance receipt live in `work/night-game/og-home-run-layout2.png` and `.json`. Packaging verifies the PNG hash and records its native source scene hash and edit provenance in the release manifest. Generated images remain outside Git.
+
+## Generation prompt
+
+Edit this exact Railyards stadium social share card into a refined editorial OG image, same wide 1200:630 ratio. Preserve the stadium scene, architecture, camera, field, buildings and gold home-run trajectory and splash position exactly as closely as possible. Only improve typography, layout and text legibility. Remove all existing overlay text first. Upper right negative space: small ivory uppercase eyebrow 'THE RAILYARDS', then bold sophisticated condensed sans headline 'HOME RUNS' on first line and 'INTO THE RIVER?' on second, left-aligned, bright ivory, generous clear margin 48px, clean dark backdrop locally subtle. Keep headline away from stadium field and trajectory. Lower right over darkest river/plaza foreground: single compact left-aligned metric group '423 ft' large warm gold then 'TO THE RIVER EDGE' small ivory uppercase, and beneath '469 ft to the illustrated splash' in smaller ivory. Group should be visually clear and not touch right/bottom edges, and not obscure the powerhouse facade. Bottom left in small ivory 'An illustrative Blender reconstruction'. Bottom right at very bottom small 'Modeled distances'. Strong squint-test hierarchy: stadium/trajectory first, headline second, distance third. No borders, pills, cards, extra decoration, no extra labels. Text must be accurate. Preserve actual render's aesthetic; do not invent new stadium details.
