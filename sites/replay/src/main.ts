@@ -5,17 +5,17 @@ import { beatAt,buildSeats,nearestSeat,tierNames,type ReplayData,type Seat } fro
 function element<T extends HTMLElement>(selector:string):T {
  const found=document.querySelector<T>(selector);if(!found)throw new Error(`Missing replay control: ${selector}`);return found;
 }
-const viewport=element('#viewport');const play=element<HTMLButtonElement>('#play');const restart=element<HTMLButtonElement>('#restart');
+const viewport=element('#viewport');const play=element<HTMLButtonElement>('#play');
 const timeline=element<HTMLInputElement>('#timeline');const clock=element('#clock');const beat=element('#beat');
 const tierControl=element<HTMLSelectElement>('#tier');const rowControl=element<HTMLSelectElement>('#row');const seatControl=element<HTMLSelectElement>('#seat');
 const map=element<HTMLCanvasElement>('#seat-map');const loading=element('#loading');
 let renderer:ReplayRenderer;let data:ReplayData;let seats:Seat[]=[];let selected:Seat|undefined;
-let time=0;let playing=false;let speed=1;let dirty=true;let previous=0;let lastRender=0;let toastTimer:ReturnType<typeof setTimeout>|undefined;
+let time=0;let playing=false;let dirty=true;let previous=0;let lastRender=0;let toastTimer:ReturnType<typeof setTimeout>|undefined;
 
 function toast(text:string):void{element('#toast').textContent=text;if(toastTimer)clearTimeout(toastTimer);toastTimer=setTimeout(()=>element('#toast').textContent='',3500);}
 function updateControls():void{
  timeline.value=String(time);clock.textContent=`${time.toFixed(1)} / ${data.duration.toFixed(1)} s`;beat.textContent=beatAt(data,time);
- play.textContent=playing?'Pause':time>=data.duration?'Replay the hit':'Play the hit';play.setAttribute('aria-pressed',String(playing));
+ play.textContent=playing?'Pause':time>=data.duration?'Replay':'Play';play.setAttribute('aria-pressed',String(playing));
 }
 function seek(next:number):void{time=Math.max(0,Math.min(data.duration,next));dirty=true;updateControls();}
 function togglePlay():void{if(!renderer)return;if(time>=data.duration)time=0;playing=!playing;previous=performance.now();dirty=true;updateControls();}
@@ -65,9 +65,8 @@ function setPickerMode(mode:'seat'|'view'):void{
 element('#choose-seat').addEventListener('click',()=>setPickerMode('seat'));
 element('#choose-view').addEventListener('click',()=>setPickerMode('view'));
 
-play.addEventListener('click',togglePlay);restart.addEventListener('click',()=>{seek(0);playing=true;previous=performance.now();updateControls();});
+play.addEventListener('click',togglePlay);
 timeline.addEventListener('input',()=>{if(!data)return;playing=false;seek(Number(timeline.value));});
-element<HTMLSelectElement>('#speed').addEventListener('change',event=>speed=Number((event.currentTarget as HTMLSelectElement).value));
 element<HTMLInputElement>('#track-ball').addEventListener('change',event=>{if(renderer){renderer.trackBall=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
 element<HTMLInputElement>('#show-trail').addEventListener('change',event=>{if(renderer){renderer.showTrail=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
 element<HTMLInputElement>('#crowd').addEventListener('change',event=>{if(renderer){renderer.crowd.visible=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
@@ -84,7 +83,7 @@ window.addEventListener('keydown',event=>{const target=event.target;if(target in
 document.addEventListener('visibilitychange',()=>{previous=performance.now();dirty=true;});
 function frame(now:number):void{
  requestAnimationFrame(frame);const elapsed=Math.min(.1,(now-previous)/1000);previous=now;if(document.hidden)return;
- if(playing){time+=elapsed*speed;if(time>=data.duration){if(element<HTMLInputElement>('#loop').checked)time%=data.duration;else{time=data.duration;playing=false;}}dirty=true;updateControls();}
+ if(playing){time+=elapsed;if(time>=data.duration){time=data.duration;playing=false;}dirty=true;updateControls();}
  const budget=innerWidth<800?1000/30:1000/60;if(dirty&&now-lastRender>=budget){renderer.render(time);lastRender=now;dirty=false;}
 }
 async function start():Promise<void>{
@@ -98,7 +97,7 @@ async function start():Promise<void>{
   if(seats.length!==data.seatCount)throw new Error('Seat export count does not match the replay');
   renderer=new ReplayRenderer(viewport,data);renderer.controls.addEventListener('change',()=>dirty=true);
   await renderer.load((text,percent)=>{element('#loading-status').textContent=text;element<HTMLProgressElement>('#load-progress').value=percent;});
-  element('#water-distance').textContent=String(data.waterDistanceFt);element('#splash-distance').textContent=String(data.splashDistanceFt);timeline.max=String(data.duration);play.disabled=false;restart.disabled=false;loading.hidden=true;
+  element('#water-distance').textContent=String(data.waterDistanceFt);element('#splash-distance').textContent=String(data.splashDistanceFt);timeline.max=String(data.duration);play.disabled=false;loading.hidden=true;
   selected=nearestSeat(seats,[-12,19,12],0);updateSeatControls(selected);
   const hash=new URLSearchParams(location.hash.slice(1));const desired=hash.get('view');const seatId=Number(hash.get('seat'));
   if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId]){selectView('seat',seats[seatId]);setPickerMode('seat');}else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');
