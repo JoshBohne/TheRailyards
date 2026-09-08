@@ -33,6 +33,16 @@
       document.querySelector('#gallery-count').textContent = `${visible} ${filter === 'all' ? 'views' : filter}`;
     });
   });
+  const skyline = document.querySelector('.footer-skyline');
+  if (skyline && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        skyline.classList.add('skyline-arriving');
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    observer.observe(skyline);
+  }
   const film = document.querySelector('#overview-film');
   if (film && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     film.play().catch(() => { film.controls = true; });
