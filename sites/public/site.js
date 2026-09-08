@@ -30,7 +30,8 @@
         else visible++;
       });
       document.querySelectorAll('[data-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
-      document.querySelector('#gallery-count').textContent = `${visible} ${filter === 'all' ? 'views' : filter}`;
+      const label = filter === 'all' ? 'views' : filter;
+      document.querySelector('#gallery-count').textContent = `${visible} ${visible === 1 ? label.slice(0, -1) : label}`;
     });
   });
   const skyline = document.querySelector('.footer-skyline');
@@ -48,3 +49,38 @@
     film.play().catch(() => { film.controls = true; });
   }
 })();
+
+const feedbackDialog = document.querySelector('#feedback-dialog');
+const feedbackForm = document.querySelector('#feedback-form');
+if (feedbackDialog instanceof HTMLDialogElement && feedbackForm instanceof HTMLFormElement) {
+  const status = document.querySelector('#feedback-status');
+  const submit = feedbackForm.querySelector('[type="submit"]');
+  let submissionId = crypto.randomUUID();
+  let lastPayload = '';
+  document.querySelectorAll('[data-feedback-open]').forEach(button => button.addEventListener('click', () => feedbackDialog.showModal()));
+  document.querySelector('[data-feedback-close]')?.addEventListener('click', () => feedbackDialog.close());
+  feedbackForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    if (!feedbackForm.reportValidity() || submit.disabled) return;
+    const fields = new FormData(feedbackForm);
+    const payload = { message: String(fields.get('message') || '').trim(), category: fields.get('category'), page: location.pathname, website: fields.get('website') };
+    const serialized = JSON.stringify(payload);
+    if (lastPayload && serialized !== lastPayload) submissionId = crypto.randomUUID();
+    lastPayload = serialized;
+    submit.disabled = true;
+    status.textContent = 'Sending…';
+    try {
+      const response = await fetch('/api/feedback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: submissionId, ...payload }) });
+      const result = await response.json();
+      if (response.status !== 201 || result.message !== 'Saved.') throw new Error('Feedback was not saved');
+      status.textContent = 'Thanks — your feedback is saved for Josh.';
+      feedbackForm.reset();
+      submissionId = crypto.randomUUID();
+      lastPayload = '';
+    } catch {
+      status.textContent = 'Your feedback wasn’t saved. Please try again; your message is still here.';
+    } finally {
+      submit.disabled = false;
+    }
+  });
+}

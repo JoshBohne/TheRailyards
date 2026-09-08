@@ -1,21 +1,15 @@
-"""Build the public site from templates and checksum-pinned V12 release media."""
+"""Build the public site from one verified current-scene media release.
+
+No archived V12/V13 model assets are substituted. Prepare the release with
+package-current-media.py after the native renders and replay export finish.
+"""
 import argparse
 import hashlib
 import json
 import shutil
 import subprocess
 import struct
-import urllib.request
-import zipfile
 from pathlib import Path
-
-RELEASE = "https://github.com/JoshBohne/TheRailyards/releases/download/v12-proportions/"
-ARCHIVES = {
-    "public": "025eeee304a2d8d0463c45ddc22f412d21dd207f53a4e9b5e9876b309800e283",
-    "additions": "a4e6dcf79fc3957ba9dbdc0f2932b5528b18ddd5c4270c0c24e4ecdf1879f586",
-    "review": "81aa3dbbea9d33efa399314fb152e7cfa3dcde0987c89140f98ceaa0fefdb5eb",
-}
-
 
 def split_venue(output):
     """Keep the existing Draco geometry, splitting its buffer for static hosting."""
@@ -60,73 +54,59 @@ def split_venue(output):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--templates", type=Path, default=Path(__file__).resolve().parent / ("public" if (Path(__file__).resolve().parent / "public").exists() else "templates"))
-    parser.add_argument("--output", type=Path, default=Path("dist"))
-    parser.add_argument("--assets", type=Path, default=Path(".cache"))
-    parser.add_argument("--site-url", default="")
+    parser.add_argument('--templates', type=Path, default=Path(__file__).resolve().parent / 'public')
+    parser.add_argument('--release-root', type=Path, required=True)
+    parser.add_argument('--replay-dist', type=Path, default=Path(__file__).resolve().parent / 'replay/dist')
+    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parent / 'runtime/dist/client')
+    parser.add_argument('--site-url', default='https://therailyards.jbohne.chatgpt.site')
     args = parser.parse_args()
-    args.assets.mkdir(parents=True, exist_ok=True)
+    release = args.release_root.resolve()
+    receipt = json.loads((release / 'release.json').read_text())
+    if receipt['sceneVersion'] != 14:
+        raise ValueError('Expected the current V14 release')
+    for item in receipt['files']:
+        path = release / item['path']
+        if not path.resolve().is_relative_to(release):
+            raise ValueError('Invalid release path')
+        if hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']:
+            raise ValueError(f'Release checksum mismatch: {path}')
+    replay = json.loads((release / 'model/replay.json').read_text())
+    if replay['sourceStaticSha256'] != receipt['sourceStaticSha256']:
+        raise ValueError('Replay and rendered scene disagree')
+    if not (args.replay_dist / 'index.html').is_file():
+        raise FileNotFoundError(args.replay_dist / 'index.html')
     output = args.output.resolve()
-    if output == args.templates.resolve() or output == Path.cwd():
-        raise ValueError("Output must be separate from source")
+    for source in [args.templates.resolve(), release, Path.cwd()]:
+        if source == output or source.is_relative_to(output):
+            raise ValueError('Output must be separate from source')
     if output.exists():
         shutil.rmtree(output)
     output.mkdir(parents=True)
-    for kind in ("public", "review", "additions"):
-        expected = ARCHIVES[kind]
-        name = "railyards-v12-camera-views.zip" if kind == "additions" else f"railyards-v12-{kind}-site.zip"
-        archive = args.assets / name
-        if not archive.exists():
-            with urllib.request.urlopen(RELEASE + name, timeout=60) as response:
-                archive.write_bytes(response.read())
-        if hashlib.sha256(archive.read_bytes()).hexdigest() != expected:
-            raise ValueError(f"Release checksum mismatch: {name}")
-        if kind == "additions" and (output / "replay").exists():
-            shutil.rmtree(output / "replay")
-        with zipfile.ZipFile(archive) as source:
-            for item in source.infolist():
-                path = Path(item.filename)
-                if item.is_dir() or path.is_absolute() or ".." in path.parts:
-                    continue
-                relative = path.relative_to(kind)
-                if kind in ("public", "additions") and relative.parts[0] in ("media", "replay"):
-                    target = output / relative
-                elif kind == "review" and str(relative) in (
-                    "media/source-south.jpg", "media/source-bridge.jpg",
-                    "media/v12-south.jpg", "media/v12-bridge.jpg",
-                ):
-                    target = output / str(relative).replace("v12-", "model-")
-                else:
-                    continue
-                target.parent.mkdir(parents=True, exist_ok=True)
-                target.write_bytes(source.read(item))
+    shutil.copytree(release / 'media', output / 'media')
+    shutil.copytree(args.replay_dist, output / 'replay', ignore=shutil.ignore_patterns('model'))
+    shutil.copytree(release / 'model', output / 'replay/model')
     split_venue(output)
-    replay_page = output / "replay/index.html"
-    replay_html = replay_page.read_text().replace('href="../"', 'href="../index.html" target="_top"')
-    replay_html = replay_html.replace('href="../index.html" target="_top">Watch the rendered films',
-                                      'href="../gallery.html#films" target="_top">Watch the rendered films')
-    replay_page.write_text(replay_html)
     for source in args.templates.iterdir():
-        if source.is_file() and source.suffix in (".html", ".css", ".js", ".svg"):
-            target = output / source.name
-            if source.suffix == ".html":
-                text = source.read_text()
-                if args.site_url:
-                    text = text.replace("{{SITE_URL}}", args.site_url.rstrip("/"))
-                else:
-                    text = "\n".join(line for line in text.splitlines() if "{{SITE_URL}}" not in line)
-                target.write_text(text)
-            else:
-                shutil.copy2(source, target)
-    revision = subprocess.run(["git", "rev-parse", "HEAD"], text=True, capture_output=True)
-    commit = revision.stdout.strip() if revision.returncode == 0 else None
-    manifest = {"commit": commit, "sceneVersion": 12, "releaseChecksums": ARCHIVES,
-                "files": [{"path": str(p.relative_to(output)), "bytes": p.stat().st_size,
-                           "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
-                          for p in sorted(output.rglob("*")) if p.is_file()]}
-    (output / "build-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    print(f"Built {len(manifest['files'])} files in {output}")
+        if not source.is_file() or source.suffix not in ('.html', '.css', '.js', '.svg'):
+            continue
+        target = output / source.name
+        if source.suffix == '.html':
+            target.write_text(source.read_text().replace('{{SITE_URL}}', args.site_url.rstrip('/')))
+        else:
+            shutil.copy2(source, target)
+    revision = subprocess.run(['git', 'rev-parse', 'HEAD'], text=True, capture_output=True, check=True).stdout.strip()
+    files = [{'path': str(p.relative_to(output)), 'bytes': p.stat().st_size,
+              'sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
+             for p in sorted(output.rglob('*')) if p.is_file()]
+    oversized = [p['path'] for p in files if p['bytes'] >= 25 * 1024 * 1024]
+    if oversized:
+        raise ValueError(f'Files exceed hosting limit: {oversized}')
+    manifest = {'commit': revision, 'sceneVersion': 14, 'sourceStaticSha256': receipt['sourceStaticSha256'],
+                'sourceAnimatedSha256': receipt['sourceAnimatedSha256'], 'seatCount': replay['seatCount'],
+                'releaseSha256': hashlib.sha256((release / 'release.json').read_bytes()).hexdigest(), 'files': files}
+    (output / 'build-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    print(f"Built {len(files)} files from the verified V14 release in {output}")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

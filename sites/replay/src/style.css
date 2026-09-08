@@ -29,3 +29,5 @@ summary{font-size:14px;min-height:44px;cursor:pointer;padding-block:12px}
 .ball-locator{position:absolute;width:9px;height:9px;border-radius:50%;background:#ffe2a0;border:1px solid #63451d;transform:translate(-50%,-50%);pointer-events:none}
 [hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:600px){header{padding:10px}.panel{left:8px;bottom:8px;width:calc(100% - 96px);padding:8px;max-height:66%}.transport{right:8px;bottom:8px;width:72px;display:flex;flex-direction:column;gap:4px;padding:6px}.playback{order:0}.time-heading{order:1;font-size:10px;letter-spacing:-.02em}#timeline{order:2;height:28px}.view-list{grid-template-columns:1fr 1fr}.view-list button{font-size:13px;padding:6px}.picker-modes{gap:4px}.picker-modes button{font-size:13px;padding:6px}.panel-title h2{margin-bottom:6px}}
+/* Keep the tier, row and seat selectors visible when seat mode opens. */
+#seat-map{width:min(100%,220px);margin-inline:auto}

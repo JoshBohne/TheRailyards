@@ -35,7 +35,8 @@ test('spatial culling retains every instance exactly once, including outside the
 
 test('sloping outfield returns retain their authored rows',()=>{
  if(data.version<13)return;
- for(const [name,maxRows] of [['LF',41],['RF',24]] as const){
+ // V14 keeps a 24-row lower return and an eight-row middle band.
+ for(const [name,maxRows] of [['LF',data.version>=14?32:41],['RF',data.version>=14?32:24]] as const){
   const group=data.instances.find(g=>g.name===`D2_${name} return individual seats`)!;
   assert.ok(group.points.length>1000);
   assert.ok(group.points.every(p=>Number.isFinite(p[9])));

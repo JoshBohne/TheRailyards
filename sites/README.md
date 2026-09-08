@@ -1,3 +1,9 @@
+# The Railyards site
+
+The current public site and database-backed feedback runtime follow [the V14 site release instructions](../docs/V14-SITE-RELEASE.md). Build with `sites/build-hosted.py --release-root work/night-game/release`; the current builder does not fall back to archived model media.
+
+The instructions below describe the preserved earlier experience/review builds.
+
 # Browser-first Railyards experiences
 
 The public experience is deliberately split from the model-review surface. Both are static builds that consume rendered artifacts rather than exposing Blender as the viewing interface.

@@ -1,0 +1,22 @@
+{
+  "name": "railyards-site-runtime",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "dev": "wrangler dev --port 8871",
+    "db:generate": "drizzle-kit generate",
+    "test": "node --experimental-strip-types --test worker.test.ts"
+  },
+  "dependencies": {
+    "@openai/sites-vite-plugin": "0.2.0"
+  },
+  "devDependencies": {
+    "vite": "8.2.2",
+    "drizzle-kit": "0.31.10",
+    "drizzle-orm": "0.44.7",
+    "wrangler": "4.129.1",
+    "typescript": "7.0.2",
+    "@types/node": "^26.4.1"
+  }
+}

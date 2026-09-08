@@ -312,3 +312,25 @@ nav{width:100%;
 @media(prefers-reduced-motion:reduce){.skyline-arriving .skyline-building,.skyline-arriving .skyline-lights{animation:none}.skyline-lights{opacity:.85}}
 .field-dimensions dl{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin:1.5rem 0}.field-dimensions dt{font-size:.8rem;color:var(--muted,#777)}.field-dimensions dd{margin:.3rem 0 0;font-size:clamp(1.2rem,3vw,2rem);font-weight:600}.view-note{display:block;margin-top:.35rem;font-size:.72rem;font-weight:400;line-height:1.5;color:var(--muted,#777)}@media(max-width:540px){.field-dimensions dl{grid-template-columns:repeat(3,1fr);gap:1.25rem .5rem}}
 .gallery-grid figcaption:has(.view-note){display:block}.gallery-grid figcaption .view-note{max-width:none;text-align:left}
+
+/* Field measurements and the seat picker share one compact overview panel. */
+.ballpark-facts{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,6vw,88px);align-items:center}
+.field-diagram svg{display:block;width:100%;max-width:440px;margin:24px auto 8px;overflow:visible}
+.field-track{fill:#c5ae8d}.field-grass{fill:#446959}.field-infield{fill:#b89a74}.field-lines{fill:none;stroke:#f9f6ec;stroke-width:1.5}.field-labels{fill:#272e2b;font:600 18px system-ui;text-anchor:middle}
+.seat-summary{border-left:1px solid var(--line,#deded7);padding-left:clamp(24px,4vw,56px)}
+.seat-summary .eyebrow{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#636d65}
+.seat-summary strong{display:block;font-size:clamp(42px,6vw,66px);font-weight:500;letter-spacing:-.05em;line-height:1.2;margin-top:12px}
+.seat-summary p{max-width:30ch;line-height:1.6}.seat-summary .section-note{font-size:12px}
+.primary-link{display:inline-flex;align-items:center;gap:24px;padding:12px 20px;background:#244a39;color:#fff;border:1px solid #244a39;border-radius:4px;text-decoration:none;font:inherit;cursor:pointer}
+.primary-link:hover{background:#193729}.primary-link:disabled{opacity:.55;cursor:wait}
+.maker-note{max-width:760px;line-height:1.8}.maker-lede{font-size:clamp(22px,3vw,32px);line-height:1.45;letter-spacing:-.025em}.maker-signature{color:#71776f}
+.build-conversations{list-style:none;padding:0;max-width:780px}.build-conversations li{position:relative;margin:0;padding:28px 0;border-bottom:1px solid #dfdfd7}.build-conversations li>span{font-size:12px;color:#6c756d;letter-spacing:.06em}.build-conversations h3{font-size:21px;margin:8px 0}.build-conversations p{line-height:1.75;margin:0;color:#50594f}
+.feedback-open{font:inherit;font-size:13px;background:transparent;color:inherit;border:1px solid #d5d9d2;border-radius:4px;padding:7px 12px;cursor:pointer}
+#feedback-dialog{width:min(520px,calc(100vw - 32px));box-sizing:border-box;padding:28px;border:1px solid #d5d9d2;border-radius:8px;background:#fafbf6;color:#242c25;box-shadow:0 16px 80px #0003}
+#feedback-dialog::backdrop{background:#12221c80}#feedback-dialog p{line-height:1.6;font-size:14px;color:#606b61}
+.feedback-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}.feedback-heading h2{margin:0;font-size:24px}.feedback-heading button{border:0;background:transparent;font-size:26px;cursor:pointer;color:inherit}
+#feedback-form label{display:block;font-size:13px;margin:18px 0 6px}#feedback-form textarea,#feedback-form select{font:inherit;font-size:16px;padding:10px;width:100%;box-sizing:border-box;border:1px solid #c6cec5;border-radius:4px;background:#fff;color:#253328}#feedback-form textarea{resize:vertical}
+#feedback-dialog .feedback-privacy{font-size:12px}#feedback-status:empty{display:none}#feedback-dialog #feedback-status{color:#254d36}.feedback-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+@media(max-width:640px){.ballpark-facts{grid-template-columns:1fr;gap:26px}.seat-summary{border-left:0;border-top:1px solid #deded7;padding:26px 0 0}.field-diagram svg{max-width:360px}.site-header{flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px}.site-header nav{order:3;width:100%;justify-content:space-between;gap:8px}.site-header nav a{font-size:12px}.feedback-open{margin-left:auto}#feedback-dialog{padding:22px}}
+.river-explainer{margin:22px 0 0;padding:16px 0;border-bottom:1px solid #deded7}.river-explainer summary{cursor:pointer;font-size:15px;font-weight:500}.river-explainer p{font-size:14px;line-height:1.7;color:#586358;max-width:80ch}
+.maker-lede{margin-bottom:18px}.maker-signature{margin-top:12px}

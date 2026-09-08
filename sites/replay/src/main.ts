@@ -82,7 +82,7 @@ async function start():Promise<void>{
  try{
   const response=await fetch(new URL('model/replay.json',document.baseURI));if(!response.ok)throw new Error(`Replay data failed (${response.status})`);
   data=await response.json() as ReplayData;
-  if(![10,11,12,13].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
+  if(![10,11,12,13,14].includes(data.version)||!Array.isArray(data.ballSamples)||data.ballSamples.length<2||!Number.isFinite(data.duration)||data.duration<=0)throw new Error('Replay data is incomplete');
   const bowl=data.instances.find(g=>g.name==='D2_Individual seats');if(!bowl)throw new Error('The seat geometry is missing');
   const outfieldGroups=data.instances.filter(g=>g!==bowl&&g.name.toLowerCase().includes('individual seats'));
   seats=buildSeats([...bowl.points,...outfieldGroups.flatMap(g=>g.points)],bowl.points.length);
@@ -93,9 +93,10 @@ async function start():Promise<void>{
   selected=nearestSeat(seats,[-12,19,12],0);updateSeatControls(selected);
   const hash=new URLSearchParams(location.hash.slice(1));const desired=hash.get('view');const seatId=Number(hash.get('seat'));
   if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId]){selectView('seat',seats[seatId]);setPickerMode('seat');}else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');
+  if(hash.get('mode')==='seat'&&desired!=='seat')setPickerMode('seat');
   const initial=Number(hash.get('t'));seek(Number.isFinite(initial)?initial:0);
 
   viewport.dataset.ready='true';previous=performance.now();requestAnimationFrame(frame);
- }catch(error:unknown){console.error(error);element('#loading-status').textContent='The interactive scene could not load. You can still watch all four rendered films.';element<HTMLProgressElement>('#load-progress').hidden=true;viewport.dataset.error=error instanceof Error?error.message:'Unknown loading error';}
+ }catch(error:unknown){console.error(error);element('#loading-status').textContent='The interactive scene could not load. You can still watch the night-game film.';element<HTMLProgressElement>('#load-progress').hidden=true;viewport.dataset.error=error instanceof Error?error.message:'Unknown loading error';}
 }
 void start();

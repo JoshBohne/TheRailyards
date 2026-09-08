@@ -1,7 +1,8 @@
 """Fixed audit and source cameras, rendered from the saved correction scene."""
-import bpy,sys,os
+import bpy,sys,os,json,hashlib
 from pathlib import Path
 from mathutils import Vector
+SOURCE_SHA=hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest()
 ROOT=Path(__file__).resolve().parent
 sys.path.insert(0,str(ROOT))
 from r2_lighting import apply_lighting
@@ -26,3 +27,5 @@ for name in os.environ.get('VIEWS','bank-front,bank-underneath,park-underpass').
   c=bpy.data.cameras.new('V14 review '+name);o=bpy.data.objects.new(c.name,c);s.collection.objects.link(o);o.location=p;o.rotation_euler=(Vector(t)-Vector(p)).to_track_quat('-Z','Y').to_euler();c.lens=lens;c.clip_end=20000;s.camera=o
   if name in ['tower-plan','south-extension-plan']:c.type='ORTHO';c.ortho_scale=175 if name=='tower-plan' else 130
  s.render.filepath=str(out/f'{name}.png');bpy.ops.render.render(write_still=True)
+ image=Path(s.render.filepath)
+ image.with_suffix('.render.json').write_text(json.dumps({'sourceStaticSha256':SOURCE_SHA,'imageSha256':hashlib.sha256(image.read_bytes()).hexdigest(),'camera':{'position':list(s.camera.location),'rotation':list(s.camera.rotation_euler),'lens':s.camera.data.lens},'generator':Path(__file__).name},indent=2)+'\n')
