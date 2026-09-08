@@ -26,6 +26,18 @@ RING_OFFSET=10.0  # bleacher zone depth behind the outfield wall (m); terraces e
 END_WALL_THICKNESS=1.0
 END_WALL_BASE=8.0  # wall stands on the z8 ground east of the podium edge, no lip
 TIERS=[(0.0,.34,14,24),(.40,.49,27,30),(.55,.65,33,36),(.70,.93,39,47)]
+# V12: the upper two tiers continue past the bowl's traced end to the clock
+# tower (r12_outfield.build_tower_end).  The end wall therefore stops rising at
+# the tier-3 datum, the tower link block becomes the platform under and in
+# front of that extension, and both end at the same face west of the shaft.
+EXTENSION_T=.53      # bowl depth from which the tiers carry on to the tower
+PLATFORM_Z=32.6      # paved top of the link block (tier 3's first row is at 33)
+LINK_EAST_CLEAR=7.0  # link block / extension face is this far west of the tower centre
+LINK_NORTH=30.0      # link block runs this far north of the tower centre (was 10.2)
+
+
+def link_east_x(spec):
+    return float(spec['anchors']['tower_roof'][0])-LINK_EAST_CLEAR
 
 
 def _unit(p):
@@ -100,9 +112,14 @@ def build_rf_structure(scene,spec,batch,materials):
     # 4. RF end wall along the bowl termination line, top following the tiers.
     a,b=front[0],back[0];line=b-a;east=Vector((-line.y,line.x,0)).normalized()
     if east.x<0:east=-east
+    def wall_top(t):
+        # Past EXTENSION_T the tiers continue east over the link block, so the
+        # wall becomes a parapet between the platform and tier 2's concourse and
+        # then disappears under the extension rows.
+        return tier_top(t)+1.1 if t<EXTENSION_T else PLATFORM_Z-.4
     samples=[k/40 for k in range(41)];prev=None
     for t in samples:
-        p=a.lerp(b,t);top=tier_top(t)+1.1
+        p=a.lerp(b,t);top=wall_top(t)
         p0=p+east*.15;p1=p0+east*END_WALL_THICKNESS
         cur=(p0,p1,top)
         if prev:
@@ -120,25 +137,29 @@ def build_rf_structure(scene,spec,batch,materials):
     # brick envelope rather than a blank slab.
     length=line.length;tangent=Vector((line.x,line.y,0)).normalized()
     for k in range(1,int(length/9)):
-        p=a+line*(k*9/length);top=tier_top(k*9/length)+1.1
+        t=k*9/length
+        if t>=EXTENSION_T:continue
+        p=a+line*t;top=wall_top(t)
         c=p+east*(.15+END_WALL_THICKNESS+.28)
         batch.box(GROUP,'brick_light',(c.x,c.y,(END_WALL_BASE+top)/2),(.55,.62,top-END_WALL_BASE),math.atan2(line.y,line.x))
     c=a.lerp(b,.5)+east*(.15+END_WALL_THICKNESS/2)
     batch.box(GROUP,'stone',(c.x,c.y,END_WALL_BASE+1.7),(length+.3,END_WALL_THICKNESS+.5,3.4),math.atan2(line.y,line.x))
     for k in range(int(length/9)):
         t=(k+.5)*9/length
-        if tier_top(t)<20:continue
+        if tier_top(t)<20 or t>=EXTENSION_T:continue
         p=a.lerp(b,t);c=Vector((p.x,p.y,0))+Vector((east.x,east.y,0))*(.15+END_WALL_THICKNESS)
         # _arch_bay treats the left normal of its tangent as outward.
         _arch_bay(batch,GROUP,c,Vector((east.y,-east.x,0)),5.0,PODIUM_TOP+3.6,min(9.0,tier_top(t)-PODIUM_TOP-6),tier_top(t),.06,materials)
     # 5. Link block between the end wall and the clock-tower base.
     tx,ty,_=spec['anchors']['tower_roof']
     def x_on_line(y):return a.x+(b.x-a.x)*(y-a.y)/(b.y-a.y)
-    y_north,y_south=ty+10.2,ty-10.2
-    link=[(x_on_line(y_north)+.9,y_north),(tx-7.4,y_north),(tx-7.4,y_south),(x_on_line(y_south)+.9,y_south)]
-    _prism_cdt(batch,'brick',link,8.0,33.0)
-    batch.prism(GROUP,'stone',[(x-.3 if i in (1,2) else x,y) for i,(x,y) in enumerate(link)],32.6,33.4)
-    batch.prism(GROUP,'roof',link,33.4,33.8)
+    # V12: the block runs north along the end wall and its roof is the paved
+    # platform beside the tower, in front of the extended tiers.
+    y_north,y_south=ty+LINK_NORTH,ty-10.2;x_east=link_east_x(spec)
+    link=[(x_on_line(y_north)+.9,y_north),(x_east,y_north),(x_east,y_south),(x_on_line(y_south)+.9,y_south)]
+    _prism_cdt(batch,'brick',link,8.0,PLATFORM_Z-.4)
+    batch.prism(GROUP,'stone',[(x+(.25 if i in (1,2) else 0),y) for i,(x,y) in enumerate(link)],PLATFORM_Z-.4,PLATFORM_Z-.1)
+    batch.prism(GROUP,'paving',link,PLATFORM_Z-.1,PLATFORM_Z)
     for z in (13.2,20.4,27.2):
         batch.prism(GROUP,'stone',[(x+(.25 if i in (1,2) else 0),y) for i,(x,y) in enumerate(link)],z,z+.45)
         for y in (y_north-.02,y_south+.02):

@@ -252,9 +252,10 @@ L1_Z=11.3;L2_Z=16.5;CANOPY_Z=20.7;QUAY_Z=4.95
 def build_river_deck(scene,batch,spec,materials,rng):
     """Two-level open gallery on slender posts along the river between the
     clock tower and the board (north aerial: stacked lit terraces with people,
-    festoons below, the board frame rising from the upper terrace).  North of
-    the corner bank the upper deck widens over the podium ring to the outfield
-    wall so the board's legs bear on it.  Dimensions and levels are inferred."""
+    festoons below).  The gallery stays a strip over the riverwalk: the bridge
+    source shows the board sitting on the arcade building with patrons on its
+    arch levels, not on a raised walkway beside it, so the upper deck no longer
+    widens to the outfield wall.  Dimensions and levels are inferred."""
     group='V12 River gallery';post='bark' if 'bark' in batch.materials else 'metal'
     def slab_box(x0,x1,y0,y1,z,thick,mat):
         batch.box(group,mat,((x0+x1)/2,(y0+y1)/2,z-thick/2),(x1-x0,y1-y0,thick))
@@ -262,18 +263,11 @@ def build_river_deck(scene,batch,spec,materials,rng):
     slab_box(DECK_X0,DECK_X1,DECK_Y0,DECK_Y1,L1_Z,.32,'concrete');slab_box(DECK_X0+.1,DECK_X1-.1,DECK_Y0,DECK_Y1,L1_Z+.05,.05,'paving')
     slab_box(DECK_X0,DECK_X1,DECK_Y0,DECK_Y1,L2_Z,.32,'concrete');slab_box(DECK_X0+.1,DECK_X1-.1,DECK_Y0,DECK_Y1,L2_Z+.05,.05,'paving')
     slab_box(DECK_X0-.3,DECK_X1+.6,DECK_Y0,DECK_Y1,CANOPY_Z,.22,'roof')
-    # Upper deck widens to the outfield wall north of the corner bank (board zone).
-    wide_y0,wide_y1=17.0,DECK_Y1;wall_x=lambda y:100+3.7*y/44.8 if y<=44.8 else 103.7-3.3*(y-44.8)/20.8
-    xw=min(wall_x(wide_y0),wall_x(wide_y1))+3.0
-    slab_box(xw,DECK_X0,wide_y0,wide_y1,L2_Z,.32,'concrete');slab_box(xw+.1,DECK_X0,wide_y0,wide_y1,L2_Z+.05,.05,'paving')
-    # Posts: two river-side rows from the quay through both decks to the canopy,
-    # and a field-side row on the podium ring under the widened upper deck.
+    # Posts: two river-side rows from the quay through both decks to the canopy.
     y=DECK_Y0+1.5
     while y<DECK_Y1-1:
         for x in (DECK_X0+.6,DECK_X1-.6):
             batch.cylinder(group,post,(x,y,QUAY_Z),(x,y,CANOPY_Z),.19,sides=8)
-        if wide_y0<y<wide_y1:
-            batch.cylinder(group,post,(xw+.7,y,13.4),(xw+.7,y,L2_Z),.17,sides=8)
         y+=6.0
     # Beams under each slab, river side.
     for z in (L1_Z-.32,L2_Z-.32,CANOPY_Z-.22):
@@ -282,16 +276,14 @@ def build_river_deck(scene,batch,spec,materials,rng):
     # Rails on the river side of both decks and on the field side of the upper deck.
     rail(batch,group,(DECK_X1-.15,DECK_Y0,L1_Z),(DECK_X1-.15,DECK_Y1,L1_Z))
     rail(batch,group,(DECK_X1-.15,DECK_Y0,L2_Z),(DECK_X1-.15,DECK_Y1,L2_Z))
-    rail(batch,group,(DECK_X0+.15,DECK_Y0,L2_Z),(DECK_X0+.15,wide_y0,L2_Z))
-    rail(batch,group,(xw+.15,wide_y0,L2_Z),(xw+.15,wide_y1,L2_Z))
+    rail(batch,group,(DECK_X0+.15,DECK_Y0,L2_Z),(DECK_X0+.15,DECK_Y1,L2_Z))
     for y0,y1 in ((DECK_Y0,DECK_Y0),(DECK_Y1,DECK_Y1)):
         rail(batch,group,(DECK_X0,y0,L1_Z),(DECK_X1,y1,L1_Z));rail(batch,group,(DECK_X0,y0,L2_Z),(DECK_X1,y1,L2_Z))
-    # Stairs: quay -> L1 at both ends, L1 -> L2 mid-run, ring -> L2 beside the board.
+    # Stairs: quay -> L1 at both ends, L1 -> L2 mid-run.
     from r11_circulation import stairs as _stairs
     _stairs(batch,group,(DECK_X0+2.8,DECK_Y0+14,L1_Z),(DECK_X0+2.8,DECK_Y0+1.5,QUAY_Z),2.4,1)
     _stairs(batch,group,(DECK_X0+2.8,DECK_Y1-14,L1_Z),(DECK_X0+2.8,DECK_Y1-1.5,QUAY_Z),2.4,1)
     _stairs(batch,group,(DECK_X0+2.8,-8,L2_Z),(DECK_X0+2.8,3,L1_Z),2.4,1)
-    _stairs(batch,group,(xw+3.5,wide_y0+7,L2_Z),(xw+3.5,wide_y0+.6,13.4),2.4,0)
     # Festoons under the lower deck and along the upper rail.
     for z,x in ((L1_Z-.6,DECK_X1-1.2),(L2_Z+2.4,DECK_X1-.4)):
         y=DECK_Y0+2
@@ -300,18 +292,97 @@ def build_river_deck(scene,batch,spec,materials,rng):
             batch.line(group,'metal',chain,.012,sides=4)
             for k in (1,3):batch.ellipsoid(group,'lamp',chain[k],(.07,.07,.09),6,4)
             y+=6
-    # People on both decks and around the board's foot.
+    # People on both decks.
     walkers=[w for w in [bpy.data.objects.get(n) for n in ['D2_Walking visitor','D2_Walking visitor cloth_white','D2_Walking visitor cloth_black','D2_Walking visitor cloth_blue','D2_Walking visitor cloth_red']] if w]
     if walkers:
         buckets=[[] for _ in walkers];rots=[[] for _ in walkers]
-        for i in range(520):
-            if i%3==0:x,y,z=rng.uniform(DECK_X0+.8,DECK_X1-.8),rng.uniform(DECK_Y0+1,DECK_Y1-1),L1_Z+.05
-            elif i%3==1:x,y,z=rng.uniform(DECK_X0+.8,DECK_X1-.8),rng.uniform(DECK_Y0+1,DECK_Y1-1),L2_Z+.05
-            else:x,y,z=rng.uniform(xw+1,DECK_X0-.5),rng.uniform(wide_y0+1,wide_y1-1),L2_Z+.05
+        for i in range(350):
+            x,y,z=rng.uniform(DECK_X0+.8,DECK_X1-.8),rng.uniform(DECK_Y0+1,DECK_Y1-1),(L1_Z if i%2==0 else L2_Z)+.05
             k=rng.choices(range(len(walkers)),[30,28,22,12,8][:len(walkers)])[0];buckets[k].append((x,y,z));rots[k].append((0,0,rng.random()*math.tau))
         for k,w in enumerate(walkers):
             if buckets[k]:instances(scene,batch.collection(group),'River gallery visitors '+str(k),w,buckets[k],rots[k])
-    return {'levels':[L1_Z,L2_Z],'canopy':CANOPY_Z,'x':[DECK_X0,DECK_X1],'y':[DECK_Y0,DECK_Y1],'board_deck_x0':round(xw,1)}
+    return {'levels':[L1_Z,L2_Z],'canopy':CANOPY_Z,'x':[DECK_X0,DECK_X1],'y':[DECK_Y0,DECK_Y1]}
+
+
+# --------------------------------------------------------------- tower end
+EXT_TIERS=[(.55,.65,33,36,9),(.70,.93,39,47,18)]   # tiers 3 and 4 of build_blockout / r2_seating
+EXT_T_MAX=1.0
+
+
+def build_tower_end(scene,batch,spec,materials,rng):
+    """Carry the upper two tiers past the bowl's traced end to the clock tower.
+
+    The north aerial shows the upper decks running straight into the tower
+    with a crowded flat platform beside it; V12 stopped them at the traced end
+    line, leaving a brick link block and empty air.  Each row is extended along
+    its own end-line step (front[0]-front[1] blended with back[0]-back[1]) until
+    it meets the face west of the shaft (r4_rf_structure.link_east_x), where a
+    brick end wall closes it.  The platform is the link block's paved roof.
+    Row counts and rakes match the bowl; the extension itself is inferred."""
+    from r4_rf_structure import link_east_x,tier_top,PLATFORM_Z,END_WALL_BASE
+    group='V12 Tower end'
+    front=[Vector(p) for p in spec['bowl_front']];back=[Vector(p) for p in spec['bowl_back']]
+    f0,f1,b0,b1=front[0],front[1],back[0],back[1];x_face=link_east_x(spec)
+    def step(t):return f0.lerp(b0,t)-f1.lerp(b1,t)
+    def count(t):
+        d=step(t);x=f0.lerp(b0,t).x
+        return max(0.0,(x_face-x)/d.x) if d.x>1e-6 else 0.0
+    def at(t,z,s):
+        """Point on depth t, s in [0,1] from the end line to the tower face."""
+        p=f0.lerp(b0,t)+step(t)*(count(t)*s);return Vector((p.x,p.y,z))
+    N=8
+    def strip(mat,t0,z0,t1,z1):
+        for i in range(N):
+            sa,sb=i/N,(i+1)/N
+            batch.quad(group,mat,[tuple(at(t0,z0,sa)),tuple(at(t0,z0,sb)),tuple(at(t1,z1,sb)),tuple(at(t1,z1,sa))])
+            batch.quad(group,mat,[tuple(at(t1,z1,sa)),tuple(at(t1,z1,sb)),tuple(at(t0,z0,sb)),tuple(at(t0,z0,sa))])
+    seats=[];rot=[];fans=[[] for _ in range(6)];fanrot=[[] for _ in range(6)]
+    for ta,tb,za,zb,rows in EXT_TIERS:
+        strip('concrete',ta,za-.9,ta,za)                       # fascia
+        for row in range(rows):
+            t0=ta+(tb-ta)*row/rows;t1=ta+(tb-ta)*(row+1)/rows;z=za+(zb-za)*row/rows
+            strip('concrete',t0,z,t1,z);strip('concrete',t1,z,t1,z+(zb-za)/rows)
+            t=ta+(tb-ta)*(row+.48)/rows;d=step(t);length=count(t)*d.length
+            tangent=-d.normalized();angle=math.atan2(tangent.y,tangent.x)
+            for k in range(int((length-.6)/.54)):
+                p=at(t,z,(.6+k*.54)/max(length,1e-6));seats.append(tuple(p));rot.append((0,0,angle))
+                if rng.random()<.75:
+                    c=rng.choices(range(6),[32,27,18,15,5,3])[0];fans[c].append(tuple(p));fanrot[c].append((0,0,angle+rng.uniform(-.07,.07)))
+    # Concourse slab between the two tiers and the rear wall along the traced back.
+    strip('concrete',EXT_TIERS[0][1],36.0,EXT_TIERS[1][0],36.0);strip('concrete',EXT_TIERS[0][1],35.65,EXT_TIERS[1][0],35.65)
+    strip('brick',EXT_T_MAX,END_WALL_BASE,EXT_T_MAX,47.6);strip('concrete',EXT_TIERS[1][1],47.0,EXT_T_MAX,47.6)
+    strip('stone',EXT_T_MAX,47.6,EXT_T_MAX,47.9)
+    # End wall on the tower face: from the platform up to each tier's parapet.
+    samples=[EXT_TIERS[0][0]+(EXT_T_MAX-EXT_TIERS[0][0])*k/36 for k in range(37)]
+    for ta,tb in zip(samples,samples[1:]):
+        pa,pb=at(ta,0,1.0),at(tb,0,1.0);topa,topb=tier_top(ta)+1.1,tier_top(tb)+1.1
+        for x0,x1 in ((0.0,.6),):
+            verts=[(pa.x+x0,pa.y,END_WALL_BASE),(pb.x+x0,pb.y,END_WALL_BASE),(pb.x+x1,pb.y,END_WALL_BASE),(pa.x+x1,pa.y,END_WALL_BASE),
+                   (pa.x+x0,pa.y,topa),(pb.x+x0,pb.y,topb),(pb.x+x1,pb.y,topb),(pa.x+x1,pa.y,topa)]
+            batch.add(group,'brick',verts,[(3,2,1,0),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)])
+        batch.add(group,'stone',[(pa.x-.08,pa.y,topa),(pb.x-.08,pb.y,topb),(pb.x+.68,pb.y,topb),(pa.x+.68,pa.y,topa),
+                                 (pa.x-.08,pa.y,topa+.3),(pb.x-.08,pb.y,topb+.3),(pb.x+.68,pb.y,topb+.3),(pa.x+.68,pa.y,topa+.3)],
+                  [(3,2,1,0),(4,5,6,7),(0,1,5,4),(1,2,6,5),(2,3,7,6),(3,0,4,7)])
+    # Platform: rails on the open edges of the link roof and a standing crowd.
+    tx,ty,_=spec['anchors']['tower_roof'];y_north=ty+30.0;y_face=at(EXT_TIERS[0][0],0,0).y
+    def x_on_line(y):return f0.x+(b0.x-f0.x)*(y-f0.y)/(b0.y-f0.y)
+    rail(batch,group,(x_on_line(y_north)+.9,y_north,PLATFORM_Z),(x_face,y_north,PLATFORM_Z))
+    rail(batch,group,(x_face-.2,y_north,PLATFORM_Z),(x_face-.2,y_face+.5,PLATFORM_Z))
+    walkers=[w for w in [bpy.data.objects.get(n) for n in ['D2_Walking visitor','D2_Walking visitor cloth_white','D2_Walking visitor cloth_black','D2_Walking visitor cloth_blue','D2_Walking visitor cloth_red']] if w]
+    if walkers:
+        buckets=[[] for _ in walkers];rots=[[] for _ in walkers];placed=0;tries=0
+        while placed<70 and tries<2000:
+            tries+=1;y=rng.uniform(y_face+.8,y_north-.8);x=rng.uniform(x_on_line(y)+1.6,x_face-.8)
+            if x<=x_on_line(y)+1.6:continue
+            k=rng.choices(range(len(walkers)),[30,28,22,12,8][:len(walkers)])[0];buckets[k].append((x,y,PLATFORM_Z+.05));rots[k].append((0,0,rng.random()*math.tau));placed+=1
+        for k,w in enumerate(walkers):
+            if buckets[k]:instances(scene,batch.collection(group),'Tower platform visitors '+str(k),w,buckets[k],rots[k])
+    source=bpy.data.objects.get('D2_Seat source')
+    if source and seats:instances(scene,batch.collection(group),'Tower end seats',source,seats,rot)
+    for k,color in enumerate(['cloth_black','cloth_white','cloth_gray','navy','cloth_blue','cloth_red']):
+        person=bpy.data.objects.get('D2_Seated fan '+color)
+        if person and fans[k]:instances(scene,batch.collection(group),'Tower end spectators '+color,person,fans[k],fanrot[k])
+    return {'seats':len(seats),'spectators':sum(map(len,fans)),'face_x':round(x_face,2),'platform_z':PLATFORM_Z,'rows':[t[4] for t in EXT_TIERS],'reach_m':round(count(EXT_TIERS[1][1])*step(EXT_TIERS[1][1]).length,1)}
 
 
 # ------------------------------------------------------- terrace front and grand stair
