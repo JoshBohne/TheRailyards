@@ -8,6 +8,7 @@ import argparse
 import json
 import math
 import sys
+import hashlib
 from pathlib import Path
 from mathutils import Vector
 
@@ -16,9 +17,11 @@ sys.path.insert(0, str(OUT))
 from r2_lighting import apply_lighting
 
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',type=int,choices=[10,11,12,13],default=10)
+parser.add_argument('--version',type=int,choices=[10,11,12,13,14],default=10)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 VERSION=args.version
+SOURCE=Path(bpy.data.filepath)
+SOURCE_SHA=hashlib.sha256(SOURCE.read_bytes()).hexdigest()
 
 DEST = OUT.parent / 'sites/replay/public/model'
 DEST.mkdir(parents=True, exist_ok=True)
@@ -210,6 +213,7 @@ bpy.ops.wm.save_as_mainfile(filepath=str(OUT/f'railyards-v{VERSION}.blend'),comp
 
 samples=[web(ball_at(i/FPS)) for i in range(round(DURATION*FPS)+1)]
 metadata={'version':VERSION,'duration':DURATION,'sampleRate':FPS,'contact':CONTACT,'splash':CONTACT+FLIGHT,
+          'sourceStaticScene':SOURCE.name,'sourceStaticSha256':SOURCE_SHA,
           'waterCrossing':CONTACT+FLIGHT*128/142,'ballSamples':samples,'landing':web(LANDING),
           'waterDistanceFt':round(math.hypot(LANDING.x,LANDING.y)*128/142/.3048),'splashDistanceFt':round(math.hypot(LANDING.x,LANDING.y)/.3048),
           'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),'sourceScene':f'railyards-v{VERSION}.blend','instances':instances,
@@ -272,6 +276,7 @@ bpy.ops.export_scene.gltf(filepath=str(DEST/'venue.glb'),use_selection=True,use_
     export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6,
     export_draco_position_quantization=22,export_draco_normal_quantization=10)
 receipt={'savedScene':str(OUT/f'railyards-v{VERSION}.blend'),'seatCount':sum(len(g['points']) for g in instances if 'individual seats' in g['name'].lower()),
+         'sourceStaticScene':str(SOURCE),'sourceStaticSha256':SOURCE_SHA,
          'staticVertices':len(venue.data.vertices),'staticPolygons':len(venue.data.polygons),
          'flightCollisions':collisions,'contact':CONTACT,'splash':CONTACT+FLIGHT,
          'files':{p.name:p.stat().st_size for p in DEST.iterdir() if p.is_file() and p.name!='export-receipt.json'},

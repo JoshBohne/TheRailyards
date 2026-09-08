@@ -11,7 +11,7 @@ MODEL=ROOT/'railyards-v4'
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--encode',action='store_true');parser.add_argument('--replay',action='store_true');parser.add_argument('--scene-version',type=int,choices=[12],default=12);args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--encode',action='store_true');parser.add_argument('--replay',action='store_true');parser.add_argument('--scene-version',type=int,choices=[12],default=12);parser.add_argument('--release-root',type=Path,help='Verified current media release for the public site');args=parser.parse_args()
     current=MODEL/f'review/v{args.scene_version}'
     v11=MODEL/'review/v11'
     import imageio_ffmpeg
@@ -69,6 +69,9 @@ def main():
         (dest/'build-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
         print(f'{kind}: {dest} ({len(manifest["files"])} files)')
 
-    subprocess.run(['python3',str(ROOT/'sites/build-hosted.py'),'--templates',str(ROOT/'sites/public'),'--output',str(ROOT/'work/web-dist/public'),'--assets',str(ROOT/'work/hosting-assets')],check=True)
+    if args.release_root:
+        subprocess.run(['python3',str(ROOT/'sites/build-hosted.py'),'--templates',str(ROOT/'sites/public'),'--output',str(ROOT/'work/web-dist/public'),'--release-root',str(args.release_root)],check=True)
+    else:
+        print('Archived review built. Build the current public site with sites/build-hosted.py --release-root PATH.')
 
 if __name__=='__main__':main()

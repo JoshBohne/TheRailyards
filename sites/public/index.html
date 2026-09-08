@@ -11,7 +11,12 @@
 </script>
 <link rel="canonical" href="{{SITE_URL}}/">
 <meta property="og:title" content="Recreating The Railyards">
-<meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
+<meta property="og:image" content="{{SITE_URL}}/media/og-home-run-v14.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Railyards at night, with an illustrative home-run arc: 423 feet to the river edge, 469 feet to the shown splash.">
+<meta name="twitter:image" content="{{SITE_URL}}/media/og-home-run-v14.jpg">
+<meta name="twitter:image:alt" content="A modeled home-run trajectory from The Railyards to the Chicago River.">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
@@ -21,40 +26,46 @@
 </a>
 <nav aria-label="Main navigation">
 <a href="index.html" aria-current="page">Overview</a>
+<a href="3d.html">Choose your seat</a>
 <a href="gallery.html">Gallery</a>
-<a href="3d.html">3D</a>
-<a href="build.html">Details</a>
+<a href="build.html">How it was made</a>
 </nav>
+<button class="feedback-open" type="button" data-feedback-open>Feedback</button>
 </header>
 <main id="content" class="page-shell">
 <section class="intro">
 <h1>Recreating The Railyards</h1>
 </section>
 <figure class="hero-render">
-<video id="overview-film" controls muted playsinline loop preload="metadata" poster="media/home-run-poster.jpg" aria-label="Illustrative home run from behind home plate, above the diamond, then the river">
+<video id="overview-film" controls muted playsinline loop preload="metadata" poster="media/home-run-poster.jpg" aria-label="Illustrative home run from behind home plate, above the diamond, right-field corner, then the river at night">
 <source src="media/home-run.mp4" type="video/mp4">
 </video>
-<figcaption>
-<span>Home plate → above the diamond → the river</span>
-<span>Illustrative play</span>
-</figcaption>
+
 </figure>
-<section class="section field-dimensions" aria-labelledby="dimensions-title">
-<h2 id="dimensions-title">Field dimensions</h2>
-<dl><div><dt>Left field</dt><dd>328 ft</dd></div><div><dt>Left-center</dt><dd>375 ft</dd></div><div><dt>Center field</dt><dd>384 ft</dd></div><div><dt>Right-center</dt><dd>368 ft</dd></div><div><dt>Right field</dt><dd>328 ft</dd></div></dl>
-<p class="section-note">Approximate distances in this reconstruction, measured from home plate to the modeled wall. These are not official stadium specifications.</p>
+<details class="river-explainer"><summary>How far would a home run have to go?</summary><p><strong>423 ft</strong> to the river edge; <strong>469 ft</strong> to the splash. Illustrative model distances.</p></details>
+<section class="section ballpark-facts" aria-labelledby="dimensions-title">
+<div class="field-diagram"><h2 id="dimensions-title">The field</h2>
+<svg viewBox="0 0 440 265" role="img" aria-labelledby="field-title field-desc"><title id="field-title">Modeled outfield distances in feet</title><desc id="field-desc">Left field 328, left-center 375, center field 384, right-center 368, right field 328. Diagram is schematic.</desc>
+<path class="field-track" d="M220 237 L65 97 Q105 30 211 27 Q324 25 375 97 Z"/>
+<path class="field-grass" d="M220 237 L74 99 Q114 41 211 39 Q313 36 366 99 Z"/>
+<path class="field-infield" d="M220 237 L178 196 L220 154 L262 196 Z"/>
+<path class="field-lines" d="M65 97 L220 237 L375 97 M220 226 L189 196 L220 165 L251 196 Z"/>
+<circle cx="220" cy="197" r="4" fill="#b49a79"/>
+<g class="field-labels"><text x="45" y="96">328</text><text x="116" y="39">375</text><text x="219" y="18">384</text><text x="320" y="39">368</text><text x="398" y="96">328</text></g>
+</svg><p class="section-note">Feet from home plate to the modeled wall. Approximate, not official dimensions.</p></div>
+<div class="seat-summary"><span class="eyebrow">Seating capacity estimation</span><strong data-seat-count>33,997</strong><a class="primary-link" href="3d.html">Choose your seat <span aria-hidden="true">↗</span></a><p class="section-note">An illustrative seating layout, not an official capacity or ticket map.</p></div>
 </section>
 <section class="section comparison-section" data-compare-section><h2>North aerial</h2>
 <div class="compare-tabs" role="group" aria-label="North aerial comparison mode"><button type="button" data-mode="side" aria-pressed="true">Side by side</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button></div>
-<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-north.jpg" alt="Published north aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-north.jpg" alt="Our north aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe north aerial comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="comparison" data-comparison data-layout="side"><figure class="comparison-source"><img src="media/source-north.jpg" alt="Published north aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/v14-north.png" alt="Our north aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe north aerial comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
 <div class="opacity-control" hidden><label for="opacity-north">Concept opacity</label><input id="opacity-north" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section>
 <section class="section comparison-section" data-compare-section><h2>South aerial</h2>
 <div class="compare-tabs" role="group" aria-label="South aerial comparison mode"><button type="button" data-mode="side" aria-pressed="false">Side by side</button><button type="button" data-mode="swipe" aria-pressed="true">Swipe</button><button type="button" data-mode="overlay" aria-pressed="false">Opacity</button></div>
-<div class="comparison" data-comparison data-layout="swipe"><figure class="comparison-source"><img src="media/source-south.jpg" alt="Published south aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-south.jpg" alt="Our south aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe south aerial comparison"><div class="swipe-handle" aria-hidden="true"><span>↔</span></div></div>
+<div class="comparison" data-comparison data-layout="swipe"><figure class="comparison-source"><img src="media/source-south.jpg" alt="Published south aerial concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/v14-south.png" alt="Our south aerial reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe south aerial comparison"><div class="swipe-handle" aria-hidden="true"><span>↔</span></div></div>
 <div class="opacity-control" hidden><label for="opacity-south">Concept opacity</label><input id="opacity-south" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section>
 <section class="section comparison-section" data-compare-section><h2>Roosevelt bridge</h2>
 <div class="compare-tabs" role="group" aria-label="Roosevelt bridge comparison mode"><button type="button" data-mode="side" aria-pressed="false">Side by side</button><button type="button" data-mode="swipe" aria-pressed="false">Swipe</button><button type="button" data-mode="overlay" aria-pressed="true">Opacity</button></div>
-<div class="comparison" data-comparison data-layout="overlay"><figure class="comparison-source"><img src="media/source-bridge.jpg" alt="Published roosevelt bridge concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/model-bridge.jpg" alt="Our roosevelt bridge reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe roosevelt bridge comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
+<div class="comparison" data-comparison data-layout="overlay"><figure class="comparison-source"><img src="media/source-bridge.jpg" alt="Published roosevelt bridge concept by AECOM / Canal Edge"><figcaption>Published concept · AECOM / Canal Edge</figcaption></figure><figure class="comparison-model"><img src="media/v14-bridge.png" alt="Our roosevelt bridge reconstruction"><figcaption>Our reconstruction</figcaption></figure><input class="swipe-input" type="range" min="0" max="100" value="50" aria-label="Swipe roosevelt bridge comparison" hidden><div class="swipe-handle" aria-hidden="true" hidden><span>↔</span></div></div>
 <div class="opacity-control"><label for="opacity-bridge">Concept opacity</label><input id="opacity-bridge" data-opacity type="range" min="0" max="100" value="50"><output>50%</output></div></section><p class="section-note"><a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Source: Crain’s Chicago Business ↗</a></p>
 <section class="section timeline-section" id="timeline" aria-labelledby="timeline-title">
 <h2 id="timeline-title">The road to opening day</h2>
@@ -78,5 +89,16 @@
 </div>
 <div class="footer-skyline" aria-hidden="true"><svg viewBox="0 0 1200 370" focusable="false"><g class="skyline-building" style="--rise-delay:0ms"><use href="skyline.svg#distant-roofline"/></g><g class="skyline-building" style="--rise-delay:55ms"><use href="skyline.svg#south-loop"/></g><g class="skyline-building" style="--rise-delay:110ms"><use href="skyline.svg#willis"/></g><g class="skyline-building" style="--rise-delay:165ms"><use href="skyline.svg#limestone-crown"/></g><g class="skyline-building" style="--rise-delay:220ms"><use href="skyline.svg#wacker-crown"/></g><g class="skyline-building" style="--rise-delay:275ms"><use href="skyline.svg#board-of-trade"/></g><g class="skyline-building" style="--rise-delay:330ms"><use href="skyline.svg#cna-aon"/></g><g class="skyline-building" style="--rise-delay:385ms"><use href="skyline.svg#two-prudential"/></g><g class="skyline-building" style="--rise-delay:440ms"><use href="skyline.svg#st-regis"/></g><g class="skyline-building" style="--rise-delay:495ms"><use href="skyline.svg#lakefront-towers"/></g><g class="skyline-building" style="--rise-delay:550ms"><use href="skyline.svg#neighborhood"/></g><g class="skyline-lights"><use href="skyline.svg#lights"/></g></svg></div>
 </footer>
+<dialog id="feedback-dialog" aria-labelledby="feedback-title">
+<form id="feedback-form">
+<div class="feedback-heading"><h2 id="feedback-title">What would you like to see?</h2><button type="button" data-feedback-close aria-label="Close feedback">×</button></div>
+<p>A different view, a detail to fix, or an idea for the ballpark. Leave it here.</p>
+<label for="feedback-category">About</label><select id="feedback-category" name="category"><option value="idea">An idea</option><option value="correction">Something to correct</option><option value="view">A view I’d like to see</option></select>
+<label for="feedback-message">Your feedback</label><textarea id="feedback-message" name="message" rows="5" minlength="5" maxlength="2000" required placeholder="I’d love to see…"></textarea>
+<div class="feedback-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<p class="feedback-privacy">Saved privately for Josh to review. Please leave out personal information.</p>
+<p id="feedback-status" role="status" aria-live="polite"></p>
+<button class="primary-link" type="submit">Send feedback</button>
+</form></dialog>
 </body>
 </html>

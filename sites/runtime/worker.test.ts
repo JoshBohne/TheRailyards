@@ -1,0 +1,34 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { DatabaseSync } from 'node:sqlite';
+import { readFileSync, mkdtempSync, rmSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+import worker from './worker.ts';
+const payload = { id: '15497227-cd50-4b1b-8a9b-774f2febca20', message: 'A view from the right-field terrace', category: 'view', page: '/build', website: '' };
+function request(body: unknown = payload, origin = 'https://example.test') {
+  return new Request('https://example.test/api/feedback', { method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+}
+test('feedback persists across reopening the database and retries create one record', async () => {
+  const dir = mkdtempSync(join(tmpdir(), 'railyards-feedback-'));
+  const path = join(dir, 'feedback.sqlite');
+  let database = new DatabaseSync(path);
+  const migration = readdirSync(new URL('./drizzle/', import.meta.url)).find(name => name.endsWith('.sql'))!;
+  database.exec(readFileSync(new URL(`./drizzle/${migration}`, import.meta.url), 'utf8'));
+  const env = { DB: { prepare(sql: string) { return { bind(...values: (string | number)[]) { return { bind: this.bind, async run() { return database.prepare(sql).run(...values); } }; }, async run() { return database.prepare(sql).run(); } }; } }, ASSETS: { async fetch() { return new Response('asset'); } } };
+  assert.equal((await worker.fetch(request(), env)).status, 201);
+  database.close(); database = new DatabaseSync(path);
+  assert.equal((await worker.fetch(request(), env)).status, 201);
+  assert.equal(database.prepare('SELECT count(*) AS count FROM feedback').get()?.count, 1);
+  assert.equal(database.prepare('SELECT message FROM feedback').get()?.message, payload.message);
+  assert.equal((await worker.fetch(request({ ...payload, message: '   ' }), env)).status, 400);
+  assert.equal((await worker.fetch(request(payload, 'https://elsewhere.test'), env)).status, 403);
+  assert.equal((await worker.fetch(request({ ...payload, message: 'x'.repeat(9000) }), env)).status, 413);
+  assert.equal((await worker.fetch(new Request('https://example.test/api/feedback'), env)).status, 405);
+  assert.equal(database.prepare('SELECT count(*) AS count FROM feedback').get()?.count, 1);
+  database.close(); rmSync(dir, { recursive: true });
+});
+test('database failure returns an error instead of claiming a save', async () => {
+  const env = { DB: { prepare() { throw new Error('Unavailable'); } }, ASSETS: { async fetch() { return new Response('asset'); } } };
+  assert.equal((await worker.fetch(request(), env)).status, 503);
+});

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Details | Recreating The Railyards</title>
+<title>How it was made | Recreating The Railyards</title>
 <meta name="description" content="Models, software, workflow, and recorded token usage behind the Railyards reconstruction.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="site.css">
@@ -11,7 +11,12 @@
 </script>
 <link rel="canonical" href="{{SITE_URL}}/build.html">
 <meta property="og:title" content="Recreating The Railyards">
-<meta property="og:image" content="{{SITE_URL}}/media/model-north.jpg">
+<meta property="og:image" content="{{SITE_URL}}/media/og-home-run-v14.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Railyards at night, with an illustrative home-run arc: 423 feet to the river edge, 469 feet to the shown splash.">
+<meta name="twitter:image" content="{{SITE_URL}}/media/og-home-run-v14.jpg">
+<meta name="twitter:image:alt" content="A modeled home-run trajectory from The Railyards to the Chicago River.">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
@@ -21,117 +26,29 @@
 </a>
 <nav aria-label="Main navigation">
 <a href="index.html">Overview</a>
+<a href="3d.html">Choose your seat</a>
 <a href="gallery.html">Gallery</a>
-<a href="3d.html">3D</a>
-<a href="build.html" aria-current="page">Details</a>
+<a href="build.html" aria-current="page">How it was made</a>
 </nav>
+<button class="feedback-open" type="button" data-feedback-open>Feedback</button>
 </header>
 <main id="content" class="page-shell">
 <section class="intro">
-<h1>Details</h1>
+<h1>How it was made</h1>
 </section>
-<section class="section first-section">
-<h2>Tools &amp; models</h2>
-<dl class="build-details">
-<div>
-<dt>Models</dt>
-<dd>GPT-6 Astra · GPT-5.6 Luna · Claude Fable 5.1 · GPT-5.6 Pro</dd>
-</div>
-<div>
-<dt>Workflow</dt>
-<dd>Calibrate source cameras, generate geometry, render, compare, correct.</dd>
-</div>
-<div>
-<dt>Software</dt>
-<dd>Blender · Python · Three.js · Sites</dd>
-</div>
-<div>
-<dt>Current scene</dt>
-<dd>V12 · 29,566 modeled seats · Stadium proportions updated</dd>
-</div>
-</dl>
+
+<section class="section first-section"><h2>Tools &amp; models</h2>
+<dl class="build-details"><div><dt>Models</dt><dd>GPT-6 Astra · Claude Fable 5.1 · GPT-6 Pro</dd></div><div><dt>Subagents</dt><dd>GPT-5.6 Luna</dd></div><div><dt>Software</dt><dd>Blender · Python · Three.js · Codex · Claude Code</dd></div></dl></section>
+
+<section class="section" id="tokens"><h2>What it took</h2>
+<div class="token-summary"><div><strong>≈ $675</strong><span>Estimated API cost · USD</span></div><div><strong>735.5 M</strong><span>Tokens, including repeated cached context</span></div><div><strong>4,872</strong><span>Recorded model responses</span></div><div><strong>22</strong><span>Local sessions, including subagents</span></div></div>
+<p class="section-note">API-equivalent token estimate for priced models, not subscription spend. <a href="https://github.com/JoshBohne/TheRailyards/blob/main/docs/API-COST-ESTIMATE.json">Cost basis ↗</a></p>
+<div class="table-scroll" tabindex="0" aria-label="Recorded project usage"><table class="token-table"><thead><tr><th>Model</th><th>Responses</th><th>Fresh input</th><th>Output &amp; reasoning</th><th>Cached context</th></tr></thead><tbody><tr><th scope="row">Claude Fable 5.1</th><td>432</td><td>64,710</td><td>643,491</td><td>175.84 M</td></tr><tr><th scope="row">GPT-6 Astra</th><td>2,702</td><td>7.02 M</td><td>1.16 M</td><td>331.01 M</td></tr><tr><th scope="row">GPT-5.6 Luna · subagents</th><td>1,620</td><td>6.25 M</td><td>800,445</td><td>197.44 M</td></tr><tr><th scope="row">Additional recorded Codex session</th><td>118</td><td>556,099</td><td>35,121</td><td>14.67 M</td></tr></tbody></table></div>
 </section>
-<section class="section" id="tokens">
-<h2>Usage &amp; cost</h2>
-<p class="section-note">Early-build snapshot: the initial Astra/Luna build and first Fable correction session. Later work, including Pro, is not included.</p>
-<div class="token-summary">
-<div>
-<strong>291 M</strong>
-<span>Tokens, including cache reads</span>
-</div>
-<div>
-<strong>2,217</strong>
-<span>Model responses</span>
-</div>
-<div>
-<strong>$102.78</strong>
-<span>API-equivalent estimate</span>
-</div>
-</div>
-<div class="table-scroll" tabindex="0" aria-label="Scrollable token usage table">
-          <table class="token-table">
-            <thead>
-<tr>
-<th>Model and role</th>
-<th>Responses</th>
-<th>Input</th>
-<th>Output</th>
-<th>Cache read</th>
-<th>Cache write</th>
-<th>Model time</th>
-<th>Est. cost</th>
-</tr>
-</thead>
-            <tbody>
-              <tr>
-<th scope="row">GPT-6 Astra<small>Calibration, stadium, district, handoff</small>
-</th>
-<td>922</td>
-<td>2.18 M</td>
-<td>248 K</td>
-<td>112.3 M</td>
-<td>—</td>
-<td>6.1 h</td>
-<td>$77.01</td>
-</tr>
-              <tr>
-<th scope="row">GPT-5.6 Luna<small>Six parallel V3 component workers</small>
-</th>
-<td>1,218</td>
-<td>4.77 M</td>
-<td>369 K</td>
-<td>143.6 M</td>
-<td>—</td>
-<td>4.7 h</td>
-<td>$4.60</td>
-</tr>
-              <tr>
-<th scope="row">Claude Fable 5.1<small>Initial audit, V4 corrections, first site pass</small>
-</th>
-<td>77</td>
-<td>19 K</td>
-<td>161 K</td>
-<td>27.0 M</td>
-<td>0.49 M</td>
-<td>0.7 h</td>
-<td>$21.17</td>
-</tr>
-            </tbody>
-            <tfoot>
-<tr>
-<th scope="row">Recorded snapshot</th>
-<td>2,217</td>
-<td>6.97 M</td>
-<td>778 K</td>
-<td>282.9 M</td>
-<td>0.49 M</td>
-<td>11.5 h</td>
-<td>$102.78</td>
-</tr>
-</tfoot>
-          </table>
-        </div>
-        <p class="section-note">The estimate is from the recorded usage snapshot, not an invoice or the complete project cost. Work ran through subscriptions and local agent tools. Cache reads count repeated context; summed model time includes parallel workers.</p>
+
+<section class="section maker-note">
+<p class="maker-lede">I’m not a 3D modeler.</p>
+<p>I'm a software engineer who wanted to test GPT-6 Astra and Fable 5.1 to see how closely they could recreate the renderings in Blender. This is a fan-made exploration, not an architectural proposal. Unseen spaces, structural details, dimensions, and sightlines rely heavily on interpretation, so some elements may be inaccurate, inconsistent, or impractical to build.</p><p class="maker-signature">- Josh Bohne</p>
 </section>
 <section class="section">
 <h2 id="credits">Credits &amp; disclosures</h2>
@@ -152,5 +69,16 @@
 </div>
 <div class="footer-skyline" aria-hidden="true"><svg viewBox="0 0 1200 370" focusable="false"><g class="skyline-building" style="--rise-delay:0ms"><use href="skyline.svg#distant-roofline"/></g><g class="skyline-building" style="--rise-delay:55ms"><use href="skyline.svg#south-loop"/></g><g class="skyline-building" style="--rise-delay:110ms"><use href="skyline.svg#willis"/></g><g class="skyline-building" style="--rise-delay:165ms"><use href="skyline.svg#limestone-crown"/></g><g class="skyline-building" style="--rise-delay:220ms"><use href="skyline.svg#wacker-crown"/></g><g class="skyline-building" style="--rise-delay:275ms"><use href="skyline.svg#board-of-trade"/></g><g class="skyline-building" style="--rise-delay:330ms"><use href="skyline.svg#cna-aon"/></g><g class="skyline-building" style="--rise-delay:385ms"><use href="skyline.svg#two-prudential"/></g><g class="skyline-building" style="--rise-delay:440ms"><use href="skyline.svg#st-regis"/></g><g class="skyline-building" style="--rise-delay:495ms"><use href="skyline.svg#lakefront-towers"/></g><g class="skyline-building" style="--rise-delay:550ms"><use href="skyline.svg#neighborhood"/></g><g class="skyline-lights"><use href="skyline.svg#lights"/></g></svg></div>
 </footer>
+<dialog id="feedback-dialog" aria-labelledby="feedback-title">
+<form id="feedback-form">
+<div class="feedback-heading"><h2 id="feedback-title">What would you like to see?</h2><button type="button" data-feedback-close aria-label="Close feedback">×</button></div>
+<p>A different view, a detail to fix, or an idea for the ballpark. Leave it here.</p>
+<label for="feedback-category">About</label><select id="feedback-category" name="category"><option value="idea">An idea</option><option value="correction">Something to correct</option><option value="view">A view I’d like to see</option></select>
+<label for="feedback-message">Your feedback</label><textarea id="feedback-message" name="message" rows="5" minlength="5" maxlength="2000" required placeholder="I’d love to see…"></textarea>
+<div class="feedback-trap" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+<p class="feedback-privacy">Saved privately for Josh to review. Please leave out personal information.</p>
+<p id="feedback-status" role="status" aria-live="polite"></p>
+<button class="primary-link" type="submit">Send feedback</button>
+</form></dialog>
 </body>
 </html>
