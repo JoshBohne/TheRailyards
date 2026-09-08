@@ -19,6 +19,8 @@ Render `sites/render-night-game.py` from the **animated** scene, setting `RAILYA
 
 The cameras cut at 2.4, 5.0 and 6.65 seconds: home plate, above the diamond, right-field corner, river. The ball splashes at 7.65 seconds. The river camera stays fixed, retaining the low splash, two-sided HOME RUN board and fireworks above it. Ball size, player animation and celebration effects are illustrative.
 
+The yellow tracker is a projected broadcast graphic with a 0.45-second tapered history. After native rendering, run Blender against the animated scene with `sites/project-ball-tracker.py`, then `uv run --with pillow python sites/compose-ball-tracker.py`. The original frames remain intact. Packaging uses `work/night-game/tracked-frames` and frame 202 (8.42 seconds) for the poster. The overview waits for the visitor to press play.
+
 Then:
 
 ```sh

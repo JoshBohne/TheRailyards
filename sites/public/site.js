@@ -44,10 +44,6 @@
     }, { threshold: 0.2 });
     observer.observe(skyline);
   }
-  const film = document.querySelector('#overview-film');
-  if (film && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    film.play().catch(() => { film.controls = true; });
-  }
 })();
 
 const feedbackDialog = document.querySelector('#feedback-dialog');
