@@ -1,0 +1,74 @@
+{
+  "kind": "API-equivalent token estimate, not actual subscription spend",
+  "pricingVerified": "2026-09-08",
+  "usageBasis": "The existing 735.5M-token page snapshot; not a refreshed lifetime total.",
+  "rates": "Standard processing; Claude 5-minute cache writes. All 19 inspected Codex logs remained below the 272K input-token surcharge threshold.",
+  "excluded": [
+    "Unidentified gpt-reserve usage",
+    "Tool and image-generation fees",
+    "Unavailable cloud-only usage"
+  ],
+  "models": [
+    {
+      "model": "gpt-6-astra",
+      "tokens": {
+        "sessions": 12,
+        "responses": 2702,
+        "input": 7016317,
+        "output": 756996,
+        "cacheRead": 331007104,
+        "cacheWrite": 0,
+        "reasoning": 400346
+      },
+      "usdPerMillionTokens": {
+        "input": 10,
+        "output": 50,
+        "cacheRead": 1,
+        "cacheWrite": 12.5,
+        "source": "https://developers.openai.com/api/docs/models/gpt-6-astra"
+      },
+      "estimatedUsd": 459.037374
+    },
+    {
+      "model": "gpt-5.6-luna",
+      "tokens": {
+        "sessions": 7,
+        "responses": 1620,
+        "input": 6248619,
+        "output": 454183,
+        "cacheRead": 197442048,
+        "cacheWrite": 0,
+        "reasoning": 346262
+      },
+      "usdPerMillionTokens": {
+        "input": 0.2,
+        "output": 1.2,
+        "cacheRead": 0.02,
+        "cacheWrite": 0.25,
+        "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna"
+      },
+      "estimatedUsd": 6.15909876
+    },
+    {
+      "model": "claude-fable-5-1",
+      "tokens": {
+        "sessions": 3,
+        "responses": 432,
+        "input": 64710,
+        "output": 643491,
+        "cacheRead": 164946325,
+        "cacheWrite": 10897532,
+        "reasoning": 0
+      },
+      "usdPerMillionTokens": {
+        "input": 10,
+        "output": 50,
+        "cacheRead": 0.25,
+        "cacheWrite": 12.5,
+        "source": "https://platform.claude.com/docs/en/about-claude/pricing"
+      },
+      "estimatedUsd": 210.27738125
+    }
+  ],
+  "totalEstimatedUsd": 675.47
+}

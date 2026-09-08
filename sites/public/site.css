@@ -108,7 +108,7 @@ video{aspect-ratio:16/9;
 dt{color:var(--muted)}
 dd{margin:0}
 .token-summary{display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-columns:repeat(4,minmax(0,1fr));
   gap:24px;
   margin:36px 0}
 .token-summary strong{display:block;
@@ -247,7 +247,7 @@ nav{width:100%;
 .hero-render figcaption span:last-child{display:none}
 .text-links{gap:16px}
 .token-summary{gap:16px;
-  grid-template-columns:1fr}
+  grid-template-columns:repeat(2,minmax(0,1fr))}
 .token-summary strong{font-size:36px}
 .build-details>div{grid-template-columns:1fr;
   gap:4px}
