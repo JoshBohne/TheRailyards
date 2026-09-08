@@ -1,6 +1,6 @@
 import './style.css';
 import { ReplayRenderer,viewCopy,type CameraView } from './renderer';
-import { beatAt,buildSeats,nearestSeat,tierNames,type ReplayData,type Seat } from './replay';
+import { beatAt,buildSeats,nearestSeat,type ReplayData,type Seat } from './replay';
 
 function element<T extends HTMLElement>(selector:string):T {
  const found=document.querySelector<T>(selector);if(!found)throw new Error(`Missing replay control: ${selector}`);return found;
@@ -15,7 +15,7 @@ let time=0;let playing=false;let dirty=true;let previous=0;let lastRender=0;let 
 function toast(text:string):void{element('#toast').textContent=text;if(toastTimer)clearTimeout(toastTimer);toastTimer=setTimeout(()=>element('#toast').textContent='',3500);}
 function updateControls():void{
  timeline.value=String(time);clock.textContent=`${time.toFixed(1)} / ${data.duration.toFixed(1)} s`;beat.textContent=beatAt(data,time);
- play.textContent=playing?'Pause':time>=data.duration?'Replay':'Play';play.setAttribute('aria-pressed',String(playing));
+ play.setAttribute('aria-label',playing?'Pause':time>=data.duration?'Replay':'Play');play.setAttribute('aria-pressed',String(playing));
 }
 function seek(next:number):void{time=Math.max(0,Math.min(data.duration,next));dirty=true;updateControls();}
 function togglePlay():void{if(!renderer)return;if(time>=data.duration)time=0;playing=!playing;previous=performance.now();dirty=true;updateControls();}
@@ -32,9 +32,6 @@ function selectView(view:CameraView,seat?:Seat):void{
  if(view==='upper')seat=nearestSeat(seats,[-35,43,35],3);
  selected=seat??selected;renderer.setView(view,seat);dirty=true;
  for(const button of document.querySelectorAll<HTMLButtonElement>('[data-camera]'))button.setAttribute('aria-pressed',String(button.dataset.camera===view));
- const title=view==='seat'&&seat?`${tierNames[seat.tier]} · Row ${seat.row} · Seat ${seat.number}`:viewCopy[view as Exclude<CameraView,'seat'>].title;
- element('#camera-label').textContent=title;
- element('#camera-description').textContent=view==='seat'?'An actual modeled seat. Drag to look around; the view may be obstructed.':viewCopy[view].description;
  if(seat)updateSeatControls(seat);
 }
 function chooseSeat(seat:Seat):void{selectView('seat',seat);}
@@ -92,7 +89,7 @@ async function start():Promise<void>{
   if(seats.length!==data.seatCount)throw new Error('Seat export count does not match the replay');
   renderer=new ReplayRenderer(viewport,data);renderer.controls.addEventListener('change',()=>dirty=true);
   await renderer.load((text,percent)=>{element('#loading-status').textContent=text;element<HTMLProgressElement>('#load-progress').value=percent;});
-  element('#water-distance').textContent=String(data.waterDistanceFt);element('#splash-distance').textContent=String(data.splashDistanceFt);timeline.max=String(data.duration);play.disabled=false;loading.hidden=true;
+  timeline.max=String(data.duration);play.disabled=false;loading.hidden=true;
   selected=nearestSeat(seats,[-12,19,12],0);updateSeatControls(selected);
   const hash=new URLSearchParams(location.hash.slice(1));const desired=hash.get('view');const seatId=Number(hash.get('seat'));
   if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId]){selectView('seat',seats[seatId]);setPickerMode('seat');}else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');
