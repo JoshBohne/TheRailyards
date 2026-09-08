@@ -32,6 +32,6 @@ The seat diagnostic checks all active seat placements against raw authored mesh:
 
 The tower section removes part of the outer shell **only in an unsaved render session** to expose the interior route. It is a cutaway, not an opening in the delivered model.
 
-The independent [phase-3](audits/V14-PHASE3-REVIEW.md) report found actual chair-to-chair penetrations omitted by the architectural mesh test, and unprotected lift-well edges. These remain explicit follow-up findings; a passing centerline route does not prove edge protection.
+The independent [phase-3](audits/V14-PHASE3-REVIEW.md) report found actual chair-to-chair penetrations omitted by the architectural mesh test, and unprotected lift-well edges. The [phase-4 follow-up](audits/V14-PHASE4-REVIEW.md) independently accepts the subsequent shaft-edge protection while preserving the chair-collision finding. A passing centerline route alone does not prove edge protection.
 
 The independent [phase-1](audits/V14-PHASE1-REVIEW.md) and [phase-2](audits/V14-PHASE2-REVIEW.md) reports identify their frozen scene hashes. They do not automatically accept later geometry. In particular, the LF pavilion roof study remains source-inconsistent, and bridge ground continuations remain unresolved. Keep these findings open even if seat diagnostics pass.
