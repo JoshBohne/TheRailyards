@@ -2,6 +2,14 @@
 
 **Current user priority:** correct seating alignment and stadium proportions. Interior tower/stadium detail is not the focus. Further work and review should prioritize the visible seating bands, corner angles, terrace/roof massing and source compositions; interior-only refinements will not drive the next passes.
 
+## South extension correction from September 8 references
+
+The user clarified that the south arcade/glazed wing behind the clock tower must project from the taller stadium facade, as shown in the newly supplied closeup. This supersedes the earlier completely flush interpretation of A08. `flush_frontage` retains the upper facade datum and restores an inferred 8.5 m outward projection, with a continuous roof ledge, joined corner geometry, arched ground level, gridded glazing and narrow upper-wall windows. Source files and the inference boundary are preserved in `reconstruction-references/user-corrections-2026-09-08/`.
+
+The existing seating correction is retained. Before/after comparisons use the same `frontage` and `south-extension` cameras. This is an exterior geometry correction; no tower-interior work is part of this pass.
+
+The follow-up instruction fixes the river alignment and corner explicitly: the outer arcade pier face and tower exterior finish face both lie at x117.94999695 in the saved model (measured difference 0). The actual roof polygon has perpendicular adjacent edges, measuring 90.0000025 degrees within floating-point precision. The [independent south-extension review](audits/V14-SOUTH-EXTENSION-REVIEW.md) accepts this requested alignment and square corner from the plan and oblique views. Saved scene SHA256: `21fa7f2ff90f97c7680bf17f93b5707987fa8533b714521fa1da543eb8787567`. All 34,591 active seating placements continue to pass the sampled architectural clearance checks. Five final views are in `railyards-v4/review/v14/south-square/`; this pass does not claim a new interactive export or deployment.
+
 ## Exterior seating and proportion pass
 
 The current generator lowers the rear LF roof to the common z33.4 pavilion terrace and adds closed gable ends, retaining the three LF seating tiers. RF corner rows now keep a constant elevation across their length; their endpoints recede toward the tower instead of squeezing the rake into a narrow strip at the river. The middle seating band extends into the corner, and the third-tier ends turn toward the north tower terraces while the covered top tier stays in place. Coordinates remain inferred source fits.

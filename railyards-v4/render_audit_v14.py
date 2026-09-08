@@ -12,6 +12,8 @@ shots={'bank-front':((51,91,18),(47,115,18),38),'bank-underneath':((43,142,18),(
 shots['tower-plan']=((70,-35,220),(70,-35,0),48)
 shots['tower-corner']=((197,55,98),(98,-43,30),48)
 shots['frontage']=((170,-215,58),(59,-103,26),48)
+shots['south-extension']=((210,-255,105),(70,-100,34),48)
+shots['south-extension-plan']=((80,-97,180),(80,-97,0),48)
 shots['lantern-clearance']=((-48,-7,46),(-64,-7,47),42)
 out=Path(os.environ.get('REVIEW_OUT',str(ROOT/'review/v14')));out.mkdir(exist_ok=True,parents=True)
 for name in os.environ.get('VIEWS','bank-front,bank-underneath,park-underpass').split(','):
@@ -20,5 +22,5 @@ for name in os.environ.get('VIEWS','bank-front,bank-underneath,park-underpass').
  else:
   apply_lighting(s,'south');p,t,lens=shots[name]
   c=bpy.data.cameras.new('V14 review '+name);o=bpy.data.objects.new(c.name,c);s.collection.objects.link(o);o.location=p;o.rotation_euler=(Vector(t)-Vector(p)).to_track_quat('-Z','Y').to_euler();c.lens=lens;c.clip_end=20000;s.camera=o
-  if name=='tower-plan':c.type='ORTHO';c.ortho_scale=175
+  if name in ['tower-plan','south-extension-plan']:c.type='ORTHO';c.ortho_scale=175 if name=='tower-plan' else 130
  s.render.filepath=str(out/f'{name}.png');bpy.ops.render.render(write_still=True)

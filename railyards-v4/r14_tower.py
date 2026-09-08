@@ -182,12 +182,13 @@ def tower_registration(scene,batch,root):
 
 
 def flush_frontage(scene,batch,root):
-    """Align actual arcade wall and roof edges with the stadium facade datum."""
+    """Attach a projecting south arcade to the setback stadium facade."""
     spec=json.loads((root/'scene-spec.json').read_text())
     remove_collection('D2_River-side arcade')
     back=[Vector(p) for p in spec['bowl_back']]
-    # Follow the curved main facade, then the same terminal tangent used by
-    # the new bowl/canopy extension. No independent cosmetic roof offset.
+    # The September 8 closeup shows a lower arcade/glazed wing projecting
+    # south of the upper wall, with a broad roof ledge behind the tower.
+    # Follow the upper facade datum; the projection is a separate solid wing.
     path=list(reversed([p for p in back if p.x>=18 and p.y<-100]))
     direction=(back[0]-back[1]).normalized()
     end=back[0]+direction*((100-back[0].x)/direction.x);path.append(end)
@@ -195,6 +196,8 @@ def flush_frontage(scene,batch,root):
     from r2_geometry import resample
     path=resample(path,7.4)
     group='V14 Flush RF frontage';segments=[]
+    projection=8.5
+    depth=projection+5.95
     envelope=[o for o in scene.objects if o.type=='MESH' and o.data.polygons and
               (o.name.startswith('D2_Stadium envelope ') or o.name.startswith('D2_RF structure '))]
     # A single continuous corridor cutter avoids booleaning every overlapping
@@ -214,21 +217,71 @@ def flush_frontage(scene,batch,root):
         modifier=obj.modifiers.new(cutter.name,'BOOLEAN');modifier.operation='DIFFERENCE';modifier.solver='EXACT';modifier.use_self=True;modifier.object=cutter
         bpy.context.view_layer.objects.active=obj;bpy.ops.object.modifier_apply(modifier=modifier.name)
     bpy.data.objects.remove(cutter,do_unlink=True)
-    for a,b in zip(path,path[1:]):
+    # Offset joined vertices, rather than shifting each bay independently.
+    # The latter leaves open wedges where the frontage turns into the tower.
+    def offset_path(distance):
+        result=[]
+        directions=[]
+        for a,b in zip(path,path[1:]):
+            u=b-a;u.z=0;u.normalize();directions.append(Vector((u.y,-u.x,0)))
+        for i,p0 in enumerate(path):
+            a=directions[max(0,i-1)];b=directions[min(i,len(directions)-1)]
+            m=(a+b).normalized();result.append(p0+m*(distance/max(.5,m.dot(a))))
+        return result
+    tower_finish=bpy.data.objects['D2_Clock tower brick_light']
+    tower_points=[tower_finish.matrix_world@v.co for v in tower_finish.data.vertices]
+    river_face=max(p.x for p in tower_points)
+    tower_south=min(p.y for p in tower_points)
+    # User correction: extend to the tower's river-facing wall and turn at
+    # exactly 90 degrees. Retain the curved west attachment, then use two
+    # perpendicular straight faces. Do not resample across this corner.
+    front_path=[p for p in offset_path(projection) if p.x<back[0].x]
+    corner_y=front_path[-1].y
+    wall_line=river_face-.425  # half the arcade pier's exterior thickness
+    front_path.extend([Vector((wall_line,corner_y,48)),Vector((wall_line,tower_south,48))])
+    rear_path=offset_path(-5.95)
+    roof_front=[p.copy()for p in front_path]
+    for p in roof_front[-2:]:p.x=river_face
+    for p in roof_front[-3:-1]:p.y=corner_y-.425
+    roof_outline=[tuple(p[:2])for p in roof_front+list(reversed(rear_path))]
+    for z in [8,20,28.6]:batch.prism(group,'stone',roof_outline,z-.3,z)
+    # Short glazed/arched end returns close the projecting wing against the
+    # main facade. The roof remains one continuous polygon at both corners.
+    outline=[offset_path(.85)[0]]+front_path
+    facade_path=[outline[0]]
+    for a,b in zip(outline,outline[1:]):
+        count=max(1,round((b-a).length/7.4))
+        facade_path.extend(a.lerp(b,j/count)for j in range(1,count+1))
+    for index,(a,b) in enumerate(zip(facade_path,facade_path[1:])):
         u=(b-a).normalized();u.z=0;u.normalize();n=Vector((u.y,-u.x,0))
-        center=(a+b)/2+n*.85;length=(b-a).length;angle=math.atan2(u.y,u.x)
+        center=(a+b)/2;length=(b-a).length;angle=math.atan2(u.y,u.x)
         def p(x,y,z):
             q=center+u*x-n*y;q.z=z;return q
-        for z in [8,20,28.6]:batch.box(group,'stone',p(0,3.4,z-.15),(length+.03,6.8,.3),angle)
         # Each generator segment is a narrow masonry bay. Cluster visual
         # details continuously along the same field-independent datum.
-        batch.box(group,'brick',p(-length/2,0,18.3),(.28,.65,20.6),angle)
-        batch.box(group,'metal',p(-length/2,6.6,18.3),(.25,.35,20.6),angle)
-        batch.box(group,'glass',p(0,.12,24.15),(max(.1,length-.28),.12,7.9),angle)
+        pier=.85
+        batch.box(group,'brick',p(-length/2,0,14),(pier,.85,12),angle)
+        batch.box(group,'metal',p(-length/2,0,24.3),(.14,.3,8.6),angle)
+        batch.box(group,'glass',p(0,.12,24.15),(max(.1,length-.12),.12,7.9),angle)
         batch.box(group,'metal',p(0,0,20.15),(length+.1,.3,.3),angle)
         batch.box(group,'stone',p(0,0,28.6),(length+.08,.45,.3),angle)
+        # Fine dark glazing grid beneath the projecting roof; the tall,
+        # narrow windows above it remain on the original upper-wall plane.
+        panes=max(2,round(length/1.25))
+        for j in range(1,panes):
+            x=-length/2+length*j/panes
+            batch.box(group,'metal',p(x,-.02,24.1),(.09,.2,7.8),angle)
+        for z in [22.6,25.2]:batch.box(group,'metal',p(0,-.02,z),(length,.2,.12),angle)
+        wall_depth=projection-.9
+        if 0<index and abs(u.x)>abs(u.y) and center.x<100:
+            count=max(1,round(length/1.8))
+            for j in range(count):
+                x=-length/2+(j+.5)*length/count
+                batch.box(group,'glass_dim',p(x,wall_depth,33.8),(length/count*.56,.16,9.3),angle)
+                for dx in [-length/count*.30,length/count*.30]:
+                    batch.box(group,'brick_light',p(x+dx,wall_depth-.08,33.8),(.15,.25,9.8),angle)
         # Lower openings are real voids; segmented arch ring above open bays.
-        radius=max(.25,(length-.28)/2);spring=15.5
+        radius=max(.25,(length-pier)/2);spring=15.5
         for k in range(12):
             t0=math.pi*k/12;t1=math.pi*(k+1)/12
             points=[tuple(p(r*math.cos(t),0,spring+r*math.sin(t)))for r,t in [(radius,t0),(radius+.2,t0),(radius+.2,t1),(radius,t1)]]
@@ -239,9 +292,12 @@ def flush_frontage(scene,batch,root):
             front=[p(xa,0,za),p(xb,0,zb),p(xb,0,20),p(xa,0,20)]
             rear=[q-n*.6 for q in front]
             batch.add(group,'brick',[tuple(q)for q in front+rear],[(0,1,2,3),(7,6,5,4),(0,4,5,1),(1,5,6,2),(2,6,7,3),(3,7,4,0)])
-        segments.append({'front_start':list(p(-length/2,0,0)[:2]),'front_end':list(p(length/2,0,0)[:2]),'depth':6.8})
+        segments.append({'front_start':list(p(-length/2,0,0)[:2]),'front_end':list(p(length/2,0,0)[:2]),'depth':depth})
     return {'segments':segments,'floor_levels':[8,20],'roof':28.6,
-            'rule':'Wall plane and roof edge share the main facade datum; old projecting volume removed',
+            'projection':projection,'source':'user-corrections-2026-09-08/south-arcade-projection.jpg',
+            'river_wall_face_x':river_face,'tower_wall_face_x':river_face,
+            'square_corner':[wall_line,corner_y],'corner_degrees':90,
+            'rule':'Projecting south wing turns at 90 degrees and its outer river wall aligns with the actual tower finish face; south depth remains inferred',
             'status':'Generator study awaiting fixed source/current frontage and clearance checks'}
 
 
