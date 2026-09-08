@@ -2,6 +2,10 @@
 
 **Current user priority:** correct seating alignment and stadium proportions. Interior tower/stadium detail is not the focus. Further work and review should prioritize the visible seating bands, corner angles, terrace/roof massing and source compositions; interior-only refinements will not drive the next passes.
 
+## Final LF delivery and end of work
+
+The user requested completion and push, then an end to this work. The latest LF pass retains two exposed seating banks, two open box levels and a terrace; the earlier three-bank interpretation is superseded. The oversized pavilion experiment was rejected against the actual AECOM renderings. The final compact roof-plane correction and remaining uncertainty are recorded in [the final correction note](audits/V14-LF-FINAL-CORRECTION.md) and [independent source reassessment](audits/V14-LF-SOURCE-REASSESSMENT.md). The wider audit is not complete. Historical scene checks below remain tied to their stated hashes.
+
 ## South extension correction from September 8 references
 
 The user clarified that the south arcade/glazed wing behind the clock tower must project from the taller stadium facade, as shown in the newly supplied closeup. This supersedes the earlier completely flush interpretation of A08. `flush_frontage` retains the upper facade datum and restores an inferred 8.5 m outward projection, with a continuous roof ledge, joined corner geometry, arched ground level, gridded glazing and narrow upper-wall windows. Source files and the inference boundary are preserved in `reconstruction-references/user-corrections-2026-09-08/`.
@@ -12,7 +16,7 @@ The follow-up instruction fixes the river alignment and corner explicitly: the o
 
 ## Exterior seating and proportion pass
 
-The current generator lowers the rear LF roof to the common z33.4 pavilion terrace and adds closed gable ends, retaining the three LF seating tiers. RF corner rows now keep a constant elevation across their length; their endpoints recede toward the tower instead of squeezing the rake into a narrow strip at the river. The middle seating band extends into the corner, and the third-tier ends turn toward the north tower terraces while the covered top tier stays in place. Coordinates remain inferred source fits.
+The earlier exterior-pass generator lowered the rear LF roof to the common z33.4 pavilion terrace and adds closed gable ends, retaining the three LF seating tiers. RF corner rows now keep a constant elevation across their length; their endpoints recede toward the tower instead of squeezing the rake into a narrow strip at the river. The middle seating band extends into the corner, and the third-tier ends turn toward the north tower terraces while the covered top tier stays in place. Coordinates remain inferred source fits.
 
 The independent [exterior proportions review](audits/V14-EXTERIOR-PROPORTIONS-REVIEW.md) recommends keeping these three visible improvements. Remaining priorities are the relative LF roof hierarchy, terrace projections and edge continuity, and the RF bank's sparse appearance compared with the main bowl. This review does not close the entire corner or the 23-item ledger. Earlier route and chair-pair results below belong to their stated frozen scenes.
 

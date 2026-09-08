@@ -14,6 +14,8 @@ shots['tower-corner']=((197,55,98),(98,-43,30),48)
 shots['frontage']=((170,-215,58),(59,-103,26),48)
 shots['south-extension']=((210,-255,105),(70,-100,34),48)
 shots['south-extension-plan']=((80,-97,180),(80,-97,0),48)
+shots['lf-section-stack']=((75,72,58),(-10,139,28),48)
+shots['lf-terrace']=((65,195,78),(-14,150,38),55)
 shots['lantern-clearance']=((-48,-7,46),(-64,-7,47),42)
 out=Path(os.environ.get('REVIEW_OUT',str(ROOT/'review/v14')));out.mkdir(exist_ok=True,parents=True)
 for name in os.environ.get('VIEWS','bank-front,bank-underneath,park-underpass').split(','):

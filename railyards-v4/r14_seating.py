@@ -6,6 +6,32 @@ from r13_outfield import remove_collection
 TIERS=[(0,.34,14,24,24),(.40,.49,27,30,8),(.55,.65,33,36,9),(.70,.93,39,47,18)]
 
 
+def lf_section_point(front,back,t,z,station):
+    """Two exposed banks below the user's two box levels and roof terrace."""
+    if t<.4:
+        fraction=t/.34;end=Vector((24,110.85+26.15*fraction,0))
+        bend=.38+.12*fraction
+    else:
+        fraction=(t-.4)/.09;end=Vector((24,134.8+7.5*fraction,0))
+        bend=.3
+    start=front.lerp(back,t)
+    control=start+Vector((.05,1,0)).normalized()*(end-start).length*bend
+    point=start*(1-station)**2+control*2*station*(1-station)+end*station**2
+    point.z=z
+    return point
+
+
+def lf_sections(scene,batch,root):
+    import random
+    from r13_outfield import curved_returns
+    spec=json.loads((root/'scene-spec.json').read_text())
+    remove_collection('D2_V13 LF seating return')
+    remove_collection('D2_V13 LF bank junction')
+    result=curved_returns(scene,batch,spec,'LF',random.Random(1416),lf_section_point,TIERS[:2])
+    result['section_stack']='Deep lower seating bank; slightly overhanging upper bank; two box floors and rooftop terrace built by pavilion_roofs'
+    return result
+
+
 def angular_rf_point(front, back, t, z, station):
     """Level diagonal rows end on a receding, angled corner boundary.
 
@@ -160,7 +186,7 @@ def return_aisles_and_rakers(scene,batch,root):
     records=[]
     for side in ['RF','LF']:
         rf=side=='RF';index,neighbor=(0,1)if rf else(-1,-2);f,b=front[index],back[index];fn,bn=front[neighbor],back[neighbor]
-        tiers=TIERS[:2]if rf else TIERS[:3]
+        tiers=TIERS[:2]
         ends=[((102,2),(111,2))]*len(tiers)if rf else[((24,110.85),(24,127.34)),((24,130),(24,136)),((24,139),(24,144))]
         end_z=[(14,24)]*len(tiers)if rf else[(13.65,22.055),(25.2,28),(29.6,32)]
         concrete=bpy.data.objects.get(f'D2_V13 {side} seating return concrete')
@@ -172,10 +198,7 @@ def return_aisles_and_rakers(scene,batch,root):
             ea,eb=[Vector((*p,0))for p in ends[tier]]
             def at(t,z,s):
                 if rf:return angular_rf_point(f,b,t,z,s)
-                fraction=(t-ta)/(tb-ta);start=f.lerp(b,t);direction=(start-fn.lerp(bn,t)).normalized();end=ea.lerp(eb,fraction)
-                control=start+direction*(end-start).length*(.62 if rf else .38)
-                p=start*(1-s)**2+control*(2*s*(1-s))+end*s*s
-                target=end_z[tier][0]+(end_z[tier][1]-end_z[tier][0])*(z-za)/(zb-za);p.z=z+(target-z)*s;return p
+                return lf_section_point(f,b,t,z,s)
             for row in range(rows):
                 t0=ta+(tb-ta)*row/rows;t1=ta+(tb-ta)*(row+1)/rows;z=za+(zb-za)*row/rows;rise=(zb-za)/rows
                 points=[at((t0+t1)/2,z,k/72)for k in range(73)];lengths=[0]
@@ -198,10 +221,10 @@ def return_aisles_and_rakers(scene,batch,root):
                 support=[at(ta+(tb-ta)*r/rows,za+(zb-za)*r/rows-.8,s)for r in range(rows+1)]
                 for a,b0 in zip(support,support[1:]):
                     if allowed(a) and allowed(b0):batch.cylinder(group,'concrete',a,b0,.22,sides=8)
-                # The middle RF bank projects over the lower cross aisle.
+                # The middle return bank projects over the lower cross aisle.
                 # Its front columns would descend into occupied lower rows;
                 # keep the visible rakers carried from the rear support line.
-                column_points=[support[-1]] if rf and tier>0 else [support[0],support[-1]]
+                column_points=[support[-1]] if tier>0 else [support[0],support[-1]]
                 for p in column_points:
                     if allowed(p):batch.cylinder(group,'concrete',(p.x,p.y,8),p,.24,sides=8)
             records.append({'side':side,'tier':tier+1,'rows':rows,'raker_drop':.8,'aisle_risers_per_row':3})
@@ -244,7 +267,7 @@ def bank_guards_and_backstop(scene,batch,root):
     for obj in scene.objects:
         if obj.type!='MESH' or obj.data.polygons:continue
         if obj.name=='D2_Left-center bank individual seats':indices=[i for i,v in enumerate(obj.data.vertices)if 25.6<v.co.x<25.95]
-        elif obj.name=='D2_LF return individual seats':indices=[44,91,139]
+        elif obj.name=='D2_LF return individual seats':indices=[0,44,91,139,140]
         elif obj.name=='D2_Individual seats':indices=[551]
         else:continue
         scales=obj.data.attributes.get('scale')
