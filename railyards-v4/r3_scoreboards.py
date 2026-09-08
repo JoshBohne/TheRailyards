@@ -84,7 +84,7 @@ def build_scoreboards(scene,spec,batch,materials):
                     a=p+normal*(1.4*side);a.z=za
                     b=p-normal*(1.4*side);b.z=zb
                     batch.cylinder('Scoreboards','metal',a,b,.085,sides=6)
-        # V12: RF pylons land on the river gallery's upper deck (support_base_z in scene-spec);
+        # V12: RF pylons land on the podium ring (support_base_z in scene-spec);
         # the north aerial shows a dark steel frame rising from that terrace, not a masonry base.
         for u in [-width*(rf.get('pylon_fraction',.33) if is_rf else .33),width*(rf.get('pylon_fraction',.33) if is_rf else .33)]:
             p=top+t*u

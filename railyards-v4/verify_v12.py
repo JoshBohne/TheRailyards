@@ -80,6 +80,8 @@ shots={
  'D4_backstop':((-34,-34,30),(4,4,13),35),
  'F1_flag_close':((tx+30,ty-18,tz+6),(tx+4.6,ty+4.6,tz+8),60),
  'F2_tower_context':((tx+95,ty-120,30),(tx,ty,45),45),
+ 'T1_tower_end_from_field':((25,-5,14.5),(70,-72,38),30),
+ 'T2_tower_end_aerial':((120,-30,80),(70,-72,35),35),
  'C_entrance_landing':((92,196,deck_z(196)+1.6),(70,158,20),24),
  'E_outfield_concourse':((108,60,13.4+1.6),(60,105,15),22),
  'H_entrance_from_field':((60,95,14),(66.9,161.8,deck_z(161.8)+2),30),

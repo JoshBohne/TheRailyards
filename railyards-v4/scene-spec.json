@@ -3218,10 +3218,10 @@
     "width_m": 36.0,
     "height_m": 18.5,
     "angle_deg": 92.0,
-    "support_base_z": 16.5,
+    "support_base_z": 13.4,
     "basis": "V4: three-ray triangulation of the board top centre from the north (px 279,514 of 1944x1294), south and bridge fits gives [101.7,36.9,37.8] with 0.4/2.0/2.1 m ray misses; the V3 anchor [96.9,25.4,38] was a single-height back-projection and lay 5.2 m inside the field polygon. The board is placed 4.3 m east of the triangulated centre so the whole 36 m board, its service platform and both pylon footprints clear the traced outfield wall (first V4 pass at x 104.6 left the north pylon 0.5-0.9 m inside the polygon at the wall bend; see review/rf-plan-evidence.json), rotated 92 deg (north-image top corners suggest a slight cant toward home). Width/height reduced from 39x20 to 36x18.5 from the north-image corner rays; still inferred.",
     "pylon_fraction": 0.3,
-    "v12_note": "Pylons bear on the V12 right-field river gallery upper deck (z 16.5); anchor, size and angle unchanged."
+    "v12_note": "Pylons bear on the podium ring (z 13.4) behind the outfield wall; the river gallery no longer widens to the wall beside the board (bridge source: the board sits on the arcade building, patrons on its arch levels). Anchor, size and angle unchanged."
   },
   "v4_notes": [
     "2026-09-06: RF scoreboard anchor corrected; rf_scoreboard block added; r4_geo owns the +33 m X registration for lake, skyline and near-South-Loop context."
