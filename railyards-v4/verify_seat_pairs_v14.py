@@ -63,6 +63,8 @@ for label,name,ids in [('rf','D2_RF return individual seats',[408,486]),('main',
   matrix=o.matrix_world@Matrix.Translation(o.data.vertices[n].co)@Matrix.Rotation(angle,4,'Z')@Matrix.Diagonal((*scale,1))
   records.append({'index':n,'matrix':[list(row)for row in matrix],'rotation':list(o.data.attributes['rotation'].data[n].vector),'scale':list(scale),'vertices':[list(matrix@v)for v in verts]})
  rep_pairs=mesh(ii[0]).overlap(mesh(ii[1]));representatives.append({'label':label,'object':name,'instances':records,'intersecting_source_polygon_pairs':rep_pairs,'source_polygons':faces})
-Path('work/audit-fixes-v14/independent-phase3/representative-chair-triangles.json').write_text(json.dumps(representatives,indent=2))
+out=Path(__file__).resolve().parent/'review/v14'
+out.mkdir(parents=True,exist_ok=True)
+(out/'representative-chair-triangles.json').write_text(json.dumps(representatives,indent=2))
 result={'file':bpy.data.filepath,'sha256':hashlib.sha256(Path(bpy.data.filepath).read_bytes()).hexdigest(),'pair_search_radius':pair_radius,'active_visible_seats' :len(points),'close_overlapping_footprints':len(pairs),'pairs':pairs,'actual_mesh_intersections':confirmed,'source_bounds':[(min(p[i]for p in verts),max(p[i]for p in verts))for i in range(3)]}
-(Path(__file__).resolve().parent/'review/v14/seat-pair-diagnostics.json').write_text(json.dumps(result,indent=2));print('RESULT',len(points),len(pairs),'ACTUAL',len(confirmed));print(collections.Counter((p['a'][0],p['b'][0])for p in confirmed))
+(out/'seat-pair-diagnostics.json').write_text(json.dumps(result,indent=2));print('RESULT',len(points),len(pairs),'ACTUAL',len(confirmed));print(collections.Counter((p['a'][0],p['b'][0])for p in confirmed))

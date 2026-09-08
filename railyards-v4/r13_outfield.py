@@ -110,7 +110,7 @@ def trim_pavilion(scene):
     remove_collection('D2_Left field terrace dining')
 
 
-def curved_returns(scene, batch, spec, side, rng, point_mapper=None):
+def curved_returns(scene, batch, spec, side, rng, point_mapper=None, tiers_override=None):
     group = 'V13 '+side+' seating return'
     is_rf = side == 'RF'
     front = [Vector(p) for p in spec['bowl_front']]
@@ -125,12 +125,12 @@ def curved_returns(scene, batch, spec, side, rng, point_mapper=None):
     # User correction: no new upper seating on the river/east side of the
     # tower. Retain V12's upper west-side termination; the new north return
     # carries the lower seating to the RF foul-pole/board corner.
-    tiers = TIERS[:1] if is_rf else TIERS[:3]
+    tiers = tiers_override if tiers_override is not None else (TIERS[:1] if is_rf else TIERS[:3])
     # Endpoints follow the diminishing banks seen between tower and RF board,
     # and the three exposed tiers in front of the LF pavilion respectively.
-    ends = [((102,2),(111,2))] if is_rf else [
+    ends = [((102,2),(111,2))]*len(tiers) if is_rf else [
             ((24,110.85),(24,127.34)),((24,130),(24,136)),((24,139),(24,144))]
-    end_z = [(14,24)] if is_rf else [(13.65,22.055),(25.2,28),(29.6,32)]
+    end_z = [(14,24)]*len(tiers) if is_rf else [(13.65,22.055),(25.2,28),(29.6,32)]
 
     def allowed(p):
         if not _clear_of_field(Vector(p[:2]),field):

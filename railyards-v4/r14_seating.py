@@ -7,16 +7,21 @@ TIERS=[(0,.34,14,24,24),(.40,.49,27,30,8),(.55,.65,33,36,9),(.70,.93,39,47,18)]
 
 
 def angular_rf_point(front, back, t, z, station):
-    """Straight diagonal rows terminate below the river outfield concourse.
+    """Level diagonal rows end on a receding, angled corner boundary.
 
     The reference establishes straight angled faces, not an exact surveyed
-    rake. The main-bowl join retains its existing row elevations; the river
-    endpoint tapers to the retained low bank's 17.01 m rear datum.
+    rake. Retain the main-bowl row elevations across each complete row.
+    Higher rows end farther south, beside the tower terraces, rather than
+    falling down to the low river bank along their length.
     """
-    fraction=t/.34
-    end=Vector((102+9*fraction,2,0))
+    if t<.4:
+        fraction=t/.34
+        end=Vector((102+9*fraction,2-37*fraction,0))
+    else:
+        fraction=(t-.4)/.09
+        end=Vector((101.2,-37-10*fraction,0))
     point=front.lerp(back,t).lerp(end,station)
-    point.z=z+((14+(17.01-14)*(z-14)/10)-z)*station
+    point.z=z
     return point
 
 
@@ -26,7 +31,7 @@ def angular_rf_return(scene,batch,root):
     spec=json.loads((root/'scene-spec.json').read_text())
     spec['anchors']['tower_roof']=json.loads(scene['v14_tower_anchor'])
     remove_collection('D2_V13 RF seating return')
-    result=curved_returns(scene,batch,spec,'RF',random.Random(1415),angular_rf_point)
+    result=curved_returns(scene,batch,spec,'RF',random.Random(1415),angular_rf_point,TIERS[:2])
     # The diagonal wedge narrows at the river; omit a chair when any of its
     # feet would overhang a clipped cap instead of leaving partial support.
     from mathutils.bvhtree import BVHTree
@@ -52,8 +57,11 @@ def angular_rf_return(scene,batch,root):
             if tuple(round(c,4)for c in v.co)in omitted:
                 scale.data[i].vector=(0,0,0);omitted_fans+=1
     result['omitted_at_tapered_edges']=len(omitted);result['seats']-=len(omitted)
-    result['tiers'][0]['seats']=result['seats'];result['spectators']-=omitted_fans
-    result['geometry']='Straight diagonal rows; river endpoint rear floor 17.01 below outfield concourse'
+    for tier in result['tiers']:
+        za,zb=TIERS[tier['tier']-1][2:4]
+        tier['seats']-=sum(1 for p in omitted if za-.01<=p[2]<zb-.01)
+    result['spectators']-=omitted_fans
+    result['geometry']='Level straight lower and middle rows; corner ends recede north of the tower, inferred from source composition'
     return result
 
 
@@ -152,9 +160,9 @@ def return_aisles_and_rakers(scene,batch,root):
     records=[]
     for side in ['RF','LF']:
         rf=side=='RF';index,neighbor=(0,1)if rf else(-1,-2);f,b=front[index],back[index];fn,bn=front[neighbor],back[neighbor]
-        tiers=TIERS[:1]if rf else TIERS[:3]
-        ends=[((102,2),(111,2))]if rf else[((24,110.85),(24,127.34)),((24,130),(24,136)),((24,139),(24,144))]
-        end_z=[(14,24)]if rf else[(13.65,22.055),(25.2,28),(29.6,32)]
+        tiers=TIERS[:2]if rf else TIERS[:3]
+        ends=[((102,2),(111,2))]*len(tiers)if rf else[((24,110.85),(24,127.34)),((24,130),(24,136)),((24,139),(24,144))]
+        end_z=[(14,24)]*len(tiers)if rf else[(13.65,22.055),(25.2,28),(29.6,32)]
         concrete=bpy.data.objects.get(f'D2_V13 {side} seating return concrete')
         if concrete:remove_components(concrete,lambda ps:len(ps)==16)
         stone=bpy.data.objects.get(f'D2_V13 {side} seating return stone')
@@ -190,7 +198,11 @@ def return_aisles_and_rakers(scene,batch,root):
                 support=[at(ta+(tb-ta)*r/rows,za+(zb-za)*r/rows-.8,s)for r in range(rows+1)]
                 for a,b0 in zip(support,support[1:]):
                     if allowed(a) and allowed(b0):batch.cylinder(group,'concrete',a,b0,.22,sides=8)
-                for p in [support[0],support[-1]]:
+                # The middle RF bank projects over the lower cross aisle.
+                # Its front columns would descend into occupied lower rows;
+                # keep the visible rakers carried from the rear support line.
+                column_points=[support[-1]] if rf and tier>0 else [support[0],support[-1]]
+                for p in column_points:
                     if allowed(p):batch.cylinder(group,'concrete',(p.x,p.y,8),p,.24,sides=8)
             records.append({'side':side,'tier':tier+1,'rows':rows,'raker_drop':.8,'aisle_risers_per_row':3})
     return records

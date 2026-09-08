@@ -46,7 +46,17 @@ def tower_registration(scene,batch,root):
     try:
         r4_rf_structure.LINK_EAST_CLEAR=8.3
         r4_rf_structure.END_WALL_BASE=28.6
-        extension=build_tower_end(scene,batch,spec,batch.materials,random.Random(1414))
+        def exterior_endpoint(t,end):
+            # The third seating tier turns into the tower's north corner.
+            # Preserve the covered top tier and interpolate the concourse
+            # between them; all rows retain their original elevations.
+            if t<=.65:
+                return (end.x,-45-10*(t-.55)/.10,end.z)
+            if t<.70:
+                blend=(t-.65)/.05
+                return (end.x,-55*(1-blend)+end.y*blend,end.z)
+            return end
+        extension=build_tower_end(scene,batch,spec,batch.materials,random.Random(1414),exterior_endpoint)
     finally:
         r4_rf_structure.LINK_EAST_CLEAR=original_clearance
         r4_rf_structure.END_WALL_BASE=original_base

@@ -20,7 +20,8 @@ The builder refuses a different input filename or hash and records the verified 
 ## Implemented geometry
 
 - Rebuild retained left-center seat support as closed solids around the park passage; replace incompatible bowl rails with stairs and rails aligned to the actual section gaps.
-- Rebuild low outfield banks with inset seat placement and replace the rounded RF return with straight diagonal rows tapering to the low river bank. Omit a chair and matching occupant when its feet overhang a clipped row cap.
+- Rebuild low outfield banks with inset seat placement. The RF corner now has level diagonal rows whose ends recede toward the tower; it no longer lowers the seats along each row to the river datum. Extend the middle seating band and turn the next tier toward the tower's north terraces, preserving the covered top tier. Omit a chair and matching occupant when its feet overhang a clipped row cap.
+- Lower the rear LF roof onto the common pavilion terrace and close the pitched volumes' gable ends. Preserve all three LF seating tiers; the remaining roof hierarchy is still an approximation.
 - Shorten the west lantern's lower enclosure while preserving its roof anchor and height.
 - Move the tower's near outer-stone face to the retained RF foul-pole x datum. Rebuild its west seating/roof extension, actual facade, hollow interior, floor openings, stairs and doorways.
 - Connect the lower balconies to bowl concourse gaps and the upper balcony by stairs; add a shared terrace support frame and a graded arrival onto the existing riverwalk.

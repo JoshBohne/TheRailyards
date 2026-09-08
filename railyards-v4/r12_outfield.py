@@ -309,7 +309,7 @@ EXT_TIERS=[(.55,.65,33,36,9),(.70,.93,39,47,18)]   # tiers 3 and 4 of build_bloc
 EXT_T_MAX=1.0
 
 
-def build_tower_end(scene,batch,spec,materials,rng):
+def build_tower_end(scene,batch,spec,materials,rng,endpoint_mapper=None):
     """Carry the upper two tiers past the bowl's traced end to the clock tower.
 
     The north aerial shows the upper decks running straight into the tower
@@ -329,7 +329,10 @@ def build_tower_end(scene,batch,spec,materials,rng):
         return max(0.0,(x_face-x)/d.x) if d.x>1e-6 else 0.0
     def at(t,z,s):
         """Point on depth t, s in [0,1] from the end line to the tower face."""
-        p=f0.lerp(b0,t)+step(t)*(count(t)*s);return Vector((p.x,p.y,z))
+        start=f0.lerp(b0,t)
+        end=start+step(t)*count(t)
+        if endpoint_mapper is not None:end=Vector(endpoint_mapper(t,end))
+        p=start.lerp(end,s);return Vector((p.x,p.y,z))
     N=8
     def strip(mat,t0,z0,t1,z1):
         for i in range(N):
@@ -342,7 +345,7 @@ def build_tower_end(scene,batch,spec,materials,rng):
         for row in range(rows):
             t0=ta+(tb-ta)*row/rows;t1=ta+(tb-ta)*(row+1)/rows;z=za+(zb-za)*row/rows
             strip('concrete',t0,z,t1,z);strip('concrete',t1,z,t1,z+(zb-za)/rows)
-            t=ta+(tb-ta)*(row+.48)/rows;d=step(t);length=count(t)*d.length
+            t=ta+(tb-ta)*(row+.48)/rows;d=at(t,z,1)-at(t,z,0);length=d.length
             tangent=-d.normalized();angle=math.atan2(tangent.y,tangent.x)
             for k in range(int((length-.6)/.54)):
                 p=at(t,z,(.6+k*.54)/max(length,1e-6));seats.append(tuple(p));rot.append((0,0,angle))

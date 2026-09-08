@@ -1,5 +1,19 @@
 # Stadium audit closure ledger
 
+**Current user priority:** correct seating alignment and stadium proportions. Interior tower/stadium detail is not the focus. Further work and review should prioritize the visible seating bands, corner angles, terrace/roof massing and source compositions; interior-only refinements will not drive the next passes.
+
+## Exterior seating and proportion pass
+
+The current generator lowers the rear LF roof to the common z33.4 pavilion terrace and adds closed gable ends, retaining the three LF seating tiers. RF corner rows now keep a constant elevation across their length; their endpoints recede toward the tower instead of squeezing the rake into a narrow strip at the river. The middle seating band extends into the corner, and the third-tier ends turn toward the north tower terraces while the covered top tier stays in place. Coordinates remain inferred source fits.
+
+The independent [exterior proportions review](audits/V14-EXTERIOR-PROPORTIONS-REVIEW.md) recommends keeping these three visible improvements. Remaining priorities are the relative LF roof hierarchy, terrace projections and edge continuity, and the RF bank's sparse appearance compared with the main bowl. This review does not close the entire corner or the 23-item ledger. Earlier route and chair-pair results below belong to their stated frozen scenes.
+
+Fixed-camera studies: `review/v14/exterior-roofs/`, `review/v14/level-rf/`, and `review/v14/upper-junction/` under `railyards-v4`. The corresponding prior scenes remain preserved in `work/audit-fixes-v14/`.
+
+Final saved exterior scene SHA256: `8d02f77f311c769bdc7ea75dccc3d00835cb6d6e0bc08c2258f787e378f17392`. All 34591 active placements pass the sampled architectural floor/foot/body/head checks. The transformed-chair diagnostic finds 2400 intersection/contact pairs, all in the retained main-bowl seats; none involve the revised RF returns or tower-end rows. Main-bowl alignment remains open. Seven final exterior views are preserved in `railyards-v4/review/v14/exterior-final/`. These are native local Blender results, not a new interactive export or public deployment.
+
+## Original audit and historical evidence
+
 Baseline: V13 at `c305dd9a510ff1d7a66864b02480fc36bcb07935`.
 Original independent audit: [V13 audit](audits/V13-INDEPENDENT-AUDIT.md), preserved from `work/independent-v13-audit/AUDIT.md`.
 Preserved scene SHA256: `22b7801e6d0bfab64c73d82e2e18efe8dc64aea0fba1e6b5db00dbadd17cbb95`.

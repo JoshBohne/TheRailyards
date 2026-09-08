@@ -98,7 +98,7 @@ def pavilion_roofs(scene,batch):
     # projected in front of this datum and could not support a dining floor.
     roofs=[('Dining',(-5,18,146,161),33.4,36.5,38.0),
            ('Middle',(-25,-5,144,160),33.4,37.0,40.0),
-           ('Rear',(-46,-25,136,165),38.8,41.0,44.0)]
+           ('Rear',(-46,-25,136,165),33.4,37.0,40.0)]
     result=[]
     for label,(x0,x1,y0,y1),floor,eave,ridge in roofs:
         roofgroup='V14 LF '+label+' roof'
@@ -122,6 +122,17 @@ def pavilion_roofs(scene,batch):
                 if floor>33.4:
                     batch.box(roofgroup,'brick_light',(x,y,(8+floor)/2),(.65,.65,floor-8))
         if label!='Dining':
+            # B4 shows closed gable ends on the taller roof volumes. Keep
+            # their bases on the common pavilion terrace, not on a second
+            # elevated platform above it. These are exterior source fits.
+            for x in [x0+.2,x1-.2]:
+                end=[(x,y0,floor),(x,y1,floor),(x,y1,eave),
+                     (x,mid,ridge-.18),(x,y0,eave)]
+                thickness=.35
+                verts=end+[(px+thickness,py,pz) for px,py,pz in end]
+                batch.add(roofgroup,'brick_light',verts,
+                          [(4,3,2,1,0),(5,6,7,8,9)]+
+                          [(i,(i+1)%5,(i+1)%5+5,i+5) for i in range(5)])
             for y in [y0+.15,y1-.15]:
                 batch.box(roofgroup,'glass_mid',((x0+x1)/2,y,(floor+eave)/2),
                           (x1-x0-.8,.16,eave-floor-.3))
