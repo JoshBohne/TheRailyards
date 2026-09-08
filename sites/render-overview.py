@@ -4,7 +4,8 @@ from pathlib import Path
 from mathutils import Vector
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 out=Path(os.environ['RAILYARDS_HERO_OUT']);out.mkdir(parents=True,exist_ok=True)
-scene.render.engine='BLENDER_EEVEE';scene.eevee.taa_render_samples=16
+scene.render.engine='BLENDER_EEVEE'
+if hasattr(scene, 'eevee'):scene.eevee.taa_render_samples=16
 scene.render.resolution_x=1280;scene.render.resolution_y=720;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG'
 for obj in scene.objects:
@@ -22,8 +23,9 @@ cut=1.55+6.1*128/142-.5
 frames=[int(x) for x in os.environ.get('RAILYARDS_HERO_FRAMES','').split(',') if x] or range(252)
 for frame in frames:
  t=frame/24;ring.hide_render=t<7.65;ring.scale=(1+max(0,t-7.65)*2,)*2+(1,);ball.hide_render=t>=7.65;scene.frame_set(round(t*60));pos=ball.matrix_world.translation.copy()
- if t<cut:cam.location=(-54,-68,102);target=Vector((46,32,19));cam.data.lens=32
+ if t<2.4:cam.location=(-12,-15,30);target=Vector((20,20,12));cam.data.lens=22
+ elif t<cut:cam.location=(-54,-68,102);target=Vector((46,32,19));cam.data.lens=32
  else:cam.location=(181,8,3.0);target=pos if t<7.65 else Vector((142,16,.2));cam.data.lens=30
  cam.rotation_euler=(target-cam.location).to_track_quat('-Z','Y').to_euler()
  scene.render.filepath=str(out/f'{frame:04d}.png');bpy.ops.render.render(write_still=True)
-(out/'receipt.json').write_text(json.dumps({'scene':bpy.data.filepath,'fps':24,'frames':252,'cutSeconds':cut,'waterCrossing':1.55+6.1*128/142,'note':'Illustrative play and enlarged ball. Camera cut preserves the same animation time.'},indent=2))
+(out/'receipt.json').write_text(json.dumps({'scene':bpy.data.filepath,'fps':24,'frames':252,'openingCutSeconds':2.4,'cutSeconds':cut,'waterCrossing':1.55+6.1*128/142,'note':'Illustrative play and enlarged ball. Camera cut preserves the same animation time.'},indent=2))
