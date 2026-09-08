@@ -56,6 +56,6 @@ The authored shot has horizontal landing coordinates `(142,16)` metres. The near
 
 The social image uses the current north camera, a projected version of that same flight and a 1200×630 layout. Its distinct image URL replaces the old OG thumbnail; individual social platforms may retain their own cached cards.
 
-The How it was made page includes the specified model credits and an edited history through V14. Its usage snapshot covers locally identifiable Railyards sessions from September 5–8 through the stated cutoff, including subagents. Unrelated work is excluded. Cloud-only and missing logs remain outside the count; no model identity is guessed from an internal alias. Raw conversation logs are not published.
+The How it was made page includes the specified model credits, with the first-person maker disclosure directly before credits and disclosures. Its usage snapshot covers locally identifiable Railyards sessions from September 5–8 through the stated cutoff, including subagents. Unrelated work is excluded. Cloud-only and missing logs remain outside the count; no model identity is guessed from an internal alias. Raw conversation logs are not published.
 
 The wider 23-finding architectural audit remains open. The release alignment and visible square-corner correction do not close that audit.
