@@ -6,8 +6,8 @@
   <header><a class="brand" href="../index.html" target="_top">THE RAILYARDS <span>← MAIN SITE</span></a><button id="fullscreen" class="quiet">Fullscreen</button></header>
   <div id="loading" role="status"><p id="loading-status">Loading the stadium…</p><progress id="load-progress" max="100" value="0"></progress><a href="../index.html" target="_top">Watch the night-game film</a></div>
   <aside id="camera-panel" class="panel" aria-label="Choose your view">
-    <div class="panel-title"><h2>Your view</h2></div>
-    <div id="view-options">    <div class="picker-modes" role="group" aria-label="Explore by seat or view"><button id="choose-seat" aria-pressed="false" aria-controls="seat-picker">Pick your seat</button><button id="choose-view" aria-pressed="true" aria-controls="camera-presets">Pick your view</button></div><div id="camera-presets"><div class="view-list" role="group" aria-label="Camera perspectives">
+    <div class="panel-title"><h2>Your view</h2><button id="collapse-panel" aria-label="Collapse view picker" aria-expanded="true" aria-controls="view-options"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10h12" stroke="currentColor" stroke-width="1.5"/><path class="expand-stroke" d="M10 4v12" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+    <div id="view-options">    <div class="picker-modes" role="group" aria-label="Explore by seat or view"><button id="choose-seat" aria-pressed="false" aria-controls="seat-picker">Seat</button><button id="choose-view" aria-pressed="true" aria-controls="camera-presets">View</button></div><div id="camera-presets"><div class="view-list" role="group" aria-label="Camera perspectives">
       <button data-camera="overview" aria-pressed="true">The whole flight <span>Aerial</span></button>
 <button data-camera="upper" aria-pressed="false">Above the diamond <span>Upper deck</span></button>
 <button data-camera="boat" aria-pressed="false">On the river <span>Boat level</span></button>
@@ -25,11 +25,19 @@
     <label class="toggle"><input id="show-trail" type="checkbox" checked>Trail + ball locator</label>
     <label class="toggle"><input id="crowd" type="checkbox" checked>Crowd</label>
 </details></div>
+    <button id="resize-panel" aria-label="Resize view picker" title="Drag to resize. Arrow keys resize; Home resets." aria-describedby="resize-help"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="m4 16 12-12M10 16l6-6M15 16l1-1" fill="none" stroke="currentColor" stroke-width="1.3"/></svg></button><span id="resize-help" class="sr-only">Drag to resize. Use arrow keys to change width and height, or Home to reset.</span>
   </aside>
+  <div class="bottom-controls">
+  <div class="zoom-controls" role="group" aria-label="Zoom"><button id="zoom-out" aria-label="Zoom out" disabled><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10h12" stroke="currentColor" stroke-width="1.5"/></svg></button><button id="zoom-in" aria-label="Zoom in" disabled><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10h12M10 4v12" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
   <section class="transport" aria-label="Replay controls">
-    <div class="time-heading"><span id="beat" aria-live="off">The pitch</span><span id="clock">0.0 / 10.5 s</span></div>
-    <label class="sr-only" for="timeline">Replay time</label><input id="timeline" type="range" min="0" max="10.5" step="0.01" value="0">
-    <div class="playback"><button id="play" class="primary" aria-label="Play" disabled><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path class="play-icon" d="m9 5 10 7-10 7Z" fill="currentColor"/><path class="pause-icon" d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="3"/></svg></button></div>
+    <span id="beat" hidden></span>
+    <div class="playback">
+      <button id="restart" aria-label="Restart replay" disabled><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 5v14M19 5 8 12l11 7Z" fill="currentColor" stroke="currentColor" stroke-width="1.5"/></svg></button>
+      <button id="play" aria-label="Play" aria-pressed="false" disabled><svg viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><path class="play-icon" d="m8 4 12 8-12 8Z" fill="currentColor"/><path class="pause-icon" d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="3"/></svg></button>
+      <button id="finish" aria-label="Skip to end" disabled><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M19 5v14M5 5l11 7-11 7Z" fill="currentColor" stroke="currentColor" stroke-width="1.5"/></svg></button>
+    </div>
+    <div class="scrubber"><label class="sr-only" for="timeline">Replay time</label><input id="timeline" type="range" min="0" max="10.5" step="0.01" value="0"><span id="clock">0.0 / 10.5 s</span></div>
   </section>
+  </div>
   <div id="toast" role="status"></div>
 </main><script type="module" src="/src/main.ts"></script></body></html>

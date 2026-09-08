@@ -1,4 +1,5 @@
 import './style.css';
+import { setupPanel } from './panel';
 import { ReplayRenderer,viewCopy,type CameraView } from './renderer';
 import { beatAt,buildSeats,nearestSeat,type ReplayData,type Seat } from './replay';
 
@@ -62,7 +63,11 @@ function setPickerMode(mode:'seat'|'view'):void{
 element('#choose-seat').addEventListener('click',()=>setPickerMode('seat'));
 element('#choose-view').addEventListener('click',()=>setPickerMode('view'));
 
+setupPanel(element('#camera-panel'),element('#experience'));
 play.addEventListener('click',togglePlay);
+element('#restart').addEventListener('click',()=>{if(data){playing=false;seek(0);}});
+element('#finish').addEventListener('click',()=>{if(data){playing=false;seek(data.duration);}});
+for(const [id,amount] of [['zoom-in',-7],['zoom-out',7]] as const)element(`#${id}`).addEventListener('click',()=>{if(renderer){renderer.camera.fov=Math.max(25,Math.min(90,renderer.camera.fov+amount));renderer.camera.updateProjectionMatrix();dirty=true;}});
 timeline.addEventListener('input',()=>{if(!data)return;playing=false;seek(Number(timeline.value));});
 element<HTMLInputElement>('#track-ball').addEventListener('change',event=>{if(renderer){renderer.trackBall=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
 element<HTMLInputElement>('#show-trail').addEventListener('change',event=>{if(renderer){renderer.showTrail=(event.currentTarget as HTMLInputElement).checked;dirty=true;}});
@@ -89,7 +94,7 @@ async function start():Promise<void>{
   if(seats.length!==data.seatCount)throw new Error('Seat export count does not match the replay');
   renderer=new ReplayRenderer(viewport,data);renderer.controls.addEventListener('change',()=>dirty=true);
   await renderer.load((text,percent)=>{element('#loading-status').textContent=text;element<HTMLProgressElement>('#load-progress').value=percent;});
-  timeline.max=String(data.duration);play.disabled=false;loading.hidden=true;
+  timeline.max=String(data.duration);for(const id of ['play','restart','finish','zoom-in','zoom-out'])element<HTMLButtonElement>(`#${id}`).disabled=false;loading.hidden=true;
   selected=nearestSeat(seats,[-12,19,12],0);updateSeatControls(selected);
   const hash=new URLSearchParams(location.hash.slice(1));const desired=hash.get('view');const seatId=Number(hash.get('seat'));
   if(desired==='seat'&&Number.isInteger(seatId)&&seats[seatId]){selectView('seat',seats[seatId]);setPickerMode('seat');}else if(desired&&desired in viewCopy)selectView(desired as CameraView);else selectView('overview');
