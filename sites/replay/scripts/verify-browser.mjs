@@ -26,17 +26,19 @@ try{
   await page.screenshot({path:join(output,`${view}-${seat??time}.png`)});
   results.push({view,time,seat,...await page.locator('#viewport').evaluate(v=>({...v.dataset}))});
  }
- await page.getByRole('button',{name:'Above the diamond Upper deck'}).click();
+ await page.getByRole('button',{name:'Pick your view',exact:true}).click();
+ await page.getByRole('button',{name:/Above the diamond/}).click();
  await page.getByRole('slider',{name:'Replay time'}).fill('3');
  await page.waitForFunction(()=>document.querySelector('#viewport').dataset.time==='3.000');
  const ball=await page.locator('#viewport').getAttribute('data-ball');
- await page.getByRole('button',{name:'On the river Boat level'}).click();
+ await page.getByRole('button',{name:/On the river/}).click();
  await page.waitForFunction(()=>document.querySelector('#viewport').dataset.camera==='boat');
  assert.equal(await page.locator('#viewport').getAttribute('data-ball'),ball);
  await page.setViewportSize({width:390,height:844});
  await page.getByRole('button',{name:/The whole flight/}).click();
  await page.screenshot({path:join(output,'mobile-overview.png')});
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+ await page.getByText('More viewpoints',{exact:true}).click();
  await page.getByRole('button',{name:/Along the riverwalk/}).click();
  await page.screenshot({path:join(output,'mobile-riverwalk.png')});
  assert.deepEqual(errors,[]);

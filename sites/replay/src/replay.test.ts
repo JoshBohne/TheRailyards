@@ -22,13 +22,24 @@ test('every bowl and outfield seat survives export with a stable unique ID',()=>
  const picked=nearestSeat(seats,seats[23001].position);assert.equal(picked.id,23001);
 });
 
-test('V11 arrival reaches the open terrace with a continuous sampled route',()=>{
+test('arrival reaches its versioned entrance with a continuous sampled route',()=>{
  if(data.version<11)return;
  assert.ok(data.arrivalPath);assert.deepEqual(samplePath(data.arrivalPath,1),data.arrivalPath.at(-1));
- const end=samplePath(data.arrivalPath,1);assert.ok(end[2]>-145);assert.ok(end[1]>22&&end[1]<24);
+ const end=samplePath(data.arrivalPath,1);assert.ok(end[2]>-145);assert.ok(data.version>=13?end[1]>15&&end[1]<16:end[1]>22&&end[1]<24);
  let previous=samplePath(data.arrivalPath,0);
  for(let i=1;i<=100;i++){const next=samplePath(data.arrivalPath,i/100);assert.ok(Math.hypot(...next.map((n,k)=>n-previous[k]))<2);previous=next;}
 });
 test('spatial culling retains every instance exactly once, including outside the bowl',()=>{
- for(const group of data.instances){const chunks=spatialChunks(group.points,35);assert.equal(chunks.flat().length,group.points.length);assert.equal(new Set(chunks.flat()).size,group.points.length);for(const chunk of chunks){for(const axis of [0,1])assert.ok(Math.max(...chunk.map(p=>p[axis]))-Math.min(...chunk.map(p=>p[axis]))<=35);}}
+ for(const group of data.instances){const chunks=spatialChunks(group.points,35);assert.equal(chunks.flat().length,group.points.length);assert.equal(new Set(chunks.flat()).size,group.points.length);for(const chunk of chunks){for(const axis of [0,1] as const)assert.ok(Math.max(...chunk.map(p=>p[axis]))-Math.min(...chunk.map(p=>p[axis]))<=35);}}
+});
+
+test('sloping outfield returns retain their authored rows',()=>{
+ if(data.version<13)return;
+ for(const [name,maxRows] of [['LF',41],['RF',24]] as const){
+  const group=data.instances.find(g=>g.name===`D2_${name} return individual seats`)!;
+  assert.ok(group.points.length>1000);
+  assert.ok(group.points.every(p=>Number.isFinite(p[9])));
+  const seats=buildSeats(group.points,0);
+  assert.ok(new Set(seats.map(s=>s.row)).size<=maxRows);
+ }
 });

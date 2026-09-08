@@ -16,7 +16,7 @@ sys.path.insert(0, str(OUT))
 from r2_lighting import apply_lighting
 
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',type=int,choices=[10,11,12],default=10)
+parser.add_argument('--version',type=int,choices=[10,11,12,13],default=10)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 VERSION=args.version
 
@@ -81,12 +81,18 @@ for obj in scene.objects:
         continue
     rot = obj.data.attributes.get('rotation')
     scale = obj.data.attributes.get('scale')
+    row_elevation = obj.data.attributes.get('row_elevation')
     entries = []
     for i, v in enumerate(obj.data.vertices):
         p = obj.matrix_world @ v.co
         r = rot.data[i].vector if rot else Vector((0,0,0))
         s = scale.data[i].vector if scale else Vector((1,1,1))
-        entries.append([*[round(c,4) for c in p], *[round(c,5) for c in r], *[round(c,4) for c in s]])
+        if VERSION>=13 and s.length_squared<1e-10:
+            continue
+        entry=[*[round(c,4) for c in p], *[round(c,5) for c in r], *[round(c,4) for c in s]]
+        if row_elevation:
+            entry.append(round(row_elevation.data[i].value,4))
+        entries.append(entry)
     instances.append({'name':obj.name, 'prototype':sources[0].name, 'points':entries})
 seats = next(g for g in instances if g['name'] == 'D2_Individual seats')
 
@@ -212,6 +218,11 @@ metadata={'version':VERSION,'duration':DURATION,'sampleRate':FPS,'contact':CONTA
 if VERSION >= 11:
     from r11_circulation import ARRIVAL_XY,terrace_z
     metadata['arrivalPath']=[web((x,y,terrace_z(y)+1.7)) for x,y in ARRIVAL_XY]
+    if VERSION>=13:
+        # Real park-level arcade passage; the upper roof terrace is a separate level.
+        metadata['arrivalPath']=[web(p) for p in [(50,294,15.86),(48,220,16.60),
+            (51,181,16.99),(51,161,17.08),(51,140,17.08),(51,121,17.08),
+            (51,109.5,17.08),(51,105,15.10)]]
     metadata['architectureVersion']=11
 (DEST/'replay.json').write_text(json.dumps(metadata,separators=(',',':'))+'\n')
 
