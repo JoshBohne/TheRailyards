@@ -40,6 +40,10 @@ The saved static scene has SHA-256 `34dc91d5a32f6f2198f721ea4eca5de1f572794e794c
 
 The local live review is at port 8875, the map at port 8874, and the replay at port 8876. Generated artifacts are outside Git. The user authorized publication work using part of the remaining reserve. The unresolved overlook view and retained main-bowl contacts remain outside visual acceptance.
 
+## LF rear enclosure (2026-09-08 review)
+
+Josh's thumbs-down on the LF wide view: the stands were see-through from behind. Rays cast outward behind the LF banks from the paving (z 8) up to the lower box floor (z 31.6) travelled 22–55 m before hitting the pavilion brick. `r15_seating._close_lf_rear` now adds a brick_light back-of-house block whose front face is the upper bank's rear edge, top at z 31.55, and depth per station to the first gallery/pavilion surface (4–21 m). After the rebuild the same rays stop at 2.5–5.8 m; chairs 32,372, route 515/0 and arrival 105/0 unchanged.
+
 ## Not yet regenerated after the 2026-09-08 corrections
 
 The static scene above carries the LF row removal, the river carve fix, the centred board and the LED pinwheels, but the release pipeline has not been re-run on it: the 20 gallery stills, the social card, the replay export (`build_replay_v10.py`), the film frames and the hosted build still come from the earlier 8-row scene. The provenance and "all stills match" statements above describe that earlier release, not this scene.

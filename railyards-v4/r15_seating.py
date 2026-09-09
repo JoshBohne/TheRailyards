@@ -574,6 +574,45 @@ def _build_rf_junction(scene, batch, front, back):
     }
 
 
+def _close_lf_rear(scene, batch, front, back):
+    """Enclose the open back of the LF banks.
+
+    2026-09-08 review (Josh, thumbs-down on the LF wide view): rays cast
+    outward from behind the lower/upper LF banks travel 22-55 m before they
+    hit the pavilion brick, from the paving at z 8 up to the lower box floor
+    at z 31.6, so the stands read as floating with the city visible through
+    them.  This adds a brick back-of-house block: its front face is the upper
+    bank's rear edge, its top is the underside of the lower box floor and its
+    depth per station runs back to the first gallery / pavilion surface found
+    by a horizontal ray (clamped 4-30 m).  Nothing existing is removed; the
+    block simply closes the void.
+    """
+    bank = LF_BANKS[1]
+    stations = 12
+    z0, z1 = 8.0, 31.55
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    d = (_line_xy(front, back, bank, bank["t1"], 0.5) - _line_xy(front, back, bank, bank["t0"], 0.5)).normalized()
+    depths = []
+    for i in range(stations + 1):
+        origin = _line_xy(front, back, bank, bank["t1"], i / stations)
+        origin.z = 31.0
+        hit, loc, _n, _i, obj, _m = scene.ray_cast(depsgraph, origin + d * 0.3, d, distance=40.0)
+        depth = (loc - origin).length if hit and (obj.name.startswith("D2_V14 LF pavilion") or obj.name.startswith("D2_Left field pavilion")) else 10.0
+        depths.append(max(4.0, min(30.0, depth)))
+    group = "V15 LF rear enclosure"
+    for i in range(stations):
+        s0, s1 = i / stations, (i + 1) / stations
+        f0 = _line_xy(front, back, bank, bank["t1"], s0)
+        f1 = _line_xy(front, back, bank, bank["t1"], s1)
+        b0 = f0 + d * depths[i]
+        b1 = f1 + d * depths[i + 1]
+        corners = [f0, f1, b1, b0]
+        verts = [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z1) for c in corners]
+        faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+        batch.add(group, "brick_light", verts, faces)
+    return {"stations": stations, "depths_m": [round(v, 2) for v in depths], "z": [z0, z1], "group": group}
+
+
 def _remove_v14_returns():
     removed = []
     for name in [
@@ -614,6 +653,7 @@ def build(scene, batch, root):
     _build_bank_support(scene, batch, front, back, LF_BANKS[0], "LF")
     _build_bank_support(scene, batch, front, back, LF_BANKS[1], "LF")
     access = _build_interbank_access(scene, batch, front, back)
+    rear = _close_lf_rear(scene, batch, front, back)
 
     rf_group = "V15 RF straight seating"
     front = Vector((*spec["bowl_front"][0][:2], 0.0))
@@ -634,6 +674,7 @@ def build(scene, batch, root):
             "roof_untouched": True,
         },
         "access": access,
+        "lf_rear_enclosure": rear,
         "rf": {
             "banks": [rf_lower, rf_upper],
             "seats": rf_lower["seats"] + rf_upper["seats"],
