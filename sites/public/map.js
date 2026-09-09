@@ -75,6 +75,20 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
+  function convexHull(points) {
+    var sorted = points.slice().sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; });
+    function cross(o, a, b) { return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]); }
+    var lower = [], upper = [];
+    sorted.forEach(function (point) {
+      while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], point) <= 0) lower.pop();
+      lower.push(point);
+    });
+    sorted.slice().reverse().forEach(function (point) {
+      while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], point) <= 0) upper.pop();
+      upper.push(point);
+    });
+    return lower.slice(0, -1).concat(upper.slice(0, -1));
+  }
   function pointsFromLocal(points) {
     return points.map(function (point) {
       return [
@@ -84,13 +98,15 @@
     });
   }
 
-  var statusLabels = { existing: 'Existing', underConstruction: 'Under construction', proposed: 'Proposed', concept: 'Concept · unfunded' };
+  var statusLabels = { existing: 'Existing', underConstruction: 'Under construction', proposed: 'Proposed', concept: 'Concept · unfunded', rendering: 'Published rendering' };
 
   var detailNodes = {
     status: document.querySelector('[data-map-detail-status]'),
     title: document.querySelector('[data-map-detail-title]'),
     copy: document.querySelector('[data-map-detail-copy]'),
-    link: document.querySelector('[data-map-detail-link]')
+    link: document.querySelector('[data-map-detail-link]'),
+    figure: document.querySelector('[data-map-detail-figure]'),
+    image: document.querySelector('[data-map-detail-image]')
   };
   function showDetail(feature) {
     if (detailNodes.status) {
@@ -98,7 +114,13 @@
       detailNodes.status.setAttribute('data-status', feature.status);
     }
     if (detailNodes.title) detailNodes.title.textContent = feature.title;
+    if (detailNodes.figure && detailNodes.image) {
+      detailNodes.figure.hidden = !feature.image;
+      if (feature.image) { detailNodes.image.src = feature.image; detailNodes.image.alt = feature.imageAlt || feature.title; }
+      else detailNodes.image.removeAttribute('src');
+    }
     if (detailNodes.copy) detailNodes.copy.textContent = feature.copy;
+    if (feature.image && window.innerWidth <= 900 && detailNodes.figure) detailNodes.figure.closest('.map-detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     if (detailNodes.link) {
       detailNodes.link.textContent = feature.sourceLabel;
       detailNodes.link.href = feature.source;
@@ -109,7 +131,6 @@
   function register(feature) {
     var layers = feature.layer instanceof L.LayerGroup ? feature.layer.getLayers() : [feature.layer];
     layers.forEach(function (layer) {
-      layer.bindTooltip('<span data-status="' + feature.status + '">' + escapeHtml(statusLabels[feature.status]) + '</span>' + escapeHtml(feature.title), { sticky: true, className: 'map-tip', direction: 'top', offset: [0, -8] });
       layer.on('click', function () { showDetail(feature); });
     });
     feature.layer.addTo(feature.group || map);
@@ -158,7 +179,7 @@
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
     position: stadiumCenter, zoom: 15,
     layer: L.layerGroup([
-      L.polygon(pointsFromLocal(data.bowlFront.concat(data.bowlBack.slice().reverse())), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#7d9a80', fillOpacity: 0.55 }),
+      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#7d9a80', fillOpacity: 0.55, className: 'map-site-fill' }),
       L.polygon(pointsFromLocal(data.fieldBoundary), { renderer: renderer, color: '#294638', weight: 1.5, fillColor: '#8fb28a', fillOpacity: 0.9 }),
       label('ballpark', 'The Railyards', 11, stadiumCenter)
     ])
@@ -294,17 +315,18 @@
 
   /* Where the published renderings were drawn from. */
   [
-    ['renderNorth', 'North aerial rendering', [41.8695, -87.6362], 'index.html#compare-north', 'Looking south over Roosevelt Road toward the ballpark and The 78.'],
-    ['renderSouth', 'South aerial rendering', [41.8575, -87.6335], 'index.html#compare-south', 'Looking north up the river from about 18th Street.'],
-    ['renderBridge', 'Roosevelt bridge rendering', [41.8673, -87.6338], 'index.html#compare-bridge', 'Street level on the Roosevelt Road bridge, looking south-west.']
+    ['renderNorth', 'North aerial', [41.8695, -87.6362], 'index.html#compare-north', 'media/source-north.jpg', 'Looking south over Roosevelt Road toward the ballpark and The 78.'],
+    ['renderSouth', 'South aerial', [41.8575, -87.6335], 'index.html#compare-south', 'media/source-south.jpg', 'Looking north up the river from about 18th Street.'],
+    ['renderBridge', 'Roosevelt bridge', [41.8673, -87.6338], 'index.html#compare-bridge', 'media/source-bridge.jpg', 'Street level on the Roosevelt Road bridge, looking south-west.']
   ].forEach(function (view) {
     register({
-      id: view[0], status: 'proposed',
+      id: view[0], status: 'rendering',
       title: view[1],
-      copy: view[4] + ' Camera position is approximate.',
-      source: view[3], sourceLabel: 'Compare the rendering with our model',
+      image: view[4], imageAlt: 'Published ' + view[1].toLowerCase() + ' concept by AECOM / Canal Edge',
+      copy: view[5] + ' Camera position is approximate.',
+      source: view[3], sourceLabel: 'Compare it with our model ↗',
       position: view[2], zoom: 16,
-      layer: label('camera', view[1].replace(' rendering', ''), 15, view[2])
+      layer: label('camera', view[1], 15, view[2])
     });
   });
 
@@ -326,7 +348,6 @@
   register(clintonFeature);
   [['North/Clybourn', [41.9107, -87.6487], 15], ['Chicago', [41.8965, -87.6432], 15], ['Grand', [41.8915, -87.6432], 15], ['Union Station', [41.8786, -87.6410], 16], ['Clinton', [41.8755, -87.6410], 16], ['Roosevelt · Clinton', [41.8673, -87.6410], 13], ['Chinatown', [41.8535, -87.6310], 15]].forEach(function (stop) {
     var marker = label('concept', stop[0], stop[2], stop[1]);
-    marker.bindTooltip('<span data-status="concept">Concept · unfunded</span>' + escapeHtml(stop[0] + ' · Clinton subway'), { sticky: true, className: 'map-tip', direction: 'top', offset: [0, -8] });
     marker.on('click', function () { showDetail(clintonFeature); });
     marker.addTo(conceptLayer);
   });
@@ -339,10 +360,14 @@
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (on && layer !== transitLayer) {
+      if (on && layer === parkingLayer) {
         var bounds = L.latLngBounds([stadiumCenter]);
         layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
         map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+      }
+      if (on && layer === conceptLayer) {
+        showDetail(clintonFeature);
+        map.flyToBounds(L.latLngBounds([stadiumCenter, [41.8765, -87.6425], [41.8600, -87.6300]]), { padding: [30, 30], duration: 0.8 });
       }
     });
   });

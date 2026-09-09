@@ -487,6 +487,8 @@ nav{width:100%;
 [data-status=underConstruction]{--status:#9a6a12;--status-bg:#fbeed0}
 [data-status=proposed]{--status:#294638;--status-bg:#dfe9df}
 [data-status=concept]{--status:#7a4f6d;--status-bg:#f1e5ee}
+[data-status=rendering]{--status:#5a3f52;--status-bg:#efe6ec}
+.map-detail-figure{margin:0 0 12px}.map-detail-figure img{border-radius:3px;aspect-ratio:16/10;object-fit:cover}.map-detail-figure figcaption{margin-top:6px;font-size:11.5px;color:var(--muted)}
 .map-detail-status[data-status],.swap-step-status[data-status],.map-tip span[data-status]{background:var(--status-bg);color:var(--status)}
 .leaflet-map .map-tip{padding:6px 9px;border:0;border-radius:4px;background:#fff;box-shadow:0 4px 14px #1c2a1f26;font-size:13px;color:#24322b}
 .leaflet-map .map-tip span{margin-right:7px}
