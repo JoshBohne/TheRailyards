@@ -463,8 +463,8 @@ nav{width:100%;
 .map-page .map-heading p{max-width:520px;margin-top:8px;font-size:15px;color:var(--muted)}
 .map-page .map-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:0;align-items:stretch;border:1px solid var(--line)}
 .map-page .map-stage{border:0;border-right:1px solid var(--line)}
-.map-page .map-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap;padding:10px 14px;background:#fbfbf8}
-.map-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:0;list-style:none;font-size:12.5px;color:#3f4d43}
+.map-page .map-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;padding:10px 14px;background:#fbfbf8;border-bottom:1px solid var(--line)}
+.map-legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin:0;padding:10px 14px;list-style:none;font-size:12.5px;color:#3f4d43;border-top:1px solid var(--line);background:#fbfbf8}
 .map-legend li{display:inline-flex;align-items:center;gap:7px}
 .legend-swatch{width:16px;height:12px;border-radius:2px;border:1px solid transparent}
 .swatch-stadium{background:#7d9a80;border-color:#294638}
@@ -472,6 +472,7 @@ nav{width:100%;
 .swatch-facility{background:repeating-linear-gradient(45deg,#c94a45 0 3px,#f7dad8 3px 7px);border-color:#c94a45}
 .swatch-construction{background:repeating-linear-gradient(45deg,#d29a2c 0 2px,#fbeed0 2px 7px);border-color:#c48a1a}
 .legend-icon{display:inline-block;width:14px;height:14px;border-radius:3px}
+.legend-line{display:inline-block;width:18px;height:0;border-top:3px dashed #7a4f6d}
 .legend-station{background:#1f2a24}
 .legend-parking{background:#2e6f6b;position:relative}
 .legend-parking::after{content:"P";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font:700 9px system-ui,sans-serif}
@@ -485,6 +486,7 @@ nav{width:100%;
 [data-status=existing]{--status:#4a5a4f;--status-bg:#e4e7e0}
 [data-status=underConstruction]{--status:#9a6a12;--status-bg:#fbeed0}
 [data-status=proposed]{--status:#294638;--status-bg:#dfe9df}
+[data-status=concept]{--status:#7a4f6d;--status-bg:#f1e5ee}
 .map-detail-status[data-status],.swap-step-status[data-status],.map-tip span[data-status]{background:var(--status-bg);color:var(--status)}
 .leaflet-map .map-tip{padding:6px 9px;border:0;border-radius:4px;background:#fff;box-shadow:0 4px 14px #1c2a1f26;font-size:13px;color:#24322b}
 .leaflet-map .map-tip span{margin-right:7px}
@@ -494,6 +496,7 @@ nav{width:100%;
 .map-marker-glyph svg{display:block;width:100%;height:100%}
 .map-marker-station .map-marker-glyph{background:#1f2a24;color:#1f2a24}
 .map-marker-parking .map-marker-glyph,.map-marker-boat .map-marker-glyph{background:none;box-shadow:none;color:#2e6f6b}
+.map-marker-concept .map-marker-glyph{background:none;box-shadow:none;color:#7a4f6d;transform:scale(.8)}.map-marker-concept .map-marker-label{color:#7a4f6d;left:24px}
 .map-marker-camera .map-marker-glyph{background:none;box-shadow:none;color:#7a4f6d}.map-marker-camera .map-marker-glyph svg{fill:currentColor}.map-marker-camera .map-marker-label{color:#7a4f6d}
 .map-marker-area .map-marker-label{left:0;transform:translate(-50%,-50%);font:500 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7c857d;text-shadow:0 0 3px #fafaf8,0 0 4px #fafaf8}
 .is-satellite .map-marker-area .map-marker-label{color:#e8ece6}
@@ -518,7 +521,7 @@ nav{width:100%;
 .swap-steps button:hover{border-color:#8fa392}
 .swap-steps button[aria-pressed=true]{background:#294638;border-color:#294638;color:#fff}
 .swap-steps button[aria-pressed=true] b{background:#fff;color:#294638}
-.map-controls{display:flex;gap:10px;margin-left:auto}
+.map-controls{display:flex;gap:10px}
 .map-toggles{display:inline-flex;gap:6px}
 .map-toggles button{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid #c5cdc3;border-radius:4px;background:#fff;color:#465448;font:inherit;font-size:13px}
 .map-toggles button[aria-pressed=true]{background:#e6ece5;border-color:#294638;color:#24322b}
@@ -562,7 +565,15 @@ nav{width:100%;
 @media(max-width:640px){
  .site-header nav{justify-content:flex-start;gap:6px 14px;flex-wrap:wrap}
  .site-header nav a{white-space:nowrap;padding:4px 0}
- .swap-steps button{font-size:13px}
- .map-controls{margin-left:0;flex-wrap:wrap}
+ .swap-steps{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-inline:-5.56%;padding-inline:5.56%}
+ .swap-steps::-webkit-scrollbar{display:none}
+ .swap-steps li{flex:none;scroll-snap-align:start}
+ .swap-steps button{font-size:13px;min-height:34px}
+ .map-page .map-toolbar{justify-content:space-between;padding:8px 10px}
+ .map-controls{gap:8px}
+ .map-toggles button,.map-basemap button{padding:6px 10px;font-size:12.5px}
+ .map-page .leaflet-map{height:62svh;min-height:360px}
+ .map-marker-camera .map-marker-label,.map-marker-concept .map-marker-label,.map-marker-boat .map-marker-label{display:none}
+ .map-legend{gap:4px 12px;font-size:11.5px;padding:8px 10px}
  .map-page .map-heading p{font-size:14px}
 }

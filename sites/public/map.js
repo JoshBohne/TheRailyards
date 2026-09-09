@@ -46,40 +46,10 @@
     if (satellite) { map.removeLayer(streetLabels); imagery.addTo(map); }
     else { map.removeLayer(imagery); streetLabels.addTo(map); }
     root.classList.toggle('is-satellite', satellite);
-    var groups = { transit: transitLayer, parking: parkingLayer };
-  document.querySelectorAll('[data-map-layer]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      var layer = groups[button.getAttribute('data-map-layer')];
-      if (!layer) return;
-      var on = !map.hasLayer(layer);
-      if (on) layer.addTo(map); else map.removeLayer(layer);
-      button.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (on && layer === parkingLayer) {
-        var bounds = L.latLngBounds([stadiumCenter]);
-        layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
-        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
-      }
-    });
-  });
-  document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
+    document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
       button.setAttribute('aria-pressed', button.getAttribute('data-map-basemap') === name ? 'true' : 'false');
     });
   }
-  var groups = { transit: transitLayer, parking: parkingLayer };
-  document.querySelectorAll('[data-map-layer]').forEach(function (button) {
-    button.addEventListener('click', function () {
-      var layer = groups[button.getAttribute('data-map-layer')];
-      if (!layer) return;
-      var on = !map.hasLayer(layer);
-      if (on) layer.addTo(map); else map.removeLayer(layer);
-      button.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (on && layer === parkingLayer) {
-        var bounds = L.latLngBounds([stadiumCenter]);
-        layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
-        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
-      }
-    });
-  });
   document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
     button.addEventListener('click', function () { setBasemap(button.getAttribute('data-map-basemap')); });
   });
@@ -114,7 +84,7 @@
     });
   }
 
-  var statusLabels = { existing: 'Existing', underConstruction: 'Under construction', proposed: 'Proposed' };
+  var statusLabels = { existing: 'Existing', underConstruction: 'Under construction', proposed: 'Proposed', concept: 'Concept · unfunded' };
 
   var detailNodes = {
     status: document.querySelector('[data-map-detail-status]'),
@@ -153,6 +123,7 @@
       ballpark: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M5.2 5.4c2.4 1 3.6 2.9 3.6 4.6s-1.2 3.6-3.6 4.6M14.8 5.4c-2.4 1-3.6 2.9-3.6 4.6s1.2 3.6 3.6 4.6" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>',
       boat: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5 12.5h10l-1.6 3H6.6z" fill="#fff"/><path d="M9.2 5v6.5M9.2 5l4 4.5h-4" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>',
       camera: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5.5 7.5h2.2l1-1.5h2.6l1 1.5h2.2a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V8.5a1 1 0 0 1 1-1z" fill="#fff"/><circle cx="10" cy="11.2" r="2" fill="currentColor"/></svg>',
+      concept: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5" fill="#fff" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 2.2"/></svg>',
       area: '',
       text: ''
     };
@@ -336,6 +307,44 @@
     });
   });
 
+  /* Clinton Street subway: a city concept from the Central Area Plan, never funded or studied by CTA. */
+  var clintonRoute = [
+    [41.9107, -87.6487], [41.9035, -87.6435], [41.8965, -87.6432], [41.8905, -87.6432], [41.8895, -87.6412],
+    [41.8825, -87.6410], [41.8786, -87.6410], [41.8755, -87.6410], [41.8673, -87.6410], [41.8600, -87.6410],
+    [41.8598, -87.6360], [41.8590, -87.6320], [41.8560, -87.6310], [41.8535, -87.6310]
+  ];
+  var clintonLine = L.polyline(clintonRoute, { renderer: renderer, color: '#7a4f6d', weight: 3.5, opacity: 0.9, dashArray: '8 7', lineCap: 'round', lineJoin: 'round', className: 'map-concept-line' });
+  var clintonFeature = {
+    id: 'clintonSubway', status: 'concept',
+    title: 'Clinton Street subway',
+    copy: 'A city concept from the Central Area Plan: a new Red Line subway from North/Clybourn under Clinton Street to Chinatown, with a stop at Roosevelt a few blocks from the ballpark site. Estimated at $3 billion with no funding identified; CTA has not studied it.',
+    source: 'sources.html#central-area-plan', sourceLabel: 'Chicago Central Area Action Plan',
+    position: [41.8673, -87.6410], zoom: 15, group: transitLayer,
+    layer: clintonLine
+  };
+  register(clintonFeature);
+  [['North/Clybourn', [41.9107, -87.6487], 15], ['Chicago', [41.8965, -87.6432], 15], ['Grand', [41.8915, -87.6432], 15], ['Union Station', [41.8786, -87.6410], 16], ['Clinton', [41.8755, -87.6410], 16], ['Roosevelt · Clinton', [41.8673, -87.6410], 13], ['Chinatown', [41.8535, -87.6310], 15]].forEach(function (stop) {
+    var marker = label('concept', stop[0], stop[2], stop[1]);
+    marker.bindTooltip('<span data-status="concept">Concept · unfunded</span>' + escapeHtml(stop[0] + ' · Clinton subway'), { sticky: true, className: 'map-tip', direction: 'top', offset: [0, -8] });
+    marker.on('click', function () { showDetail(clintonFeature); });
+    marker.addTo(transitLayer);
+  });
+
+  var groups = { transit: transitLayer, parking: parkingLayer };
+  document.querySelectorAll('[data-map-layer]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var layer = groups[button.getAttribute('data-map-layer')];
+      if (!layer) return;
+      var on = !map.hasLayer(layer);
+      if (on) layer.addTo(map); else map.removeLayer(layer);
+      button.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on && layer === parkingLayer) {
+        var bounds = L.latLngBounds([stadiumCenter]);
+        layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
+        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+      }
+    });
+  });
   var overview = L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]);
   function focusPlace(id, button, instant) {
     var place = places[id];
