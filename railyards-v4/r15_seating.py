@@ -575,21 +575,25 @@ def _build_rf_junction(scene, batch, front, back):
 
 
 def _close_lf_rear(scene, batch, front, back):
-    """Enclose the open back of the LF banks.
+    """Close the open back of the LF banks with a wall and a plaza deck.
 
     2026-09-08 review (Josh, thumbs-down on the LF wide view): rays cast
-    outward from behind the lower/upper LF banks travel 22-55 m before they
-    hit the pavilion brick, from the paving at z 8 up to the lower box floor
-    at z 31.6, so the stands read as floating with the city visible through
-    them.  This adds a brick back-of-house block: its front face is the upper
-    bank's rear edge, its top is the underside of the lower box floor and its
-    depth per station runs back to the first gallery / pavilion surface found
-    by a horizontal ray (clamped 4-30 m).  Nothing existing is removed; the
-    block simply closes the void.
+    outward from behind the LF banks travelled 22-55 m before hitting the
+    pavilion brick, from the paving at z 8 up to the lower box floor, so the
+    stands read as floating.  A first pass filled the void with a brick block.
+    Josh's 2026-09-09 AECOM crop of the LF corner shows something else: the
+    stands back onto a white concourse plaza at deck level, with a canopy
+    pavilion on it, and the rear of the stands is a solid pale wall down to
+    that deck.  So this builds (a) a 1.5 m stone wall on the upper bank's rear
+    edge from the paving to the underside of the lower box floor and (b) a
+    stone plaza deck at the existing court level (z 14.48) running from that
+    wall back to the first gallery / pavilion surface per station (4-30 m).
+    Nothing existing is removed.
     """
     bank = LF_BANKS[1]
     stations = 12
     z0, z1 = 8.0, 31.55
+    deck_top, deck_thick, wall_thick = 14.48, 0.5, 1.5
     depsgraph = bpy.context.evaluated_depsgraph_get()
     d = (_line_xy(front, back, bank, bank["t1"], 0.5) - _line_xy(front, back, bank, bank["t0"], 0.5)).normalized()
     depths = []
@@ -600,17 +604,20 @@ def _close_lf_rear(scene, batch, front, back):
         depth = (loc - origin).length if hit and (obj.name.startswith("D2_V14 LF pavilion") or obj.name.startswith("D2_Left field pavilion")) else 10.0
         depths.append(max(4.0, min(30.0, depth)))
     group = "V15 LF rear enclosure"
+    faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
     for i in range(stations):
         s0, s1 = i / stations, (i + 1) / stations
         f0 = _line_xy(front, back, bank, bank["t1"], s0)
         f1 = _line_xy(front, back, bank, bank["t1"], s1)
+        w0, w1 = f0 + d * wall_thick, f1 + d * wall_thick
+        corners = [f0, f1, w1, w0]
+        batch.add(group, "stone", [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z1) for c in corners], faces)
         b0 = f0 + d * depths[i]
         b1 = f1 + d * depths[i + 1]
-        corners = [f0, f1, b1, b0]
-        verts = [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z1) for c in corners]
-        faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
-        batch.add(group, "brick_light", verts, faces)
-    return {"stations": stations, "depths_m": [round(v, 2) for v in depths], "z": [z0, z1], "group": group}
+        corners = [w0, w1, b1, b0]
+        batch.add(group, "stone", [(c.x, c.y, deck_top - deck_thick) for c in corners] + [(c.x, c.y, deck_top) for c in corners], faces)
+    return {"stations": stations, "depths_m": [round(v, 2) for v in depths], "wall_z": [z0, z1], "wall_thickness_m": wall_thick, "deck_top_z": deck_top, "group": group,
+            "source": "Josh 2026-09-09 AECOM LF-corner crop (plaza + canopy pavilion behind the stands)"}
 
 
 def _remove_v14_returns():

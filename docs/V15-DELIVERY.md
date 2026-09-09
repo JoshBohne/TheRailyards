@@ -40,9 +40,9 @@ The saved static scene has SHA-256 `34dc91d5a32f6f2198f721ea4eca5de1f572794e794c
 
 The local live review is at port 8875, the map at port 8874, and the replay at port 8876. Generated artifacts are outside Git. The user authorized publication work using part of the remaining reserve. The unresolved overlook view and retained main-bowl contacts remain outside visual acceptance.
 
-## LF rear enclosure (2026-09-08 review)
+## LF rear enclosure (2026-09-08/09 review)
 
-Josh's thumbs-down on the LF wide view: the stands were see-through from behind. Rays cast outward behind the LF banks from the paving (z 8) up to the lower box floor (z 31.6) travelled 22–55 m before hitting the pavilion brick. `r15_seating._close_lf_rear` now adds a brick_light back-of-house block whose front face is the upper bank's rear edge, top at z 31.55, and depth per station to the first gallery/pavilion surface (4–21 m). After the rebuild the same rays stop at 2.5–5.8 m; chairs 32,372, route 515/0 and arrival 105/0 unchanged.
+Josh's thumbs-down on the LF wide view: the stands were see-through from behind. Rays cast outward behind the LF banks from the paving (z 8) up to the lower box floor (z 31.6) travelled 22–55 m before hitting the pavilion brick. A first pass filled the void with a brick block; Josh's 2026-09-09 AECOM crop of the LF corner shows a white concourse plaza with a canopy pavilion behind the stands instead. `r15_seating._close_lf_rear` now builds a 1.5 m stone wall on the upper bank's rear edge (z 8 → 31.55) and a stone deck at the existing court level (z 14.48) from the wall back to the galleries (4–21 m per station). After the rebuild the same rays stop at 2.5–5.8 m; chairs 32,372, contacts 2,400, route 515/0 and arrival 105/0 unchanged. Open items: the deck sits under the V14 box galleries, so it is not the open-sky plaza of the crop, and the canopy pavilion is not modelled.
 
 ## Not yet regenerated after the 2026-09-08 corrections
 
