@@ -26,6 +26,8 @@ test('feedback persists across reopening the database and retries create one rec
   assert.equal((await worker.fetch(request({ ...payload, message: 'x'.repeat(9000) }), env)).status, 413);
   assert.equal((await worker.fetch(new Request('https://example.test/api/feedback'), env)).status, 405);
   assert.equal(database.prepare('SELECT count(*) AS count FROM feedback').get()?.count, 1);
+  assert.equal((await worker.fetch(request({ ...payload, id: 'd1c2c077-971d-45b6-85e4-9b76517ec5fe', page: '/map' }), env)).status, 201);
+  assert.equal((await worker.fetch(request({ ...payload, id: '145d3035-4f38-4629-a52a-7cdbb078d855', page: '/map.html' }), env)).status, 201);
   database.close(); rmSync(dir, { recursive: true });
 });
 test('database failure returns an error instead of claiming a save', async () => {

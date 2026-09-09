@@ -46,10 +46,11 @@ for obj in scene.objects:
                 point,normal,hit,distance=tree.ray_cast(p+Vector((0,0,z)),direction,.24)
                 if point is not None:record('body',[*direction[:2],z],hit,distance)
 route_failures=[];route_samples=[]
+route_probe_z=14.2 if scene.get('v15_corrections') else 17.8
 for x in [49.2,50.1,51,51.9,52.8]:
-    for n in range(113):
-        y=105+n*.5
-        floor,normal,hit,distance=tree.ray_cast(Vector((x,y,17.8)),Vector((0,0,-1)),5)
+    for n in range(103 if scene.get('v15_corrections') else 113):
+        y=(110 if scene.get('v15_corrections') else 105)+n*.5
+        floor,normal,hit,distance=tree.ray_cast(Vector((x,y,route_probe_z)),Vector((0,0,-1)),5)
         if floor is None:route_failures.append({'kind':'floor','point':[x,y]});continue
         route_samples.append(list(floor))
         roof,normal,hit,distance=tree.ray_cast(floor+Vector((0,0,.2)),Vector((0,0,1)),1.8)

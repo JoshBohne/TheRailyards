@@ -62,8 +62,8 @@ def main():
     args = parser.parse_args()
     release = args.release_root.resolve()
     receipt = json.loads((release / 'release.json').read_text())
-    if receipt['sceneVersion'] != 14:
-        raise ValueError('Expected the current V14 release')
+    if receipt['sceneVersion'] not in (14, 15):
+        raise ValueError('Expected a verified V14 or V15 release')
     for item in receipt['files']:
         path = release / item['path']
         if not path.resolve().is_relative_to(release):
@@ -86,6 +86,8 @@ def main():
     shutil.copytree(args.replay_dist, output / 'replay', ignore=shutil.ignore_patterns('model'))
     shutil.copytree(release / 'model', output / 'replay/model')
     split_venue(output)
+    if (args.templates / 'vendor').is_dir():
+        shutil.copytree(args.templates / 'vendor', output / 'vendor')
     for source in args.templates.iterdir():
         if not source.is_file() or source.suffix not in ('.html', '.css', '.js', '.svg'):
             continue
@@ -101,11 +103,11 @@ def main():
     oversized = [p['path'] for p in files if p['bytes'] >= 25 * 1024 * 1024]
     if oversized:
         raise ValueError(f'Files exceed hosting limit: {oversized}')
-    manifest = {'commit': revision, 'sceneVersion': 14, 'sourceStaticSha256': receipt['sourceStaticSha256'],
+    manifest = {'commit': revision, 'sceneVersion': receipt['sceneVersion'], 'sourceStaticSha256': receipt['sourceStaticSha256'],
                 'sourceAnimatedSha256': receipt['sourceAnimatedSha256'], 'seatCount': replay['seatCount'],
                 'releaseSha256': hashlib.sha256((release / 'release.json').read_bytes()).hexdigest(), 'files': files}
     (output / 'build-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
-    print(f"Built {len(files)} files from the verified V14 release in {output}")
+    print(f"Built {len(files)} files from the verified V{receipt['sceneVersion']} release in {output}")
 
 
 if __name__ == '__main__':
