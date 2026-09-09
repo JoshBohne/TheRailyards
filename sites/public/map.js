@@ -54,6 +54,11 @@
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on && layer === parkingLayer) {
+        var bounds = L.latLngBounds([stadiumCenter]);
+        layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
+        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+      }
     });
   });
   document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
@@ -68,6 +73,11 @@
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
+      if (on && layer === parkingLayer) {
+        var bounds = L.latLngBounds([stadiumCenter]);
+        layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
+        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+      }
     });
   });
   document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
@@ -142,6 +152,8 @@
       parking: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><text x="10" y="14.6" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="system-ui,sans-serif">P</text></svg>',
       ballpark: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M5.2 5.4c2.4 1 3.6 2.9 3.6 4.6s-1.2 3.6-3.6 4.6M14.8 5.4c-2.4 1-3.6 2.9-3.6 4.6s1.2 3.6 3.6 4.6" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>',
       boat: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5 12.5h10l-1.6 3H6.6z" fill="#fff"/><path d="M9.2 5v6.5M9.2 5l4 4.5h-4" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>',
+      camera: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5.5 7.5h2.2l1-1.5h2.6l1 1.5h2.2a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V8.5a1 1 0 0 1 1-1z" fill="#fff"/><circle cx="10" cy="11.2" r="2" fill="currentColor"/></svg>',
+      area: '',
       text: ''
     };
     var icon = L.divIcon({
@@ -300,6 +312,27 @@
       source: 'sources.html#parking', sourceLabel: 'Millennium Garages',
       position: data.parking[garage[0]], zoom: 15, group: parkingLayer,
       layer: label('parking', garage[2], 15, data.parking[garage[0]])
+    });
+  });
+
+  /* Neighborhood names, for orientation. */
+  [['The Loop', [41.8805, -87.6295]], ['West Loop', [41.8825, -87.6475]], ['South Loop', [41.8665, -87.6255]], ['Pilsen', [41.8545, -87.6605]], ['Chinatown', [41.8518, -87.6335]], ['Bridgeport', [41.8378, -87.6475]], ['Near South Side', [41.8555, -87.6215]]].forEach(function (hood) {
+    L.marker(hood[1], { icon: L.divIcon({ className: 'map-marker map-marker-area label-min-12', html: '<span class="map-marker-label">' + escapeHtml(hood[0]) + '</span>', iconSize: [0, 0] }), interactive: false, keyboard: false }).addTo(map);
+  });
+
+  /* Where the published renderings were drawn from. */
+  [
+    ['renderNorth', 'North aerial rendering', [41.8695, -87.6362], 'index.html#compare-north', 'Looking south over Roosevelt Road toward the ballpark and The 78.'],
+    ['renderSouth', 'South aerial rendering', [41.8575, -87.6335], 'index.html#compare-south', 'Looking north up the river from about 18th Street.'],
+    ['renderBridge', 'Roosevelt bridge rendering', [41.8673, -87.6338], 'index.html#compare-bridge', 'Street level on the Roosevelt Road bridge, looking south-west.']
+  ].forEach(function (view) {
+    register({
+      id: view[0], status: 'proposed',
+      title: view[1],
+      copy: view[4] + ' Camera position is approximate.',
+      source: view[3], sourceLabel: 'Compare the rendering with our model',
+      position: view[2], zoom: 16,
+      layer: label('camera', view[1].replace(' rendering', ''), 15, view[2])
     });
   });
 

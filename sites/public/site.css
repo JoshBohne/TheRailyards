@@ -494,6 +494,9 @@ nav{width:100%;
 .map-marker-glyph svg{display:block;width:100%;height:100%}
 .map-marker-station .map-marker-glyph{background:#1f2a24;color:#1f2a24}
 .map-marker-parking .map-marker-glyph,.map-marker-boat .map-marker-glyph{background:none;box-shadow:none;color:#2e6f6b}
+.map-marker-camera .map-marker-glyph{background:none;box-shadow:none;color:#7a4f6d}.map-marker-camera .map-marker-glyph svg{fill:currentColor}.map-marker-camera .map-marker-label{color:#7a4f6d}
+.map-marker-area .map-marker-label{left:0;transform:translate(-50%,-50%);font:500 11px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7c857d;text-shadow:0 0 3px #fafaf8,0 0 4px #fafaf8}
+.is-satellite .map-marker-area .map-marker-label{color:#e8ece6}
 .map-marker-boat .map-marker-glyph{color:#2f6f95}.map-marker-boat .map-marker-glyph svg{fill:currentColor}.map-marker-boat .map-marker-label{color:#2f6f95}
 .map-marker-parking .map-marker-glyph svg{fill:currentColor}
 .map-marker-ballpark .map-marker-glyph{background:none;box-shadow:none;color:#294638}
