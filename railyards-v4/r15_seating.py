@@ -76,6 +76,13 @@ RF_BANKS = (
         "z0": 14.0,
         "z1": 24.0,
         "rows": 24,
+        # 2026-09-09 (Josh, rf thumbs-down "wonky like the angled seating"):
+        # rows parallel to the first row's line to the RF wall corner, ending
+        # on one straight line through (102, 2), inner ends on the bowl radial.
+        "inner": "radial",
+        "parallel": (26.8, 22.9),
+        "end_line": (102.0, 2.0),
+        "depth_scale": 62.0,
         "end0": (102.0, 2.0),
         "end1": (111.0, -35.0),
     },
@@ -86,6 +93,10 @@ RF_BANKS = (
         "z0": 27.0,
         "z1": 30.0,
         "rows": 8,
+        "inner": "radial",
+        "parallel": (26.8, 22.9),
+        "end_line": (102.0, 2.0),
+        "depth_scale": 62.0,
         "end0": (101.2, -37.0),
         "end1": (101.2, -47.0),
     },
@@ -124,9 +135,11 @@ def _line_xy(front, back, bank, t, station):
         # of inheriting the fan's converging spacing along the bowl radial.
         w = Vector((bank["parallel"][0], bank["parallel"][1], 0.0)).normalized()
         n = Vector((-w.y, w.x, 0.0))
-        depth = t * bank["depth_scale"]
         f = Vector((front.x, front.y, 0.0))
         b = Vector((back.x, back.y, 0.0))
+        if n.dot(b - f) < 0.0:
+            n = -n  # depth always runs from the field toward the bowl back
+        depth = t * bank["depth_scale"]
         if bank.get("inner") == "radial":
             # 2026-09-09 (Josh): lower rows run on to the bowl's end radial,
             # so each row starts where its line meets the radial.
@@ -137,6 +150,11 @@ def _line_xy(front, back, bank, t, station):
             depth_point = b + n * (depth - (b - f).dot(n))
         else:
             depth_point = f + n * depth
+        if "end_line" in bank:
+            # Rows end on the straight line through end_line, perpendicular to the rows.
+            p0 = Vector((bank["end_line"][0], bank["end_line"][1], 0.0))
+            outer = p0 + n * (depth_point - p0).dot(n)
+            return depth_point.lerp(outer, station)
         return depth_point + w * ((bank["end_x"] - depth_point.x) / w.x * station)
     fraction = (t - bank["t0"]) / (bank["t1"] - bank["t0"])
     outer = Vector((
