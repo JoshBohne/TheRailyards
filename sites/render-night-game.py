@@ -14,7 +14,9 @@ scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 out=Path(os.environ['RAILYARDS_HERO_OUT']);out.mkdir(parents=True,exist_ok=True)
 apply_lighting(scene,'night')
 scene.render.engine='CYCLES';scene.cycles.samples=12
+if os.environ.get('RAILYARDS_GPU')=='1':scene.cycles.device='GPU'
 scene.cycles.use_denoising=True
+scene.render.use_persistent_data=True
 scene.render.resolution_x=1280;scene.render.resolution_y=720;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG'
 for obj in scene.objects:
@@ -50,6 +52,7 @@ for burst,(center,start) in enumerate([((80,54,67),7.35),((47,114,79),7.9),((92,
         sparks.append((obj,Vector(center),direction,start))
 # The RF board is two-sided; temporary HOME RUN screens cover its static game art.
 spec=json.loads((ROOT/'scene-spec.json').read_text());top=Vector(spec['anchors']['rf_scoreboard_top']);width=spec.get('rf_scoreboard',{}).get('width_m',39);angle=math.radians(spec.get('rf_scoreboard',{}).get('angle_deg',90))
+if scene.get('v15_corrections'):top.z+=2
 height=spec.get('rf_scoreboard',{}).get('height_m',20)
 tangent=Vector((math.cos(angle),math.sin(angle),0));normal=Vector((-math.sin(angle),math.cos(angle),0))
 boardmat=material('Night home run screen',(.008,.021,.04),.5)

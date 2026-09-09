@@ -1,0 +1,97 @@
+{
+  "version": "V15 geography audit, 2026-09-08",
+  "purpose": "Source-backed control geometry for the Chicago River bend and the two southern rail bascules. This file is an audit input, not a replacement scene generator.",
+  "coordinate_frame": {
+    "axes": "X east, Y north, Z up",
+    "units": "meters",
+    "origin": {
+      "latitude_reference": 41.8645,
+      "longitude_reference": -87.6362,
+      "home_offset_xy_m": [-0.735682, -4.452813]
+    },
+    "projection": "x = (lon - lon0) * 111320 * cos(lat0) + home_offset_x + registration_x; y = (lat - lat0) * 110900 + home_offset_y",
+    "registration_x_m": 33.0,
+    "registration_y_m": 0.0,
+    "registration_rule": "Apply the +33 m X registration exactly once to raw tangent-projected OSM/Hydro points. Do not add it again when consuming this file's local_xy_m values."
+  },
+  "sources": [
+    {
+      "id": "chicago-hydro",
+      "name": "City of Chicago Hydro dataset",
+      "url": "https://catalog.data.gov/dataset/hydro",
+      "download_url": "https://data.cityofchicago.org/api/v3/views/knfe-65pw/query.geojson?accessType=DOWNLOAD",
+      "feature": "SOUTH BRANCH CHICAGO RIVER",
+      "accessed": "2026-09-08",
+      "role": "Bank polygon and scanline width authority. Coordinates were transformed through the shared tangent projection and registration.",
+      "raw_geometry_artifact": "reference-audit/v15/chicago-hydro-south-branch.geojson",
+      "raw_geometry_artifact_contents": "44 downloaded WGS84 MultiPolygon features selected by properties.name, with source properties and coordinates preserved."
+    },
+    {
+      "id": "osm-river",
+      "name": "OpenStreetMap waterway geometry via Overpass",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout:json%5D%3Bway%5Bwaterway%5D%2841.855%2C-87.645%2C41.881%2C-87.63%29%3Bout%20geom%3B",
+      "accessed": "2026-09-08",
+      "role": "Centerline control points used to expose the northward bend. OSM is map geometry, not a survey."
+    },
+    {
+      "id": "loc-st-charles",
+      "name": "Library of Congress HAER, St. Charles Air Line Bridge",
+      "url": "https://www.loc.gov/item/il0837/",
+      "accessed": "2026-09-08",
+      "role": "Historical bridge identity, location and source-photo orientation."
+    },
+    {
+      "id": "chicago-landmarks-st-charles",
+      "name": "City of Chicago landmarks record, St. Charles Air Line Bridge",
+      "url": "https://webapps1.chicago.gov/landmarksweb/web/landmarkdetails.htm?lanId=13146",
+      "accessed": "2026-09-08",
+      "role": "Current landmark context and address north of 16th Street, east of Lumber Street."
+    }
+  ],
+  "centerline_control_points": [
+    {"id": "near-18th", "label": "18th Street reach", "local_xy_m": [115.5, -755.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "north-of-18th", "label": "north of 18th bend", "local_xy_m": [130.5, -680.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "south-of-bascules", "label": "south approach to B&OCT / St. Charles", "local_xy_m": [173.3, -504.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "st-charles", "label": "St. Charles Air Line bridge centerline", "latlon": [41.86092, -87.63454], "local_xy_m": [171.3, -393.0], "source_way_ids": [1308480104, 1308480105, 56179928, 56179943]},
+    {"id": "roosevelt", "label": "Roosevelt river reach", "latlon": [41.8673, -87.6347233], "local_xy_m": [154.7, 306.1], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "powerhouse-reach", "label": "Union Station Powerhouse reach", "local_xy_m": [145.0, 450.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "north-park", "label": "northward bend toward downtown", "local_xy_m": [133.2, 544.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "north-park-2", "label": "northward bend", "local_xy_m": [118.6, 658.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "north-park-3", "label": "northward bend", "local_xy_m": [91.5, 843.0], "source_way_ids": [1308480104, 1308480105]},
+    {"id": "willis-latitude", "label": "Willis Tower latitude crossing", "local_xy_m": [-110.3, 1574.0], "source_way_ids": [1308480104, 1308480105]}
+  ],
+  "hydro_bank_scanlines": [
+    {"y": -700, "west_x": 87.67, "east_x": 162.50},
+    {"y": -600, "west_x": 127.63, "east_x": 205.91},
+    {"y": -400, "west_x": 140.29, "east_x": 201.34},
+    {"y": -300, "west_x": 138.08, "east_x": 198.07},
+    {"y": -100, "west_x": 133.49, "east_x": 193.38},
+    {"y": 0, "west_x": 131.14, "east_x": 191.25},
+    {"y": 100, "west_x": 128.78, "east_x": 190.03},
+    {"y": 300, "west_x": 128.33, "east_x": 179.84},
+    {"y": 400, "west_x": 115.07, "east_x": 175.93},
+    {"y": 500, "west_x": 103.53, "east_x": 164.43},
+    {"y": 600, "west_x": 93.46, "east_x": 166.48},
+    {"y": 700, "west_x": 80.67, "east_x": 177.58},
+    {"y": 800, "west_x": 69.57, "east_x": 165.86},
+    {"y": 900, "west_x": 51.50, "east_x": 111.67},
+    {"y": 1000, "west_x": 35.32, "east_x": 95.69},
+    {"y": 1100, "west_x": 20.04, "east_x": 75.55},
+    {"y": 1200, "west_x": -18.33, "east_x": 43.06},
+    {"y": 1300, "west_x": -83.52, "east_x": -18.76},
+    {"y": 1400, "west_x": -122.66, "east_x": -50.69},
+    {"y": 1500, "west_x": -128.68, "east_x": -67.10},
+    {"y": 1600, "west_x": -151.06, "east_x": -89.23},
+    {"y": 1700, "west_x": -165.31, "east_x": -104.61}
+  ],
+  "model_comparison": {
+    "legacy_straight_channel": {"center_x": 159.5, "width_m": 63.0, "y_min": -1050.0, "y_max": 1250.0, "source": "railyards-v4/build_blockout.py:59"},
+    "legacy_quays": {"west_x": 124.0, "east_x": 195.0, "source": "railyards-v4/build_blockout.py:60-61"},
+    "finding": "The current slab is a straight staging rectangle while the mapped river moves from x~173 at y=-504 to x~155 at Roosevelt and x~-110 at the Willis latitude. It cannot simultaneously establish the river edge, bridge banks, powerhouse relation and north skyline geography."
+  },
+  "bridge_control": {
+    "b_o_ct": {"y": -374.0, "x_start": 145.0, "x_end": 198.0, "source_osm_ways": [1013544161, 1013544162, 1025324121]},
+    "st_charles": {"y": -393.0, "x_start": 136.0, "x_end": 207.0, "source_osm_ways": [56179928, 56179943], "east_pivot_prior_x": 202.0},
+    "finding": "At y=-393 the Hydro bank interval is approximately x=140..201 and the OSM bridge centerline is x~171.3. The eastern pivot near x=202 is therefore a plausible east-bank mechanism location; the apparent wrong-bank issue is caused by the straight channel and competing legacy overlays."
+  }
+}

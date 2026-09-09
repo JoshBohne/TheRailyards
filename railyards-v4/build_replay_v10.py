@@ -17,7 +17,7 @@ sys.path.insert(0, str(OUT))
 from r2_lighting import apply_lighting
 
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',type=int,choices=[10,11,12,13,14],default=10)
+parser.add_argument('--version',type=int,choices=[10,11,12,13,14,15],default=10)
 args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
 VERSION=args.version
 SOURCE=Path(bpy.data.filepath)
@@ -227,7 +227,18 @@ if VERSION >= 11:
         metadata['arrivalPath']=[web(p) for p in [(50,294,15.86),(48,220,16.60),
             (51,181,16.99),(51,161,17.08),(51,140,17.08),(51,121,17.08),
             (51,109.5,17.08),(51,105,15.10)]]
-    metadata['architectureVersion']=11
+    if VERSION>=15:
+        from r15_circulation import FLOOR,approach_z
+        metadata['arrivalPath']=[web((x,y,z+1.7)) for x,y,z in [(50,294,14.16),(51,220,approach_z(220)),
+            (51,181,FLOOR),(51,161,FLOOR),(51,151,FLOOR),
+            (51,140,FLOOR),(51,121,FLOOR),(51,110,FLOOR)]]
+        # The bank now follows mapped river geometry; derive the crossing
+        # from the saved corridor, rather than the former x=128 rectangle.
+        from r15_geography import water_crossing
+        fraction=water_crossing((0,0),(LANDING.x,LANDING.y),OUT)
+        metadata['waterCrossing']=CONTACT+FLIGHT*fraction
+        metadata['waterDistanceFt']=round(math.hypot(LANDING.x,LANDING.y)*fraction/.3048)
+    metadata['architectureVersion']=VERSION
 (DEST/'replay.json').write_text(json.dumps(metadata,separators=(',',':'))+'\n')
 
 # Export authored figures as glTF transform animation. Ball is sampled separately.

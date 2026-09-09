@@ -26,7 +26,7 @@ try{
   await page.screenshot({path:join(output,`${view}-${seat??time}.png`)});
   results.push({view,time,seat,...await page.locator('#viewport').evaluate(v=>({...v.dataset}))});
  }
- await page.getByRole('button',{name:'Pick your view',exact:true}).click();
+ await page.getByRole('button',{name:'View',exact:true}).click();
  await page.getByRole('button',{name:/Above the diamond/}).click();
  await page.getByRole('slider',{name:'Replay time'}).fill('3');
  await page.waitForFunction(()=>document.querySelector('#viewport').dataset.time==='3.000');

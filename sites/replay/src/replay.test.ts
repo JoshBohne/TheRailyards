@@ -8,7 +8,10 @@ test('exported motion reaches home plate and the modeled river landing',()=>{
  assert.deepEqual(sampleBall(data,data.duration),data.landing);
  assert.equal(data.landing[0],142);assert.equal(data.landing[1],0);assert.ok(data.landing[2]<0);
  assert.equal(beatAt(data,data.contact),'Contact');assert.equal(beatAt(data,data.splash+.1),'Into the river');
- const atWater=sampleBall(data,data.waterCrossing);assert.ok(Math.abs(atWater[0]-128)<.001);assert.ok(atWater[1]>0);
+ const atWater=sampleBall(data,data.waterCrossing);
+ if(data.version>=15)assert.ok(atWater[0]>130&&atWater[0]<132);
+ else assert.ok(Math.abs(atWater[0]-128)<.001);
+ assert.ok(atWater[1]>0);
 });
 test('arbitrary seek order preserves the exact same world position',()=>{
  const expected=sampleBall(data,4.273);for(const t of [10.5,0,8.7,1.55,6.001])sampleBall(data,t);
@@ -37,10 +40,13 @@ test('sloping outfield returns retain their authored rows',()=>{
  if(data.version<13)return;
  // V14 keeps a 24-row lower return and an eight-row middle band.
  for(const [name,maxRows] of [['LF',data.version>=14?32:41],['RF',data.version>=14?32:24]] as const){
-  const group=data.instances.find(g=>g.name===`D2_${name} return individual seats`)!;
-  assert.ok(group.points.length>1000);
-  assert.ok(group.points.every(p=>Number.isFinite(p[9])));
-  const seats=buildSeats(group.points,0);
+  const groups=data.instances.filter(g=>data.version>=15
+    ?g.name.startsWith(`D2_${name} `)&&g.name.includes('straight individual seats')
+    :g.name===`D2_${name} return individual seats`);
+  const points=groups.flatMap(g=>g.points);
+  assert.ok(points.length>1000);
+  assert.ok(points.every(p=>Number.isFinite(p[9])));
+  const seats=buildSeats(points,0);
   assert.ok(new Set(seats.map(s=>s.row)).size<=maxRows);
  }
 });
