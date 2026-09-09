@@ -10,9 +10,11 @@
   var latScale = 1 / 110900;
   var lonScale = 1 / (111320 * Math.cos(origin.latitude_reference * Math.PI / 180));
   var homeOffset = origin.home_offset_xy_m || [0, 0];
+  /* Map-only display offset so the illustrative footprint sits inside the Amtrak yard parcel. */
+  var displayOffset = [0, 0.0005];
   var stadiumCenter = [
-    origin.latitude_reference - homeOffset[1] * latScale,
-    origin.longitude_reference - (homeOffset[0] + 33) * lonScale
+    origin.latitude_reference - homeOffset[1] * latScale + displayOffset[0],
+    origin.longitude_reference - (homeOffset[0] + 33) * lonScale + displayOffset[1]
   ];
 
   var map = L.map(root, {
@@ -76,8 +78,8 @@
   function pointsFromLocal(points) {
     return points.map(function (point) {
       return [
-        origin.latitude_reference + (point[1] - homeOffset[1]) * latScale,
-        origin.longitude_reference + (point[0] - homeOffset[0] - 33) * lonScale
+        origin.latitude_reference + (point[1] - homeOffset[1]) * latScale + displayOffset[0],
+        origin.longitude_reference + (point[0] - homeOffset[0] - 33) * lonScale + displayOffset[1]
       ];
     });
   }
@@ -178,7 +180,7 @@
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
       L.polygon(sites.the78, { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
-      label('text', 'McDonald’s Park', 14, [41.8622, -87.6322])
+      label('ballpark', 'McDonald’s Park', 13, [41.8622, -87.6322])
     ])
   });
 
