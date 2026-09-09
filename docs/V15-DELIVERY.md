@@ -6,7 +6,7 @@ V15 applies reproducible corrections to a preserved copy of the consolidated V14
 
 - Left-field return seats use straight rows, aligned aisles and field-facing chairs. The two exposed banks and two existing box floors remain the reconstruction's interpretation of the renderings. On 2026-09-08 the rearmost upper-bank row, which sat under the box floors, was removed; the upper bank is seven rows at the original pitch (`r15_seating.py` `LF_BANKS`). Right field also uses straight banks with a supported connection to the main bowl.
 - Nine freestanding arches open directly onto a level, open-air concourse at 13.4 m. The scoreboard terrace is a separate 22.055 m destination with its own eastern stair. Any approach grade change is north of the arches. The left-center seating banks and their walls are removed entirely, leaving a broad flat field overlook. Geometry and elevations remain inferred reconstruction choices.
-- Seven pinwheels sit on a chevron above the center-field board (blue, red, green, yellow, green, red, blue on lit pillars, after the 2026-09-08 reference; four before that). The right-field board rises two metres to clear the retained canopy; its geometry is deliberately adjusted from the earlier model.
+- Seven LED pinwheels sit on a chevron above the center-field board (blue, red, green, yellow, green, red, blue candy discs on lit posts, after the 2026-09-08 references; four before that). The discs are keyframed to spin at half a turn per second over the scene frame range, with static spark strands above the caps. The board itself is centred on the measured 22.06 m terrace run under its own line (shifted 12.5 m along the board axis on 2026-09-08) so both legs land on the terrace instead of one hanging over the 13.4 m court. The right-field board rises two metres to clear the retained canopy; its geometry is deliberately adjusted from the earlier model.
 - The river follows preserved Chicago Hydro geometry using the shared geographic registration. The terrain carve runs per mesh island with a revert guard (2026-09-08); the earlier single Boolean silently deleted the west district ground and most public-realm paving, which rendered as black ground in every daylight aerial. Willis remains at its mapped location, east of the river at its latitude. See [geography evidence](V15-GEOGRAPHY-AUDIT.md).
 - The Roosevelt comparison camera includes the mapped Union Station Powerhouse. Camera fitting improves the composition; it does not establish a surveyed match for the inferred building height or every source anchor.
 - The map uses a label-free Esri basemap, captured CTA rail geometry, simplified Metra corridors, station and garage markers, and separate conceptual station/parking overlays. Stadium coordinates use the inverse of the Blender registration. Parking markers do not report live availability.
@@ -27,7 +27,7 @@ The dedicated `verify_v15_arrival.py` samples the level floor and casts upward t
 
 ## Current delivery state
 
-The saved static scene has SHA-256 `75bd6be1b70d204a7a21d9506ed816b541f80e09f91d9c64d47f0a670cc63232` and 32,372 active chairs (32,444 before the LF upper-bank row removal). Its scene-to-replay provenance matches.
+The saved static scene has SHA-256 `34dc91d5a32f6f2198f721ea4eca5de1f572794e794cab5aedca39a1fe9b8e51` and 32,372 active chairs (32,444 before the LF upper-bank row removal). Its scene-to-replay provenance matches.
 
 - Whole-scene chair-to-architecture probes: zero failures. Park-to-field route: 515 samples, zero failures.
 - Dedicated arrival floor/open-sky probes: 105 samples, zero failures.
@@ -39,6 +39,10 @@ The saved static scene has SHA-256 `75bd6be1b70d204a7a21d9506ed816b541f80e09f91d
 - Map is temporarily omitted from public navigation and build assets at the user's request. Its source remains available for later work; old map routes redirect to the overview.
 
 The local live review is at port 8875, the map at port 8874, and the replay at port 8876. Generated artifacts are outside Git. The user authorized publication work using part of the remaining reserve. The unresolved overlook view and retained main-bowl contacts remain outside visual acceptance.
+
+## Not yet regenerated after the 2026-09-08 corrections
+
+The static scene above carries the LF row removal, the river carve fix, the centred board and the LED pinwheels, but the release pipeline has not been re-run on it: the 20 gallery stills, the social card, the replay export (`build_replay_v10.py`), the film frames and the hosted build still come from the earlier 8-row scene. The provenance and "all stills match" statements above describe that earlier release, not this scene.
 
 ## Acceptance boundary
 
