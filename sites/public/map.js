@@ -60,6 +60,7 @@
     defs.setAttribute('class', 'map-patterns');
     defs.innerHTML =
       '<pattern id="hatch-facility" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#f7dad8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#c94a45" stroke-width="3"/></pattern>' +
+      '<pattern id="hatch-facility-sat" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#ff5a4f" stroke-width="2"/></pattern>' +
       '<pattern id="hatch-site" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-45)"><rect width="8" height="8" fill="#eef1e6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#6b7f63" stroke-width="2"/></pattern>' +
       '<pattern id="hatch-construction" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#fbeed0"/><line x1="0" y1="0" x2="0" y2="8" stroke="#d29a2c" stroke-width="2"/></pattern>';
     container.insertBefore(defs, container.firstChild);
@@ -139,7 +140,7 @@
     source: 'sources.html#suntimes-2026-08-14', sourceLabel: 'Sun-Times · Aug 14, 2026',
     position: [41.8625, -87.6362], zoom: 15,
     layer: L.layerGroup([
-      L.polygon(sites.amtrakYard, { renderer: renderer, color: '#6b7f63', weight: 2, dashArray: '6 5', fillColor: 'url(#hatch-site)', fillOpacity: 1 }),
+      L.polygon(sites.amtrakYard, { renderer: renderer, color: '#6b7f63', weight: 2, dashArray: '6 5', fillColor: 'url(#hatch-site)', fillOpacity: 1, className: 'map-site-fill' }),
       label('text', 'Amtrak yard today', 14, [41.8598, -87.6362])
     ])
   });
@@ -164,7 +165,7 @@
     source: 'sources.html#blockclub-2026-09-09', sourceLabel: 'Block Club · Sept 9, 2026',
     position: [41.834, -87.6373], zoom: 15, basemap: 'satellite',
     layer: L.layerGroup([
-      L.polygon(sites.upCanalYard, { renderer: renderer, color: '#c94a45', weight: 2, fillColor: 'url(#hatch-facility)', fillOpacity: 1 }),
+      L.polygon(sites.upCanalYard, { renderer: renderer, color: '#c94a45', weight: 2, fillColor: 'url(#hatch-facility)', fillOpacity: 1, className: 'map-facility' }),
       label('text', 'Amtrak’s new facility', 12, [41.8335, -87.6373])
     ])
   });
@@ -176,7 +177,7 @@
     source: 'sources.html#chicagofire-2026-03-03', sourceLabel: 'Chicago Fire · Mar 3, 2026',
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
-      L.polygon(sites.the78, { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1 }),
+      L.polygon(sites.the78, { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
       label('text', 'McDonald’s Park', 14, [41.8622, -87.6322])
     ])
   });
@@ -262,8 +263,7 @@
   updateZoomClasses();
 
   var requested = new URLSearchParams(window.location.search).get('place');
-  map.fitBounds(overview, { padding: [12, 12] });
-  focusPlace(places[requested] ? requested : 'stadium', null, true);
-  if (!places[requested]) map.fitBounds(overview, { padding: [12, 12] });
+  if (places[requested]) focusPlace(requested, null, true);
+  else { map.fitBounds(overview, { padding: [12, 12] }); focusPlace('stadium', null, true); map.fitBounds(overview, { padding: [12, 12] }); }
   window.setTimeout(function () { map.invalidateSize(); }, 0);
 })();

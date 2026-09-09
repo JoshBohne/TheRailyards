@@ -523,6 +523,8 @@ nav{width:100%;
 .is-satellite .map-marker-text.label-min-13 .map-marker-label,.is-satellite .map-marker-text.label-min-14 .map-marker-label{color:#fff}
 .is-satellite .map-marker-ballpark .map-marker-glyph{color:#fff}
 .is-satellite .leaflet-control-attribution{background:#fffc}
+.is-satellite path.map-site-fill{fill-opacity:.45}
+.is-satellite path.map-facility{fill:url(#hatch-facility-sat);fill-opacity:.55;stroke:#ff5a4f;stroke-width:2.5}
 .map-questions{padding-top:40px}
 .question-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
 .question-grid h3{margin:0 0 8px;font-size:16px;font-weight:600}
