@@ -166,7 +166,7 @@
   register({
     id: 'rateField', status: 'existing',
     title: 'Rate Field',
-    copy: 'The White Sox’s current home, owned by the state. The lease and the state’s remaining stadium bonds both run through 2029. Its surface lots sit between the ballpark and the proposed Amtrak facility.',
+    copy: 'The White Sox’s current home, owned by the state. The lease and the state’s remaining stadium bonds both run through 2029. The proposed Amtrak facility would be directly west of it.',
     source: 'sources.html#suntimes-2024-02-08', sourceLabel: 'Sun-Times · Feb 8, 2024',
     position: [41.8299, -87.6338], zoom: 15,
     layer: L.layerGroup([
@@ -175,7 +175,7 @@
     ])
   });
 
-  /* Transit: CTA lines plus the stations people would actually use. */
+  /* Transit near the ballpark site. */
   var ctaColors = { 'Blue Line': '#347ab4', 'Red Line': '#c94a45', 'Orange Line': '#d47c35', 'Green Line': '#4b8b62' };
   L.geoJSON(data.cta, {
     style: function (feature) {
@@ -187,9 +187,6 @@
   [
     ['ctaRoosevelt', 'Roosevelt', 'Red, Orange and Green lines. About a 15 minute walk to the ballpark site over the Roosevelt Road bridge.', 13],
     ['ctaClintonBlue', 'Clinton', 'Blue Line, near Union Station. About a 20 minute walk to the site.', 14],
-    ['ctaCermak', 'Cermak-Chinatown', 'Red Line, north of the proposed Amtrak facility.', 14],
-    ['ctaHalstedOrange', 'Halsted', 'Orange Line, west of the proposed Amtrak facility.', 14],
-    ['ctaSox35', 'Sox-35th', 'Red Line. Serves Rate Field today.', 13]
   ].forEach(function (station) {
     var position = data.stations[station[0]];
     register({
@@ -210,7 +207,7 @@
     layer: label('station', 'Union Station', 14, data.stations.unionStation)
   });
 
-  /* Parking: what exists. Nothing has been announced for the ballpark. */
+  /* Parking near the ballpark site. Nothing has been announced. */
   register({
     id: 'grantParkSouth', status: 'existing',
     title: 'Grant Park South Garage',
@@ -218,14 +215,6 @@
     source: 'sources.html#fieldofschemes-2026-09-08', sourceLabel: 'Field of Schemes · Sept 8, 2026',
     position: data.parking.grantParkSouth, zoom: 15,
     layer: label('parking', 'Grant Park garage', 15, data.parking.grantParkSouth)
-  });
-  register({
-    id: 'rateFieldLots', status: 'existing',
-    title: 'Rate Field lots',
-    copy: 'Surface lots around Rate Field on Illinois Sports Facilities Authority land. Nothing has been announced about them under either plan.',
-    source: 'sources.html#suntimes-2024-02-08', sourceLabel: 'Sun-Times · Feb 8, 2024',
-    position: [41.8265, -87.6356], zoom: 15,
-    layer: label('parking', 'Rate Field lots', 15, [41.8265, -87.6356])
   });
 
   /* Extents */
@@ -244,7 +233,7 @@
     map.fitBounds(view.bounds, { padding: [12, 12] });
     showDetail(places[view.place]);
     setPressed('[data-map-view]', document.querySelector('[data-map-view="' + name + '"]'));
-    setPressed('[data-map-focus]', null);
+    setPressed('[data-map-focus]', name === 'stadium' ? document.querySelector('[data-map-focus="stadium"]') : name === 'bridgeport' ? document.querySelector('[data-map-focus="upCanalYard"]') : null);
   }
   document.querySelectorAll('[data-map-view]').forEach(function (button) {
     button.addEventListener('click', function () { setView(button.getAttribute('data-map-view')); });
@@ -275,7 +264,7 @@
   updateZoomClasses();
 
   var requested = new URLSearchParams(window.location.search).get('place');
-  setView('overview');
+  setView('stadium');
   if (requested && places[requested]) focusPlace(requested);
   window.setTimeout(function () { map.invalidateSize(); }, 0);
 })();
