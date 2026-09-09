@@ -123,8 +123,8 @@ def cmd_run(a):
     a.command=cmd
     with S.edit(a.state) as s:
         if s.get('active_render'):_finish(s,cancelled=True)
-        if views:_start(s,views[0],blend=a.blend)
-        else:s['active_render']=dict(view='batch',label=a.label or 'Batch render',started_at=now(),expected_seconds=None,progress=0.0,remaining_seconds=None,blend=a.blend,stats='')
+        if views:_start(s,views[0],blend=a.blend,expect=a.expect)
+        else:s['active_render']=dict(view='batch',label=a.label or 'Batch render',started_at=now(),expected_seconds=a.expect,progress=0.0,remaining_seconds=None,blend=a.blend,stats='')
         S.event(s,'run',short(' '.join(a.command)))
     proc=subprocess.Popen(a.command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
     last=0
@@ -217,7 +217,7 @@ def main(argv=None):
     x.set_defaults(f=lambda a:(setattr(a,'view',a.views[0] if a.views else None),cmd_queue(a)))
     x=sub.add_parser('render');x.add_argument('action',choices=['start','progress','finish','cancel']);x.add_argument('view',nargs='?');x.add_argument('--label');x.add_argument('--expect',type=float);x.add_argument('--blend');x.add_argument('--remaining',type=float);x.add_argument('--stats');x.add_argument('--seconds',type=float);x.add_argument('--output')
     x.set_defaults(f=lambda a:(setattr(a,'value',float(a.view) if a.action=='progress' else 0),cmd_render(a)))
-    x=sub.add_parser('run');x.add_argument('--views');x.add_argument('--label');x.add_argument('--blend');x.add_argument('command',nargs=argparse.REMAINDER);x.set_defaults(f=cmd_run)
+    x=sub.add_parser('run');x.add_argument('--views');x.add_argument('--label');x.add_argument('--blend');x.add_argument('--expect',type=float);x.add_argument('command',nargs=argparse.REMAINDER);x.set_defaults(f=cmd_run)
     x=sub.add_parser('gallery');x.add_argument('action',choices=['add']);x.add_argument('dir');x.add_argument('--glob',default='*.png');x.add_argument('--prefix');x.add_argument('--label');x.set_defaults(f=cmd_gallery)
     x=sub.add_parser('version');x.add_argument('action',choices=['snapshot']);x.add_argument('label');x.add_argument('--blend');x.add_argument('--note');x.set_defaults(f=cmd_version)
     x=sub.add_parser('reset');x.add_argument('--all',action='store_true');x.set_defaults(f=cmd_reset)
