@@ -81,7 +81,7 @@ RF_BANKS = (
         # on one straight line through (102, 2), inner ends on the bowl radial.
         "inner": "radial",
         "parallel": (26.8, 22.9),
-        "end_line": (102.0, 2.0),
+        "end_x": 102.0,
         "depth_scale": 62.0,
         "end0": (102.0, 2.0),
         "end1": (111.0, -35.0),
@@ -95,7 +95,7 @@ RF_BANKS = (
         "rows": 8,
         "inner": "radial",
         "parallel": (26.8, 22.9),
-        "end_line": (102.0, 2.0),
+        "end_x": 102.0,
         "depth_scale": 62.0,
         "end0": (101.2, -37.0),
         "end1": (101.2, -47.0),
@@ -623,6 +623,54 @@ def _build_rf_junction(scene, batch, front, back):
     }
 
 
+def _connect_rf_upper_to_terraces(scene, batch, front, back):
+    """Make the RF upper bank meet the tower terraces flush.
+
+    2026-09-09 (Josh): the upper bank's rear (z 30) stopped 4-8 m short of
+    tower terrace 2 (deck z 32.6, whose front edge runs parallel to the rows)
+    with terrace 3 (z 26.4) and a few pockets of ground paving open in the
+    strip between.  Per station this marches outward from the rear row until
+    a down-cast finds the terrace-2 deck, then builds a stone landing at the
+    bank's rear level across that strip, a wall from the lowest floor found
+    up to the landing, and four risers onto the deck.
+    """
+    upper = RF_BANKS[1]
+    z_land, deck_z = upper["z1"], 32.6
+    group = "V15 RF terrace connector"
+    faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    d = (_line_xy(front, back, upper, upper["t1"], 0.5) - _line_xy(front, back, upper, upper["t0"], 0.5)).normalized()
+    n = 16
+    stations = []
+    for i in range(n + 1):
+        origin = _line_xy(front, back, upper, upper["t1"] + 0.004, i / n)
+        reach, low = None, z_land
+        for step in range(1, 40):
+            q = origin + d * (0.5 * step)
+            hit, loc, _nn, _ii, obj, _m = scene.ray_cast(depsgraph, Vector((q.x, q.y, deck_z - 0.2)), Vector((0.0, 0.0, -1.0)), distance=40.0)
+            floor = loc.z if hit else 8.0
+            if floor >= deck_z - 0.8:
+                reach = 0.5 * step
+                break
+            low = min(low, max(floor, 8.0))
+        stations.append((origin, reach if reach is not None else 6.0, low))
+    risers, tread = 4, 0.35
+    for (a, ra, la), (b, rb, lb) in zip(stations, stations[1:]):
+        # landing + wall as one solid from the lowest floor to the landing top
+        a2, b2 = a + d * max(ra - risers * tread, 0.6), b + d * max(rb - risers * tread, 0.6)
+        corners = [a, b, b2, a2]
+        z0 = min(la, lb)
+        batch.add(group, "stone", [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z_land) for c in corners], faces)
+        for k in range(1, risers + 1):
+            s0, s1 = (k - 1) * tread, k * tread
+            c0, c1 = a2 + d * s0, b2 + d * s0
+            c2, c3 = b2 + d * s1, a2 + d * s1
+            batch.add(group, "stone", [(c.x, c.y, z0) for c in (c0, c1, c2, c3)] + [(c.x, c.y, z_land + (deck_z - z_land) * k / risers) for c in (c0, c1, c2, c3)], faces)
+    end_a = stations[-1][0]
+    rail(batch, group, Vector((end_a.x, end_a.y, z_land)), Vector((end_a.x, end_a.y, z_land)) + Vector((d.x, d.y, 0.0)) * stations[-1][1], 1.05)
+    return {"stations": n + 1, "reach_m": [round(r, 1) for _o, r, _l in stations], "lowest_floor": [round(l, 1) for _o, _r, l in stations], "landing_z": z_land, "deck_z": deck_z}
+
+
 def _close_lf_rear(scene, batch, front, back):
     """Close the open back of the LF banks with a wall and a plaza deck.
 
@@ -825,6 +873,7 @@ def build(scene, batch, root):
     _build_bank_support(scene, batch, front, back, RF_BANKS[0], "RF")
     _build_bank_support(scene, batch, front, back, RF_BANKS[1], "RF")
     rf_junction = _build_rf_junction(scene, batch, front, back)
+    rf_terrace = _connect_rf_upper_to_terraces(scene, batch, front, back)
     result = {
         "lf": {
             "banks": [lower, upper],
@@ -849,6 +898,7 @@ def build(scene, batch, root):
             "box_floors_preserved": [31.6, 34.8],
             "roof_untouched": True,
             "junction": rf_junction,
+            "terrace_connector": rf_terrace,
             "source_endpoints": {
                 "lower": [list(RF_BANKS[0]["end0"]), list(RF_BANKS[0]["end1"])],
                 "upper": [list(RF_BANKS[1]["end0"]), list(RF_BANKS[1]["end1"])],
