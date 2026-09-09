@@ -32,7 +32,25 @@
     maxZoom: 17,
     attribution: 'Basemap &copy; <a href="https://www.esri.com/en-us/legal/terms/services">Esri</a> · Footprints &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · CTA lines: City of Chicago'
   }).addTo(map);
-  L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', { maxZoom: 17, pane: 'shadowPane', opacity: 0.9 }).addTo(map);
+  var streetLabels = L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', { maxZoom: 17, pane: 'shadowPane', opacity: 0.9 }).addTo(map);
+  var imagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 17,
+    attribution: 'Imagery &copy; <a href="https://www.esri.com/en-us/legal/terms/services">Esri</a>, Maxar, Earthstar Geographics'
+  });
+  var basemap = 'map';
+  function setBasemap(name) {
+    basemap = name;
+    var satellite = name === 'satellite';
+    if (satellite) { map.removeLayer(streetLabels); imagery.addTo(map); }
+    else { map.removeLayer(imagery); streetLabels.addTo(map); }
+    root.classList.toggle('is-satellite', satellite);
+    document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
+      button.setAttribute('aria-pressed', button.getAttribute('data-map-basemap') === name ? 'true' : 'false');
+    });
+  }
+  document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
+    button.addEventListener('click', function () { setBasemap(button.getAttribute('data-map-basemap')); });
+  });
 
   var renderer = L.svg({ padding: 0.6 }).addTo(map);
   function addPatterns() {
@@ -131,7 +149,7 @@
     title: 'The Railyards',
     copy: 'Canal Edge’s proposed White Sox ballpark, unveiled September 5, 2026. Under study; no architect, financing or date yet.',
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
-    position: stadiumCenter, zoom: 16,
+    position: stadiumCenter, zoom: 15,
     layer: L.layerGroup([
       L.polygon(pointsFromLocal(data.bowlFront.concat(data.bowlBack.slice().reverse())), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#7d9a80', fillOpacity: 0.55 }),
       L.polygon(pointsFromLocal(data.fieldBoundary), { renderer: renderer, color: '#294638', weight: 1.5, fillColor: '#8fb28a', fillOpacity: 0.9 }),
@@ -142,9 +160,9 @@
   register({
     id: 'upCanalYard', status: 'proposed',
     title: 'Amtrak’s new facility · Bridgeport',
-    copy: 'A 24-hour maintenance yard on Union Pacific land beside Rate Field. $572M federal, $125M from Canal Edge, about 18 months to build. Residents oppose it.',
-    source: 'sources.html#amtrak-2026-08-14', sourceLabel: 'Amtrak · Aug 14, 2026',
-    position: [41.836, -87.6373], zoom: 14,
+    copy: 'Union Pacific’s existing Canal Street rail yard, idle since 2019. Amtrak would rebuild the tracks and add a maintenance building between 33rd and 35th, with $572M federal and $125M from Canal Edge. Residents oppose it.',
+    source: 'sources.html#blockclub-2026-09-09', sourceLabel: 'Block Club · Sept 9, 2026',
+    position: [41.834, -87.6373], zoom: 15, basemap: 'satellite',
     layer: L.layerGroup([
       L.polygon(sites.upCanalYard, { renderer: renderer, color: '#c94a45', weight: 2, fillColor: 'url(#hatch-facility)', fillOpacity: 1 }),
       label('text', 'Amtrak’s new facility', 12, [41.8335, -87.6373])
@@ -217,38 +235,18 @@
     layer: label('parking', 'Grant Park garage', 15, data.parking.grantParkSouth)
   });
 
-  /* Extents */
-  var views = {
-    overview: { bounds: L.latLngBounds([[41.822, -87.652], [41.887, -87.616]]), place: 'stadium' },
-    stadium: { bounds: L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]), place: 'stadium' },
-    bridgeport: { bounds: L.latLngBounds([[41.8205, -87.6465], [41.8555, -87.6245]]), place: 'upCanalYard' }
-  };
-  function setPressed(selector, match) {
-    document.querySelectorAll(selector).forEach(function (button) {
-      button.setAttribute('aria-pressed', button === match ? 'true' : 'false');
-    });
-  }
-  function setView(name) {
-    var view = views[name] || views.overview;
-    map.fitBounds(view.bounds, { padding: [12, 12] });
-    showDetail(places[view.place]);
-    setPressed('[data-map-view]', document.querySelector('[data-map-view="' + name + '"]'));
-    setPressed('[data-map-focus]', name === 'stadium' ? document.querySelector('[data-map-focus="stadium"]') : name === 'bridgeport' ? document.querySelector('[data-map-focus="upCanalYard"]') : null);
-  }
-  document.querySelectorAll('[data-map-view]').forEach(function (button) {
-    button.addEventListener('click', function () { setView(button.getAttribute('data-map-view')); });
-  });
-
-  function focusPlace(id, button) {
+  var overview = L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]);
+  function focusPlace(id, button, instant) {
     var place = places[id];
     if (!place) return;
     showDetail(place);
-    map.flyTo(place.position, place.zoom, { duration: 0.8 });
-    setPressed('[data-map-view]', null);
-    setPressed('[data-map-focus]', button || null);
+    setBasemap(place.basemap || 'map');
+    if (instant) map.setView(place.position, place.zoom);
+    else map.flyTo(place.position, place.zoom, { duration: 0.8 });
+    document.querySelectorAll('[data-map-focus]').forEach(function (item) {
+      item.setAttribute('aria-pressed', item === button || item.getAttribute('data-map-focus') === id ? 'true' : 'false');
+    });
   }
-  var placeSelect = document.querySelector('[data-map-place]');
-  if (placeSelect) placeSelect.addEventListener('change', function () { focusPlace(placeSelect.value); });
   document.querySelectorAll('[data-map-focus]').forEach(function (button) {
     button.addEventListener('click', function () {
       focusPlace(button.getAttribute('data-map-focus'), button);
@@ -264,7 +262,8 @@
   updateZoomClasses();
 
   var requested = new URLSearchParams(window.location.search).get('place');
-  setView('stadium');
-  if (requested && places[requested]) focusPlace(requested);
+  map.fitBounds(overview, { padding: [12, 12] });
+  focusPlace(places[requested] ? requested : 'stadium', null, true);
+  if (!places[requested]) map.fitBounds(overview, { padding: [12, 12] });
   window.setTimeout(function () { map.invalidateSize(); }, 0);
 })();

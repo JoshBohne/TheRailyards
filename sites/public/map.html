@@ -11,7 +11,7 @@
 <script src="site.js" defer></script>
 <script src="vendor/leaflet/leaflet.js" defer></script>
 <script src="map-data.js?rev=sites" defer></script>
-<script src="map.js?rev=distilled2" defer></script>
+<script src="map.js?rev=satellite" defer></script>
 <link rel="canonical" href="{{SITE_URL}}/map.html">
 <meta property="og:title" content="Map | Recreating The Railyards">
 <meta property="og:image" content="{{SITE_URL}}/media/og-home-run-v15.jpg">
@@ -26,16 +26,14 @@
 <main id="content" class="page-shell">
 
 <section class="section first-section map-section" aria-labelledby="map-title">
-<div class="section-heading map-heading"><h1 id="map-title">What moves where</h1><div class="map-view-tabs" role="group" aria-label="Map extent"><button type="button" data-map-view="stadium" aria-pressed="true">Ballpark</button><button type="button" data-map-view="overview" aria-pressed="false">Overview</button><button type="button" data-map-view="bridgeport" aria-pressed="false">Bridgeport</button></div></div>
-
+<h1 id="map-title">What moves where</h1>
 <ol class="swap-steps" aria-label="How the swap works">
-<li><button type="button" data-map-focus="amtrakYard" aria-pressed="false"><span class="swap-step-status" data-status="existing">Today</span><strong>Amtrak’s yard sits on the ballpark site</strong></button></li>
-<li><button type="button" data-map-focus="upCanalYard" aria-pressed="false"><span class="swap-step-status" data-status="proposed">2026 → 2028</span><strong>Amtrak builds a new yard in Bridgeport</strong></button></li>
-<li><button type="button" data-map-focus="stadium" aria-pressed="false"><span class="swap-step-status" data-status="proposed">No date</span><strong>The Railyards rises on the old yard</strong></button></li>
-<li><button type="button" data-map-focus="rateField" aria-pressed="false"><span class="swap-step-status" data-status="existing">Through 2029</span><strong>The Sox stay at Rate Field</strong></button></li>
+<li><button type="button" data-map-focus="amtrakYard" aria-pressed="false"><b>1</b>Amtrak’s yard today</button></li>
+<li><button type="button" data-map-focus="upCanalYard" aria-pressed="false"><b>2</b>Amtrak’s new yard in Bridgeport</button></li>
+<li><button type="button" data-map-focus="stadium" aria-pressed="true"><b>3</b>The Railyards</button></li>
+<li><button type="button" data-map-focus="rateField" aria-pressed="false"><b>4</b>Rate Field until 2029</button></li>
 </ol>
-
-<div class="map-layout"><div class="map-stage"><div class="map-toolbar"><ul class="map-legend" aria-label="Legend"><li><i class="legend-swatch swatch-stadium" aria-hidden="true"></i>Proposed ballpark</li><li><i class="legend-swatch swatch-site" aria-hidden="true"></i>Amtrak yard, moving out</li><li><i class="legend-swatch swatch-facility" aria-hidden="true"></i>Proposed Amtrak yard</li><li><i class="legend-swatch swatch-construction" aria-hidden="true"></i>Under construction</li><li><i class="legend-icon legend-station" aria-hidden="true"></i>CTA station</li><li><i class="legend-icon legend-parking" aria-hidden="true"></i>Parking</li></ul><label class="map-place-picker" for="map-place"><span class="visually-hidden">Go to</span><select id="map-place" data-map-place><option value="">Go to…</option><option value="stadium">The Railyards</option><option value="amtrakYard">Amtrak yard today</option><option value="upCanalYard">Amtrak’s new facility</option><option value="the78">McDonald’s Park</option><option value="rateField">Rate Field</option><option value="ctaRoosevelt">Roosevelt station</option><option value="ctaClintonBlue">Clinton station</option><option value="unionStation">Union Station</option><option value="grantParkSouth">Grant Park garage</option></select></label></div><div id="railyards-map" class="leaflet-map" role="application" tabindex="0" aria-label="Interactive map. Drag to pan, use plus and minus to zoom, and select a place for details."></div></div>
+<div class="map-layout"><div class="map-stage"><div class="map-toolbar"><ul class="map-legend" aria-label="Legend"><li><i class="legend-swatch swatch-stadium" aria-hidden="true"></i>Proposed ballpark</li><li><i class="legend-swatch swatch-site" aria-hidden="true"></i>Amtrak yard, moving out</li><li><i class="legend-swatch swatch-facility" aria-hidden="true"></i>Proposed Amtrak yard</li><li><i class="legend-swatch swatch-construction" aria-hidden="true"></i>Under construction</li><li><i class="legend-icon legend-station" aria-hidden="true"></i>CTA</li><li><i class="legend-icon legend-parking" aria-hidden="true"></i>Parking</li></ul><div class="map-basemap" role="group" aria-label="Basemap"><button type="button" data-map-basemap="map" aria-pressed="true">Map</button><button type="button" data-map-basemap="satellite" aria-pressed="false">Satellite</button></div></div><div id="railyards-map" class="leaflet-map" role="application" tabindex="0" aria-label="Interactive map. Drag to pan, use plus and minus to zoom, and select a place for details."></div></div>
 <aside class="map-detail" aria-live="polite"><h2><span data-map-detail-title>The Railyards</span> <span class="map-detail-status" data-map-detail-status data-status="proposed">Proposed</span></h2><p data-map-detail-copy></p><a data-map-detail-link href="sources.html">Source</a></aside></div>
 <p class="map-disclosure section-note">Ballpark footprint is our reconstruction. <a href="sources.html">Sources</a></p>
 </section>
