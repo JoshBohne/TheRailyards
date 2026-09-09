@@ -16,6 +16,7 @@ apply_lighting(scene,'night')
 scene.render.engine='CYCLES';scene.cycles.samples=12
 if os.environ.get('RAILYARDS_GPU')=='1':scene.cycles.device='GPU'
 scene.cycles.use_denoising=True
+scene.render.use_persistent_data=True
 scene.render.resolution_x=1280;scene.render.resolution_y=720;scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG'
 for obj in scene.objects:

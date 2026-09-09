@@ -33,11 +33,12 @@ The saved static scene has SHA-256 `5c909c6b1903aecb6cd4a271951762979b66548b4b3b
 - Dedicated arrival floor/open-sky probes: 105 samples, zero failures.
 - Chair mesh pairs: 2,400 contacts, all in the retained main bowl; none in the rebuilt LF/RF returns.
 - Replay: six tests pass and TypeScript/Vite build succeeds. Feedback runtime: two tests pass. Local map has been visually inspected.
-- Browser screenshot verification timed out; it is not a passing browser suite.
+- Publication follow-up: all 11 replay browser states pass with no page/network errors, synchronized camera controls, and a 390 px mobile check. The earlier failure came from an obsolete view-picker button selector, now corrected.
 - Native preview views are saved in `work/v15/review/`. A dark near-field paving patch in the overlook view remains unresolved. Replacing its material did not fix it.
-- New gallery stills and social card were rendered. The 288-frame film remains incomplete. The V15 hosted release has not been packaged or published. HTML now targets V15 media and must be built with a complete matching release before deployment.
+- All 20 required gallery stills and the social card match the static scene. Film packaging requires all 288 frames and matching scene hashes; it fails closed on incomplete renders. `work/v15/release/release.json` and the hosted build manifest record the assembled publication.
+- Map is temporarily omitted from public navigation and build assets at the user's request. Its source remains available for later work; old map routes redirect to the overview.
 
-The local live review is at port 8875, the map at port 8874, and the replay at port 8876. Generated artifacts are outside Git. Work stopped for the user's weekly usage reserve; this is a draft checkpoint, not visual acceptance.
+The local live review is at port 8875, the map at port 8874, and the replay at port 8876. Generated artifacts are outside Git. The user authorized publication work using part of the remaining reserve. The unresolved overlook view and retained main-bowl contacts remain outside visual acceptance.
 
 ## Acceptance boundary
 

@@ -49,6 +49,7 @@ export async function saveFeedback(request: Request, env: Environment): Promise<
 export default {
   async fetch(request: Request, env: Environment): Promise<Response> {
     const path = new URL(request.url).pathname;
+    if (path === '/map' || path === '/map.html') return Response.redirect(new URL('/', request.url), 302);
     if (path !== '/api/feedback') return env.ASSETS.fetch(request);
     try { return await saveFeedback(request, env); }
     catch (error: unknown) {

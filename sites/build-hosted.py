@@ -86,9 +86,9 @@ def main():
     shutil.copytree(args.replay_dist, output / 'replay', ignore=shutil.ignore_patterns('model'))
     shutil.copytree(release / 'model', output / 'replay/model')
     split_venue(output)
-    if (args.templates / 'vendor').is_dir():
-        shutil.copytree(args.templates / 'vendor', output / 'vendor')
     for source in args.templates.iterdir():
+        if source.name in ('map.html', 'map.js', 'map-data.js'):
+            continue
         if not source.is_file() or source.suffix not in ('.html', '.css', '.js', '.svg'):
             continue
         target = output / source.name
