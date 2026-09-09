@@ -15,12 +15,12 @@ the reviewer can follow along. Default state: work/live/state.json
   dash.py render progress 0.4 [--remaining 25]
   dash.py render finish [--seconds 38.2] [--output path.png]   # also pops it from the queue
   dash.py render cancel
-  dash.py run --views a,b,c -- blender -b scene.blend --python render_review.py
+  dash.py run --views a,b,c --label 'Change name' -- blender …   # the label groups those views into ONE review card
   dash.py gallery add <dir> [--glob 'v15-*.png'] [--prefix v15-] [--label-from-name]  # register every image as a view
   dash.py version snapshot "V15 draft 3" [--blend f] [--note "…"]   # copies view images + git commit
   dash.py reset [--all]                     # new session; keeps per-view timings unless --all
   dash.py review list [--pending]           # thumbs up/down + feedback Josh left on the page
-  dash.py review ack <view>                 # agent has acted on the feedback
+  dash.py review ack <view|change|group>    # agent has acted on the feedback
   dash.py source add <path> --title T [--credit C] [--kind render|map|mockup|photo|data|doc] [--note N]
   dash.py source scan <dir> [--kind K] [--credit C] [--glob '*.jpg']   # register every image in a folder
   dash.py source list                       # committed manifest (reconstruction-references/sources.json) + ad hoc
@@ -50,6 +50,7 @@ def cmd_view(a):
             if a.current:
                 v['requested_after']=0
                 if not a.no_review:v['needs_review']=now()
+                if getattr(a,'change',None):v['change']=a.change
             S.event(s,'view',f'{v["label"]}: updated {", ".join(m for m in ["current","before","source"] if getattr(a,m))}')
         elif a.action=='expect':
             v['requested_after']=now();S.event(s,'view',f'{v["label"]}: waiting for a new render')
@@ -98,7 +99,7 @@ def _finish(s,seconds=None,output=None,cancelled=False):
             old=(v.get('current') or {}).get('path')
             v['current']=dict(path=str(Path(output).resolve()),label=(v['current']['label'] if old==str(Path(output).resolve()) and v.get('current') else 'Latest render'))
         v['requested_after']=0
-        if output:v['needs_review']=now()
+        if output:v['needs_review']=now();v['change']=ar.get('change') or ar['label']
     else:
         v=s['views'].get(view)
         if v:v['requested_after']=0
@@ -207,16 +208,19 @@ def cmd_reset(a):
 def cmd_review(a):
     reviews=S.load_reviews(a.state);s=S.load(a.state)
     if a.action=='list':
+        seen=set()
         for r in reviews:
             if a.pending and r.get('acked'):continue
-            v=s['views'].get(r['view'],{})
-            print(f"{'UP  ' if r['verdict']=='up' else 'DOWN'} {r['view']} ({v.get('label',r['view'])}) {time.strftime('%H:%M',time.localtime(r['time']))}{' acked' if r.get('acked') else ''}: {r.get('feedback','')}")
+            g=r.get('group') or r['time']
+            if g in seen:continue
+            seen.add(g);views=[x['view'] for x in reviews if (x.get('group') or x['time'])==g]
+            print(f"{'UP  ' if r['verdict']=='up' else 'DOWN'} {r.get('change') or r['label']} [{', '.join(views)}] {time.strftime('%H:%M',time.localtime(r['time']))}{' acked' if r.get('acked') else ''}: {r.get('feedback','')}")
         pending=[k for k,v in s['views'].items() if v.get('needs_review') and not any(r['view']==k and r['image_modified']>=v['needs_review'] for r in reviews)]
         if pending:print('awaiting Josh:',', '.join(pending))
     elif a.action=='ack':
         p=S.reviews_path(a.state)
         for r in reviews:
-            if r['view']==a.view:r['acked']=True
+            if r['view']==a.view or r.get('change')==a.view or r.get('group')==a.view:r['acked']=True
         p.write_text(json.dumps(reviews,indent=2))
         with S.edit(a.state) as st:S.event(st,'review',f'acted on feedback for {a.view}')
 
@@ -257,6 +261,7 @@ def main(argv=None):
     x=sub.add_parser('note');x.add_argument('text');x.set_defaults(f=cmd_note)
     x=sub.add_parser('view');x.add_argument('action',choices=['set','expect','remove']);x.add_argument('key');x.add_argument('--label');x.add_argument('--status')
     for m in ['current','before','source']:x.add_argument('--'+m);x.add_argument(f'--{m}-label')
+    x.add_argument('--change',help='group this view with others under one review card')
     x.add_argument('--no-review',action='store_true');x.set_defaults(f=cmd_view)
     x=sub.add_parser('task');x.add_argument('action',choices=['add','done','set','remove']);x.add_argument('text_or_id');x.add_argument('status',nargs='?',choices=['todo','doing','done','blocked']);x.add_argument('--id');x.add_argument('--evidence')
     x.set_defaults(f=lambda a:(setattr(a,'text',a.text_or_id),setattr(a,'id',a.id if a.action=='add' else a.text_or_id),cmd_task(a)))

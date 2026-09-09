@@ -5,7 +5,7 @@ python3 tools/live-review/serve.py [--state work/live/state.json] [--port 8863]
 State paths are operator-authored (via dash.py), never supplied by HTTP
 clients. Older V13/V14 live.json files (note + views only) still work.
 """
-import argparse,json,subprocess,sys,time
+import argparse,json,subprocess,sys,time,uuid
 from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parent))
@@ -87,14 +87,19 @@ class Handler(BaseHTTPRequestHandler):
         length=int(self.headers.get('Content-Length') or 0);body=self.rfile.read(length) if length else b''
         try:data=json.loads(body or '{}')
         except Exception:self.send_error(400);return
-        if path!='review' or data.get('verdict') not in ('up','down') or not isinstance(data.get('view'),str):
+        views=data.get('views') if isinstance(data.get('views'),list) else [data.get('view')]
+        if path!='review' or data.get('verdict') not in ('up','down') or not all(isinstance(v,str) for v in views) or not views:
             self.send_error(400);return
-        state=S.load(STATE);view=state['views'].get(data['view'])
-        if not view or not view.get('current'):self.send_error(404);return
-        modified=Path(view['current']['path']).stat().st_mtime if Path(view['current']['path']).is_file() else time.time()
-        record=dict(view=data['view'],label=view.get('label',data['view']),verdict=data['verdict'],feedback=str(data.get('feedback',''))[:2000],time=time.time(),image_modified=max(modified,view.get('needs_review') or 0),image=view['current']['path'],acked=False)
-        p=S.reviews_path(STATE);reviews=S.load_reviews(STATE);reviews.append(record);p.write_text(json.dumps(reviews,indent=2))
-        with S.edit(STATE) as st:S.event(st,'review',('UP ' if record['verdict']=='up' else 'DOWN ')+record['label']+(': '+record['feedback'][:120] if record['feedback'] else ''))
+        state=S.load(STATE);group=uuid.uuid4().hex[:8];records=[]
+        for key in views:
+            view=state['views'].get(key)
+            if not view or not view.get('current'):continue
+            modified=Path(view['current']['path']).stat().st_mtime if Path(view['current']['path']).is_file() else time.time()
+            records.append(dict(view=key,label=view.get('label',key),change=str(data.get('change') or view.get('change') or view.get('label',key))[:200],group=group,verdict=data['verdict'],feedback=str(data.get('feedback',''))[:2000],time=time.time(),image_modified=max(modified,view.get('needs_review') or 0),image=view['current']['path'],acked=False))
+        if not records:self.send_error(404);return
+        record=records[0]
+        p=S.reviews_path(STATE);reviews=S.load_reviews(STATE);reviews.extend(records);p.write_text(json.dumps(reviews,indent=2))
+        with S.edit(STATE) as st:S.event(st,'review',('UP ' if record['verdict']=='up' else 'DOWN ')+record['change']+f" ({len(records)} angle{'s' if len(records)>1 else ''})"+(': '+record['feedback'][:120] if record['feedback'] else ''))
         out=json.dumps(record).encode();self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(out)));self.end_headers();self.wfile.write(out)
     def do_GET(self):
         path=self.path.split('?',1)[0].strip('/');parts=path.split('/') if path else []

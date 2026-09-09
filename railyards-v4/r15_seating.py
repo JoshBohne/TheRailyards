@@ -652,17 +652,42 @@ def _close_lf_rear(scene, batch, front, back):
 
 
 def _build_lf_end_wall(batch, front, back):
-    """Right-hand (pavilion-side) wall closing the LF banks at x = end_x."""
+    """Right-hand (pavilion-side) wall closing the LF banks at x = end_x.
+
+    2026-09-09 (Josh): the wall follows the seats as they rise to the
+    building instead of standing full height.  Its top is the rake profile
+    at station 1 plus a 1.1 m parapet, stepping up to the box-floor level
+    only at the rear.
+    """
     lower, upper = LF_BANKS
-    a = _line_xy(front, back, lower, lower["t0"], 1.0)
-    b = _line_xy(front, back, upper, upper["t1"], 1.0)
     w = Vector((upper["parallel"][0], upper["parallel"][1], 0.0)).normalized()
-    a2, b2 = a + w * 1.2, b + w * 1.2
-    z0, z1 = 8.0, 31.55
-    corners = [a, b, b2, a2]
+    parapet, z0, z_top = 1.1, 8.0, 31.55
+    profile = [
+        (lower, lower["t0"], lower["z0"] + parapet),
+        (lower, lower["t1"], lower["z1"] + parapet),
+        (upper, upper["t0"], upper["z0"] + parapet),
+        (upper, upper["t1"], upper["z1"] + parapet),
+    ]
+    pts = [_line_xy(front, back, bank, tt, 1.0) for bank, tt, _z in profile]
+    zs = [z for _b, _t, z in profile]
+    group = "V15 LF end wall"
     faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
-    batch.add("V15 LF end wall", "stone", [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z1) for c in corners], faces)
-    return {"x": lower["end_x"], "y": [round(a.y, 2), round(b.y, 2)], "z": [z0, z1]}
+    segments = []
+    for i in range(len(pts) - 1):
+        a, b = pts[i], pts[i + 1]
+        za, zb = zs[i], zs[i + 1]
+        a2, b2 = a + w * 1.2, b + w * 1.2
+        verts = [(a.x, a.y, z0), (b.x, b.y, z0), (b2.x, b2.y, z0), (a2.x, a2.y, z0),
+                 (a.x, a.y, za), (b.x, b.y, zb), (b2.x, b2.y, zb), (a2.x, a2.y, za)]
+        batch.add(group, "stone", verts, faces)
+        segments.append([round(a.y, 2), round(b.y, 2), round(za, 2), round(zb, 2)])
+    # short vertical step from the upper bank's rear up to the box floor
+    b = pts[-1]
+    b2, c = b + w * 1.2, b + Vector((0.0, 1.5, 0.0))
+    c2 = c + w * 1.2
+    corners = [b, c, c2, b2]
+    batch.add(group, "stone", [(q.x, q.y, z0) for q in corners] + [(q.x, q.y, z_top) for q in corners], faces)
+    return {"x": lower["end_x"], "segments_y_z": segments, "z0": z0, "parapet": parapet, "rear_step_to": z_top}
 
 
 def _bring_lf_boxes_forward(scene, batch, front, back):
@@ -720,7 +745,9 @@ def _fill_lf_wedge(batch, front, back):
     a = _line_xy(front, back, lower, lower["t1"], 0.0)  # lower rear row meets the radial here
     b = Vector((back.x, back.y, 0.0))
     c = _line_xy(front, back, upper, upper["t1"], 0.0)
-    z0, z1 = 8.0, upper["z1"]
+    # Top follows the seats: lower-bank rear level plus the parapet, not the
+    # upper bank's rear (2026-09-09, Josh: "giant wall on the left").
+    z0, z1 = 8.0, lower["z1"] + 1.1
     verts = [(a.x, a.y, z0), (b.x, b.y, z0), (c.x, c.y, z0), (a.x, a.y, z1), (b.x, b.y, z1), (c.x, c.y, z1)]
     faces = [(0, 2, 1), (3, 4, 5), (0, 1, 4, 3), (1, 2, 5, 4), (2, 0, 3, 5)]
     batch.add("V15 LF wedge podium", "stone", verts, faces)
