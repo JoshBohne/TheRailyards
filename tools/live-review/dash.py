@@ -19,6 +19,10 @@ the reviewer can follow along. Default state: work/live/state.json
   dash.py gallery add <dir> [--glob 'v15-*.png'] [--prefix v15-] [--label-from-name]  # register every image as a view
   dash.py version snapshot "V15 draft 3" [--blend f] [--note "…"]   # copies view images + git commit
   dash.py reset [--all]                     # new session; keeps per-view timings unless --all
+  dash.py review list [--pending]           # thumbs up/down + feedback Josh left on the page
+  dash.py review ack <view>                 # agent has acted on the feedback
+  dash.py source add <path> --title T [--credit C] [--kind render|map|mockup|photo|data|doc] [--note N]
+  dash.py source scan <dir> [--kind K] [--credit C] [--glob '*.jpg']   # register every image in a folder
   dash.py show
 """
 import argparse,json,os,re,shutil,subprocess,sys,time,uuid
@@ -41,7 +45,9 @@ def cmd_view(a):
                 p=getattr(a,mode)
                 if p:v[mode]=dict(path=str(Path(p).resolve()),label=getattr(a,mode+'_label') or mode.title())
             if a.status is not None:v['status']=a.status
-            if a.current:v['requested_after']=0
+            if a.current:
+                v['requested_after']=0
+                if not a.no_review:v['needs_review']=now()
             S.event(s,'view',f'{v["label"]}: updated {", ".join(m for m in ["current","before","source"] if getattr(a,m))}')
         elif a.action=='expect':
             v['requested_after']=now();S.event(s,'view',f'{v["label"]}: waiting for a new render')
@@ -90,6 +96,7 @@ def _finish(s,seconds=None,output=None,cancelled=False):
             old=(v.get('current') or {}).get('path')
             v['current']=dict(path=str(Path(output).resolve()),label=(v['current']['label'] if old==str(Path(output).resolve()) and v.get('current') else 'Latest render'))
         v['requested_after']=0
+        if output:v['needs_review']=now()
     else:
         v=s['views'].get(view)
         if v:v['requested_after']=0
@@ -195,6 +202,37 @@ def cmd_reset(a):
         hist={} if a.all else s.get('history',{})
         s.clear();s.update(S.empty());s['history']=hist;S.event(s,'reset','new session')
 
+def cmd_review(a):
+    reviews=S.load_reviews(a.state);s=S.load(a.state)
+    if a.action=='list':
+        for r in reviews:
+            if a.pending and r.get('acked'):continue
+            v=s['views'].get(r['view'],{})
+            print(f"{'UP  ' if r['verdict']=='up' else 'DOWN'} {r['view']} ({v.get('label',r['view'])}) {time.strftime('%H:%M',time.localtime(r['time']))}{' acked' if r.get('acked') else ''}: {r.get('feedback','')}")
+        pending=[k for k,v in s['views'].items() if v.get('needs_review') and not any(r['view']==k and r['image_modified']>=v['needs_review'] for r in reviews)]
+        if pending:print('awaiting Josh:',', '.join(pending))
+    elif a.action=='ack':
+        p=S.reviews_path(a.state)
+        for r in reviews:
+            if r['view']==a.view:r['acked']=True
+        p.write_text(json.dumps(reviews,indent=2))
+        with S.edit(a.state) as st:S.event(st,'review',f'acted on feedback for {a.view}')
+
+def cmd_source(a):
+    with S.edit(a.state) as s:
+        items=s.setdefault('sources',[])
+        def add(path,title):
+            sid=re.sub(r'[^a-z0-9]+','-',title.lower()).strip('-')[:50] or uuid.uuid4().hex[:8]
+            if any(x['id']==sid for x in items):return None
+            items.append(dict(id=sid,path=str(Path(path).resolve()),title=title,credit=a.credit or '',kind=a.kind or 'render',note=a.note or '',added_at=now()));return sid
+        if a.action=='add':
+            sid=add(a.path,a.title or Path(a.path).stem);S.event(s,'source',f'added {sid}');print(sid)
+        else:
+            n=0
+            for f in sorted(Path(a.path).glob(a.glob)):
+                if f.suffix.lower() in ['.png','.jpg','.jpeg','.webp','.svg','.pdf','.gif'] and add(f,f.stem.replace('_',' ').replace('-',' ')):n+=1
+            S.event(s,'source',f'registered {n} sources from {Path(a.path).name}');print(n)
+
 def cmd_show(a):
     s=S.load(a.state);ar=s.get('active_render')
     print('note:',s.get('note'))
@@ -210,7 +248,7 @@ def main(argv=None):
     x=sub.add_parser('note');x.add_argument('text');x.set_defaults(f=cmd_note)
     x=sub.add_parser('view');x.add_argument('action',choices=['set','expect','remove']);x.add_argument('key');x.add_argument('--label');x.add_argument('--status')
     for m in ['current','before','source']:x.add_argument('--'+m);x.add_argument(f'--{m}-label')
-    x.set_defaults(f=cmd_view)
+    x.add_argument('--no-review',action='store_true');x.set_defaults(f=cmd_view)
     x=sub.add_parser('task');x.add_argument('action',choices=['add','done','set','remove']);x.add_argument('text_or_id');x.add_argument('status',nargs='?',choices=['todo','doing','done','blocked']);x.add_argument('--id');x.add_argument('--evidence')
     x.set_defaults(f=lambda a:(setattr(a,'text',a.text_or_id),setattr(a,'id',a.id if a.action=='add' else a.text_or_id),cmd_task(a)))
     x=sub.add_parser('queue');x.add_argument('action',choices=['add','clear','remove']);x.add_argument('views',nargs='*');x.add_argument('--label');x.add_argument('--expect',type=float)
@@ -220,6 +258,8 @@ def main(argv=None):
     x=sub.add_parser('run');x.add_argument('--views');x.add_argument('--label');x.add_argument('--blend');x.add_argument('--expect',type=float);x.add_argument('command',nargs=argparse.REMAINDER);x.set_defaults(f=cmd_run)
     x=sub.add_parser('gallery');x.add_argument('action',choices=['add']);x.add_argument('dir');x.add_argument('--glob',default='*.png');x.add_argument('--prefix');x.add_argument('--label');x.set_defaults(f=cmd_gallery)
     x=sub.add_parser('version');x.add_argument('action',choices=['snapshot']);x.add_argument('label');x.add_argument('--blend');x.add_argument('--note');x.set_defaults(f=cmd_version)
+    x=sub.add_parser('review');x.add_argument('action',choices=['list','ack']);x.add_argument('view',nargs='?');x.add_argument('--pending',action='store_true');x.set_defaults(f=cmd_review)
+    x=sub.add_parser('source');x.add_argument('action',choices=['add','scan']);x.add_argument('path');x.add_argument('--title');x.add_argument('--credit');x.add_argument('--kind');x.add_argument('--note');x.add_argument('--glob',default='*');x.set_defaults(f=cmd_source)
     x=sub.add_parser('reset');x.add_argument('--all',action='store_true');x.set_defaults(f=cmd_reset)
     x=sub.add_parser('show');x.set_defaults(f=cmd_show)
     a=p.parse_args(argv)

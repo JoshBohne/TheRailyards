@@ -47,6 +47,13 @@ def enrich(state):
             ar['remaining_seconds']=max(0,round(ar['expected_seconds']-ar['elapsed_seconds'],1))
             if not ar.get('progress'):ar['progress']=min(.97,ar['elapsed_seconds']/ar['expected_seconds'])
     for v in state.get('versions',[]):v['views']=sorted(v.get('views',{}))
+    reviews=S.load_reviews(STATE)
+    for key,view in state['views'].items():
+        need=view.get('needs_review')
+        view['pending_review']=bool(need) and bool(view.get('current')) and not any(r['view']==key and r['image_modified']>=need for r in reviews)
+    for src in state.get('sources',[]):
+        f=Path(src['path']);src['exists']=f.is_file();src['name']=f.name
+    state['reviews']=reviews
     state['git']=git_log();state['server_time']=time.time();state['state_file']=str(STATE)
     return state
 
@@ -56,11 +63,27 @@ def image_path(state,parts):
         item=state['views'].get(parts[1],{}).get(parts[2]);return item and item['path']
     if parts[0]=='version' and len(parts)==3:
         v=next((v for v in state.get('versions',[]) if v['id']==parts[1]),None);return v and v['views'].get(parts[2])
+    if parts[0]=='source' and len(parts)==2:
+        s=next((s for s in state.get('sources',[]) if s['id']==parts[1]),None);return s and s['path']
     if parts[0]=='evidence' and len(parts)==2:
         t=next((t for t in state.get('checklist',[]) if t['id']==parts[1]),None);return t and t.get('evidence')
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self,*a):pass
+    def do_POST(self):
+        path=self.path.split('?',1)[0].strip('/')
+        length=int(self.headers.get('Content-Length') or 0);body=self.rfile.read(length) if length else b''
+        try:data=json.loads(body or '{}')
+        except Exception:self.send_error(400);return
+        if path!='review' or data.get('verdict') not in ('up','down') or not isinstance(data.get('view'),str):
+            self.send_error(400);return
+        state=S.load(STATE);view=state['views'].get(data['view'])
+        if not view or not view.get('current'):self.send_error(404);return
+        modified=Path(view['current']['path']).stat().st_mtime if Path(view['current']['path']).is_file() else time.time()
+        record=dict(view=data['view'],label=view.get('label',data['view']),verdict=data['verdict'],feedback=str(data.get('feedback',''))[:2000],time=time.time(),image_modified=max(modified,view.get('needs_review') or 0),image=view['current']['path'],acked=False)
+        p=S.reviews_path(STATE);reviews=S.load_reviews(STATE);reviews.append(record);p.write_text(json.dumps(reviews,indent=2))
+        with S.edit(STATE) as st:S.event(st,'review',('UP ' if record['verdict']=='up' else 'DOWN ')+record['label']+(': '+record['feedback'][:120] if record['feedback'] else ''))
+        out=json.dumps(record).encode();self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(out)));self.end_headers();self.wfile.write(out)
     def do_GET(self):
         path=self.path.split('?',1)[0].strip('/');parts=path.split('/') if path else []
         try:
@@ -69,7 +92,7 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 file=image_path(S.load(STATE),parts)
                 if not file or not Path(file).is_file():self.send_error(404);return
-                data=Path(file).read_bytes();kind={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp'}.get(Path(file).suffix.lower(),'image/png')
+                data=Path(file).read_bytes();kind={'.jpg':'image/jpeg','.jpeg':'image/jpeg','.svg':'image/svg+xml','.webp':'image/webp','.pdf':'application/pdf','.gif':'image/gif'}.get(Path(file).suffix.lower(),'image/png')
         except Exception as e:
             self.send_error(500,str(e)[:200]);return
         self.send_response(200);self.send_header('Content-Type',kind);self.send_header('Content-Length',str(len(data)));self.send_header('Cache-Control','no-store');self.end_headers();self.wfile.write(data)

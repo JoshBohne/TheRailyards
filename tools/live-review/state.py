@@ -11,6 +11,9 @@ Top-level keys (all optional except views):
   versions        [{id, label, time, blend, commit, note, views: {key: path}}]
   events          [{time, kind, text}]   (append-only, newest last, capped)
   history         {view: [seconds,...]}  (per-view render durations, newest last)
+  sources         [{id, path, title, credit, kind, note}]   things we did not make (renders, maps, mockups)
+Reviews (thumbs up/down + feedback from the page) live in reviews.json next to the state file;
+the server is its only writer, dash.py only reads it.
 """
 import json,os,time,fcntl
 from pathlib import Path
@@ -23,7 +26,7 @@ def state_path(explicit=None):
     return Path(explicit or os.environ.get('RAILYARDS_LIVE_STATE') or DEFAULT_STATE)
 
 def empty():
-    return dict(note='',views={},active_render=None,queue=[],checklist=[],versions=[],events=[],history={})
+    return dict(note='',views={},active_render=None,queue=[],checklist=[],versions=[],events=[],history={},sources=[])
 
 def load(path=None):
     p=state_path(path)
@@ -54,3 +57,10 @@ def expected_seconds(data,view,fallback=None):
     runs=data.get('history',{}).get(view) or []
     if runs:return round(sum(runs[-3:])/len(runs[-3:]),1)
     return fallback
+
+def reviews_path(path=None):
+    return state_path(path).with_name('reviews.json')
+
+def load_reviews(path=None):
+    p=reviews_path(path)
+    return json.loads(p.read_text() or '[]') if p.is_file() else []

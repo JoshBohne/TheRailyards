@@ -2,25 +2,22 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Railyards · Agent dashboard</title><style>
 :root{--bg:#f4f3ef;--panel:#fff;--ink:#222;--muted:#666;--line:#ddd;--accent:#2f5d3a;--warn:#9a5b12;--bad:#a33;--track:#e7e5df}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,sans-serif}
-header{padding:12px 20px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:2}
+header{padding:10px 20px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:2}
 h1{font-size:16px;margin:0;font-weight:600}h2{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;font-weight:600}
+#tabs{display:flex;gap:2px}#tabs a{padding:6px 12px;border-radius:5px;color:#444;text-decoration:none}#tabs a.on{background:#333;color:#fff}#tabs a .n{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:var(--bad);color:#fff;font-size:11px;text-align:center;margin-left:4px}
 #connection{font-size:12px;color:var(--accent);margin-left:auto}#connection.off{color:var(--bad)}
 #note{flex-basis:100%;margin:0;color:#333}
-main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;padding:16px 20px;max-width:1900px;margin:auto}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;padding:16px 20px;max-width:1900px;margin:auto}main.one{grid-template-columns:1fr}main[hidden]{display:none}
 section{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
 .stack{display:flex;flex-direction:column;gap:16px;min-width:0}
-/* render status */
 #render .row{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
 #render .big{font-size:18px;font-weight:600}.bar{height:10px;background:var(--track);border-radius:5px;overflow:hidden;margin:8px 0 4px}.bar i{display:block;height:100%;background:var(--accent);transition:width .6s}
 .bar.idle i{background:#bbb}.stats{font:12px ui-monospace,monospace;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 ol,ul{margin:0;padding:0;list-style:none}li{padding:6px 0;border-top:1px solid #eee;display:flex;gap:10px;align-items:flex-start}li:first-child{border-top:0}
 .k{color:var(--muted);font-size:12px;white-space:nowrap}.grow{flex:1;min-width:0}
-/* checklist */
 .st{width:18px;height:18px;border-radius:4px;border:1px solid #bbb;flex:none;display:inline-flex;align-items:center;justify-content:center;font-size:12px;margin-top:1px}
 .st.done{background:var(--accent);border-color:var(--accent);color:#fff}.st.doing{border-color:var(--accent);color:var(--accent)}.st.blocked{border-color:var(--bad);color:var(--bad)}
-li.done .grow{color:var(--muted);text-decoration:line-through}.ev{font-size:12px;margin-left:6px}
-#progress{font-size:12px;color:var(--muted);margin-left:auto}
-/* views */
+li.done .grow{color:var(--muted);text-decoration:line-through}.ev{font-size:12px;margin-left:6px}#progress{font-size:12px;color:var(--muted);margin-left:auto}
 nav{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}button{font:inherit;border:1px solid var(--line);background:transparent;color:#444;padding:5px 10px;border-radius:5px;cursor:pointer}
 button[aria-pressed=true]{color:#fff;background:#333;border-color:#333}button:disabled{opacity:.4;cursor:default}
 .toolbar{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:8px}#modes{display:flex;gap:4px}
@@ -32,26 +29,28 @@ figure img{display:block;width:100%;max-height:calc(100vh - 300px);object-fit:co
 .tag{position:absolute;top:8px;padding:2px 8px;border-radius:4px;background:#0009;color:#fff;font-size:11px;pointer-events:none}.tag.l{left:8px}.tag.r{right:8px}
 .stale{position:absolute;left:8px;bottom:8px;background:#fff8e6;color:var(--warn);border:1px solid #e9d7a8;padding:3px 8px;border-radius:4px;font-size:12px}
 .empty{padding:80px 20px;color:#777;text-align:center}.caption{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
-/* gallery */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}.card{position:relative;background:var(--track);border-radius:5px;overflow:hidden;cursor:pointer;border:1px solid var(--line)}
-.card img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}.card .name{font-size:12px;padding:5px 8px;background:var(--panel);display:flex;justify-content:space-between;gap:6px;align-items:center}.card .name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.card button{font-size:11px;padding:2px 7px;flex:none}#open{font:inherit;border:1px solid var(--line);padding:5px 10px;border-radius:5px;color:#444;text-decoration:none}
-/* versions */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}.card{position:relative;background:var(--track);border-radius:5px;overflow:hidden;cursor:pointer;border:1px solid var(--line)}
+.card img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:#ddd}.card .name{font-size:12px;padding:6px 8px;background:var(--panel);display:flex;justify-content:space-between;gap:6px;align-items:center}.card .name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card .sub{font-size:11px;color:var(--muted);padding:0 8px 6px;background:var(--panel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card button{font-size:11px;padding:2px 7px;flex:none}.card .badge{position:absolute;top:6px;left:6px;background:#0009;color:#fff;font-size:11px;padding:2px 7px;border-radius:4px}
+#open{font:inherit;border:1px solid var(--line);padding:5px 10px;border-radius:5px;color:#444;text-decoration:none}
 .versions li{flex-direction:column;gap:4px}.thumbs{display:flex;gap:6px;flex-wrap:wrap}.thumbs img{height:54px;border-radius:3px;background:var(--track);cursor:pointer;border:1px solid var(--line)}
 code{font:12px ui-monospace,monospace;background:#f1f0ec;padding:1px 4px;border-radius:3px}
-/* events */
-#events li{font-size:12.5px}#events .kind{width:52px;color:var(--muted);flex:none;text-transform:uppercase;font-size:10px;letter-spacing:.05em;padding-top:3px}#events .error .kind{color:var(--bad)}
-#events{max-height:360px;overflow:auto}
-@media(max-width:1000px){main{grid-template-columns:1fr}}
+#events li{font-size:12.5px}#events .kind{width:52px;color:var(--muted);flex:none;text-transform:uppercase;font-size:10px;letter-spacing:.05em;padding-top:3px}#events .error .kind{color:var(--bad)}#events .warning .kind{color:var(--warn)}#events{max-height:360px;overflow:auto}
+/* review */
+.review{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:14px;align-items:start}.review figure{min-height:200px}.review figure img{max-height:60vh}
+.verdict{display:flex;gap:8px;margin:8px 0}.verdict button{font-size:20px;padding:6px 16px}.verdict button.up[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}.verdict button.down[aria-pressed=true]{background:var(--bad);border-color:var(--bad);color:#fff}
+textarea{width:100%;min-height:90px;font:inherit;border:1px solid var(--line);border-radius:5px;padding:8px;resize:vertical}.send{margin-top:8px;background:#333;color:#fff;border-color:#333}
+.decided li{flex-direction:column;gap:2px}.decided .fb{color:#333}.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+@media(max-width:1000px){main{grid-template-columns:1fr}.review{grid-template-columns:1fr}}
 </style></head><body>
-<header><h1>The Railyards · Agent dashboard</h1><span id="connection">Connecting…</span><p id="note">Loading…</p></header>
-<main>
+<header><h1>The Railyards</h1><div id="tabs"><a href="#agent" data-page="agent">Agent</a><a href="#review" data-page="review">Review<span class="n" id="review-n" hidden></span></a><a href="#gallery" data-page="gallery">Gallery</a><a href="#sources" data-page="sources">Sources</a></div><span id="connection">Connecting…</span><p id="note">Loading…</p></header>
+
+<main id="page-agent">
 <div class="stack">
  <section id="render"><h2>Now rendering</h2><div class="row"><span class="big" id="r-title">Idle</span><span class="k" id="r-time"></span></div><div class="bar idle"><i id="r-bar" style="width:0"></i></div><div class="stats" id="r-stats"></div></section>
  <section id="viewsec"><h2>Views</h2><nav id="views" aria-label="Camera"></nav>
   <div class="toolbar"><span id="status" class="k"></span><div id="modes" aria-label="Image version"><button data-mode="current" aria-pressed="true">Latest</button><button data-mode="before">Before</button><button data-mode="source">Source</button><button data-mode="compare">Before / after</button><button id="copy" title="Copy this image to the clipboard">Copy</button><a id="open" target="_blank" title="Open full size in a new tab">Open</a></div></div>
   <figure id="figure"><div class="empty">Waiting for the first render…</div></figure><div class="caption"><span id="caption"></span><span>Refreshes every 2.5 s · fixed cameras · native Blender renders</span></div></section>
- <section id="gallerysec"><div class="toolbar"><h2 style="margin:0">All current renders</h2><span class="k" id="gallery-count"></span></div><div class="grid" id="gallery"></div></section>
  <section class="versions"><h2>Version history</h2><ul id="versions"></ul></section>
 </div>
 <div class="stack">
@@ -61,52 +60,83 @@ code{font:12px ui-monospace,monospace;background:#f1f0ec;padding:1px 4px;border-
  <section><h2>Recent commits</h2><ul id="git"></ul></section>
 </div>
 </main>
+
+<main id="page-review" class="one" hidden>
+ <section><div class="toolbar"><h2 style="margin:0">Needs your verdict</h2><span class="k" id="pending-count"></span></div><div id="pending"></div></section>
+ <section class="decided"><h2>Decided</h2><ul id="decided"></ul></section>
+</main>
+
+<main id="page-gallery" class="one" hidden>
+ <section><div class="toolbar"><h2 style="margin:0">Current renders</h2><span class="k" id="gallery-count"></span></div><div class="filters" id="gallery-filters"></div><div class="grid" id="gallery"></div></section>
+</main>
+
+<main id="page-sources" class="one" hidden>
+ <section><div class="toolbar"><h2 style="margin:0">Sources · everything we did not make</h2><span class="k" id="sources-count"></span></div><div class="filters" id="source-filters"></div><div class="grid" id="sources"></div></section>
+</main>
+
 <script>
-const $=s=>document.querySelector(s);let state=null,view=null,mode='current',shownKey='',navKey='',galleryKey='',cut=50;
+const $=s=>document.querySelector(s);let state=null,view=null,mode='current',shownKey='',navKey='',galleryKey='',sourcesKey='',pendingKey='',cut=50,page='agent',galleryFilter='all',sourceFilter='all';const drafts={};
 const fmt=s=>s==null?'—':s<60?`${Math.round(s)}s`:`${Math.floor(s/60)}m ${String(Math.round(s%60)).padStart(2,'0')}s`;
 const clock=t=>new Date(t*1000).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 const ago=t=>{const d=state.server_time-t;return d<60?`${Math.round(d)}s ago`:d<3600?`${Math.round(d/60)}m ago`:clock(t)};
-function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else e.setAttribute(k,v)}for(const k of kids)e.append(k);return e}
-function paintRender(){const ar=state.active_render,bar=$('#r-bar');
- if(!ar){$('#r-title').textContent='Idle';$('#r-time').textContent=state.queue.length?`${state.queue.length} queued`:'';bar.style.width='0';bar.parentElement.classList.add('idle');$('#r-stats').textContent='';return}
- bar.parentElement.classList.remove('idle');const p=ar.progress||0;bar.style.width=`${Math.round(p*100)}%`;
- $('#r-title').textContent=ar.label;$('#r-time').textContent=`${Math.round(p*100)}% · ${fmt(ar.elapsed_seconds)} elapsed · ~${fmt(ar.remaining_seconds)} left`+(ar.expected_seconds?` · usually ${fmt(ar.expected_seconds)}`:'');
- $('#r-stats').textContent=ar.stats||(ar.blend?ar.blend:'')}
-function paintQueue(){const q=state.queue;$('#queue').replaceChildren(...(q.length?q.map((item,i)=>el('li',{},el('span',{class:'k'},`${i+1}.`),el('span',{class:'grow'},item.label),el('span',{class:'k'},item.expected_seconds?`~${fmt(item.expected_seconds)}`:''))):[el('li',{class:'k'},'Nothing queued')]));
- const total=q.reduce((a,b)=>a+(b.expected_seconds||0),0);if(total)$('#queue').append(el('li',{class:'k'},`≈ ${fmt(total)} of rendering ahead`))}
-function paintChecklist(){const c=state.checklist,done=c.filter(t=>t.status==='done').length;$('#progress').textContent=c.length?`${done} / ${c.length} done`:'';
- const mark={todo:'',doing:'›',done:'✓',blocked:'!'};$('#checklist').replaceChildren(...(c.length?c.map(t=>el('li',{class:t.status},el('span',{class:'st '+t.status},mark[t.status]),el('span',{class:'grow'},t.text,t.evidence?el('a',{class:'ev',href:`/evidence/${t.id}`,target:'_blank'},'evidence'):''),el('span',{class:'k'},ago(t.updated_at)))):[el('li',{class:'k'},'No tasks yet')]))}
-function paintViews(){const keys=Object.keys(state.views);if(!keys.length){$('#views').replaceChildren();$('#figure').replaceChildren(el('div',{class:'empty'},'No views published yet.'));return}
- if(!view||!state.views[view])view=keys[0];const nk=JSON.stringify(keys.map(k=>[k,state.views[k].label,state.views[k].stale]));
- if(nk!==navKey||true){navKey=nk;$('#views').replaceChildren(...keys.map(k=>{const v=state.views[k];const b=el('button',{'aria-pressed':String(view===k),onclick:()=>{view=k;shownKey='';paintViews()}},v.label+(v.stale?' ⟳':''));return b}))}
- const entry=state.views[view];$('#status').textContent=entry.status||'';
- for(const b of document.querySelectorAll('[data-mode]')){const m=b.dataset.mode;b.setAttribute('aria-pressed',String(mode===m));b.disabled=m==='compare'?!(entry.current&&entry.before):!entry[m]}
- if(mode==='compare'&&!(entry.current&&entry.before))mode='current';if(mode!=='compare'&&!entry[mode])mode='current';
- const fig=$('#figure');
- if(mode==='compare'){const key=`c|${view}|${entry.current.modified}|${entry.before.modified}`;if(key!==shownKey){shownKey=key;
-   const base=el('img',{class:'base',src:`/image/${view}/before?t=${entry.before.modified}`,alt:'before'}),top=el('img',{class:'top',src:`/image/${view}/current?t=${entry.current.modified}`,alt:'after'});
-   const wrap=el('div',{class:'compare'},base,top,el('span',{class:'tag l'},'Before'),el('span',{class:'tag r'},'After'),el('div',{class:'handle'}));
-   const r=el('input',{type:'range',min:0,max:100,value:cut});r.oninput=()=>{cut=r.value;wrap.style.setProperty('--cut',cut+'%')};wrap.style.setProperty('--cut',cut+'%');wrap.append(r);
-   fig.replaceChildren(wrap);if(entry.stale)fig.append(el('span',{class:'stale'},'Stale — a newer render is in progress'))}
-   $('#copy').disabled=true;$('#open').href=`/image/${view}/current?t=${entry.current.modified}`;
-   $('#caption').textContent=`${entry.label} · ${entry.before.label} → ${entry.current.label}`;return}
- const image=entry[mode];if(!image){shownKey='';fig.replaceChildren(el('div',{class:'empty'},mode==='current'?'Rendering this view…':'No matching image for this camera.'));$('#caption').textContent='';return}
- const url=`/image/${view}/${mode}?t=${image.modified}`;if(url!==shownKey){const next=new Image();next.onload=()=>{shownKey=url;fig.replaceChildren(next);if(entry.stale&&mode==='current')fig.append(el('span',{class:'stale'},'Stale — a newer render is in progress'))};next.alt=`${entry.label} — ${mode}`;next.src=url}
- $('#open').href=url;$('#copy').onclick=()=>copyImage(url,$('#copy'));$('#copy').disabled=false;
- $('#caption').textContent=`${entry.label} · ${image.label} · ${image.name} · saved ${clock(image.modified)}`}
+function el(tag,attrs={},...kids){const e=document.createElement(tag);for(const[k,v]of Object.entries(attrs)){if(k==='class')e.className=v;else if(k.startsWith('on'))e[k]=v;else if(v!==false&&v!=null)e.setAttribute(k,v)}for(const k of kids)e.append(k);return e}
+function route(){page=(location.hash||'#agent').slice(1);if(!['agent','review','gallery','sources'].includes(page))page='agent';for(const a of document.querySelectorAll('#tabs a'))a.classList.toggle('on',a.dataset.page===page);for(const p of ['agent','review','gallery','sources'])$('#page-'+p).hidden=p!==page;if(state)paint()}
+window.addEventListener('hashchange',route);
 async function copyImage(url,btn){try{const blob=await (await fetch(url,{cache:'no-store'})).blob();const png=blob.type==='image/png'?blob:await toPng(blob);await navigator.clipboard.write([new ClipboardItem({'image/png':png})]);flash(btn,'Copied')}catch(e){flash(btn,'Copy blocked — use Open');console.warn(e)}}
 async function toPng(blob){const bmp=await createImageBitmap(blob);const c=document.createElement('canvas');c.width=bmp.width;c.height=bmp.height;c.getContext('2d').drawImage(bmp,0,0);return new Promise(r=>c.toBlob(r,'image/png'))}
 function flash(btn,text){const old=btn.textContent;btn.textContent=text;setTimeout(()=>btn.textContent=old,1600)}
-function paintGallery(){const keys=Object.keys(state.views).filter(k=>state.views[k].current);$('#gallery-count').textContent=keys.length?`${keys.length} images · click to view, Copy to paste into chat`:'';
- const gk=JSON.stringify(keys.map(k=>[k,state.views[k].current.modified,state.views[k].stale]));if(gk===galleryKey)return;galleryKey=gk;
- $('#gallery').replaceChildren(...(keys.length?keys.map(k=>{const v=state.views[k];const url=`/image/${k}/current?t=${v.current.modified}`;const b=el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy');
-  return el('div',{class:'card',onclick:()=>{view=k;mode='current';shownKey='';paintViews();$('#viewsec').scrollIntoView({behavior:'smooth'})}},el('img',{src:url,loading:'lazy',alt:v.label}),el('div',{class:'name'},el('span',{title:v.current.name},v.label+(v.stale?' ⟳':'')),b))}):[el('span',{class:'k'},'No renders registered yet — dash.py gallery add <dir>')]))}
+function compareNode(k,entry){const base=el('img',{class:'base',src:`/image/${k}/before?t=${entry.before.modified}`,alt:'before'}),top=el('img',{class:'top',src:`/image/${k}/current?t=${entry.current.modified}`,alt:'after'});
+ const wrap=el('div',{class:'compare'},base,top,el('span',{class:'tag l'},'Before'),el('span',{class:'tag r'},'After'),el('div',{class:'handle'}));const r=el('input',{type:'range',min:0,max:100,value:cut});r.oninput=()=>{cut=r.value;wrap.style.setProperty('--cut',cut+'%')};wrap.style.setProperty('--cut',cut+'%');wrap.append(r);return wrap}
+/* agent page */
+function paintRender(){const ar=state.active_render,bar=$('#r-bar');
+ if(!ar){$('#r-title').textContent='Idle';$('#r-time').textContent=state.queue.length?`${state.queue.length} queued`:'';bar.style.width='0';bar.parentElement.classList.add('idle');$('#r-stats').textContent='';return}
+ bar.parentElement.classList.remove('idle');const p=ar.progress||0;bar.style.width=`${Math.round(p*100)}%`;
+ $('#r-title').textContent=ar.label;$('#r-time').textContent=`${Math.round(p*100)}% · ${fmt(ar.elapsed_seconds)} elapsed · ~${fmt(ar.remaining_seconds)} left`+(ar.expected_seconds?` · usually ${fmt(ar.expected_seconds)}`:'');$('#r-stats').textContent=ar.stats||(ar.blend?ar.blend:'')}
+function paintQueue(){const q=state.queue;$('#queue').replaceChildren(...(q.length?q.map((item,i)=>el('li',{},el('span',{class:'k'},`${i+1}.`),el('span',{class:'grow'},item.label),el('span',{class:'k'},item.expected_seconds?`~${fmt(item.expected_seconds)}`:''))):[el('li',{class:'k'},'Nothing queued')]));
+ const total=q.reduce((a,b)=>a+(b.expected_seconds||0),0);if(total)$('#queue').append(el('li',{class:'k'},`≈ ${fmt(total)} of rendering ahead`))}
+function paintChecklist(){const c=state.checklist,done=c.filter(t=>t.status==='done').length;$('#progress').textContent=c.length?`${done} / ${c.length} done`:'';const mark={todo:'',doing:'›',done:'✓',blocked:'!'};
+ $('#checklist').replaceChildren(...(c.length?c.map(t=>el('li',{class:t.status},el('span',{class:'st '+t.status},mark[t.status]),el('span',{class:'grow'},t.text,t.evidence?el('a',{class:'ev',href:`/evidence/${t.id}`,target:'_blank'},'evidence'):''),el('span',{class:'k'},ago(t.updated_at)))):[el('li',{class:'k'},'No tasks yet')]))}
+function paintViews(){const keys=Object.keys(state.views);if(!keys.length){$('#views').replaceChildren();$('#figure').replaceChildren(el('div',{class:'empty'},'No views published yet.'));return}
+ if(!view||!state.views[view])view=keys[0];$('#views').replaceChildren(...keys.map(k=>{const v=state.views[k];return el('button',{'aria-pressed':String(view===k),onclick:()=>{view=k;shownKey='';paintViews()}},v.label+(v.stale?' ⟳':'')+(v.pending_review?' ●':''))}));
+ const entry=state.views[view];$('#status').textContent=entry.status||'';
+ for(const b of document.querySelectorAll('[data-mode]')){const m=b.dataset.mode;b.setAttribute('aria-pressed',String(mode===m));b.disabled=m==='compare'?!(entry.current&&entry.before):!entry[m]}
+ if(mode==='compare'&&!(entry.current&&entry.before))mode='current';if(mode!=='compare'&&!entry[mode])mode='current';const fig=$('#figure');
+ if(mode==='compare'){const key=`c|${view}|${entry.current.modified}|${entry.before.modified}`;if(key!==shownKey){shownKey=key;fig.replaceChildren(compareNode(view,entry));if(entry.stale)fig.append(el('span',{class:'stale'},'Stale — a newer render is in progress'))}
+   $('#copy').disabled=true;$('#open').href=`/image/${view}/current?t=${entry.current.modified}`;$('#caption').textContent=`${entry.label} · ${entry.before.label} → ${entry.current.label}`;return}
+ const image=entry[mode];if(!image){shownKey='';fig.replaceChildren(el('div',{class:'empty'},mode==='current'?'Rendering this view…':'No matching image for this camera.'));$('#caption').textContent='';return}
+ const url=`/image/${view}/${mode}?t=${image.modified}`;if(url!==shownKey){const next=new Image();next.onload=()=>{shownKey=url;fig.replaceChildren(next);if(entry.stale&&mode==='current')fig.append(el('span',{class:'stale'},'Stale — a newer render is in progress'))};next.alt=`${entry.label} — ${mode}`;next.src=url}
+ $('#open').href=url;$('#copy').onclick=()=>copyImage(url,$('#copy'));$('#copy').disabled=false;$('#caption').textContent=`${entry.label} · ${image.label} · ${image.name} · saved ${clock(image.modified)}`}
 function paintVersions(){const vs=[...state.versions].reverse();$('#versions').replaceChildren(...(vs.length?vs.map(v=>el('li',{},el('div',{class:'row'},el('b',{},v.label),' ',el('span',{class:'k'},clock(v.time)),v.commit?el('span',{},' ',el('code',{},v.commit)):'',v.blend?el('span',{class:'k'},' · '+v.blend):''),v.note?el('div',{class:'k'},v.note):'',
-  el('div',{class:'thumbs'},...v.views.map(k=>el('img',{src:`/version/${v.id}/${k}`,title:`${v.label} · ${k}`,loading:'lazy',onclick:()=>window.open(`/version/${v.id}/${k}`)}))))):[el('li',{class:'k'},'No snapshots yet — agents run dash.py version snapshot after each bounded edit')]))}
+  el('div',{class:'thumbs'},...v.views.map(k=>el('img',{src:`/version/${v.id}/${k}`,title:`${v.label} · ${k}`,loading:'lazy',onclick:()=>window.open(`/version/${v.id}/${k}`)}))))):[el('li',{class:'k'},'No snapshots yet')]))}
 function paintEvents(){const ev=[...state.events].reverse().slice(0,80);$('#events').replaceChildren(...(ev.length?ev.map(e=>el('li',{class:e.kind},el('span',{class:'kind'},e.kind),el('span',{class:'grow'},e.text),el('span',{class:'k'},clock(e.time)))):[el('li',{class:'k'},'Quiet so far')]))}
 function paintGit(){$('#git').replaceChildren(...(state.git||[]).map(c=>el('li',{},el('code',{},c.hash),el('span',{class:'grow'},c.subject),el('span',{class:'k'},ago(c.time)))))}
-function paint(){$('#note').textContent=state.note||'';paintRender();paintQueue();paintChecklist();paintViews();paintGallery();paintVersions();paintEvents();paintGit()}
+/* review page */
+function paintReview(){const pending=Object.entries(state.views).filter(([k,v])=>v.pending_review);$('#pending-count').textContent=pending.length?`${pending.length} waiting`:'nothing waiting';
+ const n=$('#review-n');n.hidden=!pending.length;n.textContent=pending.length;
+ const pk=JSON.stringify(pending.map(([k,v])=>[k,v.current.modified,!!v.before]));if(pk!==pendingKey){pendingKey=pk;
+  $('#pending').replaceChildren(...(pending.length?pending.map(([k,v])=>{const fig=el('figure',{},v.before?compareNode(k,v):el('img',{src:`/image/${k}/current?t=${v.current.modified}`}));
+   const ta=el('textarea',{placeholder:'What is wrong, or what to keep. Optional on a thumbs up.'});ta.value=drafts[k]||'';ta.oninput=()=>drafts[k]=ta.value;let verdict=null;
+   const up=el('button',{class:'up',title:'Looks right'},'👍'),down=el('button',{class:'down',title:'Needs work'},'👎');up.onclick=()=>{verdict='up';up.setAttribute('aria-pressed','true');down.setAttribute('aria-pressed','false')};down.onclick=()=>{verdict='down';down.setAttribute('aria-pressed','true');up.setAttribute('aria-pressed','false');ta.focus()};
+   const send=el('button',{class:'send',onclick:async()=>{if(!verdict){flash(send,'Pick 👍 or 👎');return}send.disabled=true;try{const r=await fetch('/review',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({view:k,verdict,feedback:ta.value})});if(!r.ok)throw new Error(r.status);delete drafts[k];pendingKey='';poll()}catch(e){flash(send,'Failed');send.disabled=false}}},'Send to agent');
+   return el('div',{class:'review'},fig,el('div',{},el('b',{},v.label),el('div',{class:'k'},`${v.current.label} · ${clock(v.current.modified)}`+(v.before?' · drag the slider to compare':'')),el('div',{class:'verdict'},up,down,el('button',{onclick:e=>copyImage(`/image/${k}/current?t=${v.current.modified}`,e.target)},'Copy'),el('a',{id:'open',href:`/image/${k}/current?t=${v.current.modified}`,target:'_blank'},'Open')),ta,send))}):[el('div',{class:'empty'},'Nothing to verify. New renders land here as they finish.')]))}
+ const done=[...(state.reviews||[])].reverse();$('#decided').replaceChildren(...(done.length?done.map(r=>el('li',{},el('div',{},(r.verdict==='up'?'👍 ':'👎 ')+r.label,' ',el('span',{class:'k'},clock(r.time)+(r.acked?' · agent acted':'')),' ',el('a',{href:`/image/${r.view}/current`,target:'_blank',class:'k'},'image')),r.feedback?el('div',{class:'fb'},r.feedback):'')):[el('li',{class:'k'},'No verdicts yet')]))}
+/* gallery page */
+function paintGallery(){const all=Object.keys(state.views).filter(k=>state.views[k].current);const labels=[...new Set(all.map(k=>state.views[k].current.label.split(' · ')[0]))];
+ $('#gallery-filters').replaceChildren(el('button',{'aria-pressed':String(galleryFilter==='all'),onclick:()=>{galleryFilter='all';galleryKey='';paintGallery()}},'All'),...labels.map(l=>el('button',{'aria-pressed':String(galleryFilter===l),onclick:()=>{galleryFilter=l;galleryKey='';paintGallery()}},l)));
+ const keys=all.filter(k=>galleryFilter==='all'||state.views[k].current.label.startsWith(galleryFilter));$('#gallery-count').textContent=`${keys.length} of ${all.length} images · click to view on the Agent page, Copy to paste into chat`;
+ const gk=JSON.stringify(keys.map(k=>[k,state.views[k].current.modified,state.views[k].stale,state.views[k].pending_review]));if(gk===galleryKey)return;galleryKey=gk;
+ $('#gallery').replaceChildren(...(keys.length?keys.map(k=>{const v=state.views[k];const url=`/image/${k}/current?t=${v.current.modified}`;const b=el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy');
+  return el('div',{class:'card',onclick:()=>{view=k;mode='current';shownKey='';location.hash='#agent'}},el('img',{src:url,loading:'lazy',alt:v.label}),v.pending_review?el('span',{class:'badge'},'needs verdict'):'',el('div',{class:'name'},el('span',{title:v.current.name},v.label+(v.stale?' ⟳':'')),b),el('div',{class:'sub'},v.current.label))}):[el('span',{class:'k'},'No renders registered yet — dash.py gallery add <dir>')]))}
+/* sources page */
+function paintSources(){const all=state.sources||[];const kinds=[...new Set(all.map(s=>s.kind))];
+ $('#source-filters').replaceChildren(el('button',{'aria-pressed':String(sourceFilter==='all'),onclick:()=>{sourceFilter='all';sourcesKey='';paintSources()}},'All'),...kinds.map(k=>el('button',{'aria-pressed':String(sourceFilter===k),onclick:()=>{sourceFilter=k;sourcesKey='';paintSources()}},k)));
+ const items=all.filter(s=>sourceFilter==='all'||s.kind===sourceFilter);$('#sources-count').textContent=`${items.length} of ${all.length} · references, maps, mockups and data we did not create`;
+ const sk=JSON.stringify(items.map(s=>s.id));if(sk===sourcesKey)return;sourcesKey=sk;
+ $('#sources').replaceChildren(...(items.length?items.map(s=>{const url=`/source/${s.id}`;const b=el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy');const isImg=/\.(png|jpe?g|webp|gif|svg)$/i.test(s.name);
+  return el('div',{class:'card',onclick:()=>window.open(url)},isImg?el('img',{src:url,loading:'lazy',alt:s.title}):el('div',{class:'empty'},s.name),el('span',{class:'badge'},s.kind),el('div',{class:'name'},el('span',{title:s.path},s.title),isImg?b:''),el('div',{class:'sub'},[s.credit,s.note].filter(Boolean).join(' · ')||s.name))}):[el('span',{class:'k'},'No sources registered — dash.py source scan <dir> --kind render --credit "…"')]))}
+function paint(){$('#note').textContent=state.note||'';const pending=Object.values(state.views).filter(v=>v.pending_review).length;const n=$('#review-n');n.hidden=!pending;n.textContent=pending;
+ if(page==='agent'){paintRender();paintQueue();paintChecklist();paintViews();paintVersions();paintEvents();paintGit()}else if(page==='review')paintReview();else if(page==='gallery')paintGallery();else paintSources()}
 for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{mode=b.dataset.mode;shownKey='';paintViews()};
 async function poll(){try{const r=await fetch('/state',{cache:'no-store'});state=await r.json();$('#connection').textContent='● Live';$('#connection').className='';paint()}catch{$('#connection').textContent='Dashboard server unavailable';$('#connection').className='off'}}
-poll();setInterval(poll,2500);
+route();poll();setInterval(poll,2500);
 </script></body></html>

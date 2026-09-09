@@ -56,7 +56,7 @@ Before any computer-use action, take `mcp__blender__get_viewport_screenshot` fir
 
 ## Dashboard publish sequence
 
-The dashboard is `tools/live-review/serve.py` (open it with `preview_start` name `live-dashboard`, http://127.0.0.1:8863/). State lives in `work/live/state.json`, gitignored. Drive it only through `tools/live-review/dash.py`:
+The dashboard is `tools/live-review/serve.py` (open it with `preview_start` name `live-dashboard`, http://127.0.0.1:8863/). It has four tabs: Agent (live progress, views, versions, activity), Review (renders awaiting Josh's verdict), Gallery (every current render with Copy) and Sources (references we did not make). State lives in `work/live/state.json`, gitignored. Drive it only through `tools/live-review/dash.py`:
 
 ```sh
 D="python3 tools/live-review/dash.py"
@@ -71,7 +71,21 @@ $D task done short-id --evidence railyards-v4/review/v15/rf-corner.png
 $D version snapshot "V15 draft 2" --blend railyards-v15.blend --note "what changed"
 ```
 
-Label images from an older scene as such (`--label "… · pre-fix scene"`); Josh copies gallery images into chat to annotate, so a stale image with a fresh label sends him the wrong geometry. `view set --current` is only needed when a render was produced outside `dash.py run`. `view expect <key>` marks a view stale while you re-render it by hand. `dash.py show` prints the state for your own check.
+Label images from an older scene as such (`--label "… · pre-fix scene"`); Josh copies gallery images into chat to annotate, so a stale image with a fresh label sends him the wrong geometry. Every render that lands through `dash.py run` or `view set --current` goes to the **Review** tab, where Josh gives a thumbs up or down with feedback. Check it before moving on and act on it:
+
+```sh
+$D review list --pending      # verdicts and feedback not yet acted on, plus views still awaiting Josh
+$D review ack <view>          # after you have addressed the feedback
+```
+
+Register anything we did not make (concept renderings, maps, mockups, data) on the **Sources** tab so it can be copied into chat with its credit:
+
+```sh
+$D source scan reconstruction-references/<folder> --kind render --credit "who made it"
+$D source add path/to/map.geojson --title "…" --kind data --credit "…"
+```
+
+`view set --current` is only needed when a render was produced outside `dash.py run`. `view expect <key>` marks a view stale while you re-render it by hand. `dash.py show` prints the state for your own check.
 
 Snapshot a version after every bounded edit that Josh should be able to compare later; snapshots copy the current images under `work/live/versions/` and record the git commit.
 
