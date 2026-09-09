@@ -43,7 +43,7 @@ textarea{width:100%;min-height:90px;font:inherit;border:1px solid var(--line);bo
 .decided li{flex-direction:column;gap:2px}.decided .fb{color:#333}.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
 @media(max-width:1000px){main{grid-template-columns:1fr}.review{grid-template-columns:1fr}}
 </style></head><body>
-<header><h1>The Railyards</h1><div id="tabs"><a href="#agent" data-page="agent">Agent</a><a href="#review" data-page="review">Review<span class="n" id="review-n" hidden></span></a><a href="#gallery" data-page="gallery">Gallery</a><a href="#sources" data-page="sources">Sources</a></div><span id="connection">Connecting…</span><p id="note">Loading…</p></header>
+<header><h1>The Railyards</h1><div id="tabs"><a href="#sources" data-page="sources">Sources</a><a href="#gallery" data-page="gallery">Gallery</a><a href="#review" data-page="review">Review<span class="n" id="review-n" hidden></span></a><a href="#agent" data-page="agent">Agent</a></div><span id="connection">Connecting…</span><p id="note">Loading…</p></header>
 
 <main id="page-agent">
 <div class="stack">
@@ -71,7 +71,7 @@ textarea{width:100%;min-height:90px;font:inherit;border:1px solid var(--line);bo
 </main>
 
 <main id="page-sources" class="one" hidden>
- <section><div class="toolbar"><h2 style="margin:0">Sources · everything we did not make</h2><span class="k" id="sources-count"></span></div><div class="filters" id="source-filters"></div><div class="grid" id="sources"></div></section>
+ <section><div class="toolbar"><h2 style="margin:0">Sources · everything we did not make</h2><span class="k" style="margin-left:8px">official AECOM renders, press copies, maps, data, mockups, Josh's crops, photos, web · reconstruction-references/sources.json</span><span class="k" id="sources-count"></span></div><div class="filters" id="source-filters"></div><div class="grid" id="sources"></div></section>
 </main>
 
 <script>
@@ -128,12 +128,16 @@ function paintGallery(){const all=Object.keys(state.views).filter(k=>state.views
  $('#gallery').replaceChildren(...(keys.length?keys.map(k=>{const v=state.views[k];const url=`/image/${k}/current?t=${v.current.modified}`;const b=el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy');
   return el('div',{class:'card',onclick:()=>{view=k;mode='current';shownKey='';location.hash='#agent'}},el('img',{src:url,loading:'lazy',alt:v.label}),v.pending_review?el('span',{class:'badge'},'needs verdict'):'',el('div',{class:'name'},el('span',{title:v.current.name},v.label+(v.stale?' ⟳':'')),b),el('div',{class:'sub'},v.current.label))}):[el('span',{class:'k'},'No renders registered yet — dash.py gallery add <dir>')]))}
 /* sources page */
-function paintSources(){const all=state.sources||[];const kinds=[...new Set(all.map(s=>s.kind))];
- $('#source-filters').replaceChildren(el('button',{'aria-pressed':String(sourceFilter==='all'),onclick:()=>{sourceFilter='all';sourcesKey='';paintSources()}},'All'),...kinds.map(k=>el('button',{'aria-pressed':String(sourceFilter===k),onclick:()=>{sourceFilter=k;sourcesKey='';paintSources()}},k)));
- const items=all.filter(s=>sourceFilter==='all'||s.kind===sourceFilter);$('#sources-count').textContent=`${items.length} of ${all.length} · references, maps, mockups and data we did not create`;
- const sk=JSON.stringify(items.map(s=>s.id));if(sk===sourcesKey)return;sourcesKey=sk;
- $('#sources').replaceChildren(...(items.length?items.map(s=>{const url=`/source/${s.id}`;const b=el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy');const isImg=/\.(png|jpe?g|webp|gif|svg)$/i.test(s.name);
-  return el('div',{class:'card',onclick:()=>window.open(url)},isImg?el('img',{src:url,loading:'lazy',alt:s.title}):el('div',{class:'empty'},s.name),el('span',{class:'badge'},s.kind),el('div',{class:'name'},el('span',{title:s.path},s.title),isImg?b:''),el('div',{class:'sub'},[s.credit,s.note].filter(Boolean).join(' · ')||s.name))}):[el('span',{class:'k'},'No sources registered — dash.py source scan <dir> --kind render --credit "…"')]))}
+function paintSources(){const all=state.sources||[];const order=['official','press','map','data','mockup','annotation','photo','web'];const kinds=[...new Set(all.map(s=>s.kind))].sort((a,b)=>order.indexOf(a)-order.indexOf(b));
+ const KIND={official:'official render',press:'press copy',map:'map',data:'data',mockup:'mockup',annotation:'Josh crop',photo:'photo',web:'web'};
+ $('#source-filters').replaceChildren(el('button',{'aria-pressed':String(sourceFilter==='all'),onclick:()=>{sourceFilter='all';sourcesKey='';paintSources()}},'All'),...kinds.map(k=>el('button',{'aria-pressed':String(sourceFilter===k),onclick:()=>{sourceFilter=k;sourcesKey='';paintSources()}},`${KIND[k]||k} (${all.filter(s=>s.kind===k).length})`)));
+ const items=all.filter(s=>sourceFilter==='all'||s.kind===sourceFilter);const missing=all.filter(s=>s.path&&!s.exists).length;$('#sources-count').textContent=`${items.length} of ${all.length}${missing?` · ${missing} not on disk yet`:''}`;
+ const sk=JSON.stringify(items.map(s=>[s.id,s.exists]));if(sk===sourcesKey)return;sourcesKey=sk;
+ $('#sources').replaceChildren(...(items.length?items.map(s=>{const url=`/source/${s.id}`;const isImg=s.exists&&/\.(png|jpe?g|webp|gif|svg)$/i.test(s.name);const b=isImg?el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy'):'';
+  const open=()=>{if(s.exists)window.open(url);else if(s.url)window.open(s.url)};
+  const body=isImg?el('img',{src:url,loading:'lazy',alt:s.title}):el('div',{class:'empty'},s.path&&!s.exists?'not saved yet — drop the file at '+s.path.replace(/^.*\/reconstruction-references\//,'reconstruction-references/'):s.url?'↗ '+s.url:s.name);
+  const link=s.url?el('a',{href:s.url,target:'_blank',rel:'noopener',onclick:e=>e.stopPropagation(),title:s.url},'origin ↗'):'';
+  return el('div',{class:'card',onclick:open},body,el('span',{class:'badge'},(KIND[s.kind]||s.kind)+(s.path&&!s.exists?' · missing':'')),el('div',{class:'name'},el('span',{title:s.path||s.url},s.title),b),el('div',{class:'sub'},s.credit||''),s.used_for?el('div',{class:'sub'},'Used for: '+s.used_for):'',s.note?el('div',{class:'sub'},s.note):'',link)}):[el('span',{class:'k'},'No sources registered — add entries to reconstruction-references/sources.json or dash.py source add')]))}
 function paint(){$('#note').textContent=state.note||'';const pending=Object.values(state.views).filter(v=>v.pending_review).length;const n=$('#review-n');n.hidden=!pending;n.textContent=pending;
  if(page==='agent'){paintRender();paintQueue();paintChecklist();paintViews();paintVersions();paintEvents();paintGit()}else if(page==='review')paintReview();else if(page==='gallery')paintGallery();else paintSources()}
 for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{mode=b.dataset.mode;shownKey='';paintViews()};

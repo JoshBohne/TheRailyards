@@ -18,6 +18,17 @@ args=parser.parse_args()
 STATE=S.state_path(args.state)
 HERE=Path(__file__).resolve().parent
 MODES=['current','before','source']
+MANIFEST=S.ROOT/'reconstruction-references'/'sources.json'
+
+def all_sources(state):
+    """Committed manifest first, then ad hoc state entries with new ids."""
+    try:items=[dict(s) for s in json.loads(MANIFEST.read_text()).get('sources',[])]
+    except Exception:items=[]
+    seen={s['id'] for s in items}
+    items+=[s for s in state.get('sources',[]) if s['id'] not in seen]
+    for s in items:
+        if s.get('path'):s['path']=str((S.ROOT/s['path']).resolve()) if not Path(s['path']).is_absolute() else s['path']
+    return items
 _git=dict(time=0,log=[])
 
 def git_log():
@@ -51,8 +62,9 @@ def enrich(state):
     for key,view in state['views'].items():
         need=view.get('needs_review')
         view['pending_review']=bool(need) and bool(view.get('current')) and not any(r['view']==key and r['image_modified']>=need for r in reviews)
-    for src in state.get('sources',[]):
-        f=Path(src['path']);src['exists']=f.is_file();src['name']=f.name
+    state['sources']=all_sources(state)
+    for src in state['sources']:
+        f=Path(src['path']) if src.get('path') else None;src['exists']=bool(f and f.is_file());src['name']=f.name if f else ''
     state['reviews']=reviews
     state['git']=git_log();state['server_time']=time.time();state['state_file']=str(STATE)
     return state
@@ -64,7 +76,7 @@ def image_path(state,parts):
     if parts[0]=='version' and len(parts)==3:
         v=next((v for v in state.get('versions',[]) if v['id']==parts[1]),None);return v and v['views'].get(parts[2])
     if parts[0]=='source' and len(parts)==2:
-        s=next((s for s in state.get('sources',[]) if s['id']==parts[1]),None);return s and s['path']
+        s=next((s for s in all_sources(state) if s['id']==parts[1]),None);return s and s.get('path')
     if parts[0]=='evidence' and len(parts)==2:
         t=next((t for t in state.get('checklist',[]) if t['id']==parts[1]),None);return t and t.get('evidence')
 

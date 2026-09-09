@@ -23,6 +23,8 @@ the reviewer can follow along. Default state: work/live/state.json
   dash.py review ack <view>                 # agent has acted on the feedback
   dash.py source add <path> --title T [--credit C] [--kind render|map|mockup|photo|data|doc] [--note N]
   dash.py source scan <dir> [--kind K] [--credit C] [--glob '*.jpg']   # register every image in a folder
+  dash.py source list                       # committed manifest (reconstruction-references/sources.json) + ad hoc
+  dash.py source missing                    # manifest entries whose file is not on disk yet
   dash.py show
 """
 import argparse,json,os,re,shutil,subprocess,sys,time,uuid
@@ -219,6 +221,13 @@ def cmd_review(a):
         with S.edit(a.state) as st:S.event(st,'review',f'acted on feedback for {a.view}')
 
 def cmd_source(a):
+    if a.action in ('list','missing'):
+        man=json.loads((S.ROOT/'reconstruction-references'/'sources.json').read_text())['sources']
+        for x in man+S.load(a.state).get('sources',[]):
+            f=x.get('path') and (S.ROOT/x['path']);ok=bool(f and Path(f).is_file())
+            if a.action=='missing' and (ok or not x.get('path')):continue
+            print(f"{'ok ' if ok else ('url' if not x.get('path') else 'MISSING')}  {x['kind']:<10} {x['id']:<32} {x.get('credit','')}")
+        return
     with S.edit(a.state) as s:
         items=s.setdefault('sources',[])
         def add(path,title):
@@ -259,7 +268,7 @@ def main(argv=None):
     x=sub.add_parser('gallery');x.add_argument('action',choices=['add']);x.add_argument('dir');x.add_argument('--glob',default='*.png');x.add_argument('--prefix');x.add_argument('--label');x.set_defaults(f=cmd_gallery)
     x=sub.add_parser('version');x.add_argument('action',choices=['snapshot']);x.add_argument('label');x.add_argument('--blend');x.add_argument('--note');x.set_defaults(f=cmd_version)
     x=sub.add_parser('review');x.add_argument('action',choices=['list','ack']);x.add_argument('view',nargs='?');x.add_argument('--pending',action='store_true');x.set_defaults(f=cmd_review)
-    x=sub.add_parser('source');x.add_argument('action',choices=['add','scan']);x.add_argument('path');x.add_argument('--title');x.add_argument('--credit');x.add_argument('--kind');x.add_argument('--note');x.add_argument('--glob',default='*');x.set_defaults(f=cmd_source)
+    x=sub.add_parser('source');x.add_argument('action',choices=['add','scan','list','missing']);x.add_argument('path',nargs='?');x.add_argument('--title');x.add_argument('--credit');x.add_argument('--kind');x.add_argument('--note');x.add_argument('--glob',default='*');x.set_defaults(f=cmd_source)
     x=sub.add_parser('reset');x.add_argument('--all',action='store_true');x.set_defaults(f=cmd_reset)
     x=sub.add_parser('show');x.set_defaults(f=cmd_show)
     a=p.parse_args(argv)
