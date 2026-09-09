@@ -62,13 +62,13 @@
     if (titleNode) titleNode.textContent = title;
     if (copyNode) copyNode.textContent = copy;
     if (linkNode) {
-      linkNode.textContent = link + ' ↗';
+      linkNode.textContent = 'Source';
       linkNode.href = href;
     }
   }
 
   function popup(title, copy) {
-    return '<strong>' + escapeHtml(title) + '</strong><br><span>' + escapeHtml(copy) + '</span>';
+    return '<strong>' + escapeHtml(title) + '</strong><br><span>' + escapeHtml(copy.split('. ')[0]) + '</span>';
   }
 
   var placeRegistry = {};
@@ -252,6 +252,7 @@
       fillOpacity: 1
     }).addTo(contextLayer);
     marker.bindPopup(popup(place[1], place[3]));
+    marker.bindTooltip(place[1], { permanent: true, direction: 'right', className: 'map-place-label' });
     registerPlace(place[0], marker, contextLayer, place[2], 'Current context', place[1], place[3], 'Open the map disclosure', 'map.html#map-title');
   });
 
@@ -265,6 +266,7 @@
     fillOpacity: 1
   }).addTo(underConstructionLayer);
   fireMarker.bindPopup(popup(firePlace[1], firePlace[3]));
+  fireMarker.bindTooltip(firePlace[1], { permanent: true, direction: 'right', className: 'map-place-label' });
   fireMarker.on('click', function () {
     detail('Under construction', firePlace[1], firePlace[3], 'Open Chicago Fire announcement', 'https://www.chicagofirefc.com/news/historic-day-for-the-city-chicago-fire-fc-breaks-ground-on-privately-funded-soccer-stadium-at-the-78');
   });
@@ -319,15 +321,17 @@
     });
   });
   // Keep the modeled center selectable when the conceptual arrival layer is visible.
+  stadiumMarker.bindTooltip('The Railyards', { permanent: true, direction: 'left', className: 'map-place-label' });
   stadiumMarker.bringToFront();
 
   var views = {
-    city: L.latLngBounds([[41.82, -87.68], [41.90, -87.60]]),
+    city: L.latLngBounds([[41.85, -87.65], [41.892, -87.614]]),
     stadium: L.latLngBounds([stadiumCenter, data.stations.ctaRoosevelt, [41.858, -87.621]])
   };
   function setView(name) {
     var bounds = views[name] || views.city;
-    map.fitBounds(bounds, { padding: [20, 20], maxZoom: name === 'stadium' ? 16 : 13 });
+    if (name === 'stadium') map.setView([stadiumCenter[0] + .002, stadiumCenter[1] + .002], root.clientWidth < 640 ? 14 : 15);
+    else map.fitBounds(bounds, { padding: [20, 20], maxZoom: 13 });
     document.querySelectorAll('[data-map-view]').forEach(function (button) {
       button.setAttribute('aria-pressed', button.getAttribute('data-map-view') === name ? 'true' : 'false');
     });
@@ -379,6 +383,6 @@
   }
 
   detail('Modeled place', 'The Railyards', 'A geographically registered stadium footprint in the rail yard south of Roosevelt Road. Select a marker to inspect its relationship to the district.', 'Read the source boundary', 'build.html#credits');
-  setView('city');
+  setView('stadium');
   window.setTimeout(function () { map.invalidateSize(); }, 0);
 })();
