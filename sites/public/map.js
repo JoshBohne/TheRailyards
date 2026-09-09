@@ -179,8 +179,7 @@
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
     position: stadiumCenter, zoom: 15,
     layer: L.layerGroup([
-      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#7d9a80', fillOpacity: 0.55, className: 'map-site-fill' }),
-      L.polygon(pointsFromLocal(data.fieldBoundary), { renderer: renderer, color: '#294638', weight: 1.5, fillColor: '#8fb28a', fillOpacity: 0.9 }),
+      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#7d9a80', fillOpacity: 0.7, className: 'map-site-fill' }),
       label('ballpark', 'The Railyards', 11, stadiumCenter)
     ])
   });
