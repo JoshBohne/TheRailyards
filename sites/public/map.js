@@ -46,10 +46,30 @@
     if (satellite) { map.removeLayer(streetLabels); imagery.addTo(map); }
     else { map.removeLayer(imagery); streetLabels.addTo(map); }
     root.classList.toggle('is-satellite', satellite);
-    document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
+    var groups = { transit: transitLayer, parking: parkingLayer };
+  document.querySelectorAll('[data-map-layer]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var layer = groups[button.getAttribute('data-map-layer')];
+      if (!layer) return;
+      var on = !map.hasLayer(layer);
+      if (on) layer.addTo(map); else map.removeLayer(layer);
+      button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  });
+  document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
       button.setAttribute('aria-pressed', button.getAttribute('data-map-basemap') === name ? 'true' : 'false');
     });
   }
+  var groups = { transit: transitLayer, parking: parkingLayer };
+  document.querySelectorAll('[data-map-layer]').forEach(function (button) {
+    button.addEventListener('click', function () {
+      var layer = groups[button.getAttribute('data-map-layer')];
+      if (!layer) return;
+      var on = !map.hasLayer(layer);
+      if (on) layer.addTo(map); else map.removeLayer(layer);
+      button.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  });
   document.querySelectorAll('[data-map-basemap]').forEach(function (button) {
     button.addEventListener('click', function () { setBasemap(button.getAttribute('data-map-basemap')); });
   });
@@ -112,7 +132,7 @@
       layer.bindTooltip('<span data-status="' + feature.status + '">' + escapeHtml(statusLabels[feature.status]) + '</span>' + escapeHtml(feature.title), { sticky: true, className: 'map-tip', direction: 'top', offset: [0, -8] });
       layer.on('click', function () { showDetail(feature); });
     });
-    feature.layer.addTo(map);
+    feature.layer.addTo(feature.group || map);
     places[feature.id] = feature;
   }
 
@@ -121,6 +141,7 @@
       station: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="2.5" width="12" height="12.5" rx="2.5" fill="#fff"/><rect x="6" y="4.5" width="8" height="4.5" rx="1" fill="currentColor"/><circle cx="7.4" cy="11.8" r="1.2" fill="currentColor"/><circle cx="12.6" cy="11.8" r="1.2" fill="currentColor"/><path d="M6 15.5l-1.6 2.5M14 15.5l1.6 2.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>',
       parking: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><text x="10" y="14.6" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="system-ui,sans-serif">P</text></svg>',
       ballpark: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M5.2 5.4c2.4 1 3.6 2.9 3.6 4.6s-1.2 3.6-3.6 4.6M14.8 5.4c-2.4 1-3.6 2.9-3.6 4.6s1.2 3.6 3.6 4.6" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>',
+      boat: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5 12.5h10l-1.6 3H6.6z" fill="#fff"/><path d="M9.2 5v6.5M9.2 5l4 4.5h-4" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>',
       text: ''
     };
     var icon = L.divIcon({
@@ -197,13 +218,23 @@
   });
 
   /* Transit near the ballpark site. */
-  var ctaColors = { 'Blue Line': '#347ab4', 'Red Line': '#c94a45', 'Orange Line': '#d47c35', 'Green Line': '#4b8b62' };
+  var ctaColors = [
+    [/^Blue/, '#347ab4'], [/^Red/, '#c94a45'], [/^Orange/, '#d47c35'], [/^Green/, '#4b8b62'],
+    [/^Pink/, '#d98cb0'], [/^Brown/, '#7a4b2a'], [/^Purple/, '#6b4f9e'], [/^Yellow/, '#d9c33b']
+  ];
+  function ctaColor(lines) {
+    if (/,/.test(lines) && !/^Red, Purple|^Green, /.test(lines)) return '#6d6d6d';
+    for (var i = 0; i < ctaColors.length; i++) if (ctaColors[i][0].test(lines)) return ctaColors[i][1];
+    return '#8a8f86';
+  }
+  var transitLayer = L.layerGroup().addTo(map);
+  var parkingLayer = L.layerGroup();
   L.geoJSON(data.cta, {
     style: function (feature) {
-      var line = feature && feature.properties ? feature.properties.lines : '';
-      return { renderer: renderer, color: ctaColors[line] || '#8a8f86', weight: 3.5, opacity: 0.85, lineCap: 'round', lineJoin: 'round', interactive: false };
+      var lines = feature && feature.properties ? feature.properties.lines : '';
+      return { renderer: renderer, color: ctaColor(lines), weight: 3.5, opacity: 0.85, lineCap: 'round', lineJoin: 'round', interactive: false };
     }
-  }).addTo(map);
+  }).addTo(transitLayer);
 
   [
     ['ctaRoosevelt', 'Roosevelt', 'Red, Orange and Green lines. About a 15 minute walk to the site.', 13],
@@ -215,7 +246,7 @@
       title: 'CTA · ' + station[1],
       copy: station[2],
       source: 'https://www.transitchicago.com/', sourceLabel: 'CTA ↗',
-      position: position, zoom: 15,
+      position: position, zoom: 15, group: transitLayer,
       layer: label('station', station[1], station[3], position)
     });
   });
@@ -224,8 +255,32 @@
     title: 'Union Station',
     copy: 'Amtrak and Metra terminal, about a mile north. The nearest Metra stop.',
     source: 'sources.html#metra', sourceLabel: 'Metra',
-    position: data.stations.unionStation, zoom: 15,
+    position: data.stations.unionStation, zoom: 15, group: transitLayer,
     layer: label('station', 'Union Station', 14, data.stations.unionStation)
+  });
+  register({
+    id: 'ogilvie', status: 'existing',
+    title: 'Ogilvie Transportation Center',
+    copy: 'Metra terminal for the Union Pacific lines, about a mile and a half north.',
+    source: 'sources.html#metra', sourceLabel: 'Metra',
+    position: data.stations.ogilvie, zoom: 15, group: transitLayer,
+    layer: label('station', 'Ogilvie', 14, data.stations.ogilvie)
+  });
+  register({
+    id: 'metraLaSalle', status: 'existing',
+    title: 'LaSalle Street Station',
+    copy: 'Metra Rock Island terminal, about a mile north-east.',
+    source: 'sources.html#metra', sourceLabel: 'Metra',
+    position: data.stations.metraLaSalle, zoom: 15, group: transitLayer,
+    layer: label('station', 'LaSalle St', 14, data.stations.metraLaSalle)
+  });
+  register({
+    id: 'pingTomDock', status: 'existing',
+    title: 'Water taxi · Ping Tom Park',
+    copy: 'Chicago Water Taxi’s Chinatown stop, across the river from the site. Position approximate.',
+    source: 'https://www.chicagowatertaxi.com/', sourceLabel: 'Chicago Water Taxi ↗',
+    position: data.stations.pingTomDock, zoom: 15, group: transitLayer,
+    layer: label('boat', 'Water taxi', 14, data.stations.pingTomDock)
   });
 
   /* Parking near the ballpark site. Nothing has been announced. */
@@ -234,8 +289,18 @@
     title: 'Grant Park South Garage',
     copy: 'Closest large garage, about a mile away. No ballpark parking has been announced.',
     source: 'sources.html#fieldofschemes-2026-09-08', sourceLabel: 'Field of Schemes · Sept 8, 2026',
-    position: data.parking.grantParkSouth, zoom: 15,
-    layer: label('parking', 'Grant Park garage', 15, data.parking.grantParkSouth)
+    position: data.parking.grantParkSouth, zoom: 15, group: parkingLayer,
+    layer: label('parking', 'Grant Park South', 14, data.parking.grantParkSouth)
+  });
+  [['grantParkNorth', 'Grant Park North Garage', 'Grant Park North'], ['millenniumPark', 'Millennium Park Garage', 'Millennium Park'], ['millenniumLakeside', 'Millennium Lakeside Garage', 'Millennium Lakeside']].forEach(function (garage) {
+    register({
+      id: garage[0], status: 'existing',
+      title: garage[1],
+      copy: 'Existing downtown garage, about a mile and a half from the site.',
+      source: 'sources.html#parking', sourceLabel: 'Millennium Garages',
+      position: data.parking[garage[0]], zoom: 15, group: parkingLayer,
+      layer: label('parking', garage[2], 15, data.parking[garage[0]])
+    });
   });
 
   var overview = L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]);

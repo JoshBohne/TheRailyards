@@ -493,7 +493,8 @@ nav{width:100%;
 .map-marker-glyph{display:block;width:24px;height:24px;border-radius:6px;box-shadow:0 1px 3px #0003}
 .map-marker-glyph svg{display:block;width:100%;height:100%}
 .map-marker-station .map-marker-glyph{background:#1f2a24;color:#1f2a24}
-.map-marker-parking .map-marker-glyph{background:none;box-shadow:none;color:#2e6f6b}
+.map-marker-parking .map-marker-glyph,.map-marker-boat .map-marker-glyph{background:none;box-shadow:none;color:#2e6f6b}
+.map-marker-boat .map-marker-glyph{color:#2f6f95}.map-marker-boat .map-marker-glyph svg{fill:currentColor}.map-marker-boat .map-marker-label{color:#2f6f95}
 .map-marker-parking .map-marker-glyph svg{fill:currentColor}
 .map-marker-ballpark .map-marker-glyph{background:none;box-shadow:none;color:#294638}
 .map-marker-ballpark .map-marker-glyph svg{fill:currentColor}
@@ -514,7 +515,12 @@ nav{width:100%;
 .swap-steps button:hover{border-color:#8fa392}
 .swap-steps button[aria-pressed=true]{background:#294638;border-color:#294638;color:#fff}
 .swap-steps button[aria-pressed=true] b{background:#fff;color:#294638}
-.map-basemap{display:inline-flex;margin-left:auto;border:1px solid #c5cdc3;border-radius:4px;overflow:hidden}
+.map-controls{display:flex;gap:10px;margin-left:auto}
+.map-toggles{display:inline-flex;gap:6px}
+.map-toggles button{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid #c5cdc3;border-radius:4px;background:#fff;color:#465448;font:inherit;font-size:13px}
+.map-toggles button[aria-pressed=true]{background:#e6ece5;border-color:#294638;color:#24322b}
+.map-toggles button[aria-pressed=false] .legend-icon{opacity:.35}
+.map-basemap{display:inline-flex;border:1px solid #c5cdc3;border-radius:4px;overflow:hidden}
 .map-basemap button{padding:6px 12px;border:0;background:#fff;color:#465448;font:inherit;font-size:13px}
 .map-basemap button+button{border-left:1px solid #c5cdc3}
 .map-basemap button[aria-pressed=true]{background:#294638;color:#fff}
@@ -554,6 +560,6 @@ nav{width:100%;
  .site-header nav{justify-content:flex-start;gap:6px 14px;flex-wrap:wrap}
  .site-header nav a{white-space:nowrap;padding:4px 0}
  .swap-steps button{font-size:13px}
- .map-basemap{margin-left:0}
+ .map-controls{margin-left:0;flex-wrap:wrap}
  .map-page .map-heading p{font-size:14px}
 }
