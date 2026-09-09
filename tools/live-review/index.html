@@ -32,6 +32,10 @@ figure img{display:block;width:100%;max-height:calc(100vh - 300px);object-fit:co
 .tag{position:absolute;top:8px;padding:2px 8px;border-radius:4px;background:#0009;color:#fff;font-size:11px;pointer-events:none}.tag.l{left:8px}.tag.r{right:8px}
 .stale{position:absolute;left:8px;bottom:8px;background:#fff8e6;color:var(--warn);border:1px solid #e9d7a8;padding:3px 8px;border-radius:4px;font-size:12px}
 .empty{padding:80px 20px;color:#777;text-align:center}.caption{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+/* gallery */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}.card{position:relative;background:var(--track);border-radius:5px;overflow:hidden;cursor:pointer;border:1px solid var(--line)}
+.card img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}.card .name{font-size:12px;padding:5px 8px;background:var(--panel);display:flex;justify-content:space-between;gap:6px;align-items:center}.card .name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card button{font-size:11px;padding:2px 7px;flex:none}#open{font:inherit;border:1px solid var(--line);padding:5px 10px;border-radius:5px;color:#444;text-decoration:none}
 /* versions */
 .versions li{flex-direction:column;gap:4px}.thumbs{display:flex;gap:6px;flex-wrap:wrap}.thumbs img{height:54px;border-radius:3px;background:var(--track);cursor:pointer;border:1px solid var(--line)}
 code{font:12px ui-monospace,monospace;background:#f1f0ec;padding:1px 4px;border-radius:3px}
@@ -45,8 +49,9 @@ code{font:12px ui-monospace,monospace;background:#f1f0ec;padding:1px 4px;border-
 <div class="stack">
  <section id="render"><h2>Now rendering</h2><div class="row"><span class="big" id="r-title">Idle</span><span class="k" id="r-time"></span></div><div class="bar idle"><i id="r-bar" style="width:0"></i></div><div class="stats" id="r-stats"></div></section>
  <section id="viewsec"><h2>Views</h2><nav id="views" aria-label="Camera"></nav>
-  <div class="toolbar"><span id="status" class="k"></span><div id="modes" aria-label="Image version"><button data-mode="current" aria-pressed="true">Latest</button><button data-mode="before">Before</button><button data-mode="source">Source</button><button data-mode="compare">Before / after</button></div></div>
+  <div class="toolbar"><span id="status" class="k"></span><div id="modes" aria-label="Image version"><button data-mode="current" aria-pressed="true">Latest</button><button data-mode="before">Before</button><button data-mode="source">Source</button><button data-mode="compare">Before / after</button><button id="copy" title="Copy this image to the clipboard">Copy</button><a id="open" target="_blank" title="Open full size in a new tab">Open</a></div></div>
   <figure id="figure"><div class="empty">Waiting for the first render…</div></figure><div class="caption"><span id="caption"></span><span>Refreshes every 2.5 s · fixed cameras · native Blender renders</span></div></section>
+ <section id="gallerysec"><div class="toolbar"><h2 style="margin:0">All current renders</h2><span class="k" id="gallery-count"></span></div><div class="grid" id="gallery"></div></section>
  <section class="versions"><h2>Version history</h2><ul id="versions"></ul></section>
 </div>
 <div class="stack">
@@ -57,7 +62,7 @@ code{font:12px ui-monospace,monospace;background:#f1f0ec;padding:1px 4px;border-
 </div>
 </main>
 <script>
-const $=s=>document.querySelector(s);let state=null,view=null,mode='current',shownKey='',navKey='',cut=50;
+const $=s=>document.querySelector(s);let state=null,view=null,mode='current',shownKey='',navKey='',galleryKey='',cut=50;
 const fmt=s=>s==null?'—':s<60?`${Math.round(s)}s`:`${Math.floor(s/60)}m ${String(Math.round(s%60)).padStart(2,'0')}s`;
 const clock=t=>new Date(t*1000).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 const ago=t=>{const d=state.server_time-t;return d<60?`${Math.round(d)}s ago`:d<3600?`${Math.round(d/60)}m ago`:clock(t)};
@@ -83,15 +88,24 @@ function paintViews(){const keys=Object.keys(state.views);if(!keys.length){$('#v
    const wrap=el('div',{class:'compare'},base,top,el('span',{class:'tag l'},'Before'),el('span',{class:'tag r'},'After'),el('div',{class:'handle'}));
    const r=el('input',{type:'range',min:0,max:100,value:cut});r.oninput=()=>{cut=r.value;wrap.style.setProperty('--cut',cut+'%')};wrap.style.setProperty('--cut',cut+'%');wrap.append(r);
    fig.replaceChildren(wrap);if(entry.stale)fig.append(el('span',{class:'stale'},'Stale — a newer render is in progress'))}
+   $('#copy').disabled=true;$('#open').href=`/image/${view}/current?t=${entry.current.modified}`;
    $('#caption').textContent=`${entry.label} · ${entry.before.label} → ${entry.current.label}`;return}
  const image=entry[mode];if(!image){shownKey='';fig.replaceChildren(el('div',{class:'empty'},mode==='current'?'Rendering this view…':'No matching image for this camera.'));$('#caption').textContent='';return}
  const url=`/image/${view}/${mode}?t=${image.modified}`;if(url!==shownKey){const next=new Image();next.onload=()=>{shownKey=url;fig.replaceChildren(next);if(entry.stale&&mode==='current')fig.append(el('span',{class:'stale'},'Stale — a newer render is in progress'))};next.alt=`${entry.label} — ${mode}`;next.src=url}
+ $('#open').href=url;$('#copy').onclick=()=>copyImage(url,$('#copy'));$('#copy').disabled=false;
  $('#caption').textContent=`${entry.label} · ${image.label} · ${image.name} · saved ${clock(image.modified)}`}
+async function copyImage(url,btn){try{const blob=await (await fetch(url,{cache:'no-store'})).blob();const png=blob.type==='image/png'?blob:await toPng(blob);await navigator.clipboard.write([new ClipboardItem({'image/png':png})]);flash(btn,'Copied')}catch(e){flash(btn,'Copy blocked — use Open');console.warn(e)}}
+async function toPng(blob){const bmp=await createImageBitmap(blob);const c=document.createElement('canvas');c.width=bmp.width;c.height=bmp.height;c.getContext('2d').drawImage(bmp,0,0);return new Promise(r=>c.toBlob(r,'image/png'))}
+function flash(btn,text){const old=btn.textContent;btn.textContent=text;setTimeout(()=>btn.textContent=old,1600)}
+function paintGallery(){const keys=Object.keys(state.views).filter(k=>state.views[k].current);$('#gallery-count').textContent=keys.length?`${keys.length} images · click to view, Copy to paste into chat`:'';
+ const gk=JSON.stringify(keys.map(k=>[k,state.views[k].current.modified,state.views[k].stale]));if(gk===galleryKey)return;galleryKey=gk;
+ $('#gallery').replaceChildren(...(keys.length?keys.map(k=>{const v=state.views[k];const url=`/image/${k}/current?t=${v.current.modified}`;const b=el('button',{onclick:e=>{e.stopPropagation();copyImage(url,b)}},'Copy');
+  return el('div',{class:'card',onclick:()=>{view=k;mode='current';shownKey='';paintViews();$('#viewsec').scrollIntoView({behavior:'smooth'})}},el('img',{src:url,loading:'lazy',alt:v.label}),el('div',{class:'name'},el('span',{title:v.current.name},v.label+(v.stale?' ⟳':'')),b))}):[el('span',{class:'k'},'No renders registered yet — dash.py gallery add <dir>')]))}
 function paintVersions(){const vs=[...state.versions].reverse();$('#versions').replaceChildren(...(vs.length?vs.map(v=>el('li',{},el('div',{class:'row'},el('b',{},v.label),' ',el('span',{class:'k'},clock(v.time)),v.commit?el('span',{},' ',el('code',{},v.commit)):'',v.blend?el('span',{class:'k'},' · '+v.blend):''),v.note?el('div',{class:'k'},v.note):'',
   el('div',{class:'thumbs'},...v.views.map(k=>el('img',{src:`/version/${v.id}/${k}`,title:`${v.label} · ${k}`,loading:'lazy',onclick:()=>window.open(`/version/${v.id}/${k}`)}))))):[el('li',{class:'k'},'No snapshots yet — agents run dash.py version snapshot after each bounded edit')]))}
 function paintEvents(){const ev=[...state.events].reverse().slice(0,80);$('#events').replaceChildren(...(ev.length?ev.map(e=>el('li',{class:e.kind},el('span',{class:'kind'},e.kind),el('span',{class:'grow'},e.text),el('span',{class:'k'},clock(e.time)))):[el('li',{class:'k'},'Quiet so far')]))}
 function paintGit(){$('#git').replaceChildren(...(state.git||[]).map(c=>el('li',{},el('code',{},c.hash),el('span',{class:'grow'},c.subject),el('span',{class:'k'},ago(c.time)))))}
-function paint(){$('#note').textContent=state.note||'';paintRender();paintQueue();paintChecklist();paintViews();paintVersions();paintEvents();paintGit()}
+function paint(){$('#note').textContent=state.note||'';paintRender();paintQueue();paintChecklist();paintViews();paintGallery();paintVersions();paintEvents();paintGit()}
 for(const b of document.querySelectorAll('[data-mode]'))b.onclick=()=>{mode=b.dataset.mode;shownKey='';paintViews()};
 async function poll(){try{const r=await fetch('/state',{cache:'no-store'});state=await r.json();$('#connection').textContent='● Live';$('#connection').className='';paint()}catch{$('#connection').textContent='Dashboard server unavailable';$('#connection').className='off'}}
 poll();setInterval(poll,2500);

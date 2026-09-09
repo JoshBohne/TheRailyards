@@ -62,6 +62,7 @@ The dashboard is `tools/live-review/serve.py` (open it with `preview_start` name
 D="python3 tools/live-review/dash.py"
 $D reset                                                             # new session: clears everything except per-view timings
 $D note "What this session is doing, one sentence"
+$D gallery add work/v15/review --glob "after-*.png" --label "V15 review · <scene state>"   # every current render, so Josh can copy any of them
 $D task add "Each acceptance item from the brief" --id short-id      # once, at the start
 $D view set rf-corner --label "RF corner" --before path/before.png --source path/source.jpg
 $D queue add rf-corner lf-terrace                                    # what will render, in order
@@ -70,7 +71,7 @@ $D task done short-id --evidence railyards-v4/review/v15/rf-corner.png
 $D version snapshot "V15 draft 2" --blend railyards-v15.blend --note "what changed"
 ```
 
-`view set --current` is only needed when a render was produced outside `dash.py run`. `view expect <key>` marks a view stale while you re-render it by hand. `dash.py show` prints the state for your own check.
+Label images from an older scene as such (`--label "… · pre-fix scene"`); Josh copies gallery images into chat to annotate, so a stale image with a fresh label sends him the wrong geometry. `view set --current` is only needed when a render was produced outside `dash.py run`. `view expect <key>` marks a view stale while you re-render it by hand. `dash.py show` prints the state for your own check.
 
 Snapshot a version after every bounded edit that Josh should be able to compare later; snapshots copy the current images under `work/live/versions/` and record the git commit.
 

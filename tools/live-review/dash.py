@@ -16,6 +16,7 @@ the reviewer can follow along. Default state: work/live/state.json
   dash.py render finish [--seconds 38.2] [--output path.png]   # also pops it from the queue
   dash.py render cancel
   dash.py run --views a,b,c -- blender -b scene.blend --python render_review.py
+  dash.py gallery add <dir> [--glob 'v15-*.png'] [--prefix v15-] [--label-from-name]  # register every image as a view
   dash.py version snapshot "V15 draft 3" [--blend f] [--note "…"]   # copies view images + git commit
   dash.py reset [--all]                     # new session; keeps per-view timings unless --all
   dash.py show
@@ -82,10 +83,12 @@ def _finish(s,seconds=None,output=None,cancelled=False):
     if not ar:return
     secs=seconds if seconds is not None else round(now()-ar['started_at'],1)
     view=ar['view']
-    if not cancelled:
+    if not cancelled and view!='batch':
         s.setdefault('history',{}).setdefault(view,[]).append(secs);del s['history'][view][:-10]
         v=s['views'].setdefault(view,dict(label=ar['label'],requested_after=0))
-        if output:v['current']=dict(path=str(Path(output).resolve()),label=v.get('current',{}).get('label') or 'Latest render')
+        if output:
+            old=(v.get('current') or {}).get('path')
+            v['current']=dict(path=str(Path(output).resolve()),label=(v['current']['label'] if old==str(Path(output).resolve()) and v.get('current') else 'Latest render'))
         v['requested_after']=0
     else:
         v=s['views'].get(view)
@@ -106,7 +109,8 @@ def cmd_render(a):
         elif a.action=='cancel':_finish(s,cancelled=True)
 
 # Remaining is parsed as MM:SS; renders over an hour (H:MM:SS) would read wrong.
-STATS=re.compile(r'(?:Remaining: ?(\d+):(\d+(?:\.\d+)?))?.*?Sample (\d+)/(\d+)')
+STATS=re.compile(r'Sample (\d+)/(\d+)')
+REMAINING=re.compile(r'Remaining: ?(\d+):(\d+(?:\.\d+)?)')
 SAVED=re.compile(r"Saved: '([^']+)'")
 LOG_FLAGS=['--log','render','--log-level','info']  # Blender 5.x prints Sample x/y only with these
 def cmd_run(a):
@@ -130,8 +134,9 @@ def cmd_run(a):
             m=STATS.search(line);saved=SAVED.search(line)
             if m and now()-last>1.0:
                 last=now();remaining=None
-                progress=int(m.group(3))/max(1,int(m.group(4)))
-                if m.group(1):remaining=int(m.group(1))*60+float(m.group(2))
+                progress=int(m.group(1))/max(1,int(m.group(2)))
+                r=REMAINING.search(line)
+                if r:remaining=int(r.group(1))*60+float(r.group(2))
                 with S.edit(a.state) as s:
                     ar=s.get('active_render')
                     if ar:
@@ -150,6 +155,27 @@ def cmd_run(a):
             if s.get('active_render'):_finish(s,cancelled=code!=0)
             if code:S.event(s,'error',f'render command exited {code}')
     sys.exit(code)
+
+def cmd_gallery(a):
+    """Register every image in a directory as a view (current only, or before/current pairs by prefix)."""
+    import glob as G
+    root=Path(a.dir).resolve();files=sorted(root.glob(a.glob))
+    if not files:sys.exit(f'no {a.glob} in {root}')
+    with S.edit(a.state) as s:
+        n=0
+        for f in files:
+            if f.suffix.lower() not in ['.png','.jpg','.jpeg','.webp']:continue
+            stem=f.stem
+            mode='current'
+            if stem.startswith('before-'):mode='before';stem=stem[7:]
+            elif stem.startswith('after-'):stem=stem[6:]
+            if a.prefix and stem.startswith(a.prefix):stem=stem[len(a.prefix):]
+            key=re.sub(r'[^a-z0-9]+','-',stem.lower()).strip('-')
+            v=s['views'].setdefault(key,dict(label=stem.replace('_',' ').replace('-',' '),requested_after=0))
+            v[mode]=dict(path=str(f),label=a.label or (mode.title()+' · '+f.name))
+            n+=1
+        S.event(s,'gallery',f'registered {n} images from {root.name}')
+    print(n)
 
 def cmd_version(a):
     with S.edit(a.state) as s:
@@ -192,6 +218,7 @@ def main(argv=None):
     x=sub.add_parser('render');x.add_argument('action',choices=['start','progress','finish','cancel']);x.add_argument('view',nargs='?');x.add_argument('--label');x.add_argument('--expect',type=float);x.add_argument('--blend');x.add_argument('--remaining',type=float);x.add_argument('--stats');x.add_argument('--seconds',type=float);x.add_argument('--output')
     x.set_defaults(f=lambda a:(setattr(a,'value',float(a.view) if a.action=='progress' else 0),cmd_render(a)))
     x=sub.add_parser('run');x.add_argument('--views');x.add_argument('--label');x.add_argument('--blend');x.add_argument('command',nargs=argparse.REMAINDER);x.set_defaults(f=cmd_run)
+    x=sub.add_parser('gallery');x.add_argument('action',choices=['add']);x.add_argument('dir');x.add_argument('--glob',default='*.png');x.add_argument('--prefix');x.add_argument('--label');x.set_defaults(f=cmd_gallery)
     x=sub.add_parser('version');x.add_argument('action',choices=['snapshot']);x.add_argument('label');x.add_argument('--blend');x.add_argument('--note');x.set_defaults(f=cmd_version)
     x=sub.add_parser('reset');x.add_argument('--all',action='store_true');x.set_defaults(f=cmd_reset)
     x=sub.add_parser('show');x.set_defaults(f=cmd_show)
