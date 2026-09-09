@@ -40,15 +40,18 @@ LF_BANKS = (
         "end0": (24.0, 110.85),
         "end1": (24.0, 137.00),
     },
+    # 2026-09-08 user correction: drop the rearmost row that sat under the box
+    # floors. Seven rows keep the original 8-row pitch and rise (t1, z1 and
+    # end1 are scaled by 7/8), so the bank shortens at the rear only.
     {
         "name": "upper",
         "t0": 0.40,
-        "t1": 0.49,
+        "t1": 0.47875,
         "z0": 27.0,
-        "z1": 30.0,
-        "rows": 8,
+        "z1": 29.625,
+        "rows": 7,
         "end0": (24.0, 134.80),
-        "end1": (24.0, 142.30),
+        "end1": (24.0, 141.3625),
     },
 )
 

@@ -4,7 +4,7 @@ V15 applies reproducible corrections to a preserved copy of the consolidated V14
 
 ## Changes and interpretation
 
-- Left-field return seats use straight rows, aligned aisles and field-facing chairs. The two exposed banks and two existing box floors remain the reconstruction's interpretation of the renderings. Right field also uses straight banks with a supported connection to the main bowl.
+- Left-field return seats use straight rows, aligned aisles and field-facing chairs. The two exposed banks and two existing box floors remain the reconstruction's interpretation of the renderings. On 2026-09-08 the rearmost upper-bank row, which sat under the box floors, was removed; the upper bank is seven rows at the original pitch (`r15_seating.py` `LF_BANKS`). Right field also uses straight banks with a supported connection to the main bowl.
 - Nine freestanding arches open directly onto a level, open-air concourse at 13.4 m. The scoreboard terrace is a separate 22.055 m destination with its own eastern stair. Any approach grade change is north of the arches. The left-center seating banks and their walls are removed entirely, leaving a broad flat field overlook. Geometry and elevations remain inferred reconstruction choices.
 - Four colored pinwheels sit above the center-field board. The right-field board rises two metres to clear the retained canopy; its geometry is deliberately adjusted from the earlier model.
 - The river follows preserved Chicago Hydro geometry using the shared geographic registration. Willis remains at its mapped location, east of the river at its latitude. See [geography evidence](V15-GEOGRAPHY-AUDIT.md).
@@ -27,7 +27,7 @@ The dedicated `verify_v15_arrival.py` samples the level floor and casts upward t
 
 ## Current delivery state
 
-The saved static scene has SHA-256 `5c909c6b1903aecb6cd4a271951762979b66548b4b3b758c343f52e75aba41ea` and 32,444 active chairs. Its scene-to-replay provenance matches.
+The saved static scene has SHA-256 `7d16b6a1f10fec542fa4a6dc42ffc53ec213249acb3074735d443ec069196ef0` and 32,372 active chairs (32,444 before the LF upper-bank row removal). Its scene-to-replay provenance matches.
 
 - Whole-scene chair-to-architecture probes: zero failures. Park-to-field route: 515 samples, zero failures.
 - Dedicated arrival floor/open-sky probes: 105 samples, zero failures.
