@@ -10,8 +10,8 @@
   var latScale = 1 / 110900;
   var lonScale = 1 / (111320 * Math.cos(origin.latitude_reference * Math.PI / 180));
   var homeOffset = origin.home_offset_xy_m || [0, 0];
-  /* Map-only display offset so the illustrative footprint sits inside the Amtrak yard parcel. */
-  var displayOffset = [0, 0.0005];
+  /* Map-only display offset: keeps the illustrative footprint inside the Amtrak parcel and level with McDonald's Park across the river, as the renderings show. */
+  var displayOffset = [-0.0018, 0.0005];
   var stadiumCenter = [
     origin.latitude_reference - homeOffset[1] * latScale + displayOffset[0],
     origin.longitude_reference - (homeOffset[0] + 33) * lonScale + displayOffset[1]
@@ -212,6 +212,7 @@
   }
   var transitLayer = L.layerGroup().addTo(map);
   var parkingLayer = L.layerGroup();
+  var conceptLayer = L.layerGroup();
   L.geoJSON(data.cta, {
     style: function (feature) {
       var lines = feature && feature.properties ? feature.properties.lines : '';
@@ -319,7 +320,7 @@
     title: 'Clinton Street subway',
     copy: 'A city concept from the Central Area Plan: a new Red Line subway from North/Clybourn under Clinton Street to Chinatown, with a stop at Roosevelt a few blocks from the ballpark site. Estimated at $3 billion with no funding identified; CTA has not studied it.',
     source: 'sources.html#central-area-plan', sourceLabel: 'Chicago Central Area Action Plan',
-    position: [41.8673, -87.6410], zoom: 15, group: transitLayer,
+    position: [41.8673, -87.6410], zoom: 15, group: conceptLayer,
     layer: clintonLine
   };
   register(clintonFeature);
@@ -327,10 +328,10 @@
     var marker = label('concept', stop[0], stop[2], stop[1]);
     marker.bindTooltip('<span data-status="concept">Concept · unfunded</span>' + escapeHtml(stop[0] + ' · Clinton subway'), { sticky: true, className: 'map-tip', direction: 'top', offset: [0, -8] });
     marker.on('click', function () { showDetail(clintonFeature); });
-    marker.addTo(transitLayer);
+    marker.addTo(conceptLayer);
   });
 
-  var groups = { transit: transitLayer, parking: parkingLayer };
+  var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer };
   document.querySelectorAll('[data-map-layer]').forEach(function (button) {
     button.addEventListener('click', function () {
       var layer = groups[button.getAttribute('data-map-layer')];
@@ -338,7 +339,7 @@
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
-      if (on && layer === parkingLayer) {
+      if (on && layer !== transitLayer) {
         var bounds = L.latLngBounds([stadiumCenter]);
         layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
         map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
