@@ -669,9 +669,13 @@ def _bring_lf_boxes_forward(scene, batch, front, back):
     group = "V15 LF box floors"
     faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
     levels = [31.6, 34.8, 38.0]
+    if max(inner.y, outer.y) > gallery_y - 2.0:
+        # The deeper rectangular bank already reaches the gallery front, so the
+        # V14 box floors and seats stay where they are: moving the seats put
+        # them through the gallery front rails (probe 2026-09-09).
+        return {"levels": levels, "front_edge": [[round(inner.x, 2), round(inner.y, 2)], [round(outer.x, 2), round(outer.y, 2)]],
+                "gallery_y": gallery_y, "moved": [], "note": "bank reaches the gallery front; boxes left in place"}
     for level in levels:
-        if max(inner.y, outer.y) > gallery_y - 2.0:
-            break  # the bank already reaches the gallery front; no slab needed
         corners = [inner, outer, Vector((outer.x, gallery_y, 0.0)), Vector((inner.x, gallery_y, 0.0))]
         batch.add(group, "stone", [(c.x, c.y, level - 0.4) for c in corners] + [(c.x, c.y, level) for c in corners], faces)
         rail(batch, group, Vector((inner.x, inner.y, level)), Vector((outer.x, outer.y, level)), 1.05)
