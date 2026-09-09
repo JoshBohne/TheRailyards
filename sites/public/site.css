@@ -428,7 +428,7 @@ nav{width:100%;
 .map-page .map-layout{display:block}
 .map-page .map-toolbar{gap:8px;background:var(--bg);padding:12px}
 .map-page .map-stage{border-color:var(--line)}
-.map-page .leaflet-map{height:clamp(420px,65svh,760px);aspect-ratio:auto}
+.map-page .leaflet-map{height:clamp(460px,70svh,820px);aspect-ratio:auto}
 .map-page .map-layer-toggle{min-height:38px;padding:6px 12px;color:#35433a}
 .map-page .map-layer-toggle[aria-pressed=true]{background:#294638;border-color:#294638;color:#fff}
 .map-page .map-layer-toggle[aria-pressed=false]{background:transparent;border-color:#b6bfb6;color:#465448}
@@ -509,7 +509,7 @@ nav{width:100%;
 .map-page .map-disclosure{margin-top:14px;font-size:12.5px;max-width:none;color:#5f6b62}
 .swap-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 20px;padding:0;list-style:none;counter-reset:step}
 .swap-steps li{counter-increment:step}
-.swap-steps button{display:grid;gap:6px;width:100%;height:100%;padding:16px;text-align:left;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);font:inherit;line-height:1.45;transition:border-color .15s,box-shadow .15s}
+.swap-steps button{display:grid;gap:8px;width:100%;height:100%;padding:14px 16px;text-align:left;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);font:inherit;line-height:1.45;transition:border-color .15s,box-shadow .15s}
 .swap-steps button::before{content:counter(step);font-size:11px;letter-spacing:.1em;color:var(--muted)}
 .swap-steps button:hover{border-color:#8fa392}
 .swap-steps button[aria-pressed=true]{border-color:#294638;box-shadow:inset 0 0 0 1px #294638}

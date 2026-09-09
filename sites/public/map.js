@@ -117,7 +117,7 @@
   register({
     id: 'amtrakYard', status: 'existing',
     title: 'Amtrak yard today',
-    copy: 'About 47 acres between Roosevelt Road, 18th Street, Canal Street and the river, where Amtrak services its Midwest fleet. Justin Ishbia’s Shore Capital Partners is under contract to buy it once Amtrak moves out.',
+    copy: '47 acres on the river where Amtrak services its Midwest fleet. Ishbia’s Shore Capital is under contract to buy it once Amtrak leaves.',
     source: 'sources.html#suntimes-2026-08-14', sourceLabel: 'Sun-Times · Aug 14, 2026',
     position: [41.8625, -87.6362], zoom: 15,
     layer: L.layerGroup([
@@ -129,7 +129,7 @@
   register({
     id: 'stadium', status: 'proposed',
     title: 'The Railyards',
-    copy: 'Canal Edge’s proposed White Sox ballpark on the Amtrak yard, unveiled September 5, 2026 with AECOM renderings. The White Sox are studying it over several months; no architect, financing or date is set. The footprint is our reconstruction, not a site plan.',
+    copy: 'Canal Edge’s proposed White Sox ballpark, unveiled September 5, 2026. Under study; no architect, financing or date yet.',
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
     position: stadiumCenter, zoom: 16,
     layer: L.layerGroup([
@@ -142,7 +142,7 @@
   register({
     id: 'upCanalYard', status: 'proposed',
     title: 'Amtrak’s new facility · Bridgeport',
-    copy: 'Amtrak plans a 24-hour maintenance facility on Union Pacific’s Canal Street yard, which runs from Cermak Road to Pershing Road beside Rate Field. The shop building would sit between 33rd and 35th Streets, about 100 feet from homes. Up to $572 million is federal, $125 million comes from Canal Edge. Amtrak targets a fall 2026 start and about 18 months of work. Bridgeport and Chinatown residents and their elected officials oppose it.',
+    copy: 'A 24-hour maintenance yard on Union Pacific land beside Rate Field. $572M federal, $125M from Canal Edge, about 18 months to build. Residents oppose it.',
     source: 'sources.html#amtrak-2026-08-14', sourceLabel: 'Amtrak · Aug 14, 2026',
     position: [41.836, -87.6373], zoom: 14,
     layer: L.layerGroup([
@@ -154,7 +154,7 @@
   register({
     id: 'the78', status: 'underConstruction',
     title: 'McDonald’s Park · The 78',
-    copy: 'The Chicago Fire’s 22,000-seat soccer stadium at The 78, across the river from the ballpark site. Ground broke March 3, 2026; the target opening is 2028.',
+    copy: 'The Chicago Fire’s 22,000-seat stadium across the river. Broke ground March 2026, opens 2028.',
     source: 'sources.html#chicagofire-2026-03-03', sourceLabel: 'Chicago Fire · Mar 3, 2026',
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
@@ -166,7 +166,7 @@
   register({
     id: 'rateField', status: 'existing',
     title: 'Rate Field',
-    copy: 'The White Sox’s current home, owned by the state. The lease and the state’s remaining stadium bonds both run through 2029. The proposed Amtrak facility would be directly west of it.',
+    copy: 'The White Sox’s current home. Lease and state bonds run through 2029.',
     source: 'sources.html#suntimes-2024-02-08', sourceLabel: 'Sun-Times · Feb 8, 2024',
     position: [41.8299, -87.6338], zoom: 15,
     layer: L.layerGroup([
@@ -185,14 +185,14 @@
   }).addTo(map);
 
   [
-    ['ctaRoosevelt', 'Roosevelt', 'Red, Orange and Green lines. About a 15 minute walk to the ballpark site over the Roosevelt Road bridge.', 13],
-    ['ctaClintonBlue', 'Clinton', 'Blue Line, near Union Station. About a 20 minute walk to the site.', 14],
+    ['ctaRoosevelt', 'Roosevelt', 'Red, Orange and Green lines. About a 15 minute walk to the site.', 13],
+    ['ctaClintonBlue', 'Clinton', 'Blue Line. About a 20 minute walk to the site.', 14],
   ].forEach(function (station) {
     var position = data.stations[station[0]];
     register({
       id: station[0], status: 'existing',
       title: 'CTA · ' + station[1],
-      copy: station[2] + ' Check CTA for service and accessibility.',
+      copy: station[2],
       source: 'https://www.transitchicago.com/', sourceLabel: 'CTA ↗',
       position: position, zoom: 15,
       layer: label('station', station[1], station[3], position)
@@ -201,7 +201,7 @@
   register({
     id: 'unionStation', status: 'existing',
     title: 'Union Station',
-    copy: 'Amtrak and Metra terminal about a mile north of the site. No Metra stop exists at the site, and none has been announced.',
+    copy: 'Amtrak and Metra terminal, about a mile north. The nearest Metra stop.',
     source: 'sources.html#metra', sourceLabel: 'Metra',
     position: data.stations.unionStation, zoom: 15,
     layer: label('station', 'Union Station', 14, data.stations.unionStation)
@@ -211,7 +211,7 @@
   register({
     id: 'grantParkSouth', status: 'existing',
     title: 'Grant Park South Garage',
-    copy: 'The closest large downtown garage, about a mile from the site. The renderings show no parking; Canal Edge says it will be worked out later.',
+    copy: 'Closest large garage, about a mile away. No ballpark parking has been announced.',
     source: 'sources.html#fieldofschemes-2026-09-08', sourceLabel: 'Field of Schemes · Sept 8, 2026',
     position: data.parking.grantParkSouth, zoom: 15,
     layer: label('parking', 'Grant Park garage', 15, data.parking.grantParkSouth)
