@@ -32,6 +32,7 @@ from r2_geometry import instances
 LF_BANKS = (
     {
         "name": "lower",
+        "inner": "radial",
         "parallel": (41.1, 6.8),
         "end_x": 24.0,
         "depth_scale": 62.0,
@@ -48,6 +49,7 @@ LF_BANKS = (
     # end1 are scaled by 7/8), so the bank shortens at the rear only.
     {
         "name": "upper",
+        "inner": "back",
         "parallel": (41.1, 6.8),
         "end_x": 24.0,
         "depth_scale": 62.0,
@@ -122,7 +124,19 @@ def _line_xy(front, back, bank, t, station):
         # of inheriting the fan's converging spacing along the bowl radial.
         w = Vector((bank["parallel"][0], bank["parallel"][1], 0.0)).normalized()
         n = Vector((-w.y, w.x, 0.0))
-        depth_point = Vector((front.x, front.y, 0.0)) + n * (t * bank["depth_scale"])
+        depth = t * bank["depth_scale"]
+        f = Vector((front.x, front.y, 0.0))
+        b = Vector((back.x, back.y, 0.0))
+        if bank.get("inner") == "radial":
+            # 2026-09-09 (Josh): lower rows run on to the bowl's end radial,
+            # so each row starts where its line meets the radial.
+            d = (b - f).normalized()
+            depth_point = f + d * (depth / d.dot(n))
+        elif bank.get("inner") == "back":
+            # Upper rows start on a line straight back from the bowl's rear corner.
+            depth_point = b + n * (depth - (b - f).dot(n))
+        else:
+            depth_point = f + n * depth
         return depth_point + w * ((bank["end_x"] - depth_point.x) / w.x * station)
     fraction = (t - bank["t0"]) / (bank["t1"] - bank["t0"])
     outer = Vector((
@@ -695,15 +709,15 @@ def _bring_lf_boxes_forward(scene, batch, front, back):
 
 
 def _fill_lf_wedge(batch, front, back):
-    """Solid stone podium between the rectangular LF bank and the bowl's end.
+    """Small stone podium between the lower bank's rear, the bowl's rear corner and the upper bank.
 
     With rows parallel to the LF wall the bank's inner edge runs straight
     back from the foul-pole corner, leaving a wedge in front of the main
     bowl's angled end radial that the old fan used to cover.  Fill it to the
     upper bank's rear level so there is no see-through there either.
     """
-    upper = LF_BANKS[1]
-    a = Vector((front.x, front.y, 0.0))
+    lower, upper = LF_BANKS
+    a = _line_xy(front, back, lower, lower["t1"], 0.0)  # lower rear row meets the radial here
     b = Vector((back.x, back.y, 0.0))
     c = _line_xy(front, back, upper, upper["t1"], 0.0)
     z0, z1 = 8.0, upper["z1"]
