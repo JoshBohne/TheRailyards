@@ -115,6 +115,7 @@ AISLE_WIDTH = 1.20
 # hiding seats by object index.
 AISLE_SEAT_CLEARANCE = 0.30
 FOUNDATION_Z = 8.0
+BUILD_RF_BANKS = False   # see r15_rf_corner.py
 
 
 def _line_xy(front, back, bank, t, station):
@@ -865,15 +866,23 @@ def build(scene, batch, root):
     wedge = _fill_lf_wedge(batch, front, back)
     boxes = _bring_lf_boxes_forward(scene, batch, front, back)
 
+    # 2026-09-09: the right-field corner is built by r15_rf_corner (east-river
+    # stack per the released B4/A3 views).  The angled RF banks below are kept
+    # for reference but not built unless BUILD_RF_BANKS is set.
     rf_group = "V15 RF straight seating"
     front = Vector((*spec["bowl_front"][0][:2], 0.0))
     back = Vector((*spec["bowl_back"][0][:2], 0.0))
-    rf_lower = _add_row_surfaces(scene, batch, front, back, RF_BANKS[0], rf_group, "RF")
-    rf_upper = _add_row_surfaces(scene, batch, front, back, RF_BANKS[1], rf_group, "RF")
-    _build_bank_support(scene, batch, front, back, RF_BANKS[0], "RF")
-    _build_bank_support(scene, batch, front, back, RF_BANKS[1], "RF")
-    rf_junction = _build_rf_junction(scene, batch, front, back)
-    rf_terrace = _connect_rf_upper_to_terraces(scene, batch, front, back)
+    if BUILD_RF_BANKS:
+        rf_lower = _add_row_surfaces(scene, batch, front, back, RF_BANKS[0], rf_group, "RF")
+        rf_upper = _add_row_surfaces(scene, batch, front, back, RF_BANKS[1], rf_group, "RF")
+        _build_bank_support(scene, batch, front, back, RF_BANKS[0], "RF")
+        _build_bank_support(scene, batch, front, back, RF_BANKS[1], "RF")
+        rf_junction = _build_rf_junction(scene, batch, front, back)
+        rf_terrace = _connect_rf_upper_to_terraces(scene, batch, front, back)
+    else:
+        empty = {"seats": 0, "spectators": 0}
+        rf_lower = rf_upper = empty
+        rf_junction = rf_terrace = {"skipped": "r15_rf_corner builds the RF corner"}
     result = {
         "lf": {
             "banks": [lower, upper],
