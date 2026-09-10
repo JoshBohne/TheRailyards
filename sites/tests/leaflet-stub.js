@@ -22,6 +22,8 @@
       return this;
     }
     getCenter() { return [0, 1].map(i => (Math.min(...this.points.map(p => p[i])) + Math.max(...this.points.map(p => p[i]))) / 2); }
+    getNorth() { return Math.max(...this.points.map(p => p[0])); }
+    getSouth() { return Math.min(...this.points.map(p => p[0])); }
   }
   function handler() { return { value: true, enable() { this.value = true; }, disable() { this.value = false; }, enabled() { return this.value; } }; }
   class Map extends Layer {
@@ -41,6 +43,8 @@
     fitBounds(bounds, options) { this.center = bounds.getCenter(); this.zoom = options.maxZoom || 15; this.calls.push({ method: 'fitBounds', options }); this.fire('zoomend'); return this; }
     setView(center, zoom, options) { this.center = center; this.zoom = zoom; this.calls.push({ method: 'setView', options }); this.fire('zoomend'); return this; }
     invalidateSize(options) { this.calls.push({ method: 'invalidateSize', options }); return this; }
+    panBy(offset, options) { this.calls.push({ method: 'panBy', options }); return this; }
+    closePopup() { this.popup = null; return this; }
     fire(name) { (this.events[name] || []).forEach(fn => fn()); }
   }
   window.L = {
@@ -54,6 +58,8 @@
     circle: (point, opts) => new Layer('circle', point, opts),
     marker: (point, opts) => new Layer('marker', point, opts),
     divIcon: options => options,
-    geoJSON: (data, opts) => new Layer('geoJSON', data, opts)
+    geoJSON: (data, opts) => new Layer('geoJSON', data, opts),
+    extend: (target, ...sources) => Object.assign(target, ...sources),
+    popup: () => ({ setLatLng() { return this; }, setContent(html) { this.html = html; return this; }, openOn(map) { map.popup = this; return this; } })
   };
 })();

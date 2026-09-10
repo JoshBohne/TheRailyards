@@ -38,9 +38,10 @@
     scrollWheelZoom: false,
     zoomAnimation: false,
     fadeAnimation: false,
-    markerZoomAnimation: false
+    markerZoomAnimation: false,
+    attributionControl: false
   });
-  map.attributionControl.setPrefix('');
+  /* Map credits live in the page footer instead of on the canvas. */
 
   var esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
   L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
@@ -126,7 +127,7 @@
 
   /* Place details open as a popup on the map itself; there is no side panel. */
   function showDetail(feature, latlng) {
-    if (currentStep !== 'explore') return;
+    if (!fullscreen) return;
     var html = '<strong>' + escapeHtml(feature.title) + '</strong> <span class="map-detail-status" data-status="' + feature.status + '">' + escapeHtml(statusLabels[feature.status]) + '</span>';
     if (feature.image) html += '<img src="' + feature.image + '" alt="' + escapeHtml(feature.imageAlt || feature.title) + '" loading="lazy">';
     html += '<p>' + escapeHtml(feature.copy) + '</p>';
@@ -148,7 +149,7 @@
     places[feature.id] = feature;
   }
 
-  function label(kind, text, minZoom, position) {
+  function label(kind, text, minZoom, position, extraClass) {
     var glyphs = {
       station: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="2.5" width="12" height="12.5" rx="2.5" fill="#fff"/><rect x="6" y="4.5" width="8" height="4.5" rx="1" fill="currentColor"/><circle cx="7.4" cy="11.8" r="1.2" fill="currentColor"/><circle cx="12.6" cy="11.8" r="1.2" fill="currentColor"/><path d="M6 15.5l-1.6 2.5M14 15.5l1.6 2.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>',
       parking: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><text x="10" y="14.6" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="system-ui,sans-serif">P</text></svg>',
@@ -161,7 +162,7 @@
       text: ''
     };
     var icon = L.divIcon({
-      className: 'map-marker map-marker-' + kind + ' label-min-' + minZoom,
+      className: 'map-marker map-marker-' + kind + ' label-min-' + minZoom + (extraClass ? ' ' + extraClass : ''),
       html: (glyphs[kind] ? '<span class="map-marker-glyph">' + glyphs[kind] + '</span>' : '') + '<span class="map-marker-label">' + escapeHtml(text) + '</span>',
       iconSize: kind === 'text' ? [0, 0] : [24, 24],
       iconAnchor: kind === 'text' ? [0, 0] : [12, 12]
@@ -383,19 +384,24 @@
   });
 
   /* Street reference so the parcel reads against the city. */
-  var roosevelt = label('area', 'Roosevelt Rd', 13, [41.8681, -87.6352]);
-  roosevelt.options.icon.options.className += ' map-marker-street';
-  L.layerGroup([roosevelt]).addTo(map);
+  L.layerGroup([label('area', 'Roosevelt Rd', 13, [41.8681, -87.6352], 'map-marker-street')]).addTo(map);
 
   var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer, renderings: renderLayer };
   function fitInstant(bounds, padding, maxZoom) {
     map.stop();
     map.fitBounds(bounds, { padding: [padding, padding], maxZoom: maxZoom || 17, animate: false });
   }
+  /* Chapter changes glide between views (south to Bridgeport and back). Any new chapter stops the
+     flight first, so the map can never arrive somewhere the reader has already left. */
+  function fitChapter(bounds, padding, maxZoom) {
+    map.stop();
+    if (!map.flyToBounds || motionPreference.matches) { fitInstant(bounds, padding, maxZoom); return; }
+    map.flyToBounds(bounds, { padding: [padding, padding], maxZoom: maxZoom || 17, duration: 1.4, easeLinearity: 0.3 });
+  }
   document.querySelectorAll('[data-map-layer]').forEach(function (button) {
     button.addEventListener('click', function () {
       var layer = groups[button.getAttribute('data-map-layer')];
-      if (!layer || currentStep !== 'explore') return;
+      if (!layer || !fullscreen) return;
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
@@ -431,7 +437,7 @@
   }
   document.querySelectorAll('[data-map-focus]').forEach(function (button) {
     button.addEventListener('click', function () {
-      if (currentStep === 'explore') focusPlace(button.getAttribute('data-map-focus'), button);
+      if (fullscreen) focusPlace(button.getAttribute('data-map-focus'), button);
     });
   });
 
@@ -462,6 +468,7 @@
   var tools;
   var exitButton;
   var fullscreen = false;
+  var pendingFocus = null;
   var announcement;
   var anchors;
   var started = false;
@@ -486,7 +493,7 @@
     the78first: { sites: ['the78'], bounds: northBounds, padding: 30 },
     fire: { sites: ['the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     amtrakYard: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
-    swap: { sites: ['upCanalYard', 'rateField'], bounds: L.latLngBounds(sites.upCanalYard).extend(sites.rateField), padding: 30 },
+    swap: { sites: ['upCanalYard', 'rateField'], bounds: L.latLngBounds(sites.upCanalYard).extend(sites.rateField), padding: 30, basemap: 'satellite' },
     stadium: { sites: ['stadium', 'amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     explore: { sites: siteIds, bounds: overview, padding: 20 }
   };
@@ -512,26 +519,34 @@
     root.setAttribute('aria-label', explore ? 'Interactive map. Drag to pan, use plus and minus to zoom, and select a place for details.' : 'Map illustrating the current story chapter');
     if (tools) tools.inert = !explore;
   }
-  function runStep(index) {
-    var name = steps[index].getAttribute('data-story');
-    if (name === currentStep || !chapters[name]) return;
-    currentStep = name;
-    currentIndex = index;
+  /* A view is a chapter's map state; "explore" is the full-screen map, not a chapter. */
+  function applyView(name, instant) {
     var chapter = chapters[name];
+    var explore = name === 'explore';
     map.stop();
     siteIds.forEach(function (id) { setLayer(places[id].layer, chapter.sites.indexOf(id) !== -1); });
     setLayer(yardNotes, name === 'swap');
-    // Reconcile EVERY auxiliary layer; Explore cannot leak overlays backward.
-    Object.keys(groups).forEach(function (key) { setLayer(groups[key], name === 'explore' && key === 'transit'); });
+    // Reconcile EVERY auxiliary layer; the full-screen map cannot leak overlays into the story.
+    Object.keys(groups).forEach(function (key) { setLayer(groups[key], explore && key === 'transit'); });
     syncLayerButtons();
-    setBasemap('map');
-    section.classList.toggle('is-explore', name === 'explore');
-    root.classList.toggle('is-focused', name !== 'explore');
+    setBasemap(chapter.basemap || 'map');
+    section.classList.toggle('is-explore', explore);
+    root.classList.toggle('is-focused', !explore);
     if (cover) cover.setAttribute('data-open', name === 'intro' ? 'true' : 'false');
-    setInteractions(name === 'explore');
-    fitInstant(chapter.bounds, chapter.padding, 16);
-    refitOnResize = name === 'explore';
-    if (name !== 'explore') { map.closePopup(); if (fullscreen) setFullscreen(false); }
+    setInteractions(explore);
+    if (instant) fitInstant(chapter.bounds, chapter.padding, 16); else fitChapter(chapter.bounds, chapter.padding, 16);
+    refitOnResize = explore;
+    if (!explore) map.closePopup();
+    root.setAttribute('data-story-view', name);
+  }
+  function runStep(index) {
+    var name = steps[index].getAttribute('data-story');
+    if (name === currentStep || !chapters[name]) return;
+    var firstRun = !currentStep;
+    currentStep = name;
+    currentIndex = index;
+    if (fullscreen) setFullscreen(false);
+    applyView(name, firstRun);
     steps.forEach(function (step, i) {
       step.classList.toggle('is-active', i === index);
       step.classList.toggle('is-upcoming', i > index);
@@ -539,27 +554,30 @@
       else step.removeAttribute('aria-current');
     });
     section.setAttribute('data-active-story', name);
-    root.setAttribute('data-story-view', name);
     updateNav();
   }
   function setFullscreen(on) {
-    fullscreen = !!on;
-    pinned.classList.toggle('is-fullscreen', fullscreen);
-    document.documentElement.classList.toggle('story-fullscreen', fullscreen);
+    on = !!on;
+    if (on === fullscreen) return;
+    fullscreen = on;
+    pinned.classList.toggle('is-fullscreen', on);
+    document.documentElement.classList.toggle('story-fullscreen', on);
+    if (!on) pendingFocus = null;
+    if (currentStep) applyView(on ? 'explore' : currentStep, true);
     resizeMap = true;
     queueFrame();
-    if (fullscreen) root.focus({ preventScroll: true }); else navNext.focus({ preventScroll: true });
+    if (on) root.focus({ preventScroll: true }); else navNext.focus({ preventScroll: true });
   }
   function updateNav() {
     // Pending destination is for rapid-click arithmetic only. The visible count
     // and disabled states always describe the chapter at the reading line.
-    navCount.textContent = currentIndex === 0 ? 'The story' : currentIndex === steps.length - 1 ? 'Explore' : currentIndex + ' of ' + (steps.length - 2);
+    navCount.textContent = currentIndex === 0 ? 'The story' : currentIndex + ' of ' + (steps.length - 1);
     var last = currentIndex === steps.length - 1 && !pending;
     navPrev.setAttribute('aria-disabled', currentIndex <= 0 && !pending ? 'true' : 'false');
     navNext.setAttribute('aria-disabled', 'false');
     navPrev.textContent = '← Previous';
-    navNext.textContent = last ? 'Full screen ⤢' : currentIndex <= 0 ? 'Start →' : currentIndex === steps.length - 2 ? 'Explore →' : 'Next →';
-    navNext.setAttribute('aria-label', last ? 'Show the map full screen' : currentIndex <= 0 ? 'Start the story' : currentIndex === steps.length - 2 ? 'Explore the map' : 'Next chapter');
+    navNext.textContent = last ? 'Full screen ⤢' : currentIndex <= 0 ? 'Start →' : 'Next →';
+    navNext.setAttribute('aria-label', last ? 'Show the map full screen' : currentIndex <= 0 ? 'Start the story' : 'Next chapter');
   }
   function viewport() {
     var visual = window.visualViewport;
@@ -601,7 +619,10 @@
         lastMapHeight = height;
         map.invalidateSize({ animate: false, pan: false });
         // Resizing while exploring must not replace the user's chosen view.
-        if (currentStep && (currentStep !== 'explore' || refitOnResize)) fitInstant(chapters[currentStep].bounds, chapters[currentStep].padding, 16);
+        if (fullscreen) {
+          if (refitOnResize) fitInstant(chapters.explore.bounds, chapters.explore.padding, 16);
+          if (pendingFocus) { focusPlace(pendingFocus); pendingFocus = null; }
+        } else if (currentStep) fitInstant(chapters[currentStep].bounds, chapters[currentStep].padding, 16);
         refitOnResize = false;
       }
     }
@@ -615,7 +636,7 @@
         var arrived = pending.index;
         var requestedPlace = pending.place;
         pending = null;
-        if (currentStep === 'explore' && requestedPlace) focusPlace(requestedPlace);
+        if (requestedPlace && currentIndex === arrived) { pendingFocus = requestedPlace; setFullscreen(true); }
         // The tracker has already committed the visible chapter. No delayed
         // callback can resurrect a canceled target or overwrite its map.
         if (currentIndex === arrived) announcement.textContent = navCount.textContent + ': ' + steps[arrived].querySelector('h1,h2').textContent;
@@ -706,10 +727,12 @@
     exitButton = document.createElement('button');
     exitButton.type = 'button';
     exitButton.className = 'map-exit-fullscreen';
-    exitButton.textContent = '✕ Exit full screen';
+    exitButton.textContent = '✕';
+    exitButton.setAttribute('aria-label', 'Exit full screen');
     exitButton.addEventListener('click', function () { setFullscreen(false); });
     stage.appendChild(exitButton);
-    window.addEventListener('keydown', function (event) { if (event.key === 'Escape' && fullscreen) setFullscreen(false); });
+    // Capture phase: Leaflet's own keyboard handler swallows Escape when it has a popup to close.
+    window.addEventListener('keydown', function (event) { if (event.key === 'Escape' && fullscreen) setFullscreen(false); }, true);
     anchors = steps.map(function (step) {
       var anchor = step.querySelector('time') || step.querySelector('h1,h2');
       anchor.setAttribute('data-story-anchor', '');

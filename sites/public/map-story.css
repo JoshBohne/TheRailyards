@@ -157,14 +157,15 @@ html.has-story-navigation {
   right: 10px;
   z-index: 660;
   display: none;
-  min-height: 36px;
-  padding: 6px 12px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   border: 1px solid #c4ced4;
-  border-radius: 999px;
+  border-radius: 50%;
   background: #fffffff0;
   color: #111111;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 20px;
+  line-height: 1;
   cursor: pointer;
   box-shadow: 0 1px 4px #0000001f;
 }

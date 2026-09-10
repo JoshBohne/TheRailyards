@@ -21,7 +21,7 @@ from playwright.sync_api import sync_playwright
 
 PUBLIC = Path(__file__).resolve().parents[1] / 'public'
 STUB = Path(__file__).with_name('leaflet-stub.js')
-NAMES = ['intro','the78first','fire','amtrakYard','swap','stadium','explore']
+NAMES = ['intro','the78first','fire','amtrakYard','swap','stadium']
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *_): pass
@@ -89,9 +89,11 @@ class StoryNavigation(unittest.TestCase):
         self.page.evaluate("""name=>{const p=document.querySelector('.story-map'),h=visualViewport?visualViewport.height:innerHeight,b=(parseFloat(getComputedStyle(p).top)||0)+p.getBoundingClientRect().height;const line=innerWidth<=900&&getComputedStyle(p).position==='sticky'?b+Math.min(64,(h-b)*.18):h*.35;const a=document.querySelector('[data-story="'+name+'"] [data-story-anchor]');window.scrollTo({top:scrollY+a.getBoundingClientRect().top-line+14,behavior:'auto'})}""",name)
         self.active(name)
     def next(self):self.page.locator('[data-story-next]').click()
+    def fullscreen(self,on):
+        self.page.wait_for_function("on=>document.querySelector('.story-map').classList.contains('is-fullscreen')===on&&(document.querySelector('#railyards-map').dataset.storyView==='explore')===on",arg=on,timeout=4000)
     def test_01_readable_and_single_navigation(self):
         self.load();self.active('intro')
-        self.assertEqual(self.page.locator('.story-step').count(),7)
+        self.assertEqual(self.page.locator('.story-step').count(),6)
         self.assertEqual(self.page.locator('.story-nav').count(),1)
         self.assertEqual(self.page.evaluate('getComputedStyle(document.documentElement).scrollSnapType'),'none')
         # Before Start, the chapters below the intro are blurred; the intro itself is readable.
@@ -106,12 +108,12 @@ class StoryNavigation(unittest.TestCase):
         self.load()
         for name in NAMES[1:]:
             self.next();self.active(name);self.page.wait_for_timeout(600)
-        self.assertEqual(self.page.locator('[data-story-count]').inner_text(),'Explore')
+        self.assertEqual(self.page.locator('[data-story-count]').inner_text(),'5 of 5')
         for name in reversed(NAMES[:-1]):
             self.page.locator('[data-story-prev]').click();self.active(name);self.page.wait_for_timeout(600)
     def test_03_fast_manual_scrolling(self):
         self.load()
-        for name in ['stadium','fire','explore','amtrakYard','the78first','swap','intro']:self.jump(name)
+        for name in ['stadium','fire','amtrakYard','the78first','swap','intro']:self.jump(name)
         if self.stub:self.assertTrue(self.page.evaluate("__map.calls.filter(c=>c.method==='fitBounds'||c.method==='setView').every(c=>c.options.animate===false)"))
     def test_04_double_next_and_reverse(self):
         self.load()
@@ -138,17 +140,18 @@ class StoryNavigation(unittest.TestCase):
             boxes=self.page.evaluate("""()=>{const m=document.querySelector('.story-map').getBoundingClientRect(),a=document.querySelector('.is-active [data-story-anchor]').getBoundingClientRect();return{mapHeight:m.height,anchorTop:a.top,mapBottom:m.bottom,overflow:document.documentElement.scrollWidth>innerWidth}}""")
             self.assertFalse(boxes['overflow']);self.assertGreater(boxes['anchorTop'],boxes['mapBottom'])
             self.assertLessEqual(boxes['mapHeight'],min(260,height*.3)+66)
-            self.jump('explore');self.page.locator('[data-story-prev]').click();self.active('stadium')
+            self.jump('stadium');self.page.locator('[data-story-prev]').click();self.active('swap')
     def test_07_explore_state(self):
-        self.load();self.jump('explore')
+        self.load();self.jump('stadium');self.assertEqual(self.page.locator('[data-story-next]').text_content(),'Full screen ⤢')
+        self.next();self.fullscreen(True)
         for name in ['parking','concept','renderings']:self.page.locator(f'[data-map-layer="{name}"]').click()
         self.page.locator('[data-map-basemap="satellite"]').click();self.page.evaluate("__map.panBy([80,40],{animate:false})")
-        center=self.page.evaluate('JSON.stringify(__map.getCenter())')
-        self.page.evaluate("window.scrollTo({top:scrollY+80,behavior:'auto'})");self.page.wait_for_timeout(150);self.active('explore')
+        center=self.page.evaluate('JSON.stringify(__map.getCenter())');self.page.wait_for_timeout(400)
         self.assertEqual(center,self.page.evaluate('JSON.stringify(__map.getCenter())'))
-        self.jump('stadium')
+        self.page.locator('.map-exit-fullscreen').click();self.fullscreen(False);self.active('stadium')
         self.assertTrue(self.page.evaluate("[...document.querySelectorAll('[data-map-layer]')].every(b=>b.getAttribute('aria-pressed')==='false')"))
         if self.stub:self.assertTrue(self.page.evaluate('__groups.slice(5,9).every(g=>!__map.hasLayer(g))'))
+        self.next();self.fullscreen(True);self.page.keyboard.press('Escape');self.fullscreen(False)
     def test_08_resize_and_landscape(self):
         self.load();self.jump('amtrakYard')
         self.page.set_viewport_size({'width':390,'height':844});self.page.wait_for_timeout(200)
@@ -163,11 +166,11 @@ class StoryNavigation(unittest.TestCase):
         self.page.keyboard.press('Space');self.active('fire')
         self.assertTrue(self.page.evaluate("__scrollCalls.every(c=>typeof c!=='object'||c.behavior!=='smooth')"))
     def test_10_deep_link_restore(self):
-        self.load('?place=upCanalYard');self.active('explore');self.page.wait_for_timeout(150)
+        self.load('?place=upCanalYard');self.fullscreen(True);self.page.wait_for_timeout(300)
         center=self.page.evaluate('JSON.stringify(__map.getCenter())');self.assertIn('41.834',center)
         self.page.evaluate("window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}))")
-        self.page.wait_for_timeout(150);self.active('explore');self.assertEqual(center,self.page.evaluate('JSON.stringify(__map.getCenter())'))
-        self.page.locator('[data-story-prev]').click();self.active('stadium')
+        self.page.wait_for_timeout(150);self.fullscreen(True);self.assertEqual(center,self.page.evaluate('JSON.stringify(__map.getCenter())'))
+        self.page.locator('.map-exit-fullscreen').click();self.fullscreen(False);self.active('stadium')
     def test_11_failed_image_geometry(self):
         self.load();self.jump('the78first');box=self.page.locator('[data-story="the78first"]').bounding_box()
         self.page.locator('[data-story="the78first"] img').evaluate("img=>{img.src='missing-image.jpg';img.dispatchEvent(new Event('error'))}")
