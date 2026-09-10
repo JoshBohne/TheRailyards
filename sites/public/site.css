@@ -491,6 +491,8 @@ nav{width:100%;
 [data-status=proposed]{--status:#294638;--status-bg:#dfe9df}
 [data-status=concept]{--status:#7a4f6d;--status-bg:#f1e5ee}
 [data-status=rendering]{--status:#5a3f52;--status-bg:#efe6ec}
+[data-status=earlier]{--status:#6b6b66;--status-bg:#ebebe6}
+[data-status=opposition]{--status:#8a2f2b;--status-bg:#f7dfdd}
 .map-detail-figure{margin:0 0 12px}.map-detail-figure img{border-radius:3px;aspect-ratio:16/10;object-fit:cover}.map-detail-figure figcaption{margin-top:6px;font-size:11.5px;color:var(--muted)}
 .map-detail-status[data-status],.swap-step-status[data-status],.map-tip span[data-status]{background:var(--status-bg);color:var(--status)}
 .leaflet-map .map-tip{padding:6px 9px;border:0;border-radius:4px;background:#fff;box-shadow:0 4px 14px #1c2a1f26;font-size:13px;color:#24322b}
@@ -607,6 +609,14 @@ nav{width:100%;
 .story-step h2{font-size:24px;line-height:1.2;margin:0;font-weight:600;letter-spacing:-.02em}
 .story-step p{margin:0;font-size:16px;line-height:1.55;color:#4d5a50;max-width:34ch}
 .story-step>a{font-size:13px;color:#244a39;text-underline-offset:4px}
+.story-step time{font-size:13px;letter-spacing:.02em;color:var(--muted);font-variant-numeric:tabular-nums}
+.story-image{border-radius:3px;aspect-ratio:16/10;object-fit:cover;margin:4px 0}
+.story-progress{position:absolute;z-index:600;left:50%;top:10px;transform:translateX(-50%);display:flex;gap:6px;margin:0;padding:6px 10px;list-style:none;background:#fafaf8e6;border-radius:999px;box-shadow:0 2px 8px #1c2a1f22;backdrop-filter:blur(6px);pointer-events:none}
+.story-progress[hidden]{display:none}
+.story-progress li{width:8px;height:8px;border-radius:50%;background:#c9cfc6;font-size:0;transition:background .3s,width .3s}
+.story-progress li.is-done{background:#7d9a80}
+.story-progress li.is-current{width:22px;border-radius:4px;background:#294638}
+.story-map .map-stage{position:relative}
 .story-step .swap-step-status{justify-self:start;align-self:flex-start}
 .story-hint{font-size:22px;color:var(--muted);animation:story-nudge 1.6s ease-in-out infinite}
 @keyframes story-nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
@@ -631,7 +641,8 @@ nav{width:100%;
  .story .map-detail{max-height:none;margin-top:8px;padding:12px 14px}
  .story .map-detail-figure img{max-height:30svh}
  .story-steps{padding:0 0 8vh}
- .story-step{min-height:36svh;padding:20px 0;justify-content:flex-start}
+ .story-step{min-height:40svh;padding:20px 0;justify-content:flex-start}
+ .story-image{max-height:24svh;width:auto;max-width:100%}
  .story-step h1{font-size:34px}
  .story-step h2{font-size:20px}
  .story-step p{font-size:15px;max-width:none}

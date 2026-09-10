@@ -393,11 +393,11 @@
     });
   });
   var overview = L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]);
-  function focusPlace(id, button, instant) {
+  function focusPlace(id, button, instant, keepBasemap) {
     var place = places[id];
     if (!place) return;
     showDetail(place);
-    setBasemap(place.basemap || 'map');
+    if (!keepBasemap) setBasemap(place.basemap || 'map');
     if (instant || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) map.setView(place.position, place.zoom);
     else map.flyTo(place.position, place.zoom, { duration: 0.8 });
     document.querySelectorAll('[data-map-focus]').forEach(function (item) {
@@ -420,20 +420,55 @@
   /* Scroll-driven story: each step pins the map to a place; the last step opens the controls. */
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var bothYards = L.latLngBounds(sites.amtrakYard.concat(sites.upCanalYard));
+  function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: reduceMotion ? 0 : 1.1 }); }
   var storyViews = {
-    intro: function () { setBasemap('map'); map.flyToBounds(overview, { padding: [12, 12], duration: reduceMotion ? 0 : 1 }); showDetail(places.stadium); },
-    amtrakYard: function () { focusPlace('amtrakYard'); },
-    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); map.flyToBounds(bothYards, { padding: [30, 30], duration: reduceMotion ? 0 : 1.2 }); },
-    stadium: function () { focusPlace('stadium'); },
-    explore: function () { setBasemap('map'); map.flyToBounds(overview, { padding: [12, 12], duration: reduceMotion ? 0 : 1 }); showDetail(places.stadium); }
+    intro: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); },
+    the78first: function () { setBasemap('map'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), 30); },
+    fire: function () { setBasemap('satellite'); focusPlace('the78', null, false, true); },
+    amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
+    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); fly(bothYards, 30); },
+    stadium: function () { setBasemap('map'); focusPlace('stadium'); },
+    protest: function () { showDetail(places.upCanalYard); setBasemap('satellite'); map.flyTo([41.8335, -87.6373], 16, { duration: reduceMotion ? 0 : 1.1 }); },
+    rateField: function () { setBasemap('map'); focusPlace('rateField'); },
+    explore: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); }
   };
+  var progress = document.querySelector('.story-progress');
+  var stepNames = [];
+  document.querySelectorAll('.story-step').forEach(function (step) {
+    var name = step.getAttribute('data-story');
+    if (name === 'intro' || name === 'explore') return;
+    stepNames.push(name);
+    if (progress) {
+      var item = document.createElement('li');
+      item.setAttribute('data-step', name);
+      item.textContent = (step.querySelector('time') || {}).textContent || '';
+      progress.appendChild(item);
+    }
+  });
   var section = root.closest('.story');
   var currentStep = '';
+  var order = ['intro', 'the78first', 'fire', 'amtrakYard', 'swap', 'stadium', 'protest', 'rateField', 'explore'];
+  var appears = { upCanalYard: 'swap', stadium: 'stadium' };
+  function setChapterLayers(name) {
+    var at = order.indexOf(name);
+    Object.keys(appears).forEach(function (id) {
+      var show = at < 0 || at >= order.indexOf(appears[id]) || name === 'explore';
+      var layer = places[id].layer;
+      if (show && !map.hasLayer(layer)) layer.addTo(map);
+      if (!show && map.hasLayer(layer)) map.removeLayer(layer);
+    });
+  }
   function runStep(name) {
     if (name === currentStep || !storyViews[name]) return;
     currentStep = name;
+    setChapterLayers(name);
     if (section) section.classList.toggle('is-explore', name === 'explore');
     document.querySelectorAll('.story-step').forEach(function (step) { step.classList.toggle('is-active', step.getAttribute('data-story') === name); });
+    if (progress) {
+      var index = stepNames.indexOf(name);
+      progress.hidden = index < 0;
+      progress.querySelectorAll('li').forEach(function (item, i) { item.classList.toggle('is-done', i < index); item.classList.toggle('is-current', i === index); });
+    }
     storyViews[name]();
   }
   if ('IntersectionObserver' in window) {
