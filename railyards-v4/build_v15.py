@@ -15,7 +15,7 @@ materials={m.name[3:]:m for m in bpy.data.materials if m.name.startswith('D2_') 
 batch=MeshBatch(scene,materials)
 receipt={'source':str(source),'sourceSha256':hashlib.sha256(source.read_bytes()).hexdigest()}
 receipt['scoreboard']=r15_scoreboard.align_scoreboards(scene,batch,spec)
-for name in os.environ.get('V15_MODULES','r15_circulation,r15_seating,r15_rf_corner,r15_cameras,r15_geography,r15_landmarks').split(','):
+for name in os.environ.get('V15_MODULES','r15_circulation,r15_seating,r15_cameras,r15_geography,r15_landmarks').split(','):
     if name:
         module=__import__(name)
         receipt[name]=module.build(scene,batch,ROOT)

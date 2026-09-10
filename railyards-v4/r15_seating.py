@@ -115,7 +115,7 @@ AISLE_WIDTH = 1.20
 # hiding seats by object index.
 AISLE_SEAT_CLEARANCE = 0.30
 FOUNDATION_Z = 8.0
-BUILD_RF_BANKS = False   # see r15_rf_corner.py
+BUILD_RF_BANKS = True    # 2026-09-09: r15_rf_corner (wedge, river stack) reverted at Josh's request
 
 
 def _line_xy(front, back, bank, t, station):
