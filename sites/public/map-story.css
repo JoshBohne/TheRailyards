@@ -1,0 +1,242 @@
+/* Hybrid homepage enhancement, loaded by map.js. Scoped so shared gallery,
+   compare, and skyline styles do not change. No scroll-snap or scroll locks. */
+html.has-story-navigation {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+.map-page .story-step {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+.story-hybrid.story {
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+  gap: 0 36px;
+}
+.story-hybrid .story-map,
+.story-hybrid.is-explore .story-map {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: sticky;
+  top: 24px;
+  height: min(720px, calc(100svh - 48px));
+  min-height: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.story-hybrid .map-stage {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  border: 0;
+}
+.story-hybrid .leaflet-map {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+}
+.story-hybrid:not(.is-explore) .leaflet-map,
+.story-hybrid:not(.is-explore) .leaflet-map * {
+  touch-action: pan-y pinch-zoom;
+}
+.story-hybrid:not(.is-explore) .leaflet-map { pointer-events: none; }
+.story-hybrid:not(.is-explore) .leaflet-control-zoom { display: none; }
+.story-hybrid .story-cover,
+.story-hybrid .story-cover[data-open="false"] {
+  transition: none;
+  filter: none;
+}
+.story-hybrid .story-progress,
+.story-hybrid .story-hint { display: none; }
+.story-hybrid .story-nav,
+.story-hybrid.is-explore .story-nav {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) auto minmax(100px, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 64px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--bg);
+}
+.story-hybrid .story-nav button {
+  width: auto;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #c4ced4;
+  background: #fff;
+  color: #111111;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.story-hybrid .story-nav [data-story-next] {
+  background: #111111;
+  border-color: #111111;
+  color: #fff;
+}
+.story-hybrid .story-nav button[aria-disabled="true"] {
+  opacity: .45;
+  cursor: default;
+}
+.story-hybrid .story-nav [data-story-count] {
+  min-width: 64px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.story-hybrid .story-steps { padding: 0 0 35svh; }
+.story-hybrid .story-step {
+  position: relative;
+  min-height: 0;
+  padding: 36px 0 52px 16px;
+  justify-content: flex-start;
+  border-left: 2px solid transparent;
+  scroll-snap-align: none;
+  gap: 10px;
+}
+.story-hybrid .story-step.is-active { border-left-color: #8e989e; }
+/* Chapters ahead of the reader stay blurred until they reach them. */
+.story-hybrid .story-step { transition: filter .5s var(--panel-ease), opacity .5s var(--panel-ease); }
+.story-hybrid .story-step.is-upcoming { filter: blur(5px); opacity: .45; }
+@media (prefers-reduced-motion: reduce) { .story-hybrid .story-step { transition: none; } }
+.story-hybrid .story-step p { max-width: 42ch; font-size: 17px; line-height: 1.6; }
+.story-hybrid .story-step > a { min-height: 28px; padding-block: 4px; }
+.story-hybrid .story-image { width: 100%; max-height: none; aspect-ratio: 16 / 10; object-fit: cover; background: #e4e7e0; }
+/* Explore tools sit on the map: small chips above the attribution line. */
+.story-hybrid .story-explore-tools {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 24px;
+  z-index: 650;
+  pointer-events: none;
+}
+.story-hybrid:not(.is-explore) .story-explore-tools { display: none; }
+.story-hybrid .story-explore-tools .map-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.story-hybrid .story-explore-tools .map-controls,
+.story-hybrid .story-explore-tools .map-toggles,
+.story-hybrid .story-explore-tools .map-basemap { display: flex; flex-wrap: wrap; gap: 6px; border: 0; }
+.story-hybrid .story-explore-tools button {
+  pointer-events: auto;
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 1px solid #c4ced4;
+  border-radius: 999px;
+  background: #fffffff0;
+  color: #111111;
+  font-size: 12px;
+  line-height: 1.2;
+  box-shadow: 0 1px 4px #0000001f;
+}
+.story-hybrid .story-explore-tools button[aria-pressed="true"] { background: #111111; border-color: #111111; color: #fff; }
+.story-hybrid .story-explore-tools .map-basemap button + button { border-left: 1px solid #c4ced4; }
+.map-exit-fullscreen {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 660;
+  display: none;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #c4ced4;
+  border-radius: 50%;
+  background: #fffffff0;
+  color: #111111;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 4px #0000001f;
+}
+.story-map.is-fullscreen { position: fixed !important; inset: 0 !important; z-index: 900; width: 100% !important; height: 100svh !important; min-height: 0; border: 0; }
+.story-map.is-fullscreen .map-exit-fullscreen { display: grid; place-items: center; }
+html.story-fullscreen { overflow: hidden; }
+html.story-fullscreen .story-nav { display: none !important; }
+.story-hybrid .map-toolbar,
+.story-hybrid .map-legend { transition: none; }
+@media (max-width: 900px) {
+  .story-hybrid.story { display: block; padding-top: 8px; }
+  .story-hybrid .story-map,
+  .story-hybrid.is-explore .story-map {
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: clamp(160px, 30svh, 260px);
+  }
+  /* Explore gets two thirds of the screen. */
+  .story-hybrid.is-explore .story-map { height: 66svh; }
+  /* Previous / Next live at the bottom of the screen on phones, not between the map and the text. */
+  .story-hybrid .story-nav,
+  .story-hybrid.is-explore .story-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 700;
+    width: auto;
+    min-height: 0;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 -2px 10px #1c2a1f1f;
+  }
+  .story-hybrid .story-map .map-stage,
+  .story-hybrid.is-explore .story-map .map-stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+  }
+  .story-hybrid .story-nav { gap: 6px; }
+  .story-hybrid .story-nav button { font-size: 13px; padding: 10px 8px; }
+  .story-hybrid .story-step { padding: 24px 0 36px 12px; }
+  .story-hybrid .story-step p { font-size: 16px; max-width: none; }
+  .story-hybrid .story-steps { padding-bottom: calc(30svh + 72px); }
+  html.has-story-navigation .city-footer { padding-bottom: 80px; }
+  .story-hybrid .story-step:last-child { padding-bottom: 96px; }
+  .story-hybrid .story-image { width: 100%; max-height: none; }
+}
+@media (max-height: 440px) and (max-width: 900px) {
+  .story-hybrid .story-map,
+  .story-hybrid.is-explore .story-map { position: relative; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-hybrid *, .story-hybrid *::before, .story-hybrid *::after {
+    scroll-behavior: auto;
+  }
+}
+@media print {
+  .story-hybrid .story-map { display: none; }
+  .story-hybrid.story { display: block; }
+  .story-hybrid .story-steps { padding: 0; }
+  .story-hybrid .story-step { break-inside: avoid; padding: 20px 0; border: 0; }
+}
+.story-hybrid .leaflet-popup-content { margin: 12px 14px; font-size: 13px; line-height: 1.45; }
+.story-hybrid .leaflet-popup-content p { margin: 6px 0; color: #4a4a4a; }
+.story-hybrid .leaflet-popup-content img { width: 100%; border-radius: 3px; margin: 8px 0 2px; }
+.story-hybrid .leaflet-popup-content a { color: #111111; font-size: 12px; }
+.story-hybrid .leaflet-popup-content .map-detail-status { margin-left: 4px; }
+/* Small markers hide below their zoom so the overview is not a pile of icons. */
+.zoom-lt-14 .label-min-14.map-marker-station, .zoom-lt-15 .label-min-15.map-marker-station, .zoom-lt-16 .label-min-16.map-marker-station,
+.zoom-lt-14 .label-min-14.map-marker-boat, .zoom-lt-15 .label-min-15.map-marker-camera, .zoom-lt-14 .label-min-14.map-marker-parking, .zoom-lt-15 .label-min-15.map-marker-parking,
+.zoom-lt-13 .label-min-13.map-marker-concept, .zoom-lt-15 .label-min-15.map-marker-concept, .zoom-lt-16 .label-min-16.map-marker-concept { display: none; }
+.is-focused .map-marker-street { display: block; }

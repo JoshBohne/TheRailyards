@@ -3,19 +3,58 @@
 
   var root = document.getElementById('railyards-map');
   var data = window.RailyardsMapData;
-  if (!root || !window.L || !data) return;
+  if (!root) return;
+
+  // The homepage owns its enhancement styles; other pages and the generated
+  // inline skyline remain untouched. Load relative to this script, not the URL.
+  var storyStyles = document.getElementById('railyards-story-styles');
+  if (!storyStyles) {
+    storyStyles = document.createElement('link');
+    storyStyles.id = 'railyards-story-styles';
+    storyStyles.rel = 'stylesheet';
+    storyStyles.href = new URL('map-story.css?rev=20260910b', document.currentScript.src || document.baseURI).href;
+    document.head.appendChild(storyStyles);
+  }
+  if (!window.L || !data) return;
 
   var L = window.L;
   var origin = data.origin;
   var latScale = 1 / 110900;
   var lonScale = 1 / (111320 * Math.cos(origin.latitude_reference * Math.PI / 180));
   var homeOffset = origin.home_offset_xy_m || [0, 0];
-  /* Map-only display offset: keeps the illustrative footprint inside the Amtrak parcel and level with McDonald's Park across the river, as the renderings show. */
-  var displayOffset = [-0.0018, 0.0005];
-  var stadiumCenter = [
-    origin.latitude_reference - homeOffset[1] * latScale + displayOffset[0],
-    origin.longitude_reference - (homeOffset[0] + 33) * lonScale + displayOffset[1]
-  ];
+  /* Map-only display transform for the illustrative footprint: the diamond points north, the
+     outline is scaled to sit inside the Amtrak parcel, and it is centred level with McDonald's
+     Park across the river, as the renderings show. The model itself is untouched. */
+  var siteData = data.sites || {};
+  var parkRing = siteData.mcdonaldsPark || [];
+  var yardRing = siteData.amtrakYard || [];
+  var parkLat = parkRing.length ? parkRing.reduce(function (sum, p) { return sum + p[0]; }, 0) / parkRing.length : origin.latitude_reference;
+  function parcelSpan(lat) {
+    var xs = [];
+    for (var i = 0; i < yardRing.length; i++) {
+      var a = yardRing[i], b = yardRing[(i + 1) % yardRing.length];
+      if ((a[0] - lat) * (b[0] - lat) < 0) xs.push(a[1] + (b[1] - a[1]) * (lat - a[0]) / (b[0] - a[0]));
+    }
+    xs.sort(function (m, n) { return m - n; });
+    return xs.length >= 2 ? [xs[0], xs[xs.length - 1]] : [origin.longitude_reference - 0.0008, origin.longitude_reference + 0.0008];
+  }
+  var span = parcelSpan(parkLat);
+  var parcelCenterLng = (span[0] + span[1]) / 2;
+  var parcelWidth = (span[1] - span[0]) / lonScale;
+  var rotation = Math.PI / 4;
+  function rotated(point) {
+    var x = point[0] - homeOffset[0] - 33, y = point[1] - homeOffset[1];
+    return [x * Math.cos(rotation) - y * Math.sin(rotation), x * Math.sin(rotation) + y * Math.cos(rotation)];
+  }
+  var hullPoints = (data.bowlBack || []).concat(data.fieldBoundary || []).map(rotated);
+  var hullX = hullPoints.map(function (p) { return p[0]; }), hullY = hullPoints.map(function (p) { return p[1]; });
+  var hullMinX = Math.min.apply(null, hullX), hullMaxX = Math.max.apply(null, hullX);
+  var hullMinY = Math.min.apply(null, hullY), hullMaxY = Math.max.apply(null, hullY);
+  var hullCenter = [(hullMinX + hullMaxX) / 2, (hullMinY + hullMaxY) / 2];
+  // The strip is narrower than a real ballpark; let the outline touch the parcel edges rather than vanish.
+  var displayScale = Math.min(1, parcelWidth * 1.12 / (hullMaxX - hullMinX));
+  var stadiumCenter = [parkLat, parcelCenterLng];
+  var footprintTopLat = parkLat + (hullMaxY - hullCenter[1]) * displayScale * latScale;
 
   var map = L.map(root, {
     center: stadiumCenter,
@@ -23,11 +62,13 @@
     zoomSnap: 0.5,
     minZoom: 12,
     maxZoom: 17,
-    scrollWheelZoom: false
+    scrollWheelZoom: false,
+    zoomAnimation: true,
+    fadeAnimation: true,
+    markerZoomAnimation: true,
+    attributionControl: false
   });
-  map.attributionControl.setPrefix('');
-  map.on('focus', function () { map.scrollWheelZoom.enable(); });
-  map.on('blur', function () { map.scrollWheelZoom.disable(); });
+  /* Map credits live in the page footer instead of on the canvas. */
 
   var esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
   L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
@@ -63,7 +104,7 @@
     defs.innerHTML =
       '<pattern id="hatch-facility" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#f7dad8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#c94a45" stroke-width="3"/></pattern>' +
       '<pattern id="hatch-facility-sat" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#ff5a4f" stroke-width="2"/></pattern>' +
-      '<pattern id="hatch-site" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-45)"><rect width="8" height="8" fill="#eef1e6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#6b7f63" stroke-width="2"/></pattern>' +
+      '<pattern id="hatch-site" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-45)"><rect width="8" height="8" fill="#f2f2f2"/><line x1="0" y1="0" x2="0" y2="8" stroke="#6b7f63" stroke-width="2"/></pattern>' +
       '<pattern id="hatch-construction" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#fbeed0"/><line x1="0" y1="0" x2="0" y2="8" stroke="#d29a2c" stroke-width="2"/></pattern>';
     container.insertBefore(defs, container.firstChild);
   }
@@ -102,54 +143,41 @@
   }
   function pointsFromLocal(points) {
     return points.map(function (point) {
+      var p = rotated(point);
       return [
-        origin.latitude_reference + (point[1] - homeOffset[1]) * latScale + displayOffset[0],
-        origin.longitude_reference + (point[0] - homeOffset[0] - 33) * lonScale + displayOffset[1]
+        parkLat + (p[1] - hullCenter[1]) * displayScale * latScale,
+        parcelCenterLng + (p[0] - hullCenter[0]) * displayScale * lonScale
       ];
     });
   }
 
   var statusLabels = { existing: 'Existing', underConstruction: 'Under construction', proposed: 'Proposed', concept: 'Concept · unfunded', rendering: 'Published rendering' };
 
-  var detailNodes = {
-    status: document.querySelector('[data-map-detail-status]'),
-    title: document.querySelector('[data-map-detail-title]'),
-    copy: document.querySelector('[data-map-detail-copy]'),
-    link: document.querySelector('[data-map-detail-link]'),
-    figure: document.querySelector('[data-map-detail-figure]'),
-    image: document.querySelector('[data-map-detail-image]')
-  };
-  function showDetail(feature) {
-    if (detailNodes.status) {
-      detailNodes.status.textContent = statusLabels[feature.status];
-      detailNodes.status.setAttribute('data-status', feature.status);
-    }
-    if (detailNodes.title) detailNodes.title.textContent = feature.title;
-    if (detailNodes.figure && detailNodes.image) {
-      detailNodes.figure.hidden = !feature.image;
-      if (feature.image) { detailNodes.image.src = feature.image; detailNodes.image.alt = feature.imageAlt || feature.title; }
-      else detailNodes.image.removeAttribute('src');
-    }
-    if (detailNodes.copy) detailNodes.copy.textContent = feature.copy;
-    var panel = detailNodes.figure && detailNodes.figure.closest('.map-detail');
-    if (panel && window.innerWidth <= 900 && panel.offsetParent && (feature.image || feature.userSelected)) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    if (detailNodes.link) {
-      detailNodes.link.textContent = feature.sourceLabel;
-      detailNodes.link.href = feature.source;
-    }
+  /* Place details open as a popup on the map itself; there is no side panel. */
+  function showDetail(feature, latlng) {
+    if (!fullscreen) return;
+    var html = '<strong>' + escapeHtml(feature.title) + '</strong> <span class="map-detail-status" data-status="' + feature.status + '">' + escapeHtml(statusLabels[feature.status]) + '</span>';
+    if (feature.image) html += '<img src="' + feature.image + '" alt="' + escapeHtml(feature.imageAlt || feature.title) + '" loading="lazy">';
+    html += '<p>' + escapeHtml(feature.copy) + '</p>';
+    if (feature.source) html += '<a href="' + feature.source + '">' + escapeHtml(feature.sourceLabel || 'Source') + '</a>';
+    // Leaflet animates the popup's auto-pan; run it instantly so no delayed motion follows.
+    var panBy = map.panBy;
+    map.panBy = function (offset, options) { return panBy.call(map, offset, L.extend({}, options, { animate: false })); };
+    try { L.popup({ maxWidth: 280, autoPanPadding: [24, 24] }).setLatLng(latlng || feature.position).setContent(html).openOn(map); }
+    finally { map.panBy = panBy; }
   }
 
   var places = {};
   function register(feature) {
     var layers = feature.layer instanceof L.LayerGroup ? feature.layer.getLayers() : [feature.layer];
     layers.forEach(function (layer) {
-      layer.on('click', function () { feature.userSelected = true; showDetail(feature); feature.userSelected = false; });
+      layer.on('click', function (event) { showDetail(feature, event.latlng); });
     });
     feature.layer.addTo(feature.group || map);
     places[feature.id] = feature;
   }
 
-  function label(kind, text, minZoom, position) {
+  function label(kind, text, minZoom, position, extraClass) {
     var glyphs = {
       station: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="2.5" width="12" height="12.5" rx="2.5" fill="#fff"/><rect x="6" y="4.5" width="8" height="4.5" rx="1" fill="currentColor"/><circle cx="7.4" cy="11.8" r="1.2" fill="currentColor"/><circle cx="12.6" cy="11.8" r="1.2" fill="currentColor"/><path d="M6 15.5l-1.6 2.5M14 15.5l1.6 2.5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>',
       parking: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><text x="10" y="14.6" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="system-ui,sans-serif">P</text></svg>',
@@ -162,12 +190,12 @@
       text: ''
     };
     var icon = L.divIcon({
-      className: 'map-marker map-marker-' + kind + ' label-min-' + minZoom,
+      className: 'map-marker map-marker-' + kind + ' label-min-' + minZoom + (extraClass ? ' ' + extraClass : ''),
       html: (glyphs[kind] ? '<span class="map-marker-glyph">' + glyphs[kind] + '</span>' : '') + '<span class="map-marker-label">' + escapeHtml(text) + '</span>',
       iconSize: kind === 'text' ? [0, 0] : [24, 24],
       iconAnchor: kind === 'text' ? [0, 0] : [12, 12]
     });
-    return L.marker(position, { icon: icon, zIndexOffset: kind === 'text' ? 0 : 200, keyboard: kind !== 'text' });
+    return L.marker(position, { icon: icon, zIndexOffset: kind === 'text' ? 0 : 200, keyboard: kind !== 'text', autoPanOnFocus: false });
   }
 
   var sites = data.sites || {};
@@ -192,12 +220,12 @@
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
     position: stadiumCenter, zoom: 15,
     layer: L.layerGroup([
-      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#5f7a66', fillOpacity: 0.85, className: 'map-site-fill' }),
+      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#111111', weight: 2, fillColor: '#3a3a3a', fillOpacity: 0.85, className: 'map-site-fill' }),
       L.polygon(pointsFromLocal(fieldOutline()), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[0, 0], [27.43, 0], [27.43, 27.43], [0, 27.43]]), { renderer: renderer, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[5, 5], [23, 5], [23, 23], [5, 23]]), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
       L.circle([0, 0].length ? pointsFromLocal([[0, 0]])[0] : stadiumCenter, { renderer: renderer, radius: 4, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
-      label('ballpark', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
+      label('text', 'The Railyards', 11, [parkLat, stadiumCenter[1] - 0.0033])
     ])
   });
 
@@ -209,7 +237,7 @@
     position: [41.834, -87.6373], zoom: 15, basemap: 'satellite',
     layer: L.layerGroup([
       L.polygon(sites.upCanalYard, { renderer: renderer, color: '#c94a45', weight: 2, fillColor: 'url(#hatch-facility)', fillOpacity: 1, className: 'map-facility' }),
-      label('text', 'Amtrak’s new facility', 12, [41.8335, -87.6373])
+      label('text', 'Amtrak’s new facility', 12, [41.8390, -87.6373])
     ])
   });
 
@@ -221,7 +249,21 @@
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
       L.polygon(convexHull([].concat.apply([], sites.the78.map(function (ring) { return ring[0]; }))), { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
-      label('soccer', 'McDonald’s Park', 13, [41.8622, -87.6322])
+      label('text', 'The 78', 13, [41.8628, L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).getCenter().lng])
+    ])
+  });
+
+  /* The stadium footprint itself: the OpenStreetMap construction outline, shown from the groundbreaking chapter on. */
+  var parkBounds = L.latLngBounds(sites.mcdonaldsPark);
+  register({
+    id: 'mcdonaldsPark', status: 'underConstruction',
+    title: 'McDonald’s Park · The 78',
+    copy: 'The Chicago Fire’s 22,000-seat stadium across the river. Broke ground March 2026, opens 2028.',
+    source: 'sources.html#chicagofire-2026-03-03', sourceLabel: 'Chicago Fire · Mar 3, 2026',
+    position: parkBounds.getCenter(), zoom: 16,
+    layer: L.layerGroup([
+      L.polygon(sites.mcdonaldsPark, { renderer: renderer, color: '#9a6a12', weight: 2, fillColor: '#d9a441', fillOpacity: 0.85, className: 'map-site-fill' }),
+      label('text', 'McDonald’s Park', 13, [parkBounds.getNorth() - 0.0003, parkBounds.getCenter().lng])
     ])
   });
 
@@ -232,7 +274,7 @@
     source: 'sources.html#suntimes-2024-02-08', sourceLabel: 'Sun-Times · Feb 8, 2024',
     position: [41.8299, -87.6338], zoom: 15,
     layer: L.layerGroup([
-      L.polygon(sites.rateField, { renderer: renderer, color: '#4a5a4f', weight: 1.5, fillColor: '#c9cfc6', fillOpacity: 0.8 }),
+      L.polygon(sites.rateField, { renderer: renderer, color: '#4a5a4f', weight: 1.5, fillColor: '#c4ced4', fillOpacity: 0.8 }),
       label('ballpark', 'Rate Field', 11, [41.8299, -87.6338])
     ])
   });
@@ -365,173 +407,423 @@
   register(clintonFeature);
   [['North/Clybourn', [41.9107, -87.6487], 15], ['Chicago', [41.8965, -87.6432], 15], ['Grand', [41.8915, -87.6432], 15], ['Union Station', [41.8786, -87.6410], 16], ['Clinton', [41.8755, -87.6410], 16], ['Roosevelt · Clinton', [41.8673, -87.6410], 13], ['Chinatown', [41.8535, -87.6310], 15]].forEach(function (stop) {
     var marker = label('concept', stop[0], stop[2], stop[1]);
-    marker.on('click', function () { showDetail(clintonFeature); });
+    marker.on('click', function (event) { showDetail(clintonFeature, event.latlng); });
     marker.addTo(conceptLayer);
   });
 
+  /* Street reference so the parcel reads against the city. */
+  L.layerGroup([label('area', 'Roosevelt Rd', 13, [41.86735, -87.6352], 'map-marker-street')]).addTo(map);
+
   var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer, renderings: renderLayer };
+  function fitInstant(bounds, padding, maxZoom) {
+    map.stop();
+    map.fitBounds(bounds, { padding: [padding, padding], maxZoom: maxZoom || 17, animate: false });
+  }
+  /* Chapter changes glide between views (south to Bridgeport and back). Any new chapter stops the
+     flight first, so the map can never arrive somewhere the reader has already left. */
+  function fitChapter(bounds, padding, maxZoom) {
+    map.stop();
+    if (!map.flyToBounds || motionPreference.matches) { fitInstant(bounds, padding, maxZoom); return; }
+    map.flyToBounds(bounds, { padding: [padding, padding], maxZoom: maxZoom || 17, duration: 1.4, easeLinearity: 0.3 });
+  }
   document.querySelectorAll('[data-map-layer]').forEach(function (button) {
     button.addEventListener('click', function () {
       var layer = groups[button.getAttribute('data-map-layer')];
-      if (!layer) return;
+      if (!layer || !fullscreen) return;
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (on && layer === parkingLayer) {
         var bounds = L.latLngBounds([stadiumCenter]);
         layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
-        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+        fitInstant(bounds, 40);
       }
       if (on && layer === renderLayer) {
+        fitInstant(L.latLngBounds([places.renderNorth.position, places.renderSouth.position, places.renderBridge.position]), 40);
         showDetail(places.renderNorth);
-        map.flyToBounds(L.latLngBounds([places.renderNorth.position, places.renderSouth.position, places.renderBridge.position]), { padding: [40, 40], duration: 0.8 });
       }
       if (on && layer === conceptLayer) {
+        fitInstant(L.latLngBounds([stadiumCenter, [41.8765, -87.6425], [41.8600, -87.6300]]), 30);
         showDetail(clintonFeature);
-        map.flyToBounds(L.latLngBounds([stadiumCenter, [41.8765, -87.6425], [41.8600, -87.6300]]), { padding: [30, 30], duration: 0.8 });
       }
     });
   });
   var overview = L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]);
-  function focusPlace(id, button, instant, keepBasemap) {
+  function focusPlace(id, button) {
     var place = places[id];
     if (!place) return;
+    setBasemap(place.basemap || 'map');
+    if (place.group && !map.hasLayer(place.group)) place.group.addTo(map);
+    syncLayerButtons();
+    map.stop();
+    map.setView(place.position, place.zoom, { animate: false });
+    // Open the popup after the view is set so its auto-pan is not cancelled.
     showDetail(place);
-    if (!keepBasemap) setBasemap(place.basemap || 'map');
-    if (instant || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) map.setView(place.position, place.zoom);
-    else map.flyTo(place.position, place.zoom, { duration: 0.9, easeLinearity: 0.35 });
     document.querySelectorAll('[data-map-focus]').forEach(function (item) {
       item.setAttribute('aria-pressed', item === button || item.getAttribute('data-map-focus') === id ? 'true' : 'false');
     });
   }
   document.querySelectorAll('[data-map-focus]').forEach(function (button) {
     button.addEventListener('click', function () {
-      focusPlace(button.getAttribute('data-map-focus'), button);
+      if (fullscreen) focusPlace(button.getAttribute('data-map-focus'), button);
     });
   });
 
   function updateZoomClasses() {
     var zoom = map.getZoom();
-    [12, 13, 14, 15].forEach(function (level) { root.classList.toggle('zoom-lt-' + level, zoom < level); });
+    [12, 13, 14, 15, 16].forEach(function (level) { root.classList.toggle('zoom-lt-' + level, zoom < level); });
   }
   map.on('zoomend', updateZoomClasses);
   updateZoomClasses();
 
-  /* Scroll-driven story: each step pins the map to a place; the last step opens the controls. */
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var bothYards = L.latLngBounds(sites.amtrakYard.concat(sites.upCanalYard));
-  var flight = { duration: reduceMotion ? 0 : 0.9, easeLinearity: 0.35 };
-  function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: flight.duration, easeLinearity: flight.easeLinearity }); }
-  var cover = document.querySelector('.story-cover');
-  function setCover(open) { if (cover) cover.setAttribute('data-open', open ? 'true' : 'false'); }
-  var yardNotes = L.layerGroup([
-    label('text', 'North end · train storage', 12, [41.8447, -87.6373]),
-    label('text', 'South end · shop building, 33rd–35th', 12, [41.8292, -87.6373])
-  ]);
-  var storyViews = {
-    intro: function () { setCover(true); setBasemap('satellite'); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), 30); showDetail(places.stadium); },
-    the78first: function () { setCover(false); setBasemap('satellite'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
-    fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, flight); },
-    amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
-    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); var yard = L.latLngBounds(sites.upCanalYard); map.flyTo(yard.getCenter(), map.getBoundsZoom(yard, false, [20, 20]) + 1, flight); },
-    stadium: function () { setBasemap('map'); focusPlace('stadium'); },
-    explore: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); }
-  };
-  var progress = document.querySelector('.story-progress');
-  var stepNames = [];
-  document.querySelectorAll('.story-step').forEach(function (step) {
-    var name = step.getAttribute('data-story');
-    if (name === 'intro' || name === 'explore') return;
-    stepNames.push(name);
-    if (progress) {
-      var item = document.createElement('li');
-      item.setAttribute('data-step', name);
-      item.textContent = (step.querySelector('time') || {}).textContent || '';
-      progress.appendChild(item);
-    }
-  });
+  /* Hybrid story: document position is the only authority for chapter state.
+     Buttons request a scroll destination; they never call runStep directly. */
   var section = root.closest('.story');
-  document.documentElement.classList.add('story-snap');
+  if (!section) return;
+  var steps = Array.prototype.slice.call(section.querySelectorAll('.story-step'));
+  if (!steps.length) return;
   var currentStep = '';
-  /* What each chapter shows. Everything else on the map is hidden until Explore. */
-  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
-  var chapterSites = {
-    intro: ['amtrakYard', 'the78'],
-    the78first: ['the78'],
-    fire: ['the78'],
-    amtrakYard: ['amtrakYard', 'the78'],
-    swap: ['upCanalYard'],
-    stadium: ['stadium', 'amtrakYard', 'the78'],
-    explore: siteIds
+  var currentIndex = -1;
+  var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var stacked = window.matchMedia('(max-width: 900px)');
+  var stage = section.querySelector('.map-stage');
+  var pinned = section.querySelector('.story-map');
+  var nav = section.querySelector('.story-nav');
+  var navPrev = section.querySelector('[data-story-prev]');
+  var navNext = section.querySelector('[data-story-next]');
+  var navCount = section.querySelector('[data-story-count]');
+  var cover = section.querySelector('.story-cover');
+  var tools;
+  var exitButton;
+  var fullscreen = false;
+  var pendingFocus = null;
+  var announcement;
+  var anchors;
+  var started = false;
+  var frame = 0;
+  var pending = null;
+  var resizeMap = true;
+  var resetSelection = true;
+  var lastMapWidth = 0, lastMapHeight = 0;
+  var lastViewportWidth = window.innerWidth;
+  var HYSTERESIS = 12;
+  var compactHeight = 0;
+  var refitOnResize = false;
+  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'mcdonaldsPark', 'rateField'];
+  var northBounds = L.latLngBounds(sites.amtrakYard);
+  sites.the78.forEach(function (polygon) { northBounds.extend(L.latLngBounds(polygon[0])); });
+  var yardNotes = L.layerGroup([
+    label('text', 'North end · storage', 12, [41.8447, -87.6472]),
+    label('text', 'South end · shop', 12, [41.8283, -87.6472])
+  ]);
+  var chapters = {
+    intro: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
+    the78first: { sites: ['the78'], bounds: northBounds, padding: 30 },
+    fire: { sites: ['the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
+    amtrakYard: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
+    swap: { sites: ['upCanalYard', 'rateField'], bounds: L.latLngBounds(sites.upCanalYard).extend(sites.rateField), padding: 30, basemap: 'satellite' },
+    stadium: { sites: ['stadium', 'amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
+    explore: { sites: siteIds, bounds: overview, padding: 20 }
   };
-  function setChapterLayers(name) {
-    var show = chapterSites[name] || siteIds;
-    siteIds.forEach(function (id) {
-      var layer = places[id].layer;
-      var on = show.indexOf(id) >= 0;
-      if (on && !map.hasLayer(layer)) layer.addTo(map);
-      if (!on && map.hasLayer(layer)) map.removeLayer(layer);
+
+  function syncLayerButtons() {
+    document.querySelectorAll('[data-map-layer]').forEach(function (button) {
+      button.setAttribute('aria-pressed', map.hasLayer(groups[button.getAttribute('data-map-layer')]) ? 'true' : 'false');
     });
-    if (name === 'swap' && !map.hasLayer(yardNotes)) yardNotes.addTo(map);
-    if (name !== 'swap' && map.hasLayer(yardNotes)) map.removeLayer(yardNotes);
-    var transitOn = name === 'explore' || name === 'intro';
-    if (transitOn && !map.hasLayer(transitLayer)) transitLayer.addTo(map);
-    if (!transitOn && map.hasLayer(transitLayer)) map.removeLayer(transitLayer);
-    var transitButton = document.querySelector('[data-map-layer="transit"]');
-    if (transitButton) transitButton.setAttribute('aria-pressed', map.hasLayer(transitLayer) ? 'true' : 'false');
   }
-  function runStep(name) {
-    if (name === currentStep || !storyViews[name]) return;
+  function setLayer(layer, on) {
+    if (on && !map.hasLayer(layer)) layer.addTo(map);
+    if (!on && map.hasLayer(layer)) map.removeLayer(layer);
+  }
+  function setInteractions(explore) {
+    ['dragging', 'touchZoom', 'doubleClickZoom', 'boxZoom', 'keyboard', 'tapHold'].forEach(function (name) {
+      if (map[name]) map[name][explore ? 'enable' : 'disable']();
+    });
+    // Wheel/trackpad scrolling always belongs to the article, even in Explore.
+    map.scrollWheelZoom.disable();
+    root.inert = !explore;
+    root.setAttribute('tabindex', explore ? '0' : '-1');
+    root.setAttribute('role', 'region');
+    root.setAttribute('aria-label', explore ? 'Interactive map. Drag to pan, use plus and minus to zoom, and select a place for details.' : 'Map illustrating the current story chapter');
+    if (tools) tools.inert = !explore;
+  }
+  /* A view is a chapter's map state; "explore" is the full-screen map, not a chapter. */
+  function applyView(name, instant) {
+    var chapter = chapters[name];
+    var explore = name === 'explore';
+    map.stop();
+    siteIds.forEach(function (id) { setLayer(places[id].layer, chapter.sites.indexOf(id) !== -1); });
+    setLayer(yardNotes, name === 'swap');
+    // Reconcile EVERY auxiliary layer; the full-screen map cannot leak overlays into the story.
+    Object.keys(groups).forEach(function (key) { setLayer(groups[key], explore && key === 'transit'); });
+    syncLayerButtons();
+    setBasemap(chapter.basemap || 'map');
+    section.classList.toggle('is-explore', explore);
+    root.classList.toggle('is-focused', !explore);
+    if (cover) cover.setAttribute('data-open', name === 'intro' ? 'true' : 'false');
+    setInteractions(explore);
+    if (instant) fitInstant(chapter.bounds, chapter.padding, 16); else fitChapter(chapter.bounds, chapter.padding, 16);
+    refitOnResize = explore;
+    if (!explore) map.closePopup();
+    root.setAttribute('data-story-view', name);
+  }
+  function runStep(index) {
+    var name = steps[index].getAttribute('data-story');
+    if (name === currentStep || !chapters[name]) return;
+    var firstRun = !currentStep;
     currentStep = name;
-    setChapterLayers(name);
-    if (section) section.classList.toggle('is-explore', name === 'explore');
-    root.classList.toggle('is-focused', name !== 'explore');
-    if (name !== 'intro') setCover(false);
-    document.querySelectorAll('.story-step').forEach(function (step) { step.classList.toggle('is-active', step.getAttribute('data-story') === name); });
-    if (progress) {
-      var index = stepNames.indexOf(name);
-      progress.hidden = index < 0;
-      progress.querySelectorAll('li').forEach(function (item, i) { item.classList.toggle('is-done', i < index); item.classList.toggle('is-current', i === index); });
-    }
-    storyViews[name]();
+    currentIndex = index;
+    if (fullscreen) setFullscreen(false);
+    applyView(name, firstRun);
+    steps.forEach(function (step, i) {
+      step.classList.toggle('is-active', i === index);
+      step.classList.toggle('is-upcoming', i > index);
+      if (i === index) step.setAttribute('aria-current', 'step');
+      else step.removeAttribute('aria-current');
+    });
+    section.setAttribute('data-active-story', name);
     updateNav();
   }
-  var steps = Array.prototype.slice.call(document.querySelectorAll('.story-step'));
-  var navPrev = document.querySelector('[data-story-prev]'), navNext = document.querySelector('[data-story-next]'), navCount = document.querySelector('[data-story-count]');
-  function stepIndex() { return steps.findIndex(function (step) { return step.getAttribute('data-story') === currentStep; }); }
-  function goTo(index) {
-    var step = steps[Math.max(0, Math.min(steps.length - 1, index))];
-    if (step) step.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: window.innerWidth <= 900 ? 'start' : 'center' });
+  function setFullscreen(on) {
+    on = !!on;
+    if (on === fullscreen) return;
+    fullscreen = on;
+    pinned.classList.toggle('is-fullscreen', on);
+    document.documentElement.classList.toggle('story-fullscreen', on);
+    if (!on) pendingFocus = null;
+    if (currentStep) applyView(on ? 'explore' : currentStep, true);
+    resizeMap = true;
+    queueFrame();
+    if (on) root.focus({ preventScroll: true }); else navNext.focus({ preventScroll: true });
   }
-  if (navPrev) navPrev.addEventListener('click', function () { goTo(stepIndex() - 1); });
-  if (navNext) navNext.addEventListener('click', function () { goTo(stepIndex() + 1); });
   function updateNav() {
-    var index = stepIndex();
-    if (navCount) navCount.textContent = index <= 0 ? '' : (index) + ' / ' + (steps.length - 1);
-    if (navPrev) navPrev.disabled = index <= 0;
-    if (navNext) navNext.disabled = index >= steps.length - 1;
+    // Pending destination is for rapid-click arithmetic only. The visible count
+    // and disabled states always describe the chapter at the reading line.
+    navCount.textContent = currentIndex === 0 ? 'The story' : currentIndex + ' of ' + (steps.length - 1);
+    var last = currentIndex === steps.length - 1 && !pending;
+    navPrev.setAttribute('aria-disabled', currentIndex <= 0 && !pending ? 'true' : 'false');
+    navNext.setAttribute('aria-disabled', 'false');
+    navPrev.textContent = '← Previous';
+    navNext.textContent = last ? 'Full screen ⤢' : currentIndex <= 0 ? 'Start →' : 'Next →';
+    navNext.setAttribute('aria-label', last ? 'Show the map full screen' : currentIndex <= 0 ? 'Start the story' : 'Next chapter');
   }
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) { if (entry.isIntersecting) runStep(entry.target.getAttribute('data-story')); });
-    }, { rootMargin: window.innerWidth <= 900 ? '-52% 0px -22% 0px' : '-45% 0px -45% 0px', threshold: 0 });
-    document.querySelectorAll('.story-step').forEach(function (step) { observer.observe(step); });
-    /* The last card is short and ends the page, so it opens as soon as it scrolls into the lower half. */
-    var exploreStep = document.querySelector('.story-explore');
-    function checkExplore() {
-      if (!exploreStep) return;
-      var top = exploreStep.getBoundingClientRect().top;
-      if (top < window.innerHeight * 0.8 && top > 0) runStep('explore');
+  function viewport() {
+    var visual = window.visualViewport;
+    return { top: visual ? visual.offsetTop : 0, height: visual ? visual.height : window.innerHeight };
+  }
+  function readingLine(destination) {
+    var view = viewport();
+    if (!stacked.matches || getComputedStyle(pinned).position !== 'sticky') return view.top + view.height * 0.35;
+    var rect = pinned.getBoundingClientRect();
+    // Explore grows the map; chapter selection keeps using the compact height so it cannot flip back and forth.
+    if (!section.classList.contains('is-explore')) compactHeight = rect.height;
+    var height = section.classList.contains('is-explore') && compactHeight ? Math.min(compactHeight, rect.height) : rect.height;
+    var pinnedBottom = (parseFloat(getComputedStyle(pinned).top) || 0) + height;
+    var bottom = destination ? pinnedBottom : Math.min(rect.bottom, pinnedBottom);
+    bottom = Math.max(view.top, bottom);
+    return bottom + Math.min(64, Math.max(0, view.top + view.height - bottom) * 0.18);
+  }
+  function chooseIndex(tops, line) {
+    if (currentIndex < 0 || resetSelection) {
+      var selected = 0;
+      tops.forEach(function (top, i) { if (top <= line) selected = i; });
+      return selected;
     }
-    window.addEventListener('scroll', checkExplore, { passive: true });
-    checkExplore();
-  } else if (section) section.classList.add('is-explore');
+    var index = currentIndex;
+    while (index + 1 < tops.length && tops[index + 1] <= line - HYSTERESIS) index++;
+    while (index > 0 && tops[index] > line + HYSTERESIS) index--;
+    return index;
+  }
+  function queueFrame() {
+    if (started && !frame) frame = window.requestAnimationFrame(reconcile);
+  }
+  function reconcile() {
+    frame = 0;
+    if (resizeMap) {
+      resizeMap = false;
+      var width = root.clientWidth, height = root.clientHeight;
+      if (width !== lastMapWidth || height !== lastMapHeight) {
+        lastMapWidth = width;
+        lastMapHeight = height;
+        map.invalidateSize({ animate: false, pan: false });
+        // Resizing while exploring must not replace the user's chosen view.
+        if (fullscreen) {
+          if (refitOnResize) fitInstant(chapters.explore.bounds, chapters.explore.padding, 16);
+          if (pendingFocus) { focusPlace(pendingFocus); pendingFocus = null; }
+        } else if (currentStep) fitInstant(chapters[currentStep].bounds, chapters[currentStep].padding, 16);
+        refitOnResize = false;
+      }
+    }
+    var tops = anchors.map(function (anchor) { return anchor.getBoundingClientRect().top; });
+    var next = chooseIndex(tops, readingLine(false));
+    resetSelection = false;
+    runStep(next);
+    if (pending) {
+      var y = window.scrollY;
+      if (Math.abs(y - pending.top) <= 2) {
+        var arrived = pending.index;
+        var requestedPlace = pending.place;
+        pending = null;
+        if (requestedPlace && currentIndex === arrived) { pendingFocus = requestedPlace; setFullscreen(true); }
+        // The tracker has already committed the visible chapter. No delayed
+        // callback can resurrect a canceled target or overwrite its map.
+        if (currentIndex === arrived) announcement.textContent = navCount.textContent + ': ' + steps[arrived].querySelector('h1,h2').textContent;
+        updateNav();
+      } else {
+        pending.still = Math.abs(y - pending.lastY) < 0.5 ? pending.still + 1 : 0;
+        pending.lastY = y;
+        if (pending.still > 12 || performance.now() - pending.started > 1800) {
+          // Completion fallback, not a chapter debounce or a scroll lock.
+          cancelNavigation();
+        } else queueFrame();
+      }
+    }
+  }
+  function cancelNavigation() {
+    if (!pending) return;
+    pending = null;
+    // With CSS scroll-behavior:auto this also cancels a native smooth scroll
+    // in Safari, without preventing the wheel/touch/key event's default action.
+    window.scrollTo({ top: window.scrollY, left: window.scrollX, behavior: 'auto' });
+    updateNav();
+    queueFrame();
+  }
+  function goTo(index, instant) {
+    index = Math.max(0, Math.min(steps.length - 1, index));
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    // Land just past the forward hysteresis boundary, never under the pinned UI.
+    var top = Math.max(0, Math.min(maxScroll, window.scrollY + anchors[index].getBoundingClientRect().top - readingLine(true) + HYSTERESIS + 2));
+    cancelNavigation();
+    pending = { index: index, top: top, started: performance.now(), lastY: window.scrollY, still: 0 };
+    updateNav();
+    window.scrollTo({ top: top, behavior: instant || motionPreference.matches ? 'auto' : 'smooth' });
+    queueFrame();
+  }
+  function manualInput(event) {
+    if (!pending) return;
+    if (event.type === 'keydown') {
+      var target = event.target instanceof Element ? event.target : document.body;
+      if (target.closest('input,textarea,select,[contenteditable="true"]')) return;
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].indexOf(event.key) === -1) return;
+      if (event.key === ' ' && target.closest('button')) return;
+    }
+    // A second touch/click on Next should advance the requested destination.
+    if ((event.type === 'pointerdown' || event.type === 'touchstart') && event.target instanceof Element && event.target.closest('.story-nav button')) return;
+    cancelNavigation();
+  }
+  function layoutChanged() {
+    if (window.innerWidth !== lastViewportWidth) {
+      cancelNavigation();
+      lastViewportWidth = window.innerWidth;
+    }
+    resetSelection = true;
+    resizeMap = true;
+    queueFrame();
+  }
+  function startStory() {
+    if (started || !nav || !navPrev || !navNext || !navCount) return;
+    started = true;
+    // The stylesheet is in; hand the chapter look back to it.
+    steps.forEach(function (step) { step.style.opacity = ''; step.style.transform = ''; step.style.filter = ''; step.style.transition = ''; });
+    document.documentElement.classList.remove('story-snap');
+    document.documentElement.classList.add('has-story-navigation');
+    section.classList.add('story-hybrid');
+    section.querySelectorAll('.story-progress,.story-hint').forEach(function (node) { node.hidden = true; });
+    // Outside the map canvas and cover, but inside the stable sticky wrapper.
+    pinned.insertBefore(nav, stage.nextSibling);
+    nav.hidden = false;
+    nav.setAttribute('role', 'group');
+    nav.setAttribute('aria-label', 'Story navigation');
+    navPrev.setAttribute('aria-label', 'Previous chapter');
+    navCount.removeAttribute('aria-live');
+    navPrev.disabled = false;
+    navNext.disabled = false;
+    var list = section.querySelector('.story-steps');
+    if (!list.id) list.id = 'story-chapters';
+    navPrev.setAttribute('aria-controls', list.id);
+    navNext.setAttribute('aria-controls', list.id);
+    announcement = document.createElement('span');
+    announcement.className = 'sr-only';
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-atomic', 'true');
+    nav.appendChild(announcement);
+    tools = document.createElement('div');
+    tools.className = 'story-explore-tools';
+    section.querySelectorAll('.map-toolbar').forEach(function (node) { tools.appendChild(node); });
+    section.querySelectorAll('.map-legend').forEach(function (node) { node.remove(); });
+    stage.appendChild(tools);
+    exitButton = document.createElement('button');
+    exitButton.type = 'button';
+    exitButton.className = 'map-exit-fullscreen';
+    exitButton.innerHTML = '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+    exitButton.setAttribute('aria-label', 'Exit full screen');
+    exitButton.addEventListener('click', function () { setFullscreen(false); });
+    stage.appendChild(exitButton);
+    // Capture phase: Leaflet's own keyboard handler swallows Escape when it has a popup to close.
+    window.addEventListener('keydown', function (event) { if (event.key === 'Escape' && fullscreen) setFullscreen(false); }, true);
+    anchors = steps.map(function (step) {
+      var anchor = step.querySelector('time') || step.querySelector('h1,h2');
+      anchor.setAttribute('data-story-anchor', '');
+      return anchor;
+    });
+    // The existing inline onerror collapses a whole chapter figure. Preserve its
+    // reserved aspect-ratio box even when an image is unavailable or still loading.
+    section.querySelectorAll('.story-image').forEach(function (image) {
+      image.removeAttribute('onerror');
+      image.onerror = null;
+      if (!image.closest('.story-slide')) image.parentElement.hidden = false;
+    });
+    navPrev.addEventListener('click', function () {
+      if (!pending && currentIndex <= 0) return;
+      goTo((pending ? pending.index : currentIndex) - 1);
+    });
+    navNext.addEventListener('click', function () {
+      if (!pending && currentIndex === steps.length - 1) { setFullscreen(true); return; }
+      goTo((pending ? pending.index : currentIndex) + 1);
+    });
+    window.addEventListener('scroll', queueFrame, { passive: true });
+    ['wheel', 'touchstart', 'touchmove', 'pointerdown'].forEach(function (type) { window.addEventListener(type, manualInput, { passive: true, capture: true }); });
+    window.addEventListener('keydown', manualInput, true);
+    window.addEventListener('resize', layoutChanged, { passive: true });
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', layoutChanged, { passive: true });
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) cancelNavigation();
+      layoutChanged();
+    });
+    window.addEventListener('pagehide', cancelNavigation);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) cancelNavigation(); else layoutChanged(); });
+    var motionChanged = function () { cancelNavigation(); queueFrame(); };
+    if (motionPreference.addEventListener) motionPreference.addEventListener('change', motionChanged);
+    else motionPreference.addListener(motionChanged);
+    if ('ResizeObserver' in window) {
+      var observer = new ResizeObserver(function () { resizeMap = true; queueFrame(); });
+      observer.observe(root);
+      steps.forEach(function (step) { observer.observe(step); });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutChanged);
+    var requested = new URLSearchParams(window.location.search).get('place');
+    if (places[requested]) {
+      goTo(steps.length - 1, true);
+      // Focus only after the same tracker commits Explore at the destination.
+      // Canceling navigation also cancels this one-time deep-link focus.
+      pending.place = requested;
+    } else queueFrame();
+  }
 
-  var requested = new URLSearchParams(window.location.search).get('place');
-  map.fitBounds(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), { padding: [30, 30] });
-  setBasemap('satellite');
-  setChapterLayers('intro');
-  if (places[requested]) { setCover(false); if (section) section.classList.add('is-explore'); currentStep = 'explore'; setChapterLayers('explore'); focusPlace(requested, null, true); document.querySelector('.story-explore').scrollIntoView(); }
-  else showDetail(places.stadium);
-  window.setTimeout(function () { map.invalidateSize(); }, 0);
+  // A delayed stylesheet must not leave the prose blurred or expose dead controls.
+  steps.forEach(function (step) {
+    step.style.opacity = '1';
+    step.style.transform = 'none';
+    step.style.filter = 'none';
+    step.style.transition = 'none';
+  });
+  if (nav) nav.hidden = true;
+  setInteractions(false);
+  storyStyles.addEventListener('load', startStory);
+  storyStyles.addEventListener('error', function () {
+    // No enhancement stylesheet: still run the story, with the shared styles only.
+    if (cover) cover.setAttribute('data-open', 'false');
+    startStory();
+  });
+  if (storyStyles.sheet) startStory();
 })();
