@@ -19,7 +19,7 @@ import math
 import random
 
 import bpy
-from mathutils import Vector
+from mathutils import Matrix, Vector
 
 from r11_circulation import rail
 from r13_outfield import remove_collection
@@ -32,6 +32,10 @@ from r2_geometry import instances
 LF_BANKS = (
     {
         "name": "lower",
+        "inner": "radial",
+        "parallel": (41.1, 6.8),
+        "end_x": 24.0,
+        "depth_scale": 62.0,
         "t0": 0.00,
         "t1": 0.34,
         "z0": 14.0,
@@ -40,15 +44,22 @@ LF_BANKS = (
         "end0": (24.0, 110.85),
         "end1": (24.0, 137.00),
     },
+    # 2026-09-08 user correction: drop the rearmost row that sat under the box
+    # floors. Seven rows keep the original 8-row pitch and rise (t1, z1 and
+    # end1 are scaled by 7/8), so the bank shortens at the rear only.
     {
         "name": "upper",
+        "inner": "back",
+        "parallel": (41.1, 6.8),
+        "end_x": 24.0,
+        "depth_scale": 62.0,
         "t0": 0.40,
-        "t1": 0.49,
+        "t1": 0.47875,
         "z0": 27.0,
-        "z1": 30.0,
-        "rows": 8,
+        "z1": 29.625,
+        "rows": 7,
         "end0": (24.0, 134.80),
-        "end1": (24.0, 142.30),
+        "end1": (24.0, 141.3625),
     },
 )
 
@@ -65,6 +76,13 @@ RF_BANKS = (
         "z0": 14.0,
         "z1": 24.0,
         "rows": 24,
+        # 2026-09-09 (Josh, rf thumbs-down "wonky like the angled seating"):
+        # rows parallel to the first row's line to the RF wall corner, ending
+        # on one straight line through (102, 2), inner ends on the bowl radial.
+        "inner": "radial",
+        "parallel": (26.8, 22.9),
+        "end_x": 102.0,
+        "depth_scale": 62.0,
         "end0": (102.0, 2.0),
         "end1": (111.0, -35.0),
     },
@@ -75,6 +93,10 @@ RF_BANKS = (
         "z0": 27.0,
         "z1": 30.0,
         "rows": 8,
+        "inner": "radial",
+        "parallel": (26.8, 22.9),
+        "end_x": 102.0,
+        "depth_scale": 62.0,
         "end0": (101.2, -37.0),
         "end1": (101.2, -47.0),
     },
@@ -93,6 +115,7 @@ AISLE_WIDTH = 1.20
 # hiding seats by object index.
 AISLE_SEAT_CLEARANCE = 0.30
 FOUNDATION_Z = 8.0
+BUILD_RF_BANKS = True    # 2026-09-09: r15_rf_corner (wedge, river stack) reverted at Josh's request
 
 
 def _line_xy(front, back, bank, t, station):
@@ -104,6 +127,36 @@ def _line_xy(front, back, bank, t, station):
     the row is affine in ``station`` and cannot bow through neighboring rows.
     """
     depth_point = front.lerp(back, t)
+    if "parallel" in bank:
+        # 2026-09-09 (Josh): LF rows run parallel to the left-field wall and
+        # end on one straight line (the right-hand wall at x = end_x), so the
+        # bank is a parallelogram instead of a fan.
+        # Depth is measured perpendicular to the rows (t * depth_scale metres
+        # back from the foul-pole corner), so the row pitch is uniform instead
+        # of inheriting the fan's converging spacing along the bowl radial.
+        w = Vector((bank["parallel"][0], bank["parallel"][1], 0.0)).normalized()
+        n = Vector((-w.y, w.x, 0.0))
+        f = Vector((front.x, front.y, 0.0))
+        b = Vector((back.x, back.y, 0.0))
+        if n.dot(b - f) < 0.0:
+            n = -n  # depth always runs from the field toward the bowl back
+        depth = t * bank["depth_scale"]
+        if bank.get("inner") == "radial":
+            # 2026-09-09 (Josh): lower rows run on to the bowl's end radial,
+            # so each row starts where its line meets the radial.
+            d = (b - f).normalized()
+            depth_point = f + d * (depth / d.dot(n))
+        elif bank.get("inner") == "back":
+            # Upper rows start on a line straight back from the bowl's rear corner.
+            depth_point = b + n * (depth - (b - f).dot(n))
+        else:
+            depth_point = f + n * depth
+        if "end_line" in bank:
+            # Rows end on the straight line through end_line, perpendicular to the rows.
+            p0 = Vector((bank["end_line"][0], bank["end_line"][1], 0.0))
+            outer = p0 + n * (depth_point - p0).dot(n)
+            return depth_point.lerp(outer, station)
+        return depth_point + w * ((bank["end_x"] - depth_point.x) / w.x * station)
     fraction = (t - bank["t0"]) / (bank["t1"] - bank["t0"])
     outer = Vector((
         bank["end0"][0] + (bank["end1"][0] - bank["end0"][0]) * fraction,
@@ -571,6 +624,203 @@ def _build_rf_junction(scene, batch, front, back):
     }
 
 
+def _connect_rf_upper_to_terraces(scene, batch, front, back):
+    """Make the RF upper bank meet the tower terraces flush.
+
+    2026-09-09 (Josh): the upper bank's rear (z 30) stopped 4-8 m short of
+    tower terrace 2 (deck z 32.6, whose front edge runs parallel to the rows)
+    with terrace 3 (z 26.4) and a few pockets of ground paving open in the
+    strip between.  Per station this marches outward from the rear row until
+    a down-cast finds the terrace-2 deck, then builds a stone landing at the
+    bank's rear level across that strip, a wall from the lowest floor found
+    up to the landing, and four risers onto the deck.
+    """
+    upper = RF_BANKS[1]
+    z_land, deck_z = upper["z1"], 32.6
+    group = "V15 RF terrace connector"
+    faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    d = (_line_xy(front, back, upper, upper["t1"], 0.5) - _line_xy(front, back, upper, upper["t0"], 0.5)).normalized()
+    n = 16
+    stations = []
+    for i in range(n + 1):
+        origin = _line_xy(front, back, upper, upper["t1"] + 0.004, i / n)
+        reach, low = None, z_land
+        for step in range(1, 40):
+            q = origin + d * (0.5 * step)
+            hit, loc, _nn, _ii, obj, _m = scene.ray_cast(depsgraph, Vector((q.x, q.y, deck_z - 0.2)), Vector((0.0, 0.0, -1.0)), distance=40.0)
+            floor = loc.z if hit else 8.0
+            if floor >= deck_z - 0.8:
+                reach = 0.5 * step
+                break
+            low = min(low, max(floor, 8.0))
+        stations.append((origin, reach if reach is not None else 6.0, low))
+    risers, tread = 4, 0.35
+    for (a, ra, la), (b, rb, lb) in zip(stations, stations[1:]):
+        # landing + wall as one solid from the lowest floor to the landing top
+        a2, b2 = a + d * max(ra - risers * tread, 0.6), b + d * max(rb - risers * tread, 0.6)
+        corners = [a, b, b2, a2]
+        z0 = min(la, lb)
+        batch.add(group, "stone", [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z_land) for c in corners], faces)
+        for k in range(1, risers + 1):
+            s0, s1 = (k - 1) * tread, k * tread
+            c0, c1 = a2 + d * s0, b2 + d * s0
+            c2, c3 = b2 + d * s1, a2 + d * s1
+            batch.add(group, "stone", [(c.x, c.y, z0) for c in (c0, c1, c2, c3)] + [(c.x, c.y, z_land + (deck_z - z_land) * k / risers) for c in (c0, c1, c2, c3)], faces)
+    end_a = stations[-1][0]
+    rail(batch, group, Vector((end_a.x, end_a.y, z_land)), Vector((end_a.x, end_a.y, z_land)) + Vector((d.x, d.y, 0.0)) * stations[-1][1], 1.05)
+    return {"stations": n + 1, "reach_m": [round(r, 1) for _o, r, _l in stations], "lowest_floor": [round(l, 1) for _o, _r, l in stations], "landing_z": z_land, "deck_z": deck_z}
+
+
+def _close_lf_rear(scene, batch, front, back):
+    """Close the open back of the LF banks with a wall and a plaza deck.
+
+    2026-09-08 review (Josh, thumbs-down on the LF wide view): rays cast
+    outward from behind the LF banks travelled 22-55 m before hitting the
+    pavilion brick, from the paving at z 8 up to the lower box floor, so the
+    stands read as floating.  A first pass filled the void with a brick block.
+    Josh's 2026-09-09 AECOM crop of the LF corner shows something else: the
+    stands back onto a white concourse plaza at deck level, with a canopy
+    pavilion on it, and the rear of the stands is a solid pale wall down to
+    that deck.  So this builds (a) a 1.5 m stone wall on the upper bank's rear
+    edge from the paving to the underside of the lower box floor and (b) a
+    stone plaza deck at the existing court level (z 14.48) running from that
+    wall back to the first gallery / pavilion surface per station (4-30 m).
+    Nothing existing is removed.
+    """
+    bank = LF_BANKS[1]
+    stations = 12
+    z0, z1 = 8.0, 31.55
+    deck_top, deck_thick, wall_thick = 14.48, 0.5, 1.5
+    depsgraph = bpy.context.evaluated_depsgraph_get()
+    d = (_line_xy(front, back, bank, bank["t1"], 0.5) - _line_xy(front, back, bank, bank["t0"], 0.5)).normalized()
+    depths = []
+    for i in range(stations + 1):
+        origin = _line_xy(front, back, bank, bank["t1"], i / stations)
+        origin.z = 31.0
+        hit, loc, _n, _i, obj, _m = scene.ray_cast(depsgraph, origin + d * 0.3, d, distance=40.0)
+        depth = (loc - origin).length if hit and (obj.name.startswith("D2_V14 LF pavilion") or obj.name.startswith("D2_Left field pavilion")) else 10.0
+        depths.append(max(4.0, min(30.0, depth)))
+    group = "V15 LF rear enclosure"
+    faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+    for i in range(stations):
+        s0, s1 = i / stations, (i + 1) / stations
+        f0 = _line_xy(front, back, bank, bank["t1"], s0)
+        f1 = _line_xy(front, back, bank, bank["t1"], s1)
+        w0, w1 = f0 + d * wall_thick, f1 + d * wall_thick
+        corners = [f0, f1, w1, w0]
+        batch.add(group, "stone", [(c.x, c.y, z0) for c in corners] + [(c.x, c.y, z1) for c in corners], faces)
+        b0 = f0 + d * depths[i]
+        b1 = f1 + d * depths[i + 1]
+        corners = [w0, w1, b1, b0]
+        batch.add(group, "stone", [(c.x, c.y, deck_top - deck_thick) for c in corners] + [(c.x, c.y, deck_top) for c in corners], faces)
+    return {"stations": stations, "depths_m": [round(v, 2) for v in depths], "wall_z": [z0, z1], "wall_thickness_m": wall_thick, "deck_top_z": deck_top, "group": group,
+            "source": "Josh 2026-09-09 AECOM LF-corner crop (plaza + canopy pavilion behind the stands)"}
+
+
+def _build_lf_end_wall(batch, front, back):
+    """Right-hand (pavilion-side) wall closing the LF banks at x = end_x.
+
+    2026-09-09 (Josh): the wall follows the seats as they rise to the
+    building instead of standing full height.  Its top is the rake profile
+    at station 1 plus a 1.1 m parapet, stepping up to the box-floor level
+    only at the rear.
+    """
+    lower, upper = LF_BANKS
+    w = Vector((upper["parallel"][0], upper["parallel"][1], 0.0)).normalized()
+    parapet, z0, z_top = 1.1, 8.0, 31.55
+    profile = [
+        (lower, lower["t0"], lower["z0"] + parapet),
+        (lower, lower["t1"], lower["z1"] + parapet),
+        (upper, upper["t0"], upper["z0"] + parapet),
+        (upper, upper["t1"], upper["z1"] + parapet),
+    ]
+    pts = [_line_xy(front, back, bank, tt, 1.0) for bank, tt, _z in profile]
+    zs = [z for _b, _t, z in profile]
+    group = "V15 LF end wall"
+    faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+    segments = []
+    for i in range(len(pts) - 1):
+        a, b = pts[i], pts[i + 1]
+        za, zb = zs[i], zs[i + 1]
+        a2, b2 = a + w * 1.2, b + w * 1.2
+        verts = [(a.x, a.y, z0), (b.x, b.y, z0), (b2.x, b2.y, z0), (a2.x, a2.y, z0),
+                 (a.x, a.y, za), (b.x, b.y, zb), (b2.x, b2.y, zb), (a2.x, a2.y, za)]
+        batch.add(group, "stone", verts, faces)
+        segments.append([round(a.y, 2), round(b.y, 2), round(za, 2), round(zb, 2)])
+    # short vertical step from the upper bank's rear up to the box floor
+    b = pts[-1]
+    b2, c = b + w * 1.2, b + Vector((0.0, 1.5, 0.0))
+    c2 = c + w * 1.2
+    corners = [b, c, c2, b2]
+    batch.add(group, "stone", [(q.x, q.y, z0) for q in corners] + [(q.x, q.y, z_top) for q in corners], faces)
+    return {"x": lower["end_x"], "segments_y_z": segments, "z0": z0, "parapet": parapet, "rear_step_to": z_top}
+
+
+def _bring_lf_boxes_forward(scene, batch, front, back):
+    """Bring the LF press/box levels forward over the rear of the banks.
+
+    2026-09-09 (Josh): the V14 box floors sat 20-25 m behind the re-aligned
+    bank.  New stone floors at the three V14 box levels now run from just
+    behind the bank's rear edge back to the gallery front (y 141.5), and the
+    V14 box seat and spectator objects are rotated to the row direction and
+    slid forward so their front row sits about 1.2 m behind the new edge.
+    """
+    upper = LF_BANKS[1]
+    w = Vector((upper["parallel"][0], upper["parallel"][1], 0.0)).normalized()
+    d = (_line_xy(front, back, upper, upper["t1"], 0.5) - _line_xy(front, back, upper, upper["t0"], 0.5)).normalized()
+    inner = _line_xy(front, back, upper, upper["t1"], 0.0) + d * 1.5
+    outer = _line_xy(front, back, upper, upper["t1"], 1.0) + d * 1.5
+    gallery_y = 141.5
+    group = "V15 LF box floors"
+    faces = [(3, 2, 1, 0), (4, 5, 6, 7), (0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (3, 0, 4, 7)]
+    levels = [31.6, 34.8, 38.0]
+    if max(inner.y, outer.y) > gallery_y - 2.0:
+        # The deeper rectangular bank already reaches the gallery front, so the
+        # V14 box floors and seats stay where they are: moving the seats put
+        # them through the gallery front rails (probe 2026-09-09).
+        return {"levels": levels, "front_edge": [[round(inner.x, 2), round(inner.y, 2)], [round(outer.x, 2), round(outer.y, 2)]],
+                "gallery_y": gallery_y, "moved": [], "note": "bank reaches the gallery front; boxes left in place"}
+    for level in levels:
+        corners = [inner, outer, Vector((outer.x, gallery_y, 0.0)), Vector((inner.x, gallery_y, 0.0))]
+        batch.add(group, "stone", [(c.x, c.y, level - 0.4) for c in corners] + [(c.x, c.y, level) for c in corners], faces)
+        rail(batch, group, Vector((inner.x, inner.y, level)), Vector((outer.x, outer.y, level)), 1.05)
+    # slide the V14 box seating to the new front edge
+    angle = math.atan2(w.y, w.x)
+    pivot = Vector((24.0, 145.0, 0.0))
+    target = outer + w * 0.0  # front-row line should pass ~1.2 m behind the new edge at x = 24
+    shift = Vector((0.0, (outer.y + 1.2 * d.y + 1.2) - 145.0, 0.0))
+    moved = []
+    rot = Matrix.Rotation(angle, 4, "Z")
+    for obj in list(scene.objects):
+        if obj.name.startswith("D2_LF boxes and terrace") or obj.name.startswith("D2_LF box spectators"):
+            obj.matrix_world = Matrix.Translation(pivot + shift) @ rot @ Matrix.Translation(-pivot) @ obj.matrix_world
+            moved.append(obj.name)
+    return {"levels": levels, "front_edge": [[round(inner.x, 2), round(inner.y, 2)], [round(outer.x, 2), round(outer.y, 2)]],
+            "gallery_y": gallery_y, "rotated_deg": round(math.degrees(angle), 2), "shift_y": round(shift.y, 2), "moved": moved}
+
+
+def _fill_lf_wedge(batch, front, back):
+    """Small stone podium between the lower bank's rear, the bowl's rear corner and the upper bank.
+
+    With rows parallel to the LF wall the bank's inner edge runs straight
+    back from the foul-pole corner, leaving a wedge in front of the main
+    bowl's angled end radial that the old fan used to cover.  Fill it to the
+    upper bank's rear level so there is no see-through there either.
+    """
+    lower, upper = LF_BANKS
+    a = _line_xy(front, back, lower, lower["t1"], 0.0)  # lower rear row meets the radial here
+    b = Vector((back.x, back.y, 0.0))
+    c = _line_xy(front, back, upper, upper["t1"], 0.0)
+    # Top follows the seats: lower-bank rear level plus the parapet, not the
+    # upper bank's rear (2026-09-09, Josh: "giant wall on the left").
+    z0, z1 = 8.0, lower["z1"] + 1.1
+    verts = [(a.x, a.y, z0), (b.x, b.y, z0), (c.x, c.y, z0), (a.x, a.y, z1), (b.x, b.y, z1), (c.x, c.y, z1)]
+    faces = [(0, 2, 1), (3, 4, 5), (0, 1, 4, 3), (1, 2, 5, 4), (2, 0, 3, 5)]
+    batch.add("V15 LF wedge podium", "stone", verts, faces)
+    return {"corners": [[round(v.x, 2), round(v.y, 2)] for v in (a, b, c)], "z": [z0, z1]}
+
+
 def _remove_v14_returns():
     removed = []
     for name in [
@@ -611,15 +861,28 @@ def build(scene, batch, root):
     _build_bank_support(scene, batch, front, back, LF_BANKS[0], "LF")
     _build_bank_support(scene, batch, front, back, LF_BANKS[1], "LF")
     access = _build_interbank_access(scene, batch, front, back)
+    rear = _close_lf_rear(scene, batch, front, back)
+    end_wall = _build_lf_end_wall(batch, front, back)
+    wedge = _fill_lf_wedge(batch, front, back)
+    boxes = _bring_lf_boxes_forward(scene, batch, front, back)
 
+    # 2026-09-09: the right-field corner is built by r15_rf_corner (east-river
+    # stack per the released B4/A3 views).  The angled RF banks below are kept
+    # for reference but not built unless BUILD_RF_BANKS is set.
     rf_group = "V15 RF straight seating"
     front = Vector((*spec["bowl_front"][0][:2], 0.0))
     back = Vector((*spec["bowl_back"][0][:2], 0.0))
-    rf_lower = _add_row_surfaces(scene, batch, front, back, RF_BANKS[0], rf_group, "RF")
-    rf_upper = _add_row_surfaces(scene, batch, front, back, RF_BANKS[1], rf_group, "RF")
-    _build_bank_support(scene, batch, front, back, RF_BANKS[0], "RF")
-    _build_bank_support(scene, batch, front, back, RF_BANKS[1], "RF")
-    rf_junction = _build_rf_junction(scene, batch, front, back)
+    if BUILD_RF_BANKS:
+        rf_lower = _add_row_surfaces(scene, batch, front, back, RF_BANKS[0], rf_group, "RF")
+        rf_upper = _add_row_surfaces(scene, batch, front, back, RF_BANKS[1], rf_group, "RF")
+        _build_bank_support(scene, batch, front, back, RF_BANKS[0], "RF")
+        _build_bank_support(scene, batch, front, back, RF_BANKS[1], "RF")
+        rf_junction = _build_rf_junction(scene, batch, front, back)
+        rf_terrace = _connect_rf_upper_to_terraces(scene, batch, front, back)
+    else:
+        empty = {"seats": 0, "spectators": 0}
+        rf_lower = rf_upper = empty
+        rf_junction = rf_terrace = {"skipped": "r15_rf_corner builds the RF corner"}
     result = {
         "lf": {
             "banks": [lower, upper],
@@ -631,6 +894,10 @@ def build(scene, batch, root):
             "roof_untouched": True,
         },
         "access": access,
+        "lf_rear_enclosure": rear,
+        "lf_end_wall": end_wall,
+        "lf_wedge_podium": wedge,
+        "lf_boxes_forward": boxes,
         "rf": {
             "banks": [rf_lower, rf_upper],
             "seats": rf_lower["seats"] + rf_upper["seats"],
@@ -640,6 +907,7 @@ def build(scene, batch, root):
             "box_floors_preserved": [31.6, 34.8],
             "roof_untouched": True,
             "junction": rf_junction,
+            "terrace_connector": rf_terrace,
             "source_endpoints": {
                 "lower": [list(RF_BANKS[0]["end0"]), list(RF_BANKS[0]["end1"])],
                 "upper": [list(RF_BANKS[1]["end0"]), list(RF_BANKS[1]["end1"])],

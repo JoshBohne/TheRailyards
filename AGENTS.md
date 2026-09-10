@@ -12,6 +12,8 @@ Required tool setup for every task in this repository:
 - Blender MCP for live scene inspection and edits inside Blender.
 - Computer use for visual review and UI actions that CLI or MCP do not expose.
 
+Commands, the tier-routing rules and the dashboard publish sequence are in `.claude/skills/blender-workflow/SKILL.md`. The live review surface is `tools/live-review/` (`serve.py` + `dash.py`); the SessionStart hook reports which Blender instance the MCP session is bound to.
+
 Keep a visible live review surface open while changing geometry. Publish small fixed-camera previews as each bounded edit is ready, so Josh can watch and correct the work before a full render/export pass. Show source/current and before/after views; label stale frames while a new render is running. Use actual rendered comparisons for acceptance. Reflect live edits in generators so a clean rebuild preserves them. Keep camera settings fixed during geometry comparisons. Serialize writes to shared scenes and render files if delegating.
 
 Generated scenes, renders and caches belong outside Git. Include the scene and visual evidence in each deliverable package. Completion means the requested visible problems are resolved across the relevant views, with remaining uncertainty stated.
