@@ -36,7 +36,7 @@ The saved static scene has SHA-256 `34dc91d5a32f6f2198f721ea4eca5de1f572794e794c
 - Publication follow-up: all 11 replay browser states pass with no page/network errors, synchronized camera controls, and a 390 px mobile check. The earlier failure came from an obsolete view-picker button selector, now corrected.
 - Native preview views are saved in `work/v15/review/`. A dark near-field paving patch in the overlook view remains unresolved. Replacing its material did not fix it.
 - All 20 required gallery stills and the social card match the static scene. Film packaging requires all 288 frames and matching scene hashes; it fails closed on incomplete renders. `work/v15/release/release.json` and the hosted build manifest record the assembled publication.
-- Map is temporarily omitted from public navigation and build assets at the user's request. Its source remains available for later work; old map routes redirect to the overview.
+- The map was omitted from the initial V15 publication. It returned on September 9, 2026 as `map.html` (what moves where: the Amtrak yard, the Bridgeport facility, The 78, Rate Field, transit and parking, with status legend and OpenStreetMap footprints) alongside a consolidated `sources.html`; the builder copies both and the runtime no longer redirects `/map`.
 
 The local live review is at port 8875, the map at port 8874, and the replay at port 8876. Generated artifacts are outside Git. The user authorized publication work using part of the remaining reserve. The unresolved overlook view and retained main-bowl contacts remain outside visual acceptance.
 

@@ -39,7 +39,7 @@ export async function saveFeedback(request: Request, env: Environment): Promise<
   if (typeof fields.id !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(fields.id)) return reply(400, 'Please try again.');
   if (typeof fields.message !== 'string' || fields.message.trim().length < 5 || fields.message.trim().length > 2000) return reply(400, 'Use 5–2,000 characters.');
   if (typeof fields.category !== 'string' || !['idea', 'correction', 'view'].includes(fields.category)) return reply(400, 'Choose a category.');
-  const allowedPages = ['/', '/index', '/3d', '/gallery', '/map', '/build', '/process', '/index.html', '/3d.html', '/gallery.html', '/map.html', '/build.html', '/process.html'];
+  const allowedPages = ['/', '/index', '/3d', '/gallery', '/map', '/model', '/sources', '/build', '/process', '/index.html', '/3d.html', '/gallery.html', '/map.html', '/model.html', '/sources.html', '/build.html', '/process.html'];
   if (typeof fields.page !== 'string' || !allowedPages.includes(fields.page)) return reply(400, 'Unknown page.');
   // A retry after an uncertain network response must not create a second entry.
   await env.DB.prepare('INSERT INTO feedback (id, message, category, page, created_at) VALUES (?, ?, ?, ?, ?) ON CONFLICT(id) DO NOTHING')

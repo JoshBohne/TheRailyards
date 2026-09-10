@@ -24,13 +24,7 @@
 <header class="site-header">
 <a class="brand" href="index.html">The Railyards
 </a>
-<nav aria-label="Main navigation">
-<a href="index.html">Overview</a>
-
-<a href="3d.html">Choose your seat</a>
-<a href="gallery.html" aria-current="page">Gallery</a>
-<a href="build.html">How it was made</a>
-</nav>
+<button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span><span></span><span></span></button><nav id="site-nav" aria-label="Main navigation"><a href="index.html">The plan</a><a href="model.html">Compare</a><a href="3d.html">Pick a seat</a><a href="gallery.html" aria-current="page">Gallery</a><a href="build.html">About</a></nav>
 <button class="feedback-open" type="button" data-feedback-open>Feedback</button>
 </header>
 <main id="content" class="page-shell">
@@ -41,7 +35,8 @@
 <button data-filter="all" aria-pressed="true">All</button>
 <button data-filter="videos" aria-pressed="false">Videos</button>
 <button data-filter="pictures" aria-pressed="false">Pictures</button>
-<span id="gallery-count" role="status">20 pictures · 1 video</span>
+<button data-filter="sources" aria-pressed="false">Sources</button>
+<span id="gallery-count" role="status">20 pictures · 1 video · 5 sources</span>
 </div>
 <section class="section first-section">
 <div class="image-grid gallery-grid" id="gallery-items">
@@ -66,13 +61,19 @@
 <figure data-media="pictures"><a href="media/v15-tower-corner.png" target="_blank" rel="noopener"><img src="media/v15-tower-corner.png" alt="Tower corner in the current V15 reconstruction" loading="lazy"></a><figcaption>Tower corner</figcaption></figure>
 <figure data-media="pictures"><a href="media/v15-lf-roof-field.png" target="_blank" rel="noopener"><img src="media/v15-lf-roof-field.png" alt="Left-field pavilion · field in the current V15 reconstruction" loading="lazy"></a><figcaption>Left-field pavilion · field</figcaption></figure>
 <figure data-media="pictures"><a href="media/v15-lf-roof-rear.png" target="_blank" rel="noopener"><img src="media/v15-lf-roof-rear.png" alt="Left-field pavilion · rear in the current V15 reconstruction" loading="lazy"></a><figcaption>Left-field pavilion · rear</figcaption></figure>
+<figure data-media="sources"><a href="media/source-north.jpg" target="_blank" rel="noopener"><img src="media/source-north.jpg" alt="Published north aerial concept of The Railyards by AECOM for Canal Edge" loading="lazy"></a><figcaption>North aerial · concept<span class="view-note">AECOM / Canal Edge, via <a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Crain’s</a></span></figcaption></figure>
+<figure data-media="sources"><a href="media/source-south.jpg" target="_blank" rel="noopener"><img src="media/source-south.jpg" alt="Published south aerial concept of The Railyards by AECOM for Canal Edge" loading="lazy"></a><figcaption>South aerial · concept<span class="view-note">AECOM / Canal Edge, via <a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Crain’s</a></span></figcaption></figure>
+<figure data-media="sources"><a href="media/source-bridge.jpg" target="_blank" rel="noopener"><img src="media/source-bridge.jpg" alt="Published Roosevelt bridge concept of The Railyards by AECOM for Canal Edge" loading="lazy"></a><figcaption>Roosevelt bridge · concept<span class="view-note">AECOM / Canal Edge, via <a href="https://www.chicagobusiness.com/real-estate/commercial/ccb-white-sox-justin-ishbia-stadium-railyards-20260905/">Crain’s</a></span></figcaption></figure>
+<figure data-media="sources"><a href="media/the78-2024-rendering.jpg" target="_blank" rel="noopener"><img src="media/the78-2024-rendering.jpg" alt="Related Midwest’s 2024 concept for a White Sox ballpark at The 78" loading="lazy"></a><figcaption>The 78 ballpark · 2024 concept<span class="view-note">Related Midwest, via <a href="https://chicagoyimby.com/2024/02/further-renderings-and-details-revealed-for-new-sox-stadium-in-the-78.html">Chicago YIMBY</a></span></figcaption></figure>
+<figure data-media="sources"><a href="media/mcdonalds-park-construction.jpg" target="_blank" rel="noopener"><img src="media/mcdonalds-park-construction.jpg" alt="McDonald’s Park seating bowl under construction, August 2026" loading="lazy"></a><figcaption>McDonald’s Park · August 2026<span class="view-note">Photo <a href="https://chicagoyimby.com/2026/08/seating-bowl-begins-to-form-at-mcdonalds-park-in-south-loop.html">Chicago YIMBY</a></span></figcaption></figure>
 </div>
+<p class="section-note">Source images belong to their owners and appear here for comparison and commentary. <a href="build.html#credits">Credits &amp; disclosures</a></p>
 </section>
 
 </main>
 <footer class="city-footer">
 <div class="site-footer">
-<p class="site-disclosure">Independent fan study. Not affiliated with, sponsored by, or endorsed by the Chicago White Sox, Major League Baseball, Crain’s Chicago Business, AECOM, or Canal Edge. <a href="build.html#credits">Credits &amp; disclosures</a>
+<p class="site-disclosure">Independent fan study. Not affiliated with, sponsored by, or endorsed by the Chicago White Sox, Major League Baseball, Crain’s Chicago Business, AECOM, or Canal Edge. <a href="build.html#credits">Credits &amp; disclosures</a> · <a href="sources.html">Sources</a>
 </p>
 <span>Josh Bohne</span>
 <a href="https://github.com/JoshBohne/TheRailyards">Source code ↗</a>
