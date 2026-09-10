@@ -36,19 +36,17 @@
   });
   document.querySelectorAll('[data-slides]').forEach(deck => {
     const slides = [...deck.querySelectorAll('.story-slide')];
-    const bar = deck.querySelector('[data-slide-bar]');
-    const count = deck.querySelector('[data-slide-count]');
-    if (slides.length < 2 || !bar) return;
+    if (slides.length < 2) return;
     let index = 0;
     const show = next => {
       index = (next + slides.length) % slides.length;
       slides.forEach((slide, i) => { slide.hidden = i !== index; });
-      count.textContent = `${index + 1} / ${slides.length}`;
+      deck.querySelectorAll('[data-slide-count]').forEach(count => { count.textContent = `${index + 1} / ${slides.length}`; });
     };
-    deck.querySelector('[data-slide-next]').addEventListener('click', () => show(index + 1));
-    deck.querySelector('[data-slide-prev]').addEventListener('click', () => show(index - 1));
+    deck.querySelectorAll('[data-slide-next]').forEach(button => button.addEventListener('click', () => show(index + 1)));
+    deck.querySelectorAll('[data-slide-prev]').forEach(button => button.addEventListener('click', () => show(index - 1)));
+    deck.querySelectorAll('[data-slide-next],[data-slide-prev],[data-slide-count]').forEach(node => { node.hidden = false; });
     deck.classList.add('is-ready');
-    bar.hidden = false;
     show(0);
   });
   const navToggle = document.querySelector('.nav-toggle');
