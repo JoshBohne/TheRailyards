@@ -89,6 +89,17 @@
     });
     return lower.slice(0, -1).concat(upper.slice(0, -1));
   }
+  /* Field fan: home plate at the model origin, foul lines along the local axes, outfield arc through the boundary points. */
+  function fieldOutline() {
+    var arc = data.fieldBoundary;
+    var out = [[0, 0]];
+    for (var i = 0; i < arc.length - 1; i++) {
+      var a = arc[i], b = arc[i + 1];
+      for (var t = 0; t < 1; t += 0.25) out.push([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t]);
+    }
+    out.push(arc[arc.length - 1]);
+    return out;
+  }
   function pointsFromLocal(points) {
     return points.map(function (point) {
       return [
@@ -143,6 +154,7 @@
       parking: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><text x="10" y="14.6" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="system-ui,sans-serif">P</text></svg>',
       ballpark: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M5.2 5.4c2.4 1 3.6 2.9 3.6 4.6s-1.2 3.6-3.6 4.6M14.8 5.4c-2.4 1-3.6 2.9-3.6 4.6s1.2 3.6 3.6 4.6" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>',
       boat: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5 12.5h10l-1.6 3H6.6z" fill="#fff"/><path d="M9.2 5v6.5M9.2 5l4 4.5h-4" stroke="#fff" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>',
+      soccer: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 5.2l3.2 2.3-1.2 3.8H8l-1.2-3.8z" fill="#fff"/><path d="M10 5.2V2.8M13.2 7.5l2.6-.9M12 11.3l1.6 2.2M8 11.3l-1.6 2.2M6.8 7.5l-2.6-.9" stroke="#fff" stroke-width="1.2"/></svg>',
       camera: '<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="16" height="16" rx="3"/><path d="M5.5 7.5h2.2l1-1.5h2.6l1 1.5h2.2a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V8.5a1 1 0 0 1 1-1z" fill="#fff"/><circle cx="10" cy="11.2" r="2" fill="currentColor"/></svg>',
       concept: '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5" fill="#fff" stroke="currentColor" stroke-width="2.5" stroke-dasharray="3 2.2"/></svg>',
       area: '',
@@ -179,8 +191,12 @@
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
     position: stadiumCenter, zoom: 15,
     layer: L.layerGroup([
-      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#7d9a80', fillOpacity: 0.7, className: 'map-site-fill' }),
-      label('ballpark', 'The Railyards', 11, stadiumCenter)
+      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#5f7a66', fillOpacity: 0.85, className: 'map-site-fill' }),
+      L.polygon(pointsFromLocal(fieldOutline()), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
+      L.polygon(pointsFromLocal([[0, 0], [27.43, 0], [27.43, 27.43], [0, 27.43]]), { renderer: renderer, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
+      L.polygon(pointsFromLocal([[5, 5], [23, 5], [23, 23], [5, 23]]), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
+      L.circle([0, 0].length ? pointsFromLocal([[0, 0]])[0] : stadiumCenter, { renderer: renderer, radius: 4, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
+      label('ballpark', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
     ])
   });
 
@@ -204,7 +220,7 @@
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
       L.polygon(sites.the78, { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
-      label('ballpark', 'McDonald’s Park', 13, [41.8622, -87.6322])
+      label('soccer', 'McDonald’s Park', 13, [41.8622, -87.6322])
     ])
   });
 
@@ -233,6 +249,7 @@
   var transitLayer = L.layerGroup().addTo(map);
   var parkingLayer = L.layerGroup();
   var conceptLayer = L.layerGroup();
+  var renderLayer = L.layerGroup();
   L.geoJSON(data.cta, {
     style: function (feature) {
       var lines = feature && feature.properties ? feature.properties.lines : '';
@@ -324,7 +341,7 @@
       image: view[4], imageAlt: 'Published ' + view[1].toLowerCase() + ' concept by AECOM / Canal Edge',
       copy: view[5] + ' Camera position is approximate.',
       source: view[3], sourceLabel: 'Compare it with our model ↗',
-      position: view[2], zoom: 16,
+      position: view[2], zoom: 16, group: renderLayer,
       layer: label('camera', view[1], 15, view[2])
     });
   });
@@ -351,7 +368,7 @@
     marker.addTo(conceptLayer);
   });
 
-  var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer };
+  var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer, renderings: renderLayer };
   document.querySelectorAll('[data-map-layer]').forEach(function (button) {
     button.addEventListener('click', function () {
       var layer = groups[button.getAttribute('data-map-layer')];
@@ -363,6 +380,10 @@
         var bounds = L.latLngBounds([stadiumCenter]);
         layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
         map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+      }
+      if (on && layer === renderLayer) {
+        showDetail(places.renderNorth);
+        map.flyToBounds(L.latLngBounds([places.renderNorth.position, places.renderSouth.position, places.renderBridge.position]), { padding: [40, 40], duration: 0.8 });
       }
       if (on && layer === conceptLayer) {
         showDetail(clintonFeature);
