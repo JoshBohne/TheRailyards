@@ -734,8 +734,9 @@
   setInteractions(false);
   storyStyles.addEventListener('load', startStory);
   storyStyles.addEventListener('error', function () {
+    // No enhancement stylesheet: still run the story, with the shared styles only.
     if (cover) cover.setAttribute('data-open', 'false');
-    fitInstant(northBounds, 30, 16);
+    startStory();
   });
   if (storyStyles.sheet) startStory();
 })();
