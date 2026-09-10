@@ -424,7 +424,7 @@
   var storyViews = {
     intro: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); },
     the78first: function () { setBasemap('map'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
-    fire: function () { setBasemap('satellite'); focusPlace('the78', null, false, true); },
+    fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, { duration: reduceMotion ? 0 : 1.1 }); },
     amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
     swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); fly(bothYards, 30); },
     stadium: function () { setBasemap('map'); focusPlace('stadium'); },
