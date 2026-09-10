@@ -124,38 +124,21 @@
 
   var statusLabels = { existing: 'Existing', underConstruction: 'Under construction', proposed: 'Proposed', concept: 'Concept · unfunded', rendering: 'Published rendering' };
 
-  var detailNodes = {
-    status: document.querySelector('[data-map-detail-status]'),
-    title: document.querySelector('[data-map-detail-title]'),
-    copy: document.querySelector('[data-map-detail-copy]'),
-    link: document.querySelector('[data-map-detail-link]'),
-    figure: document.querySelector('[data-map-detail-figure]'),
-    image: document.querySelector('[data-map-detail-image]')
-  };
-  function showDetail(feature) {
-    if (detailNodes.status) {
-      detailNodes.status.textContent = statusLabels[feature.status];
-      detailNodes.status.setAttribute('data-status', feature.status);
-    }
-    if (detailNodes.title) detailNodes.title.textContent = feature.title;
-    if (detailNodes.figure && detailNodes.image) {
-      detailNodes.figure.hidden = !feature.image;
-      if (feature.image) { detailNodes.image.src = feature.image; detailNodes.image.alt = feature.imageAlt || feature.title; }
-      else detailNodes.image.removeAttribute('src');
-    }
-    if (detailNodes.copy) detailNodes.copy.textContent = feature.copy;
-    // Selecting a place must never move the document or select another chapter.
-    if (detailNodes.link) {
-      detailNodes.link.textContent = feature.sourceLabel;
-      detailNodes.link.href = feature.source;
-    }
+  /* Place details open as a popup on the map itself; there is no side panel. */
+  function showDetail(feature, latlng) {
+    if (currentStep !== 'explore') return;
+    var html = '<strong>' + escapeHtml(feature.title) + '</strong> <span class="map-detail-status" data-status="' + feature.status + '">' + escapeHtml(statusLabels[feature.status]) + '</span>';
+    if (feature.image) html += '<img src="' + feature.image + '" alt="' + escapeHtml(feature.imageAlt || feature.title) + '" loading="lazy">';
+    html += '<p>' + escapeHtml(feature.copy) + '</p>';
+    if (feature.source) html += '<a href="' + feature.source + '">' + escapeHtml(feature.sourceLabel || 'Source') + '</a>';
+    L.popup({ maxWidth: 280, autoPanPadding: [24, 24] }).setLatLng(latlng || feature.position).setContent(html).openOn(map);
   }
 
   var places = {};
   function register(feature) {
     var layers = feature.layer instanceof L.LayerGroup ? feature.layer.getLayers() : [feature.layer];
     layers.forEach(function (layer) {
-      layer.on('click', function () { if (currentStep === 'explore') showDetail(feature); });
+      layer.on('click', function (event) { showDetail(feature, event.latlng); });
     });
     feature.layer.addTo(feature.group || map);
     places[feature.id] = feature;
@@ -209,7 +192,7 @@
       L.polygon(pointsFromLocal([[0, 0], [27.43, 0], [27.43, 27.43], [0, 27.43]]), { renderer: renderer, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[5, 5], [23, 5], [23, 23], [5, 23]]), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
       L.circle([0, 0].length ? pointsFromLocal([[0, 0]])[0] : stadiumCenter, { renderer: renderer, radius: 4, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
-      label('ballpark', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
+      label('text', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
     ])
   });
 
@@ -233,7 +216,21 @@
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
       L.polygon(convexHull([].concat.apply([], sites.the78.map(function (ring) { return ring[0]; }))), { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
-      label('soccer', 'McDonald’s Park', 13, [41.8622, -87.6322])
+      label('text', 'The 78', 14, [41.8608, -87.6335])
+    ])
+  });
+
+  /* The stadium footprint itself: the OpenStreetMap construction outline, shown from the groundbreaking chapter on. */
+  var parkBounds = L.latLngBounds(sites.mcdonaldsPark);
+  register({
+    id: 'mcdonaldsPark', status: 'underConstruction',
+    title: 'McDonald’s Park · The 78',
+    copy: 'The Chicago Fire’s 22,000-seat stadium across the river. Broke ground March 2026, opens 2028.',
+    source: 'sources.html#chicagofire-2026-03-03', sourceLabel: 'Chicago Fire · Mar 3, 2026',
+    position: parkBounds.getCenter(), zoom: 16,
+    layer: L.layerGroup([
+      L.polygon(sites.mcdonaldsPark, { renderer: renderer, color: '#9a6a12', weight: 2, fillColor: '#d9a441', fillOpacity: 0.85, className: 'map-site-fill' }),
+      label('text', 'McDonald’s Park', 13, [parkBounds.getCenter().lat, parkBounds.getCenter().lng])
     ])
   });
 
@@ -377,7 +374,7 @@
   register(clintonFeature);
   [['North/Clybourn', [41.9107, -87.6487], 15], ['Chicago', [41.8965, -87.6432], 15], ['Grand', [41.8915, -87.6432], 15], ['Union Station', [41.8786, -87.6410], 16], ['Clinton', [41.8755, -87.6410], 16], ['Roosevelt · Clinton', [41.8673, -87.6410], 13], ['Chinatown', [41.8535, -87.6310], 15]].forEach(function (stop) {
     var marker = label('concept', stop[0], stop[2], stop[1]);
-    marker.on('click', function () { if (currentStep === 'explore') showDetail(clintonFeature); });
+    marker.on('click', function (event) { showDetail(clintonFeature, event.latlng); });
     marker.addTo(conceptLayer);
   });
 
@@ -399,12 +396,12 @@
         fitInstant(bounds, 40);
       }
       if (on && layer === renderLayer) {
-        showDetail(places.renderNorth);
         fitInstant(L.latLngBounds([places.renderNorth.position, places.renderSouth.position, places.renderBridge.position]), 40);
+        showDetail(places.renderNorth);
       }
       if (on && layer === conceptLayer) {
-        showDetail(clintonFeature);
         fitInstant(L.latLngBounds([stadiumCenter, [41.8765, -87.6425], [41.8600, -87.6300]]), 30);
+        showDetail(clintonFeature);
       }
     });
   });
@@ -412,12 +409,13 @@
   function focusPlace(id, button) {
     var place = places[id];
     if (!place) return;
-    showDetail(place);
     setBasemap(place.basemap || 'map');
     if (place.group && !map.hasLayer(place.group)) place.group.addTo(map);
     syncLayerButtons();
     map.stop();
     map.setView(place.position, place.zoom, { animate: false });
+    // Open the popup after the view is set so its auto-pan is not cancelled.
+    showDetail(place);
     document.querySelectorAll('[data-map-focus]').forEach(function (item) {
       item.setAttribute('aria-pressed', item === button || item.getAttribute('data-map-focus') === id ? 'true' : 'false');
     });
@@ -463,7 +461,7 @@
   var lastMapWidth = 0, lastMapHeight = 0;
   var lastViewportWidth = window.innerWidth;
   var HYSTERESIS = 12;
-  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
+  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'mcdonaldsPark', 'rateField'];
   var northBounds = L.latLngBounds(sites.amtrakYard);
   sites.the78.forEach(function (polygon) { northBounds.extend(L.latLngBounds(polygon[0])); });
   var yardNotes = L.layerGroup([
@@ -471,12 +469,12 @@
     label('text', 'South end · shop building, 33rd–35th', 12, [41.8292, -87.6373])
   ]);
   var chapters = {
-    intro: { sites: ['amtrakYard', 'the78'], bounds: northBounds, padding: 30 },
+    intro: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     the78first: { sites: ['the78'], bounds: northBounds, padding: 30 },
-    fire: { sites: ['the78'], bounds: northBounds, padding: 30 },
-    amtrakYard: { sites: ['amtrakYard', 'the78'], bounds: northBounds, padding: 30 },
+    fire: { sites: ['the78', 'mcdonaldsPark'], bounds: parkBounds, padding: 50 },
+    amtrakYard: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     swap: { sites: ['upCanalYard', 'rateField'], bounds: L.latLngBounds(sites.upCanalYard).extend(sites.rateField), padding: 30 },
-    stadium: { sites: ['stadium', 'amtrakYard', 'the78'], bounds: northBounds, padding: 30 },
+    stadium: { sites: ['stadium', 'amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     explore: { sites: siteIds, bounds: overview, padding: 20 }
   };
 
@@ -519,7 +517,7 @@
     if (cover) cover.setAttribute('data-open', name === 'intro' ? 'true' : 'false');
     setInteractions(name === 'explore');
     fitInstant(chapter.bounds, chapter.padding, 16);
-    if (name === 'explore') showDetail(places.stadium);
+    if (name !== 'explore') map.closePopup();
     steps.forEach(function (step, i) {
       step.classList.toggle('is-active', i === index);
       if (i === index) step.setAttribute('aria-current', 'step');
@@ -674,7 +672,7 @@
     nav.appendChild(announcement);
     tools = document.createElement('div');
     tools.className = 'story-explore-tools';
-    section.querySelectorAll('.map-toolbar,.map-legend,.map-detail').forEach(function (node) { tools.appendChild(node); });
+    section.querySelectorAll('.map-toolbar,.map-legend').forEach(function (node) { tools.appendChild(node); });
     steps[steps.length - 1].appendChild(tools);
     anchors = steps.map(function (step) {
       var anchor = step.querySelector('time') || step.querySelector('h1,h2');

@@ -133,16 +133,9 @@ html.has-story-navigation {
   padding: 12px 0;
   background: transparent;
 }
-.story-hybrid .story-explore-tools .map-detail {
-  display: block;
-  max-height: none;
-  margin: 12px 0 0;
-  overflow: visible;
-}
 .story-hybrid .story-explore-tools button { min-height: 44px; }
 .story-hybrid .map-toolbar,
-.story-hybrid .map-legend,
-.story-hybrid .map-detail { transition: none; }
+.story-hybrid .map-legend { transition: none; }
 @media (max-width: 900px) {
   .story-hybrid.story { display: block; padding-top: 8px; }
   .story-hybrid .story-map,
@@ -196,3 +189,8 @@ html.has-story-navigation {
   .story-hybrid .story-step { break-inside: avoid; padding: 20px 0; border: 0; }
   .story-hybrid .story-explore-tools { display: none; }
 }
+.story-hybrid .leaflet-popup-content { margin: 12px 14px; font-size: 13px; line-height: 1.45; }
+.story-hybrid .leaflet-popup-content p { margin: 6px 0; color: #4a4a4a; }
+.story-hybrid .leaflet-popup-content img { width: 100%; border-radius: 3px; margin: 8px 0 2px; }
+.story-hybrid .leaflet-popup-content a { color: #111111; font-size: 12px; }
+.story-hybrid .leaflet-popup-content .map-detail-status { margin-left: 4px; }
