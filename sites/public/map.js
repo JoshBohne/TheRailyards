@@ -31,10 +31,10 @@
 
   var esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
   L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-    maxZoom: 17,
+    maxZoom: 17, maxNativeZoom: 16,
     attribution: 'Basemap &copy; <a href="https://www.esri.com/en-us/legal/terms/services">Esri</a> · Footprints &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors · CTA lines: City of Chicago'
   }).addTo(map);
-  var streetLabels = L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', { maxZoom: 17, pane: 'shadowPane', opacity: 0.9 }).addTo(map);
+  var streetLabels = L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', { maxZoom: 17, maxNativeZoom: 16, pane: 'shadowPane', opacity: 0.9 }).addTo(map);
   var imagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     maxZoom: 17,
     attribution: 'Imagery &copy; <a href="https://www.esri.com/en-us/legal/terms/services">Esri</a>, Maxar, Earthstar Geographics'
@@ -131,7 +131,8 @@
       else detailNodes.image.removeAttribute('src');
     }
     if (detailNodes.copy) detailNodes.copy.textContent = feature.copy;
-    if (feature.image && window.innerWidth <= 900 && detailNodes.figure) detailNodes.figure.closest('.map-detail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    var panel = detailNodes.figure && detailNodes.figure.closest('.map-detail');
+    if (panel && window.innerWidth <= 900 && panel.offsetParent && (feature.image || feature.userSelected)) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     if (detailNodes.link) {
       detailNodes.link.textContent = feature.sourceLabel;
       detailNodes.link.href = feature.source;
@@ -142,7 +143,7 @@
   function register(feature) {
     var layers = feature.layer instanceof L.LayerGroup ? feature.layer.getLayers() : [feature.layer];
     layers.forEach(function (layer) {
-      layer.on('click', function () { showDetail(feature); });
+      layer.on('click', function () { feature.userSelected = true; showDetail(feature); feature.userSelected = false; });
     });
     feature.layer.addTo(feature.group || map);
     places[feature.id] = feature;
