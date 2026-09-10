@@ -34,6 +34,17 @@
       document.querySelector('#gallery-count').textContent = `${visible} ${visible === 1 ? label.slice(0, -1) : label}`;
     });
   });
+  const navToggle = document.querySelector('.nav-toggle');
+  const header = navToggle?.closest('.site-header');
+  if (navToggle && header) {
+    navToggle.addEventListener('click', () => {
+      const open = header.classList.toggle('is-open');
+      navToggle.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && header.classList.contains('is-open')) { header.classList.remove('is-open'); navToggle.setAttribute('aria-expanded', 'false'); navToggle.focus(); }
+    });
+  }
   const skyline = document.querySelector('.footer-skyline');
   if (skyline && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries => {
