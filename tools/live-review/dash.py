@@ -81,9 +81,9 @@ def cmd_queue(a):
         elif a.action=='clear':s['queue']=[];S.event(s,'queue','cleared')
         elif a.action=='remove':s['queue']=[q for q in s['queue'] if q['view']!=a.view and q['id']!=a.view];S.event(s,'queue',f'removed {a.view}')
 
-def _start(s,view,label=None,expect=None,blend=None):
+def _start(s,view,label=None,expect=None,blend=None,change=None):
     label=label or s['views'].get(view,{}).get('label',view)
-    s['active_render']=dict(view=view,label=label,started_at=now(),expected_seconds=expect or S.expected_seconds(s,view),progress=0.0,remaining_seconds=None,blend=blend,stats='')
+    s['active_render']=dict(view=view,label=label,change=change,started_at=now(),expected_seconds=expect or S.expected_seconds(s,view),progress=0.0,remaining_seconds=None,blend=blend,stats='')
     v=s['views'].setdefault(view,dict(label=label,requested_after=0));v['requested_after']=now()
     S.event(s,'render',f'started {label}')
 
@@ -133,7 +133,7 @@ def cmd_run(a):
     a.command=cmd
     with S.edit(a.state) as s:
         if s.get('active_render'):_finish(s,cancelled=True)
-        if views:_start(s,views[0],blend=a.blend,expect=a.expect)
+        if views:_start(s,views[0],blend=a.blend,expect=a.expect,change=a.label)
         else:s['active_render']=dict(view='batch',label=a.label or 'Batch render',started_at=now(),expected_seconds=a.expect,progress=0.0,remaining_seconds=None,blend=a.blend,stats='')
         S.event(s,'run',short(' '.join(a.command)))
     proc=subprocess.Popen(a.command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
@@ -157,7 +157,7 @@ def cmd_run(a):
                 with S.edit(a.state) as s:
                     if views and idx<len(views):
                         _finish(s,output=out);idx+=1
-                        if idx<len(views):_start(s,views[idx],blend=a.blend)
+                        if idx<len(views):_start(s,views[idx],blend=a.blend,change=a.label)
                     else:S.event(s,'warning' if views else 'render',(f'saved {Path(out).name} beyond the {len(views)} declared --views; check RAILYARDS_REVIEW_VIEWS matches' if views else f'saved {Path(out).name}'))
     finally:
         code=proc.wait()
