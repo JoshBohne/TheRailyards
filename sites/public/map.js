@@ -423,12 +423,12 @@
   function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: reduceMotion ? 0 : 1.1 }); }
   var storyViews = {
     intro: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); },
-    the78first: function () { setBasemap('map'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), 30); },
+    the78first: function () { setBasemap('map'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
     fire: function () { setBasemap('satellite'); focusPlace('the78', null, false, true); },
     amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
     swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); fly(bothYards, 30); },
     stadium: function () { setBasemap('map'); focusPlace('stadium'); },
-    protest: function () { showDetail(places.upCanalYard); setBasemap('satellite'); map.flyTo([41.8335, -87.6373], 16, { duration: reduceMotion ? 0 : 1.1 }); },
+    protest: function () { showDetail(places.upCanalYard); setBasemap('satellite'); map.flyTo([41.8335, -87.6373], 16.5, { duration: reduceMotion ? 0 : 1.1 }); },
     rateField: function () { setBasemap('map'); focusPlace('rateField'); },
     explore: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); }
   };
@@ -447,22 +447,39 @@
   });
   var section = root.closest('.story');
   var currentStep = '';
-  var order = ['intro', 'the78first', 'fire', 'amtrakYard', 'swap', 'stadium', 'protest', 'rateField', 'explore'];
-  var appears = { upCanalYard: 'swap', stadium: 'stadium' };
+  /* What each chapter shows. Everything else on the map is hidden until Explore. */
+  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
+  var chapterSites = {
+    intro: ['amtrakYard', 'the78', 'stadium'],
+    the78first: ['the78'],
+    fire: ['the78'],
+    amtrakYard: ['amtrakYard', 'the78'],
+    swap: ['upCanalYard'],
+    stadium: ['stadium', 'amtrakYard', 'the78'],
+    protest: ['upCanalYard'],
+    rateField: ['rateField', 'upCanalYard'],
+    explore: siteIds
+  };
   function setChapterLayers(name) {
-    var at = order.indexOf(name);
-    Object.keys(appears).forEach(function (id) {
-      var show = at < 0 || at >= order.indexOf(appears[id]) || name === 'explore';
+    var show = chapterSites[name] || siteIds;
+    siteIds.forEach(function (id) {
       var layer = places[id].layer;
-      if (show && !map.hasLayer(layer)) layer.addTo(map);
-      if (!show && map.hasLayer(layer)) map.removeLayer(layer);
+      var on = show.indexOf(id) >= 0;
+      if (on && !map.hasLayer(layer)) layer.addTo(map);
+      if (!on && map.hasLayer(layer)) map.removeLayer(layer);
     });
+    var transitOn = name === 'explore' || name === 'intro';
+    if (transitOn && !map.hasLayer(transitLayer)) transitLayer.addTo(map);
+    if (!transitOn && map.hasLayer(transitLayer)) map.removeLayer(transitLayer);
+    var transitButton = document.querySelector('[data-map-layer="transit"]');
+    if (transitButton) transitButton.setAttribute('aria-pressed', map.hasLayer(transitLayer) ? 'true' : 'false');
   }
   function runStep(name) {
     if (name === currentStep || !storyViews[name]) return;
     currentStep = name;
     setChapterLayers(name);
     if (section) section.classList.toggle('is-explore', name === 'explore');
+    root.classList.toggle('is-focused', name !== 'explore' && name !== 'intro');
     document.querySelectorAll('.story-step').forEach(function (step) { step.classList.toggle('is-active', step.getAttribute('data-story') === name); });
     if (progress) {
       var index = stepNames.indexOf(name);

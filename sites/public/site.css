@@ -617,6 +617,7 @@ nav{width:100%;
 .story-progress li.is-done{background:#7d9a80}
 .story-progress li.is-current{width:22px;border-radius:4px;background:#294638}
 .story-map .map-stage{position:relative}
+.is-focused .map-marker-area,.is-focused .map-marker-boat,.is-focused .map-marker-parking{display:none}
 .story-step .swap-step-status{justify-self:start;align-self:flex-start}
 .story-hint{font-size:22px;color:var(--muted);animation:story-nudge 1.6s ease-in-out infinite}
 @keyframes story-nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
