@@ -13,11 +13,11 @@ from r2_lighting import apply_lighting
 scene=bpy.data.scenes['Railyards v4'];bpy.context.window.scene=scene
 out=Path(os.environ['RAILYARDS_HERO_OUT']);out.mkdir(parents=True,exist_ok=True)
 apply_lighting(scene,'night')
-scene.render.engine='CYCLES';scene.cycles.samples=12
+scene.render.engine='CYCLES';scene.cycles.samples=int(os.environ.get('RAILYARDS_HERO_SAMPLES','12'))
 if os.environ.get('RAILYARDS_GPU')=='1':scene.cycles.device='GPU'
 scene.cycles.use_denoising=True
 scene.render.use_persistent_data=True
-scene.render.resolution_x=1280;scene.render.resolution_y=720;scene.render.resolution_percentage=100
+scene.render.resolution_x=int(os.environ.get('RAILYARDS_HERO_WIDTH','1280'));scene.render.resolution_y=round(scene.render.resolution_x*9/16);scene.render.resolution_percentage=100
 scene.render.image_settings.file_format='PNG'
 for obj in scene.objects:
     if obj.name.startswith('D2_Distance atmosphere'):obj.hide_render=True
