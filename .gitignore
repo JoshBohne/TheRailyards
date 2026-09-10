@@ -50,3 +50,6 @@ railyards-v*/review/v12/river/
 railyards-v*/railyards-v*-site-static.json
 sites/runtime/dist/
 sites/runtime/.wrangler/
+
+# Live dashboard state and snapshots
+work/live/

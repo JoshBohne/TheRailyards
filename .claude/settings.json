@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(blender:*)",
+      "Bash(/Applications/Blender.app/Contents/MacOS/Blender:*)",
+      "Bash(python3 tools/live-review/dash.py:*)",
+      "Bash(python3 tools/live-review/serve.py:*)",
+      "Bash(python3 railyards-v4/tools/blender_mcp_client.py:*)",
+      "Bash(python3 railyards-v4/render_review.py:*)",
+      "Bash(python3 railyards-v4/verify_scene.py:*)",
+      "Bash(python3 sites/build.py:*)",
+      "Bash(python3 sites/verify-build.py:*)",
+      "Bash(./railyards-v4/build_v12.sh:*)",
+      "Bash(./railyards-v4/build_v13.sh:*)",
+      "Bash(uvx blender-mcp:*)",
+      "Bash(lsof -iTCP:*)",
+      "mcp__blender__get_scene_info",
+      "mcp__blender__get_object_info",
+      "mcp__blender__get_viewport_screenshot",
+      "mcp__blender__get_addon_status",
+      "mcp__blender__execute_blender_code"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh" }
+        ]
+      }
+    ]
+  }
+}

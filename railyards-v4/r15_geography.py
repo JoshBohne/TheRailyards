@@ -255,6 +255,133 @@ def _make_water_cutter(rings, top_z=LAND_TOP_Z + 1.0):
     return cutter
 
 
+def _try_union_cut(island, rings, name):
+    """Apply one Boolean with all rings; keep it only if the island survives."""
+    snapshot = island.data.copy()
+    area_before = _mesh_area(island)
+    cutter = _make_water_cutter(rings, top_z=LAND_TOP_Z + 1.0)
+    cutter_mesh = cutter.data
+    try:
+        modifier = island.modifiers.new('V15 mapped river cut', 'BOOLEAN')
+        modifier.operation = 'DIFFERENCE'
+        modifier.solver = 'EXACT'
+        modifier.use_self = True  # slabs are self-intersecting box unions
+        modifier.object = cutter
+        bpy.context.view_layer.objects.active = island
+        island.select_set(True)
+        try:
+            bpy.ops.object.modifier_apply(modifier=modifier.name)
+        except RuntimeError as error:
+            raise RuntimeError(f'Failed to carve mapped river from {name}: {error}') from error
+        finally:
+            island.select_set(False)
+    finally:
+        bpy.data.objects.remove(cutter, do_unlink=True)
+        bpy.data.meshes.remove(cutter_mesh)
+    total_ring_area = sum(_ring_area(ring) for ring in rings)
+    removed = area_before - _mesh_area(island)
+    ok = bool(island.data.polygons) and removed <= total_ring_area * 2.6 + 50.0 and _mesh_area(island) > area_before * 0.02
+    if ok:
+        bpy.data.meshes.remove(snapshot)
+    else:
+        broken = island.data
+        island.data = snapshot
+        bpy.data.meshes.remove(broken)
+    return ok
+
+
+def _split_islands(obj):
+    """Return temporary objects, one per connected mesh island of ``obj``."""
+    source = bmesh.new()
+    source.from_mesh(obj.data)
+    source.verts.ensure_lookup_table()
+    seen = set()
+    islands = []
+    for seed in source.verts:
+        if seed.index in seen:
+            continue
+        stack = [seed]
+        members = []
+        while stack:
+            vertex = stack.pop()
+            if vertex.index in seen:
+                continue
+            seen.add(vertex.index)
+            members.append(vertex)
+            for edge in vertex.link_edges:
+                other = edge.other_vert(vertex)
+                if other.index not in seen:
+                    stack.append(other)
+        islands.append(members)
+    result = []
+    for number, members in enumerate(islands):
+        keep = set(v.index for v in members)
+        part = source.copy()
+        part.verts.ensure_lookup_table()
+        bmesh.ops.delete(part, geom=[v for v in part.verts if v.index not in keep], context='VERTS')
+        mesh = bpy.data.meshes.new(f'{obj.name} island {number}')
+        part.to_mesh(mesh)
+        part.free()
+        for slot in obj.material_slots:
+            mesh.materials.append(slot.material)
+        island = bpy.data.objects.new(mesh.name, mesh)
+        island.matrix_world = obj.matrix_world.copy()
+        bpy.context.scene.collection.objects.link(island)
+        result.append(island)
+    source.free()
+    return result
+
+
+def _rejoin_islands(obj, islands):
+    merged = bmesh.new()
+    for island in islands:
+        merged.from_mesh(island.data)
+    merged.to_mesh(obj.data)
+    merged.free()
+    obj.data.update()
+    for island in islands:
+        mesh = island.data
+        bpy.data.objects.remove(island, do_unlink=True)
+        bpy.data.meshes.remove(mesh)
+
+
+def _solidify(island):
+    modifier = island.modifiers.new('V15 slab thickness', 'SOLIDIFY')
+    modifier.thickness = 1.0
+    modifier.offset = -1.0
+    bpy.context.view_layer.objects.active = island
+    island.select_set(True)
+    try:
+        bpy.ops.object.modifier_apply(modifier=modifier.name)
+    finally:
+        island.select_set(False)
+
+
+def _bbox_overlaps(island, ring):
+    xs = [v.co.x for v in island.data.vertices]
+    ys = [v.co.y for v in island.data.vertices]
+    if not xs:
+        return False
+    bx0, bx1, by0, by1 = _bbox(ring)
+    return not (bx1 < min(xs) or bx0 > max(xs) or by1 < min(ys) or by0 > max(ys))
+
+
+def _is_closed(obj):
+    counts = {}
+    for polygon in obj.data.polygons:
+        for key in polygon.edge_keys:
+            counts[key] = counts.get(key, 0) + 1
+    return bool(counts) and all(count == 2 for count in counts.values())
+
+
+def _mesh_area(obj):
+    return sum(polygon.area for polygon in obj.data.polygons)
+
+
+def _ring_area(ring):
+    return abs(sum(x0 * y1 - x1 * y0 for (x0, y0), (x1, y1) in zip(ring, ring[1:] + ring[:1]))) / 2.0
+
+
 def _carve_water_from_terrain(scene, rings):
     """Cut the actual water volume from only terrain/park slabs it crosses."""
     carved = []
@@ -296,25 +423,71 @@ def _carve_water_from_terrain(scene, rings):
         # just above that datum avoids carrying a tall Boolean cap into the
         # background mesh; the separate generic-building pass below uses a
         # 120 m cutter when a full-height clip is required.
-        cutter = _make_water_cutter(overlapping_rings, top_z=LAND_TOP_Z + 1.0)
-        cutter_mesh = cutter.data
-        try:
-            modifier = obj.modifiers.new('V15 mapped river cut', 'BOOLEAN')
-            modifier.operation = 'DIFFERENCE'
-            modifier.solver = 'EXACT'
-            modifier.object = cutter
-            bpy.context.view_layer.objects.active = obj
-            obj.select_set(True)
-            try:
-                bpy.ops.object.modifier_apply(modifier=modifier.name)
-            except RuntimeError as error:
-                raise RuntimeError(f'Failed to carve mapped river from {name}: {error}') from error
-            finally:
-                obj.select_set(False)
-            carved.append(name)
-        finally:
-            bpy.data.objects.remove(cutter, do_unlink=True)
-            bpy.data.meshes.remove(cutter_mesh)
+        # 2026-09-08: one cutter holding every overlapping ring let the exact
+        # solver delete whole slabs (R2_West district ground went to 0 faces,
+        # D2_Public realm paving from 48 to 6), which rendered as black holes.
+        # Carve one ring at a time and revert any cut that removes more of the
+        # slab than the ring's own footprint could justify.
+        # 2026-09-08: these slabs are unions of overlapping boxes. The exact
+        # solver discards a self-intersecting target wholesale (black ground
+        # in every aerial), so carve each closed island on its own and rejoin.
+        islands = _split_islands(obj)
+        reverted = []
+        kept = []
+        for island in islands:
+            if not _is_closed(island):
+                _solidify(island)
+            area_before = _mesh_area(island)
+            island_rings = [ring for ring in overlapping_rings if _bbox_overlaps(island, ring)]
+            # First try every overlapping ring as one cutter; sequential cuts
+            # leave the exact solver a non-manifold result that later cuts
+            # then wipe. Fall back to one ring at a time only if that fails.
+            if len(island_rings) > 1 and _try_union_cut(island, island_rings, name):
+                kept.append(island)
+                continue
+            for ring in island_rings:
+                snapshot = island.data.copy()
+                cutter = _make_water_cutter([ring], top_z=LAND_TOP_Z + 1.0)
+                cutter_mesh = cutter.data
+                try:
+                    modifier = island.modifiers.new('V15 mapped river cut', 'BOOLEAN')
+                    modifier.operation = 'DIFFERENCE'
+                    modifier.solver = 'EXACT'
+                    modifier.use_self = True
+                    modifier.object = cutter
+                    bpy.context.view_layer.objects.active = island
+                    island.select_set(True)
+                    try:
+                        bpy.ops.object.modifier_apply(modifier=modifier.name)
+                    except RuntimeError as error:
+                        raise RuntimeError(f'Failed to carve mapped river from {name}: {error}') from error
+                    finally:
+                        island.select_set(False)
+                finally:
+                    bpy.data.objects.remove(cutter, do_unlink=True)
+                    bpy.data.meshes.remove(cutter_mesh)
+                area_after = _mesh_area(island)
+                removed = area_before - area_after
+                # A legitimate cut removes the ring from both the top and the
+                # bottom face, so allow about twice the ring area; only a wipeout
+                # of the island (no faces, or nearly no area left) is reverted.
+                wiped = area_after < area_before * 0.02 and _ring_area(ring) < area_before * 0.5
+                if not island.data.polygons or wiped or removed > _ring_area(ring) * 2.6 + 50.0:
+                    broken = island.data
+                    faces_after = len(broken.polygons)
+                    island.data = snapshot
+                    bpy.data.meshes.remove(broken)
+                    reverted.append({'removed': round(removed, 1), 'ring_area': round(_ring_area(ring), 1),
+                                     'ring_points': len(ring), 'faces_after': faces_after,
+                                     'island_area': round(area_before, 1)})
+                else:
+                    bpy.data.meshes.remove(snapshot)
+                    area_before = area_after
+            kept.append(island)
+        _rejoin_islands(obj, kept)
+        solidified = False
+        carved.append({'object': name, 'rings': len(overlapping_rings), 'reverted_cuts': reverted, 'solidified': solidified,
+                       'faces': len(obj.data.polygons)})
     return carved
 
 

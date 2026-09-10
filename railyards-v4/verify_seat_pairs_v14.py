@@ -56,7 +56,7 @@ for i,a in enumerate(points):
   intersections=mesh(i).overlap(mesh(j))
   if intersections:confirmed.append({'a':[a[1],a[2],list(a[0])],'b':[points[j][1],points[j][2],list(points[j][0])],'distance':d,'intersecting_face_pairs':len(intersections)})
 representatives=[]
-rf_name='D2_RF lower straight individual seats' if s.get('v15_corrections') else 'D2_RF return individual seats'
+rf_name=next((n for n in ('D2_RF river stack individual seats','D2_RF corner individual seats') if n in bpy.data.objects),None) or ('D2_RF lower straight individual seats' if s.get('v15_corrections') else 'D2_RF return individual seats')
 for label,name,ids in [('rf',rf_name,[408,486]),('main','D2_Individual seats',[151,152])]:
  ii=[next(i for i,p in enumerate(points)if p[1]==name and p[2]==n)for n in ids];o=bpy.data.objects[name];records=[]
  for i in ii:

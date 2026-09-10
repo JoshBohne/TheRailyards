@@ -15,12 +15,14 @@ materials={m.name[3:]:m for m in bpy.data.materials if m.name.startswith('D2_') 
 batch=MeshBatch(scene,materials)
 receipt={'source':str(source),'sourceSha256':hashlib.sha256(source.read_bytes()).hexdigest()}
 receipt['scoreboard']=r15_scoreboard.align_scoreboards(scene,batch,spec)
-receipt['pinwheels']=r15_scoreboard.build(scene,batch,spec)
 for name in os.environ.get('V15_MODULES','r15_circulation,r15_seating,r15_cameras,r15_geography,r15_landmarks').split(','):
     if name:
         module=__import__(name)
         receipt[name]=module.build(scene,batch,ROOT)
+receipt['cf_centering']=r15_scoreboard.center_cf_on_terrace(scene,spec)
+receipt['pinwheels']=r15_scoreboard.build(scene,batch,spec)
 batch.flush()
+receipt['pinwheel_animation']=r15_scoreboard.animate(scene)
 active=0
 for obj in scene.objects:
     if obj.type!='MESH' or obj.data.polygons or 'seat' not in obj.name.lower() or 'source' in obj.name.lower():continue
