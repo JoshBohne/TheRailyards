@@ -20,6 +20,8 @@ shots={'concourse':((69,181,21),(64,119,17),26),
        'lf':((73,64,64),(-3,125,24),45),
        'lf-section-stack':((75,72,58),(-10,139,28),48),  # V14 audit camera Josh annotates
        'rf-source':((185,-135,120),(92,-38,22),38),  # matches the A3 RF-corner crop angle
+       'rf-b4':((178,42,150),(105,-45,25),45),  # matches the B4 RF-corner crop angle
+       'rf-wrap':((92,-52,72),(88,-24,15),40),  # close-up of the RF corner wrap + bowl end
        'pinwheels':((38,74,47),(90,126,40),42),  # centre-field board crown from the infield side
        'rf':((167,39,75),(77,-33,26),45),
        'geography':((100,1500,2800),(100,900,0),45)}
