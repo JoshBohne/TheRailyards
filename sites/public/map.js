@@ -63,7 +63,7 @@
     defs.innerHTML =
       '<pattern id="hatch-facility" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#f7dad8"/><line x1="0" y1="0" x2="0" y2="8" stroke="#c94a45" stroke-width="3"/></pattern>' +
       '<pattern id="hatch-facility-sat" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#ff5a4f" stroke-width="2"/></pattern>' +
-      '<pattern id="hatch-site" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-45)"><rect width="8" height="8" fill="#eef1e6"/><line x1="0" y1="0" x2="0" y2="8" stroke="#6b7f63" stroke-width="2"/></pattern>' +
+      '<pattern id="hatch-site" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(-45)"><rect width="8" height="8" fill="#f2f2f2"/><line x1="0" y1="0" x2="0" y2="8" stroke="#6b7f63" stroke-width="2"/></pattern>' +
       '<pattern id="hatch-construction" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="#fbeed0"/><line x1="0" y1="0" x2="0" y2="8" stroke="#d29a2c" stroke-width="2"/></pattern>';
     container.insertBefore(defs, container.firstChild);
   }
@@ -192,7 +192,7 @@
     source: 'sources.html#blockclub-2026-09-06', sourceLabel: 'Block Club · Sept 6, 2026',
     position: stadiumCenter, zoom: 15,
     layer: L.layerGroup([
-      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#294638', weight: 2, fillColor: '#5f7a66', fillOpacity: 0.85, className: 'map-site-fill' }),
+      L.polygon(pointsFromLocal(convexHull(data.bowlBack.concat(data.fieldBoundary))), { renderer: renderer, color: '#111111', weight: 2, fillColor: '#3a3a3a', fillOpacity: 0.85, className: 'map-site-fill' }),
       L.polygon(pointsFromLocal(fieldOutline()), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[0, 0], [27.43, 0], [27.43, 27.43], [0, 27.43]]), { renderer: renderer, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[5, 5], [23, 5], [23, 23], [5, 23]]), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
@@ -232,7 +232,7 @@
     source: 'sources.html#suntimes-2024-02-08', sourceLabel: 'Sun-Times · Feb 8, 2024',
     position: [41.8299, -87.6338], zoom: 15,
     layer: L.layerGroup([
-      L.polygon(sites.rateField, { renderer: renderer, color: '#4a5a4f', weight: 1.5, fillColor: '#c9cfc6', fillOpacity: 0.8 }),
+      L.polygon(sites.rateField, { renderer: renderer, color: '#4a5a4f', weight: 1.5, fillColor: '#c4ced4', fillOpacity: 0.8 }),
       label('ballpark', 'Rate Field', 11, [41.8299, -87.6338])
     ])
   });
