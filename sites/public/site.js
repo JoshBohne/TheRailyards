@@ -44,6 +44,23 @@
     }, { threshold: 0.2 });
     observer.observe(skyline);
   }
+  const hourHand = skyline && skyline.querySelector('.clock-hour');
+  const minuteHand = skyline && skyline.querySelector('.clock-minute');
+  if (hourHand && minuteHand) {
+    // The Board of Trade clock keeps Chicago time, whatever the visitor's zone.
+    const chicago = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', hour: 'numeric', minute: 'numeric', hour12: false });
+    const origin = `${hourHand.getAttribute('x1')}px ${hourHand.getAttribute('y1')}px`;
+    hourHand.style.setProperty('--clock-origin', origin);
+    minuteHand.style.setProperty('--clock-origin', origin);
+    const setClock = () => {
+      const parts = Object.fromEntries(chicago.formatToParts(new Date()).map(part => [part.type, Number(part.value)]));
+      const minutes = (parts.hour % 12) * 60 + parts.minute;
+      hourHand.style.setProperty('--angle', `${minutes / 2}deg`);
+      minuteHand.style.setProperty('--angle', `${parts.minute * 6}deg`);
+    };
+    setClock();
+    setInterval(setClock, 30000);
+  }
 })();
 
 const feedbackDialog = document.querySelector('#feedback-dialog');
