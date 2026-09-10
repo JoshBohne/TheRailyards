@@ -603,7 +603,7 @@ nav{width:100%;
 .story .map-detail a{font-size:13px;color:#244a39}
 .story .map-detail-figure img{max-height:22svh;object-fit:cover}
 .story-steps{grid-column:1;grid-row:1;margin:0;padding:0 0 30vh;list-style:none}
-.story-step{min-height:70svh;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px 0;opacity:.35;transition:opacity .4s}
+.story-step{min-height:62svh;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:24px 0;opacity:.3}
 .story-step.is-active{opacity:1}
 .story-step h1{font-size:clamp(34px,4vw,52px);margin:0}
 .story-step h2{font-size:24px;line-height:1.2;margin:0;font-weight:600;letter-spacing:-.02em}
@@ -620,6 +620,17 @@ nav{width:100%;
 .story-progress li.is-done{background:#7d9a80}
 .story-progress li.is-current{width:22px;border-radius:4px;background:#294638}
 .story-map .map-stage{position:relative}
+:root{--panel-open-dur:520ms;--panel-close-dur:380ms;--panel-translate-y:18px;--panel-blur:2px;--panel-ease:cubic-bezier(0.22,1,0.36,1)}
+.story-cover{position:absolute;inset:0;z-index:650;margin:0;background:#0d1512;pointer-events:none;transition:opacity 900ms var(--panel-ease),filter 900ms var(--panel-ease)}
+.story-cover img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.story-cover figcaption{position:absolute;right:12px;bottom:10px;padding:3px 8px;border-radius:3px;background:#0d1512b0;color:#fff;font-size:11px}
+.story-cover[data-open="false"]{opacity:0;filter:blur(6px)}
+.story-cover[data-open="true"]{opacity:1;filter:blur(0)}
+.story:not(.is-explore) .leaflet-control-zoom{opacity:0;pointer-events:none}
+.leaflet-control-zoom{transition:opacity .3s}
+.story-step{transform:translateY(var(--panel-translate-y));filter:blur(var(--panel-blur));transition:opacity var(--panel-close-dur) var(--panel-ease),transform var(--panel-close-dur) var(--panel-ease),filter var(--panel-close-dur) var(--panel-ease);will-change:transform,opacity,filter}
+.story-step.is-active{transform:translateY(0);filter:blur(0);transition-duration:var(--panel-open-dur)}
+@media(prefers-reduced-motion:reduce){.story-step,.story-cover{transition:none!important;transform:none;filter:none}}
 .story-nav{position:absolute;z-index:600;right:10px;bottom:28px;display:inline-flex;align-items:center;gap:2px;padding:3px;background:#fafaf8f0;border-radius:999px;box-shadow:0 2px 8px #1c2a1f22}
 .story-nav button{width:34px;height:34px;border:0;border-radius:50%;background:#294638;color:#fff;font-size:20px;line-height:1;cursor:pointer}
 .story-nav button:disabled{background:#c9cfc6;cursor:default}

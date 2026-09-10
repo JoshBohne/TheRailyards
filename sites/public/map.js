@@ -399,7 +399,7 @@
     showDetail(place);
     if (!keepBasemap) setBasemap(place.basemap || 'map');
     if (instant || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) map.setView(place.position, place.zoom);
-    else map.flyTo(place.position, place.zoom, { duration: 0.8 });
+    else map.flyTo(place.position, place.zoom, { duration: 0.9, easeLinearity: 0.35 });
     document.querySelectorAll('[data-map-focus]').forEach(function (item) {
       item.setAttribute('aria-pressed', item === button || item.getAttribute('data-map-focus') === id ? 'true' : 'false');
     });
@@ -420,17 +420,20 @@
   /* Scroll-driven story: each step pins the map to a place; the last step opens the controls. */
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var bothYards = L.latLngBounds(sites.amtrakYard.concat(sites.upCanalYard));
-  function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: reduceMotion ? 0 : 1.1 }); }
+  var flight = { duration: reduceMotion ? 0 : 0.9, easeLinearity: 0.35 };
+  function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: flight.duration, easeLinearity: flight.easeLinearity }); }
+  var cover = document.querySelector('.story-cover');
+  function setCover(open) { if (cover) cover.setAttribute('data-open', open ? 'true' : 'false'); }
   var yardNotes = L.layerGroup([
     label('text', 'North end · train storage', 12, [41.8447, -87.6373]),
     label('text', 'South end · shop building, 33rd–35th', 12, [41.8292, -87.6373])
   ]);
   var storyViews = {
-    intro: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); },
-    the78first: function () { setBasemap('map'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
-    fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, { duration: reduceMotion ? 0 : 1.1 }); },
+    intro: function () { setCover(true); setBasemap('satellite'); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), 30); showDetail(places.stadium); },
+    the78first: function () { setCover(false); setBasemap('satellite'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
+    fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, flight); },
     amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
-    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); var yard = L.latLngBounds(sites.upCanalYard); map.flyTo(yard.getCenter(), map.getBoundsZoom(yard, false, [20, 20]) + 1, { duration: reduceMotion ? 0 : 1.1 }); },
+    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); var yard = L.latLngBounds(sites.upCanalYard); map.flyTo(yard.getCenter(), map.getBoundsZoom(yard, false, [20, 20]) + 1, flight); },
     stadium: function () { setBasemap('map'); focusPlace('stadium'); },
     explore: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); }
   };
@@ -453,7 +456,7 @@
   /* What each chapter shows. Everything else on the map is hidden until Explore. */
   var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
   var chapterSites = {
-    intro: ['amtrakYard', 'the78', 'stadium'],
+    intro: ['amtrakYard', 'the78'],
     the78first: ['the78'],
     fire: ['the78'],
     amtrakYard: ['amtrakYard', 'the78'],
@@ -482,7 +485,8 @@
     currentStep = name;
     setChapterLayers(name);
     if (section) section.classList.toggle('is-explore', name === 'explore');
-    root.classList.toggle('is-focused', name !== 'explore' && name !== 'intro');
+    root.classList.toggle('is-focused', name !== 'explore');
+    if (name !== 'intro') setCover(false);
     document.querySelectorAll('.story-step').forEach(function (step) { step.classList.toggle('is-active', step.getAttribute('data-story') === name); });
     if (progress) {
       var index = stepNames.indexOf(name);
@@ -524,8 +528,10 @@
   } else if (section) section.classList.add('is-explore');
 
   var requested = new URLSearchParams(window.location.search).get('place');
-  map.fitBounds(overview, { padding: [12, 12] });
-  if (places[requested]) { if (section) section.classList.add('is-explore'); currentStep = 'explore'; focusPlace(requested, null, true); document.querySelector('.story-explore').scrollIntoView(); }
+  map.fitBounds(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), { padding: [30, 30] });
+  setBasemap('satellite');
+  setChapterLayers('intro');
+  if (places[requested]) { setCover(false); if (section) section.classList.add('is-explore'); currentStep = 'explore'; setChapterLayers('explore'); focusPlace(requested, null, true); document.querySelector('.story-explore').scrollIntoView(); }
   else showDetail(places.stadium);
   window.setTimeout(function () { map.invalidateSize(); }, 0);
 })();
