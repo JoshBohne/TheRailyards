@@ -76,17 +76,17 @@ html.has-story-navigation {
   height: auto;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 1px solid #c5cdc3;
+  border: 1px solid #c4ced4;
   background: #fff;
-  color: #294638;
+  color: #111111;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.2;
   white-space: nowrap;
 }
 .story-hybrid .story-nav [data-story-next] {
-  background: #294638;
-  border-color: #294638;
+  background: #111111;
+  border-color: #111111;
   color: #fff;
 }
 .story-hybrid .story-nav button[aria-disabled="true"] {
@@ -108,7 +108,11 @@ html.has-story-navigation {
   scroll-snap-align: none;
   gap: 10px;
 }
-.story-hybrid .story-step.is-active { border-left-color: #7d9a80; }
+.story-hybrid .story-step.is-active { border-left-color: #8e989e; }
+/* Until the reader presses Start (or scrolls into the story), the chapters below the intro stay blurred. */
+.story-hybrid .story-step { transition: filter .5s var(--panel-ease), opacity .5s var(--panel-ease); }
+.story-hybrid[data-active-story="intro"] .story-step:not([data-story="intro"]) { filter: blur(5px); opacity: .45; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { .story-hybrid .story-step { transition: none; } }
 .story-hybrid .story-step p { max-width: 42ch; font-size: 17px; line-height: 1.6; }
 .story-hybrid .story-step > a { min-height: 28px; padding-block: 4px; }
 .story-hybrid .story-image { width: 100%; max-height: none; aspect-ratio: 16 / 10; object-fit: cover; background: #e4e7e0; }
