@@ -170,7 +170,7 @@ html.has-story-navigation {
   box-shadow: 0 1px 4px #0000001f;
 }
 .story-map.is-fullscreen { position: fixed !important; inset: 0 !important; z-index: 900; width: 100% !important; height: 100svh !important; min-height: 0; border: 0; }
-.story-map.is-fullscreen .map-exit-fullscreen { display: inline-flex; }
+.story-map.is-fullscreen .map-exit-fullscreen { display: grid; place-items: center; }
 html.story-fullscreen { overflow: hidden; }
 html.story-fullscreen .story-nav { display: none !important; }
 .story-hybrid .map-toolbar,

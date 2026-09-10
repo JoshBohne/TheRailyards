@@ -22,12 +22,39 @@
   var latScale = 1 / 110900;
   var lonScale = 1 / (111320 * Math.cos(origin.latitude_reference * Math.PI / 180));
   var homeOffset = origin.home_offset_xy_m || [0, 0];
-  /* Map-only display offset: keeps the illustrative footprint inside the Amtrak parcel and level with McDonald's Park across the river, as the renderings show. */
-  var displayOffset = [-0.0018, 0.0005];
-  var stadiumCenter = [
-    origin.latitude_reference - homeOffset[1] * latScale + displayOffset[0],
-    origin.longitude_reference - (homeOffset[0] + 33) * lonScale + displayOffset[1]
-  ];
+  /* Map-only display transform for the illustrative footprint: the diamond points north, the
+     outline is scaled to sit inside the Amtrak parcel, and it is centred level with McDonald's
+     Park across the river, as the renderings show. The model itself is untouched. */
+  var siteData = data.sites || {};
+  var parkRing = siteData.mcdonaldsPark || [];
+  var yardRing = siteData.amtrakYard || [];
+  var parkLat = parkRing.length ? parkRing.reduce(function (sum, p) { return sum + p[0]; }, 0) / parkRing.length : origin.latitude_reference;
+  function parcelSpan(lat) {
+    var xs = [];
+    for (var i = 0; i < yardRing.length; i++) {
+      var a = yardRing[i], b = yardRing[(i + 1) % yardRing.length];
+      if ((a[0] - lat) * (b[0] - lat) < 0) xs.push(a[1] + (b[1] - a[1]) * (lat - a[0]) / (b[0] - a[0]));
+    }
+    xs.sort(function (m, n) { return m - n; });
+    return xs.length >= 2 ? [xs[0], xs[xs.length - 1]] : [origin.longitude_reference - 0.0008, origin.longitude_reference + 0.0008];
+  }
+  var span = parcelSpan(parkLat);
+  var parcelCenterLng = (span[0] + span[1]) / 2;
+  var parcelWidth = (span[1] - span[0]) / lonScale;
+  var rotation = Math.PI / 4;
+  function rotated(point) {
+    var x = point[0] - homeOffset[0] - 33, y = point[1] - homeOffset[1];
+    return [x * Math.cos(rotation) - y * Math.sin(rotation), x * Math.sin(rotation) + y * Math.cos(rotation)];
+  }
+  var hullPoints = (data.bowlBack || []).concat(data.fieldBoundary || []).map(rotated);
+  var hullX = hullPoints.map(function (p) { return p[0]; }), hullY = hullPoints.map(function (p) { return p[1]; });
+  var hullMinX = Math.min.apply(null, hullX), hullMaxX = Math.max.apply(null, hullX);
+  var hullMinY = Math.min.apply(null, hullY), hullMaxY = Math.max.apply(null, hullY);
+  var hullCenter = [(hullMinX + hullMaxX) / 2, (hullMinY + hullMaxY) / 2];
+  // The strip is narrower than a real ballpark; let the outline touch the parcel edges rather than vanish.
+  var displayScale = Math.min(1, parcelWidth * 1.12 / (hullMaxX - hullMinX));
+  var stadiumCenter = [parkLat, parcelCenterLng];
+  var footprintTopLat = parkLat + (hullMaxY - hullCenter[1]) * displayScale * latScale;
 
   var map = L.map(root, {
     center: stadiumCenter,
@@ -36,9 +63,9 @@
     minZoom: 12,
     maxZoom: 17,
     scrollWheelZoom: false,
-    zoomAnimation: false,
-    fadeAnimation: false,
-    markerZoomAnimation: false,
+    zoomAnimation: true,
+    fadeAnimation: true,
+    markerZoomAnimation: true,
     attributionControl: false
   });
   /* Map credits live in the page footer instead of on the canvas. */
@@ -116,9 +143,10 @@
   }
   function pointsFromLocal(points) {
     return points.map(function (point) {
+      var p = rotated(point);
       return [
-        origin.latitude_reference + (point[1] - homeOffset[1]) * latScale + displayOffset[0],
-        origin.longitude_reference + (point[0] - homeOffset[0] - 33) * lonScale + displayOffset[1]
+        parkLat + (p[1] - hullCenter[1]) * displayScale * latScale,
+        parcelCenterLng + (p[0] - hullCenter[0]) * displayScale * lonScale
       ];
     });
   }
@@ -197,7 +225,7 @@
       L.polygon(pointsFromLocal([[0, 0], [27.43, 0], [27.43, 27.43], [0, 27.43]]), { renderer: renderer, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[5, 5], [23, 5], [23, 23], [5, 23]]), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
       L.circle([0, 0].length ? pointsFromLocal([[0, 0]])[0] : stadiumCenter, { renderer: renderer, radius: 4, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
-      label('text', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
+      label('text', 'The Railyards', 11, [parkLat, stadiumCenter[1] - 0.0033])
     ])
   });
 
@@ -384,7 +412,7 @@
   });
 
   /* Street reference so the parcel reads against the city. */
-  L.layerGroup([label('area', 'Roosevelt Rd', 13, [41.8681, -87.6352], 'map-marker-street')]).addTo(map);
+  L.layerGroup([label('area', 'Roosevelt Rd', 13, [41.86735, -87.6352], 'map-marker-street')]).addTo(map);
 
   var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer, renderings: renderLayer };
   function fitInstant(bounds, padding, maxZoom) {
@@ -727,7 +755,7 @@
     exitButton = document.createElement('button');
     exitButton.type = 'button';
     exitButton.className = 'map-exit-fullscreen';
-    exitButton.textContent = '✕';
+    exitButton.innerHTML = '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
     exitButton.setAttribute('aria-label', 'Exit full screen');
     exitButton.addEventListener('click', function () { setFullscreen(false); });
     stage.appendChild(exitButton);
