@@ -250,6 +250,33 @@
       "url": "https://the-garden-og-game-four.vercel.app/",
       "credit": "Unknown author",
       "used_for": "Replay interaction on the public site"
+    },
+    {
+      "id": "rf-corner-b4",
+      "kind": "official",
+      "title": "RF corner, native crop of AECOM B4 north aerial",
+      "path": "reference-audit/crops/rf-corner-b4.jpg",
+      "credit": "AECOM, crop by the agent 2026-09-09 (no resampling)",
+      "url": "https://www.cbsnews.com/chicago/news/chicago-white-sox-south-loop-the-railyards/",
+      "used_for": "Right-field corner: tower, terrace, tiers, scoreboard truss, arcade"
+    },
+    {
+      "id": "rf-corner-a3",
+      "kind": "official",
+      "title": "RF corner, native crop of AECOM A3 bridge view",
+      "path": "reference-audit/crops/rf-corner-a3.jpg",
+      "credit": "AECOM, crop by the agent 2026-09-09 (no resampling)",
+      "url": "https://www.cbsnews.com/chicago/news/chicago-white-sox-south-loop-the-railyards/",
+      "used_for": "Right-field corner: tower, terrace, tiers, scoreboard truss, arcade"
+    },
+    {
+      "id": "rf-corner-b6",
+      "kind": "official",
+      "title": "RF corner, native crop of AECOM B6 south aerial",
+      "path": "reference-audit/crops/rf-corner-b6.jpg",
+      "credit": "AECOM, crop by the agent 2026-09-09 (no resampling)",
+      "url": "https://chicago.suntimes.com/",
+      "used_for": "Right-field corner: tower, terrace, tiers, scoreboard truss, arcade"
     }
   ]
 }
