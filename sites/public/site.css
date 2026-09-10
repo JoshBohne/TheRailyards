@@ -623,7 +623,8 @@ nav{width:100%;
  .story-steps{order:2}
  .story .map-detail{order:3;margin-top:0;margin-bottom:24px}
  .story-map{display:contents}
- .story-map .map-stage{position:sticky;top:0;z-index:5;height:52svh;min-height:320px;background:var(--bg)}
+ .story-map .map-stage{position:sticky;top:0;z-index:5;width:100%;height:52svh;min-height:320px;background:var(--bg)}
+ .story .map-detail,.story-steps{width:100%}
  .story.is-explore .story-map .map-stage{height:60svh}
  .story.is-explore .map-toggles button,.story.is-explore .map-basemap button{padding:5px 9px;font-size:12px}
  .story.is-explore .map-toggles button .legend-icon,.story.is-explore .map-toggles button .legend-line{display:none}
