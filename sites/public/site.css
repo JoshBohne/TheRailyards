@@ -698,8 +698,8 @@ html.story-snap{scroll-snap-type:y proximity}
 .site-header.is-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 @media(max-width:640px){
  .site-header{position:relative;flex-wrap:nowrap;gap:10px;min-height:64px}
- .nav-toggle{display:flex;order:2;margin-left:auto}
- .feedback-open{order:3;margin-left:0}
+ .nav-toggle{display:flex;order:3;margin-left:0}
+ .feedback-open{order:2;margin-left:auto}
  .site-header nav{display:none;position:absolute;left:0;right:0;top:100%;z-index:900;order:4;flex-direction:column;gap:0;width:auto;padding:6px 0 10px;background:var(--bg);border-bottom:1px solid var(--line);box-shadow:0 12px 24px #1c2a1f1a}
  .site-header.is-open nav{display:flex}
  .site-header nav a{font-size:16px;padding:12px 4px;border-top:1px solid var(--line)}
