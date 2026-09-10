@@ -197,7 +197,7 @@
       L.polygon(pointsFromLocal([[0, 0], [27.43, 0], [27.43, 27.43], [0, 27.43]]), { renderer: renderer, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
       L.polygon(pointsFromLocal([[5, 5], [23, 5], [23, 23], [5, 23]]), { renderer: renderer, stroke: false, fillColor: '#8fbf84', fillOpacity: 1, interactive: false }),
       L.circle([0, 0].length ? pointsFromLocal([[0, 0]])[0] : stadiumCenter, { renderer: renderer, radius: 4, stroke: false, fillColor: '#c9a978', fillOpacity: 1, interactive: false }),
-      label('ballpark', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
+      label('text', 'The Railyards', 11, [stadiumCenter[0] + 0.0011, stadiumCenter[1] - 0.0004])
     ])
   });
 
@@ -221,7 +221,21 @@
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
       L.polygon(convexHull([].concat.apply([], sites.the78.map(function (ring) { return ring[0]; }))), { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
-      label('soccer', 'McDonald’s Park', 13, [41.8622, -87.6322])
+      label('text', 'The 78', 14, [41.8608, -87.6335])
+    ])
+  });
+
+  /* The stadium footprint itself: the OpenStreetMap construction outline, shown from the groundbreaking chapter on. */
+  var parkBounds = L.latLngBounds(sites.mcdonaldsPark);
+  register({
+    id: 'mcdonaldsPark', status: 'underConstruction',
+    title: 'McDonald’s Park · The 78',
+    copy: 'The Chicago Fire’s 22,000-seat stadium across the river. Broke ground March 2026, opens 2028.',
+    source: 'sources.html#chicagofire-2026-03-03', sourceLabel: 'Chicago Fire · Mar 3, 2026',
+    position: parkBounds.getCenter(), zoom: 16,
+    layer: L.layerGroup([
+      L.polygon(sites.mcdonaldsPark, { renderer: renderer, color: '#9a6a12', weight: 2, fillColor: '#d9a441', fillOpacity: 0.85, className: 'map-site-fill' }),
+      label('text', 'McDonald’s Park', 13, [parkBounds.getCenter().lat, parkBounds.getCenter().lng])
     ])
   });
 
@@ -431,7 +445,7 @@
   var storyViews = {
     intro: function () { setCover(true); setBasemap('satellite'); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), 30); showDetail(places.stadium); },
     the78first: function () { setCover(false); setBasemap('satellite'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
-    fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, flight); },
+    fire: function () { setBasemap('satellite'); showDetail(places.mcdonaldsPark); fly(parkBounds, 60); },
     amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
     swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); var yard = L.latLngBounds(sites.upCanalYard); map.flyTo(yard.getCenter(), map.getBoundsZoom(yard, false, [20, 20]) + 1, flight); },
     stadium: function () { setBasemap('map'); focusPlace('stadium'); },
@@ -454,14 +468,14 @@
   document.documentElement.classList.add('story-snap');
   var currentStep = '';
   /* What each chapter shows. Everything else on the map is hidden until Explore. */
-  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
+  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'mcdonaldsPark', 'rateField'];
   var chapterSites = {
-    intro: ['amtrakYard', 'the78'],
+    intro: ['amtrakYard', 'the78', 'mcdonaldsPark'],
     the78first: ['the78'],
-    fire: ['the78'],
-    amtrakYard: ['amtrakYard', 'the78'],
+    fire: ['the78', 'mcdonaldsPark'],
+    amtrakYard: ['amtrakYard', 'the78', 'mcdonaldsPark'],
     swap: ['upCanalYard'],
-    stadium: ['stadium', 'amtrakYard', 'the78'],
+    stadium: ['stadium', 'amtrakYard', 'the78', 'mcdonaldsPark'],
     explore: siteIds
   };
   function setChapterLayers(name) {
