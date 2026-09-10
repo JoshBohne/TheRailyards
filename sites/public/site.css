@@ -610,7 +610,10 @@ nav{width:100%;
 .story-step p{margin:0;font-size:16px;line-height:1.55;color:#4d5a50;max-width:34ch}
 .story-step>a{font-size:13px;color:#244a39;text-underline-offset:4px}
 .story-step time{font-size:13px;letter-spacing:.02em;color:var(--muted);font-variant-numeric:tabular-nums}
-.story-image{border-radius:3px;aspect-ratio:16/10;object-fit:cover;margin:4px 0}
+.story-figure{margin:4px 0}
+.story-image{border-radius:3px;aspect-ratio:16/10;object-fit:cover;margin:0}
+.story-figure figcaption{display:block;margin-top:6px;font-size:11.5px;color:var(--muted)}
+.story-figure figcaption a{color:inherit}
 .story-progress{position:absolute;z-index:600;left:50%;top:10px;transform:translateX(-50%);display:flex;gap:6px;margin:0;padding:6px 10px;list-style:none;background:#fafaf8e6;border-radius:999px;box-shadow:0 2px 8px #1c2a1f22;backdrop-filter:blur(6px);pointer-events:none}
 .story-progress[hidden]{display:none}
 .story-progress li{width:8px;height:8px;border-radius:50%;background:#c9cfc6;font-size:0;transition:background .3s,width .3s}

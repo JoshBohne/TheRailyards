@@ -83,6 +83,11 @@ def main():
         shutil.rmtree(output)
     output.mkdir(parents=True)
     shutil.copytree(release / 'media', output / 'media')
+    extra = Path(__file__).resolve().parent / 'media-extra'
+    if extra.is_dir():
+        for item in extra.iterdir():
+            if item.is_file() and item.suffix in ('.jpg', '.png', '.webp'):
+                shutil.copy2(item, output / 'media' / item.name)
     shutil.copytree(args.replay_dist, output / 'replay', ignore=shutil.ignore_patterns('model'))
     shutil.copytree(release / 'model', output / 'replay/model')
     split_venue(output)
