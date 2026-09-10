@@ -12,7 +12,7 @@
     storyStyles = document.createElement('link');
     storyStyles.id = 'railyards-story-styles';
     storyStyles.rel = 'stylesheet';
-    storyStyles.href = new URL('map-story.css?rev=hybrid-1', document.currentScript.src || document.baseURI).href;
+    storyStyles.href = new URL('map-story.css?rev=20260910b', document.currentScript.src || document.baseURI).href;
     document.head.appendChild(storyStyles);
   }
   if (!window.L || !data) return;
