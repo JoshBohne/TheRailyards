@@ -3,7 +3,19 @@
 
   var root = document.getElementById('railyards-map');
   var data = window.RailyardsMapData;
-  if (!root || !window.L || !data) return;
+  if (!root) return;
+
+  // The homepage owns its enhancement styles; other pages and the generated
+  // inline skyline remain untouched. Load relative to this script, not the URL.
+  var storyStyles = document.getElementById('railyards-story-styles');
+  if (!storyStyles) {
+    storyStyles = document.createElement('link');
+    storyStyles.id = 'railyards-story-styles';
+    storyStyles.rel = 'stylesheet';
+    storyStyles.href = new URL('map-story.css?rev=hybrid-1', document.currentScript.src || document.baseURI).href;
+    document.head.appendChild(storyStyles);
+  }
+  if (!window.L || !data) return;
 
   var L = window.L;
   var origin = data.origin;
@@ -23,11 +35,12 @@
     zoomSnap: 0.5,
     minZoom: 12,
     maxZoom: 17,
-    scrollWheelZoom: false
+    scrollWheelZoom: false,
+    zoomAnimation: false,
+    fadeAnimation: false,
+    markerZoomAnimation: false
   });
   map.attributionControl.setPrefix('');
-  map.on('focus', function () { map.scrollWheelZoom.enable(); });
-  map.on('blur', function () { map.scrollWheelZoom.disable(); });
 
   var esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
   L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
@@ -131,8 +144,7 @@
       else detailNodes.image.removeAttribute('src');
     }
     if (detailNodes.copy) detailNodes.copy.textContent = feature.copy;
-    var panel = detailNodes.figure && detailNodes.figure.closest('.map-detail');
-    if (panel && window.innerWidth <= 900 && panel.offsetParent && (feature.image || feature.userSelected)) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Selecting a place must never move the document or select another chapter.
     if (detailNodes.link) {
       detailNodes.link.textContent = feature.sourceLabel;
       detailNodes.link.href = feature.source;
@@ -143,7 +155,7 @@
   function register(feature) {
     var layers = feature.layer instanceof L.LayerGroup ? feature.layer.getLayers() : [feature.layer];
     layers.forEach(function (layer) {
-      layer.on('click', function () { feature.userSelected = true; showDetail(feature); feature.userSelected = false; });
+      layer.on('click', function () { if (currentStep === 'explore') showDetail(feature); });
     });
     feature.layer.addTo(feature.group || map);
     places[feature.id] = feature;
@@ -167,7 +179,7 @@
       iconSize: kind === 'text' ? [0, 0] : [24, 24],
       iconAnchor: kind === 'text' ? [0, 0] : [12, 12]
     });
-    return L.marker(position, { icon: icon, zIndexOffset: kind === 'text' ? 0 : 200, keyboard: kind !== 'text' });
+    return L.marker(position, { icon: icon, zIndexOffset: kind === 'text' ? 0 : 200, keyboard: kind !== 'text', autoPanOnFocus: false });
   }
 
   var sites = data.sites || {};
@@ -365,48 +377,54 @@
   register(clintonFeature);
   [['North/Clybourn', [41.9107, -87.6487], 15], ['Chicago', [41.8965, -87.6432], 15], ['Grand', [41.8915, -87.6432], 15], ['Union Station', [41.8786, -87.6410], 16], ['Clinton', [41.8755, -87.6410], 16], ['Roosevelt · Clinton', [41.8673, -87.6410], 13], ['Chinatown', [41.8535, -87.6310], 15]].forEach(function (stop) {
     var marker = label('concept', stop[0], stop[2], stop[1]);
-    marker.on('click', function () { showDetail(clintonFeature); });
+    marker.on('click', function () { if (currentStep === 'explore') showDetail(clintonFeature); });
     marker.addTo(conceptLayer);
   });
 
   var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer, renderings: renderLayer };
+  function fitInstant(bounds, padding, maxZoom) {
+    map.stop();
+    map.fitBounds(bounds, { padding: [padding, padding], maxZoom: maxZoom || 17, animate: false });
+  }
   document.querySelectorAll('[data-map-layer]').forEach(function (button) {
     button.addEventListener('click', function () {
       var layer = groups[button.getAttribute('data-map-layer')];
-      if (!layer) return;
+      if (!layer || currentStep !== 'explore') return;
       var on = !map.hasLayer(layer);
       if (on) layer.addTo(map); else map.removeLayer(layer);
       button.setAttribute('aria-pressed', on ? 'true' : 'false');
       if (on && layer === parkingLayer) {
         var bounds = L.latLngBounds([stadiumCenter]);
         layer.eachLayer(function (item) { if (item.getLatLng) bounds.extend(item.getLatLng()); });
-        map.flyToBounds(bounds, { padding: [40, 40], duration: 0.8 });
+        fitInstant(bounds, 40);
       }
       if (on && layer === renderLayer) {
         showDetail(places.renderNorth);
-        map.flyToBounds(L.latLngBounds([places.renderNorth.position, places.renderSouth.position, places.renderBridge.position]), { padding: [40, 40], duration: 0.8 });
+        fitInstant(L.latLngBounds([places.renderNorth.position, places.renderSouth.position, places.renderBridge.position]), 40);
       }
       if (on && layer === conceptLayer) {
         showDetail(clintonFeature);
-        map.flyToBounds(L.latLngBounds([stadiumCenter, [41.8765, -87.6425], [41.8600, -87.6300]]), { padding: [30, 30], duration: 0.8 });
+        fitInstant(L.latLngBounds([stadiumCenter, [41.8765, -87.6425], [41.8600, -87.6300]]), 30);
       }
     });
   });
   var overview = L.latLngBounds([[41.8555, -87.6435], [41.8705, -87.6265]]);
-  function focusPlace(id, button, instant, keepBasemap) {
+  function focusPlace(id, button) {
     var place = places[id];
     if (!place) return;
     showDetail(place);
-    if (!keepBasemap) setBasemap(place.basemap || 'map');
-    if (instant || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) map.setView(place.position, place.zoom);
-    else map.flyTo(place.position, place.zoom, { duration: 0.9, easeLinearity: 0.35 });
+    setBasemap(place.basemap || 'map');
+    if (place.group && !map.hasLayer(place.group)) place.group.addTo(map);
+    syncLayerButtons();
+    map.stop();
+    map.setView(place.position, place.zoom, { animate: false });
     document.querySelectorAll('[data-map-focus]').forEach(function (item) {
       item.setAttribute('aria-pressed', item === button || item.getAttribute('data-map-focus') === id ? 'true' : 'false');
     });
   }
   document.querySelectorAll('[data-map-focus]').forEach(function (button) {
     button.addEventListener('click', function () {
-      focusPlace(button.getAttribute('data-map-focus'), button);
+      if (currentStep === 'explore') focusPlace(button.getAttribute('data-map-focus'), button);
     });
   });
 
@@ -417,121 +435,307 @@
   map.on('zoomend', updateZoomClasses);
   updateZoomClasses();
 
-  /* Scroll-driven story: each step pins the map to a place; the last step opens the controls. */
-  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var bothYards = L.latLngBounds(sites.amtrakYard.concat(sites.upCanalYard));
-  var flight = { duration: reduceMotion ? 0 : 0.9, easeLinearity: 0.35 };
-  function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: flight.duration, easeLinearity: flight.easeLinearity }); }
-  var cover = document.querySelector('.story-cover');
-  function setCover(open) { if (cover) cover.setAttribute('data-open', open ? 'true' : 'false'); }
+  /* Hybrid story: document position is the only authority for chapter state.
+     Buttons request a scroll destination; they never call runStep directly. */
+  var section = root.closest('.story');
+  if (!section) return;
+  var steps = Array.prototype.slice.call(section.querySelectorAll('.story-step'));
+  if (!steps.length) return;
+  var currentStep = '';
+  var currentIndex = -1;
+  var motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var stacked = window.matchMedia('(max-width: 900px)');
+  var stage = section.querySelector('.map-stage');
+  var pinned = section.querySelector('.story-map');
+  var nav = section.querySelector('.story-nav');
+  var navPrev = section.querySelector('[data-story-prev]');
+  var navNext = section.querySelector('[data-story-next]');
+  var navCount = section.querySelector('[data-story-count]');
+  var cover = section.querySelector('.story-cover');
+  var tools;
+  var announcement;
+  var anchors;
+  var started = false;
+  var frame = 0;
+  var pending = null;
+  var resizeMap = true;
+  var resetSelection = true;
+  var lastMapWidth = 0, lastMapHeight = 0;
+  var lastViewportWidth = window.innerWidth;
+  var HYSTERESIS = 12;
+  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
+  var northBounds = L.latLngBounds(sites.amtrakYard);
+  sites.the78.forEach(function (polygon) { northBounds.extend(L.latLngBounds(polygon[0])); });
   var yardNotes = L.layerGroup([
     label('text', 'North end · train storage', 12, [41.8447, -87.6373]),
     label('text', 'South end · shop building, 33rd–35th', 12, [41.8292, -87.6373])
   ]);
-  var storyViews = {
-    intro: function () { setCover(true); setBasemap('satellite'); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), 30); showDetail(places.stadium); },
-    the78first: function () { setCover(false); setBasemap('satellite'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
-    fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, flight); },
-    amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
-    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); var yard = L.latLngBounds(sites.upCanalYard); map.flyTo(yard.getCenter(), map.getBoundsZoom(yard, false, [20, 20]) + 1, flight); },
-    stadium: function () { setBasemap('map'); focusPlace('stadium'); },
-    explore: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); }
+  var chapters = {
+    intro: { sites: ['amtrakYard', 'the78'], bounds: northBounds, padding: 30 },
+    the78first: { sites: ['the78'], bounds: northBounds, padding: 30 },
+    fire: { sites: ['the78'], bounds: northBounds, padding: 30 },
+    amtrakYard: { sites: ['amtrakYard', 'the78'], bounds: northBounds, padding: 30 },
+    swap: { sites: ['upCanalYard', 'rateField'], bounds: L.latLngBounds(sites.upCanalYard).extend(sites.rateField), padding: 30 },
+    stadium: { sites: ['stadium', 'amtrakYard', 'the78'], bounds: northBounds, padding: 30 },
+    explore: { sites: siteIds, bounds: overview, padding: 20 }
   };
-  var progress = document.querySelector('.story-progress');
-  var stepNames = [];
-  document.querySelectorAll('.story-step').forEach(function (step) {
-    var name = step.getAttribute('data-story');
-    if (name === 'intro' || name === 'explore') return;
-    stepNames.push(name);
-    if (progress) {
-      var item = document.createElement('li');
-      item.setAttribute('data-step', name);
-      item.textContent = (step.querySelector('time') || {}).textContent || '';
-      progress.appendChild(item);
-    }
-  });
-  var section = root.closest('.story');
-  document.documentElement.classList.add('story-snap');
-  var currentStep = '';
-  /* What each chapter shows. Everything else on the map is hidden until Explore. */
-  var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
-  var chapterSites = {
-    intro: ['amtrakYard', 'the78'],
-    the78first: ['the78'],
-    fire: ['the78'],
-    amtrakYard: ['amtrakYard', 'the78'],
-    swap: ['upCanalYard'],
-    stadium: ['stadium', 'amtrakYard', 'the78'],
-    explore: siteIds
-  };
-  function setChapterLayers(name) {
-    var show = chapterSites[name] || siteIds;
-    siteIds.forEach(function (id) {
-      var layer = places[id].layer;
-      var on = show.indexOf(id) >= 0;
-      if (on && !map.hasLayer(layer)) layer.addTo(map);
-      if (!on && map.hasLayer(layer)) map.removeLayer(layer);
+
+  function syncLayerButtons() {
+    document.querySelectorAll('[data-map-layer]').forEach(function (button) {
+      button.setAttribute('aria-pressed', map.hasLayer(groups[button.getAttribute('data-map-layer')]) ? 'true' : 'false');
     });
-    if (name === 'swap' && !map.hasLayer(yardNotes)) yardNotes.addTo(map);
-    if (name !== 'swap' && map.hasLayer(yardNotes)) map.removeLayer(yardNotes);
-    var transitOn = name === 'explore' || name === 'intro';
-    if (transitOn && !map.hasLayer(transitLayer)) transitLayer.addTo(map);
-    if (!transitOn && map.hasLayer(transitLayer)) map.removeLayer(transitLayer);
-    var transitButton = document.querySelector('[data-map-layer="transit"]');
-    if (transitButton) transitButton.setAttribute('aria-pressed', map.hasLayer(transitLayer) ? 'true' : 'false');
   }
-  function runStep(name) {
-    if (name === currentStep || !storyViews[name]) return;
+  function setLayer(layer, on) {
+    if (on && !map.hasLayer(layer)) layer.addTo(map);
+    if (!on && map.hasLayer(layer)) map.removeLayer(layer);
+  }
+  function setInteractions(explore) {
+    ['dragging', 'touchZoom', 'doubleClickZoom', 'boxZoom', 'keyboard', 'tapHold'].forEach(function (name) {
+      if (map[name]) map[name][explore ? 'enable' : 'disable']();
+    });
+    // Wheel/trackpad scrolling always belongs to the article, even in Explore.
+    map.scrollWheelZoom.disable();
+    root.inert = !explore;
+    root.setAttribute('tabindex', explore ? '0' : '-1');
+    root.setAttribute('role', 'region');
+    root.setAttribute('aria-label', explore ? 'Interactive map. Drag to pan, use plus and minus to zoom, and select a place for details.' : 'Map illustrating the current story chapter');
+    if (tools) tools.inert = !explore;
+  }
+  function runStep(index) {
+    var name = steps[index].getAttribute('data-story');
+    if (name === currentStep || !chapters[name]) return;
     currentStep = name;
-    setChapterLayers(name);
-    if (section) section.classList.toggle('is-explore', name === 'explore');
+    currentIndex = index;
+    var chapter = chapters[name];
+    map.stop();
+    siteIds.forEach(function (id) { setLayer(places[id].layer, chapter.sites.indexOf(id) !== -1); });
+    setLayer(yardNotes, name === 'swap');
+    // Reconcile EVERY auxiliary layer; Explore cannot leak overlays backward.
+    Object.keys(groups).forEach(function (key) { setLayer(groups[key], name === 'explore' && key === 'transit'); });
+    syncLayerButtons();
+    setBasemap('map');
+    section.classList.toggle('is-explore', name === 'explore');
     root.classList.toggle('is-focused', name !== 'explore');
-    if (name !== 'intro') setCover(false);
-    document.querySelectorAll('.story-step').forEach(function (step) { step.classList.toggle('is-active', step.getAttribute('data-story') === name); });
-    if (progress) {
-      var index = stepNames.indexOf(name);
-      progress.hidden = index < 0;
-      progress.querySelectorAll('li').forEach(function (item, i) { item.classList.toggle('is-done', i < index); item.classList.toggle('is-current', i === index); });
-    }
-    storyViews[name]();
+    if (cover) cover.setAttribute('data-open', name === 'intro' ? 'true' : 'false');
+    setInteractions(name === 'explore');
+    fitInstant(chapter.bounds, chapter.padding, 16);
+    if (name === 'explore') showDetail(places.stadium);
+    steps.forEach(function (step, i) {
+      step.classList.toggle('is-active', i === index);
+      if (i === index) step.setAttribute('aria-current', 'step');
+      else step.removeAttribute('aria-current');
+    });
+    section.setAttribute('data-active-story', name);
+    root.setAttribute('data-story-view', name);
     updateNav();
   }
-  var steps = Array.prototype.slice.call(document.querySelectorAll('.story-step'));
-  var navPrev = document.querySelector('[data-story-prev]'), navNext = document.querySelector('[data-story-next]'), navCount = document.querySelector('[data-story-count]');
-  function stepIndex() { return steps.findIndex(function (step) { return step.getAttribute('data-story') === currentStep; }); }
-  function goTo(index) {
-    var step = steps[Math.max(0, Math.min(steps.length - 1, index))];
-    if (step) step.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: window.innerWidth <= 900 ? 'start' : 'center' });
-  }
-  if (navPrev) navPrev.addEventListener('click', function () { goTo(stepIndex() - 1); });
-  if (navNext) navNext.addEventListener('click', function () { goTo(stepIndex() + 1); });
   function updateNav() {
-    var index = stepIndex();
-    if (navCount) navCount.textContent = index <= 0 ? '' : (index) + ' / ' + (steps.length - 1);
-    if (navPrev) navPrev.disabled = index <= 0;
-    if (navNext) navNext.disabled = index >= steps.length - 1;
+    // Pending destination is for rapid-click arithmetic only. The visible count
+    // and disabled states always describe the chapter at the reading line.
+    navCount.textContent = currentIndex === 0 ? 'The story' : currentIndex === steps.length - 1 ? 'Explore' : currentIndex + ' of ' + (steps.length - 2);
+    navPrev.setAttribute('aria-disabled', currentIndex <= 0 && !pending ? 'true' : 'false');
+    navNext.setAttribute('aria-disabled', currentIndex === steps.length - 1 && !pending ? 'true' : 'false');
+    navPrev.textContent = '← Previous';
+    navNext.textContent = currentIndex <= 0 ? 'Start →' : currentIndex === steps.length - 2 ? 'Explore →' : 'Next →';
+    navNext.setAttribute('aria-label', currentIndex <= 0 ? 'Start the story' : currentIndex === steps.length - 2 ? 'Explore the map' : 'Next chapter');
   }
-  if ('IntersectionObserver' in window) {
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) { if (entry.isIntersecting) runStep(entry.target.getAttribute('data-story')); });
-    }, { rootMargin: window.innerWidth <= 900 ? '-52% 0px -22% 0px' : '-45% 0px -45% 0px', threshold: 0 });
-    document.querySelectorAll('.story-step').forEach(function (step) { observer.observe(step); });
-    /* The last card is short and ends the page, so it opens as soon as it scrolls into the lower half. */
-    var exploreStep = document.querySelector('.story-explore');
-    function checkExplore() {
-      if (!exploreStep) return;
-      var top = exploreStep.getBoundingClientRect().top;
-      if (top < window.innerHeight * 0.8 && top > 0) runStep('explore');
+  function viewport() {
+    var visual = window.visualViewport;
+    return { top: visual ? visual.offsetTop : 0, height: visual ? visual.height : window.innerHeight };
+  }
+  function readingLine(destination) {
+    var view = viewport();
+    if (!stacked.matches || getComputedStyle(pinned).position !== 'sticky') return view.top + view.height * 0.35;
+    var rect = pinned.getBoundingClientRect();
+    var pinnedBottom = (parseFloat(getComputedStyle(pinned).top) || 0) + rect.height;
+    var bottom = destination ? pinnedBottom : Math.min(rect.bottom, pinnedBottom);
+    bottom = Math.max(view.top, bottom);
+    return bottom + Math.min(64, Math.max(0, view.top + view.height - bottom) * 0.18);
+  }
+  function chooseIndex(tops, line) {
+    if (currentIndex < 0 || resetSelection) {
+      var selected = 0;
+      tops.forEach(function (top, i) { if (top <= line) selected = i; });
+      return selected;
     }
-    window.addEventListener('scroll', checkExplore, { passive: true });
-    checkExplore();
-  } else if (section) section.classList.add('is-explore');
+    var index = currentIndex;
+    while (index + 1 < tops.length && tops[index + 1] <= line - HYSTERESIS) index++;
+    while (index > 0 && tops[index] > line + HYSTERESIS) index--;
+    return index;
+  }
+  function queueFrame() {
+    if (started && !frame) frame = window.requestAnimationFrame(reconcile);
+  }
+  function reconcile() {
+    frame = 0;
+    if (resizeMap) {
+      resizeMap = false;
+      var width = root.clientWidth, height = root.clientHeight;
+      if (width !== lastMapWidth || height !== lastMapHeight) {
+        lastMapWidth = width;
+        lastMapHeight = height;
+        map.invalidateSize({ animate: false, pan: false });
+        // Resizing while exploring must not replace the user's chosen view.
+        if (currentStep && currentStep !== 'explore') fitInstant(chapters[currentStep].bounds, chapters[currentStep].padding, 16);
+      }
+    }
+    var tops = anchors.map(function (anchor) { return anchor.getBoundingClientRect().top; });
+    var next = chooseIndex(tops, readingLine(false));
+    resetSelection = false;
+    runStep(next);
+    if (pending) {
+      var y = window.scrollY;
+      if (Math.abs(y - pending.top) <= 2) {
+        var arrived = pending.index;
+        var requestedPlace = pending.place;
+        pending = null;
+        if (currentStep === 'explore' && requestedPlace) focusPlace(requestedPlace);
+        // The tracker has already committed the visible chapter. No delayed
+        // callback can resurrect a canceled target or overwrite its map.
+        if (currentIndex === arrived) announcement.textContent = navCount.textContent + ': ' + steps[arrived].querySelector('h1,h2').textContent;
+        updateNav();
+      } else {
+        pending.still = Math.abs(y - pending.lastY) < 0.5 ? pending.still + 1 : 0;
+        pending.lastY = y;
+        if (pending.still > 12 || performance.now() - pending.started > 1800) {
+          // Completion fallback, not a chapter debounce or a scroll lock.
+          cancelNavigation();
+        } else queueFrame();
+      }
+    }
+  }
+  function cancelNavigation() {
+    if (!pending) return;
+    pending = null;
+    // With CSS scroll-behavior:auto this also cancels a native smooth scroll
+    // in Safari, without preventing the wheel/touch/key event's default action.
+    window.scrollTo({ top: window.scrollY, left: window.scrollX, behavior: 'auto' });
+    updateNav();
+    queueFrame();
+  }
+  function goTo(index, instant) {
+    index = Math.max(0, Math.min(steps.length - 1, index));
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    // Land just past the forward hysteresis boundary, never under the pinned UI.
+    var top = Math.max(0, Math.min(maxScroll, window.scrollY + anchors[index].getBoundingClientRect().top - readingLine(true) + HYSTERESIS + 2));
+    cancelNavigation();
+    pending = { index: index, top: top, started: performance.now(), lastY: window.scrollY, still: 0 };
+    updateNav();
+    window.scrollTo({ top: top, behavior: instant || motionPreference.matches ? 'auto' : 'smooth' });
+    queueFrame();
+  }
+  function manualInput(event) {
+    if (!pending) return;
+    if (event.type === 'keydown') {
+      var target = event.target instanceof Element ? event.target : document.body;
+      if (target.closest('input,textarea,select,[contenteditable="true"]')) return;
+      if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].indexOf(event.key) === -1) return;
+      if (event.key === ' ' && target.closest('button')) return;
+    }
+    // A second touch/click on Next should advance the requested destination.
+    if ((event.type === 'pointerdown' || event.type === 'touchstart') && event.target instanceof Element && event.target.closest('.story-nav button')) return;
+    cancelNavigation();
+  }
+  function layoutChanged() {
+    if (window.innerWidth !== lastViewportWidth) {
+      cancelNavigation();
+      lastViewportWidth = window.innerWidth;
+    }
+    resetSelection = true;
+    resizeMap = true;
+    queueFrame();
+  }
+  function startStory() {
+    if (started || !nav || !navPrev || !navNext || !navCount) return;
+    started = true;
+    document.documentElement.classList.remove('story-snap');
+    document.documentElement.classList.add('has-story-navigation');
+    section.classList.add('story-hybrid');
+    section.querySelectorAll('.story-progress,.story-hint').forEach(function (node) { node.hidden = true; });
+    // Outside the map canvas and cover, but inside the stable sticky wrapper.
+    pinned.insertBefore(nav, stage.nextSibling);
+    nav.hidden = false;
+    nav.setAttribute('role', 'group');
+    nav.setAttribute('aria-label', 'Story navigation');
+    navPrev.setAttribute('aria-label', 'Previous chapter');
+    navCount.removeAttribute('aria-live');
+    navPrev.disabled = false;
+    navNext.disabled = false;
+    var list = section.querySelector('.story-steps');
+    if (!list.id) list.id = 'story-chapters';
+    navPrev.setAttribute('aria-controls', list.id);
+    navNext.setAttribute('aria-controls', list.id);
+    announcement = document.createElement('span');
+    announcement.className = 'sr-only';
+    announcement.setAttribute('role', 'status');
+    announcement.setAttribute('aria-atomic', 'true');
+    nav.appendChild(announcement);
+    tools = document.createElement('div');
+    tools.className = 'story-explore-tools';
+    section.querySelectorAll('.map-toolbar,.map-legend,.map-detail').forEach(function (node) { tools.appendChild(node); });
+    steps[steps.length - 1].appendChild(tools);
+    anchors = steps.map(function (step) {
+      var anchor = step.querySelector('time') || step.querySelector('h1,h2');
+      anchor.setAttribute('data-story-anchor', '');
+      return anchor;
+    });
+    // The existing inline onerror collapses a whole chapter figure. Preserve its
+    // reserved aspect-ratio box even when an image is unavailable or still loading.
+    section.querySelectorAll('.story-image').forEach(function (image) {
+      image.removeAttribute('onerror');
+      image.onerror = null;
+      image.parentElement.hidden = false;
+    });
+    navPrev.addEventListener('click', function () {
+      if (!pending && currentIndex <= 0) return;
+      goTo((pending ? pending.index : currentIndex) - 1);
+    });
+    navNext.addEventListener('click', function () {
+      if (!pending && currentIndex === steps.length - 1) return;
+      goTo((pending ? pending.index : currentIndex) + 1);
+    });
+    window.addEventListener('scroll', queueFrame, { passive: true });
+    ['wheel', 'touchstart', 'touchmove', 'pointerdown'].forEach(function (type) { window.addEventListener(type, manualInput, { passive: true, capture: true }); });
+    window.addEventListener('keydown', manualInput, true);
+    window.addEventListener('resize', layoutChanged, { passive: true });
+    if (window.visualViewport) window.visualViewport.addEventListener('resize', layoutChanged, { passive: true });
+    window.addEventListener('pageshow', function (event) {
+      if (event.persisted) cancelNavigation();
+      layoutChanged();
+    });
+    window.addEventListener('pagehide', cancelNavigation);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) cancelNavigation(); else layoutChanged(); });
+    var motionChanged = function () { cancelNavigation(); queueFrame(); };
+    if (motionPreference.addEventListener) motionPreference.addEventListener('change', motionChanged);
+    else motionPreference.addListener(motionChanged);
+    if ('ResizeObserver' in window) {
+      var observer = new ResizeObserver(function () { resizeMap = true; queueFrame(); });
+      observer.observe(root);
+      steps.forEach(function (step) { observer.observe(step); });
+    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutChanged);
+    var requested = new URLSearchParams(window.location.search).get('place');
+    if (places[requested]) {
+      goTo(steps.length - 1, true);
+      // Focus only after the same tracker commits Explore at the destination.
+      // Canceling navigation also cancels this one-time deep-link focus.
+      pending.place = requested;
+    } else queueFrame();
+  }
 
-  var requested = new URLSearchParams(window.location.search).get('place');
-  map.fitBounds(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).extend(sites.amtrakYard), { padding: [30, 30] });
-  setBasemap('satellite');
-  setChapterLayers('intro');
-  if (places[requested]) { setCover(false); if (section) section.classList.add('is-explore'); currentStep = 'explore'; setChapterLayers('explore'); focusPlace(requested, null, true); document.querySelector('.story-explore').scrollIntoView(); }
-  else showDetail(places.stadium);
-  window.setTimeout(function () { map.invalidateSize(); }, 0);
+  // A delayed stylesheet must not leave the prose blurred or expose dead controls.
+  steps.forEach(function (step) {
+    step.style.opacity = '1';
+    step.style.transform = 'none';
+    step.style.filter = 'none';
+    step.style.transition = 'none';
+  });
+  if (nav) nav.hidden = true;
+  setInteractions(false);
+  storyStyles.addEventListener('load', startStory);
+  storyStyles.addEventListener('error', function () {
+    if (cover) cover.setAttribute('data-open', 'false');
+    fitInstant(northBounds, 30, 16);
+  });
+  if (storyStyles.sheet) startStory();
 })();

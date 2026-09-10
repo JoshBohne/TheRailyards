@@ -1,0 +1,180 @@
+/* Hybrid homepage enhancement, loaded by map.js. Scoped so shared gallery,
+   compare, and skyline styles do not change. No scroll-snap or scroll locks. */
+html.has-story-navigation {
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+}
+.map-page .story-step {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+.story-hybrid.story {
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+  gap: 0 36px;
+}
+.story-hybrid .story-map,
+.story-hybrid.is-explore .story-map {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: sticky;
+  top: 24px;
+  height: min(720px, calc(100svh - 48px));
+  min-height: 0;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+.story-hybrid .map-stage {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  height: auto;
+  border: 0;
+}
+.story-hybrid .leaflet-map {
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+}
+.story-hybrid:not(.is-explore) .leaflet-map,
+.story-hybrid:not(.is-explore) .leaflet-map * {
+  touch-action: pan-y pinch-zoom;
+}
+.story-hybrid:not(.is-explore) .leaflet-map { pointer-events: none; }
+.story-hybrid:not(.is-explore) .leaflet-control-zoom { display: none; }
+.story-hybrid .story-cover,
+.story-hybrid .story-cover[data-open="false"] {
+  transition: none;
+  filter: none;
+}
+.story-hybrid .story-progress,
+.story-hybrid .story-hint { display: none; }
+.story-hybrid .story-nav,
+.story-hybrid.is-explore .story-nav {
+  position: relative;
+  inset: auto;
+  z-index: 1;
+  flex: none;
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) auto minmax(100px, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 64px;
+  padding: 8px 12px;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--bg);
+}
+.story-hybrid .story-nav button {
+  width: auto;
+  min-height: 44px;
+  height: auto;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #c5cdc3;
+  background: #fff;
+  color: #294638;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.story-hybrid .story-nav [data-story-next] {
+  background: #294638;
+  border-color: #294638;
+  color: #fff;
+}
+.story-hybrid .story-nav button[aria-disabled="true"] {
+  opacity: .45;
+  cursor: default;
+}
+.story-hybrid .story-nav [data-story-count] {
+  min-width: 64px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.story-hybrid .story-steps { padding: 0 0 35svh; }
+.story-hybrid .story-step {
+  position: relative;
+  min-height: 0;
+  padding: 36px 0 52px 16px;
+  justify-content: flex-start;
+  border-left: 2px solid transparent;
+  scroll-snap-align: none;
+  gap: 10px;
+}
+.story-hybrid .story-step.is-active { border-left-color: #7d9a80; }
+.story-hybrid .story-step p { max-width: 42ch; font-size: 17px; line-height: 1.6; }
+.story-hybrid .story-step > a { min-height: 28px; padding-block: 4px; }
+.story-hybrid .story-image { width: 100%; max-height: none; aspect-ratio: 16 / 10; object-fit: cover; background: #e4e7e0; }
+.story-hybrid .story-explore-tools { width: 100%; }
+/* Reserve Explore's layout before activation. Revealing controls never changes
+   the map size or the document's scroll destination. */
+.story-hybrid:not(.is-explore) .story-explore-tools { visibility: hidden; }
+.story-hybrid .story-explore-tools .map-toolbar {
+  display: flex;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+}
+.story-hybrid .story-explore-tools .map-controls,
+.story-hybrid .story-explore-tools .map-toggles { flex-wrap: wrap; }
+.story-hybrid .story-explore-tools .map-legend {
+  display: flex;
+  padding: 12px 0;
+  background: transparent;
+}
+.story-hybrid .story-explore-tools .map-detail {
+  display: block;
+  max-height: none;
+  margin: 12px 0 0;
+  overflow: visible;
+}
+.story-hybrid .story-explore-tools button { min-height: 44px; }
+.story-hybrid .map-toolbar,
+.story-hybrid .map-legend,
+.story-hybrid .map-detail { transition: none; }
+@media (max-width: 900px) {
+  .story-hybrid.story { display: block; padding-top: 8px; }
+  .story-hybrid .story-map,
+  .story-hybrid.is-explore .story-map {
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: calc(clamp(160px, 30svh, 260px) + 64px);
+  }
+  .story-hybrid .story-map .map-stage,
+  .story-hybrid.is-explore .story-map .map-stage {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 0;
+  }
+  .story-hybrid .story-nav { padding: 8px; gap: 6px; }
+  .story-hybrid .story-nav button { font-size: 13px; padding: 10px 8px; }
+  .story-hybrid .story-step { padding: 24px 0 36px 12px; }
+  .story-hybrid .story-step p { font-size: 16px; max-width: none; }
+  .story-hybrid .story-steps { padding-bottom: 55svh; }
+  .story-hybrid .story-image { width: 100%; max-height: none; }
+}
+@media (max-height: 440px) and (max-width: 900px) {
+  .story-hybrid .story-map,
+  .story-hybrid.is-explore .story-map { position: relative; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-hybrid *, .story-hybrid *::before, .story-hybrid *::after {
+    scroll-behavior: auto;
+  }
+}
+@media print {
+  .story-hybrid .story-map { display: none; }
+  .story-hybrid.story { display: block; }
+  .story-hybrid .story-steps { padding: 0; }
+  .story-hybrid .story-step { break-inside: avoid; padding: 20px 0; border: 0; }
+  .story-hybrid .story-explore-tools { display: none; }
+}
