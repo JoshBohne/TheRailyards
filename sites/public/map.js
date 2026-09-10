@@ -441,6 +441,15 @@
       entries.forEach(function (entry) { if (entry.isIntersecting) runStep(entry.target.getAttribute('data-story')); });
     }, { rootMargin: window.innerWidth <= 900 ? '-52% 0px -22% 0px' : '-45% 0px -45% 0px', threshold: 0 });
     document.querySelectorAll('.story-step').forEach(function (step) { observer.observe(step); });
+    /* The last card is short and ends the page, so it opens as soon as it scrolls into the lower half. */
+    var exploreStep = document.querySelector('.story-explore');
+    function checkExplore() {
+      if (!exploreStep) return;
+      var top = exploreStep.getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.8 && top > 0) runStep('explore');
+    }
+    window.addEventListener('scroll', checkExplore, { passive: true });
+    checkExplore();
   } else if (section) section.classList.add('is-explore');
 
   var requested = new URLSearchParams(window.location.search).get('place');
