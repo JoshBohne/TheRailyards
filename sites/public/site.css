@@ -332,7 +332,7 @@ nav{width:100%;
 .feedback-heading{display:flex;align-items:start;justify-content:space-between;gap:12px}.feedback-heading h2{margin:0;font-size:24px}.feedback-heading button{border:0;background:transparent;font-size:26px;cursor:pointer;color:inherit}
 #feedback-form label{display:block;font-size:13px;margin:18px 0 6px}#feedback-form textarea,#feedback-form select{font:inherit;font-size:16px;padding:10px;width:100%;box-sizing:border-box;border:1px solid #c4ced4;border-radius:4px;background:#fff;color:#111111}#feedback-form textarea{resize:vertical}
 #feedback-dialog .feedback-privacy{font-size:12px}#feedback-status:empty{display:none}#feedback-dialog #feedback-status{color:#111111}.feedback-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
-@media(max-width:640px){.ballpark-facts{grid-template-columns:1fr;gap:26px}.seat-summary{border-left:0;border-top:1px solid #e2e2e2;padding:26px 0 0}.field-diagram svg{max-width:360px}.site-header{flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px}.site-header nav{order:3;width:100%;justify-content:space-between;gap:8px}.site-header nav a{font-size:12px}.feedback-open{margin-left:auto;font-size:11px;padding:4px 8px}#feedback-dialog{padding:22px}}
+@media(max-width:640px){.ballpark-facts{grid-template-columns:1fr;gap:26px}.seat-summary{border-left:0;border-top:1px solid #e2e2e2;padding:26px 0 0}.field-diagram svg{max-width:360px}.site-header{flex-direction:row;align-items:center;flex-wrap:wrap;gap:14px}.site-header nav{order:3;width:100%;justify-content:space-between;gap:8px}.site-header nav a{font-size:12px}.feedback-open{margin-left:auto;width:34px;height:34px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}.feedback-open span{display:none}.feedback-open .feedback-icon{display:block}#feedback-dialog{padding:22px}}
 .river-explainer{margin:22px 0 0;padding:16px 0;border-bottom:1px solid #e2e2e2}.river-explainer summary{cursor:pointer;font-size:15px;font-weight:500}.river-explainer p{font-size:14px;line-height:1.7;color:#586358;max-width:80ch}
 .maker-lede{margin-bottom:18px}.maker-signature{margin-top:12px}
 
@@ -707,3 +707,5 @@ html.story-snap{scroll-snap-type:y proximity}
  .site-header nav a[aria-current]{box-shadow:none;font-weight:600;color:var(--ink)}
 }
 @media(prefers-reduced-motion:reduce){.nav-toggle span{transition:none}}
+
+.feedback-icon{display:none;width:18px;height:18px}.feedback-open{display:inline-flex;align-items:center;gap:6px}.map-credits{display:block;margin-top:4px;font-size:11px;color:var(--muted)}.map-credits a{color:inherit}

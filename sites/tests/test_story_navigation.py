@@ -173,7 +173,7 @@ class StoryNavigation(unittest.TestCase):
         self.page.locator('.map-exit-fullscreen').click();self.fullscreen(False);self.active('stadium')
     def test_11_failed_image_geometry(self):
         self.load();self.jump('the78first');box=self.page.locator('[data-story="the78first"]').bounding_box()
-        self.page.locator('[data-story="the78first"] img').evaluate("img=>{img.src='missing-image.jpg';img.dispatchEvent(new Event('error'))}")
+        self.page.locator('[data-story="the78first"] img').first.evaluate("img=>{img.src='missing-image.jpg';img.dispatchEvent(new Event('error'))}")
         self.page.wait_for_timeout(150)
         self.assertAlmostEqual(box['height'],self.page.locator('[data-story="the78first"]').bounding_box()['height'],delta=1)
 

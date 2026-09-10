@@ -210,7 +210,8 @@ html.story-fullscreen .story-nav { display: none !important; }
   .story-hybrid .story-nav button { font-size: 13px; padding: 10px 8px; }
   .story-hybrid .story-step { padding: 24px 0 36px 12px; }
   .story-hybrid .story-step p { font-size: 16px; max-width: none; }
-  .story-hybrid .story-steps { padding-bottom: calc(40svh + 72px); }
+  .story-hybrid .story-steps { padding-bottom: calc(30svh + 72px); }
+  html.has-story-navigation .city-footer { padding-bottom: 80px; }
   .story-hybrid .story-step:last-child { padding-bottom: 96px; }
   .story-hybrid .story-image { width: 100%; max-height: none; }
 }

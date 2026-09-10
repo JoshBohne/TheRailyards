@@ -743,7 +743,7 @@
     section.querySelectorAll('.story-image').forEach(function (image) {
       image.removeAttribute('onerror');
       image.onerror = null;
-      image.parentElement.hidden = false;
+      if (!image.closest('.story-slide')) image.parentElement.hidden = false;
     });
     navPrev.addEventListener('click', function () {
       if (!pending && currentIndex <= 0) return;
