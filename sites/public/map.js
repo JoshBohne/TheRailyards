@@ -220,7 +220,7 @@
     source: 'sources.html#chicagofire-2026-03-03', sourceLabel: 'Chicago Fire · Mar 3, 2026',
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
-      L.polygon(sites.the78, { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
+      L.polygon(convexHull([].concat.apply([], sites.the78.map(function (ring) { return ring[0]; }))), { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
       label('soccer', 'McDonald’s Park', 13, [41.8622, -87.6322])
     ])
   });

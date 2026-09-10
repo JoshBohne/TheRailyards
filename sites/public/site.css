@@ -639,6 +639,8 @@ nav{width:100%;
 .story.is-explore .story-nav{display:none}
 html.story-snap{scroll-snap-type:y proximity}
 .story-snap .story-step{scroll-snap-align:center}
+.story-snap .site-header{scroll-snap-align:start}
+.story-snap .story-step[data-story=intro]{scroll-snap-align:none}
 .story-snap .story-explore{scroll-snap-align:start}
 .is-satellite .map-marker-text.label-min-12 .map-marker-label{color:#fff;font-size:13px}
 .is-focused .map-marker-area,.is-focused .map-marker-boat,.is-focused .map-marker-parking{display:none}
