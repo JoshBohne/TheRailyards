@@ -397,7 +397,7 @@
     if (!place) return;
     showDetail(place);
     setBasemap(place.basemap || 'map');
-    if (instant) map.setView(place.position, place.zoom);
+    if (instant || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) map.setView(place.position, place.zoom);
     else map.flyTo(place.position, place.zoom, { duration: 0.8 });
     document.querySelectorAll('[data-map-focus]').forEach(function (item) {
       item.setAttribute('aria-pressed', item === button || item.getAttribute('data-map-focus') === id ? 'true' : 'false');
@@ -406,7 +406,6 @@
   document.querySelectorAll('[data-map-focus]').forEach(function (button) {
     button.addEventListener('click', function () {
       focusPlace(button.getAttribute('data-map-focus'), button);
-      root.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     });
   });
 
@@ -417,8 +416,35 @@
   map.on('zoomend', updateZoomClasses);
   updateZoomClasses();
 
+  /* Scroll-driven story: each step pins the map to a place; the last step opens the controls. */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var bothYards = L.latLngBounds(sites.amtrakYard.concat(sites.upCanalYard));
+  var storyViews = {
+    intro: function () { setBasemap('map'); map.flyToBounds(overview, { padding: [12, 12], duration: reduceMotion ? 0 : 1 }); showDetail(places.stadium); },
+    amtrakYard: function () { focusPlace('amtrakYard'); },
+    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); map.flyToBounds(bothYards, { padding: [30, 30], duration: reduceMotion ? 0 : 1.2 }); },
+    stadium: function () { focusPlace('stadium'); },
+    explore: function () { setBasemap('map'); map.flyToBounds(overview, { padding: [12, 12], duration: reduceMotion ? 0 : 1 }); showDetail(places.stadium); }
+  };
+  var section = root.closest('.story');
+  var currentStep = '';
+  function runStep(name) {
+    if (name === currentStep || !storyViews[name]) return;
+    currentStep = name;
+    if (section) section.classList.toggle('is-explore', name === 'explore');
+    document.querySelectorAll('.story-step').forEach(function (step) { step.classList.toggle('is-active', step.getAttribute('data-story') === name); });
+    storyViews[name]();
+  }
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) { if (entry.isIntersecting) runStep(entry.target.getAttribute('data-story')); });
+    }, { rootMargin: window.innerWidth <= 900 ? '-52% 0px -22% 0px' : '-45% 0px -45% 0px', threshold: 0 });
+    document.querySelectorAll('.story-step').forEach(function (step) { observer.observe(step); });
+  } else if (section) section.classList.add('is-explore');
+
   var requested = new URLSearchParams(window.location.search).get('place');
-  if (places[requested]) focusPlace(requested, null, true);
-  else { map.fitBounds(overview, { padding: [12, 12] }); focusPlace('stadium', null, true); map.fitBounds(overview, { padding: [12, 12] }); }
+  map.fitBounds(overview, { padding: [12, 12] });
+  if (places[requested]) { if (section) section.classList.add('is-explore'); currentStep = 'explore'; focusPlace(requested, null, true); document.querySelector('.story-explore').scrollIntoView(); }
+  else showDetail(places.stadium);
   window.setTimeout(function () { map.invalidateSize(); }, 0);
 })();
