@@ -648,6 +648,8 @@
   function startStory() {
     if (started || !nav || !navPrev || !navNext || !navCount) return;
     started = true;
+    // The stylesheet is in; hand the chapter look back to it.
+    steps.forEach(function (step) { step.style.opacity = ''; step.style.transform = ''; step.style.filter = ''; step.style.transition = ''; });
     document.documentElement.classList.remove('story-snap');
     document.documentElement.classList.add('has-story-navigation');
     section.classList.add('story-hybrid');

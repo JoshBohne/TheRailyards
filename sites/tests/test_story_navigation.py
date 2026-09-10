@@ -94,7 +94,12 @@ class StoryNavigation(unittest.TestCase):
         self.assertEqual(self.page.locator('.story-step').count(),7)
         self.assertEqual(self.page.locator('.story-nav').count(),1)
         self.assertEqual(self.page.evaluate('getComputedStyle(document.documentElement).scrollSnapType'),'none')
+        # Before Start, the chapters below the intro are blurred; the intro itself is readable.
+        self.assertEqual(self.page.evaluate("getComputedStyle(document.querySelector(\".story-step[data-story='intro']\")).filter"),'none')
+        self.assertTrue(self.page.evaluate("[...document.querySelectorAll('.story-step:not([data-story=intro])')].every(s=>getComputedStyle(s).filter!=='none')"))
+        self.next();self.active('the78first');self.page.wait_for_timeout(600)
         self.assertTrue(self.page.evaluate("[...document.querySelectorAll('.story-step')].every(s=>getComputedStyle(s).opacity==='1'&&getComputedStyle(s).filter==='none'&&getComputedStyle(s).transform==='none')"))
+        self.jump('intro')
         self.assertTrue(self.page.evaluate('!__map.dragging.enabled()&&!__map.keyboard.enabled()&&!__map.scrollWheelZoom.enabled()'))
     def test_02_buttons_both_directions(self):
         self.load()
