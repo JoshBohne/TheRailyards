@@ -131,7 +131,11 @@
     if (feature.image) html += '<img src="' + feature.image + '" alt="' + escapeHtml(feature.imageAlt || feature.title) + '" loading="lazy">';
     html += '<p>' + escapeHtml(feature.copy) + '</p>';
     if (feature.source) html += '<a href="' + feature.source + '">' + escapeHtml(feature.sourceLabel || 'Source') + '</a>';
-    L.popup({ maxWidth: 280, autoPanPadding: [24, 24] }).setLatLng(latlng || feature.position).setContent(html).openOn(map);
+    // Leaflet animates the popup's auto-pan; run it instantly so no delayed motion follows.
+    var panBy = map.panBy;
+    map.panBy = function (offset, options) { return panBy.call(map, offset, L.extend({}, options, { animate: false })); };
+    try { L.popup({ maxWidth: 280, autoPanPadding: [24, 24] }).setLatLng(latlng || feature.position).setContent(html).openOn(map); }
+    finally { map.panBy = panBy; }
   }
 
   var places = {};
@@ -451,6 +455,8 @@
   var navCount = section.querySelector('[data-story-count]');
   var cover = section.querySelector('.story-cover');
   var tools;
+  var exitButton;
+  var fullscreen = false;
   var announcement;
   var anchors;
   var started = false;
@@ -517,7 +523,7 @@
     if (cover) cover.setAttribute('data-open', name === 'intro' ? 'true' : 'false');
     setInteractions(name === 'explore');
     fitInstant(chapter.bounds, chapter.padding, 16);
-    if (name !== 'explore') map.closePopup();
+    if (name !== 'explore') { map.closePopup(); if (fullscreen) setFullscreen(false); }
     steps.forEach(function (step, i) {
       step.classList.toggle('is-active', i === index);
       if (i === index) step.setAttribute('aria-current', 'step');
@@ -527,15 +533,24 @@
     root.setAttribute('data-story-view', name);
     updateNav();
   }
+  function setFullscreen(on) {
+    fullscreen = !!on;
+    pinned.classList.toggle('is-fullscreen', fullscreen);
+    document.documentElement.classList.toggle('story-fullscreen', fullscreen);
+    resizeMap = true;
+    queueFrame();
+    if (fullscreen) root.focus({ preventScroll: true }); else navNext.focus({ preventScroll: true });
+  }
   function updateNav() {
     // Pending destination is for rapid-click arithmetic only. The visible count
     // and disabled states always describe the chapter at the reading line.
     navCount.textContent = currentIndex === 0 ? 'The story' : currentIndex === steps.length - 1 ? 'Explore' : currentIndex + ' of ' + (steps.length - 2);
+    var last = currentIndex === steps.length - 1 && !pending;
     navPrev.setAttribute('aria-disabled', currentIndex <= 0 && !pending ? 'true' : 'false');
-    navNext.setAttribute('aria-disabled', currentIndex === steps.length - 1 && !pending ? 'true' : 'false');
+    navNext.setAttribute('aria-disabled', 'false');
     navPrev.textContent = '← Previous';
-    navNext.textContent = currentIndex <= 0 ? 'Start →' : currentIndex === steps.length - 2 ? 'Explore →' : 'Next →';
-    navNext.setAttribute('aria-label', currentIndex <= 0 ? 'Start the story' : currentIndex === steps.length - 2 ? 'Explore the map' : 'Next chapter');
+    navNext.textContent = last ? 'Full screen ⤢' : currentIndex <= 0 ? 'Start →' : currentIndex === steps.length - 2 ? 'Explore →' : 'Next →';
+    navNext.setAttribute('aria-label', last ? 'Show the map full screen' : currentIndex <= 0 ? 'Start the story' : currentIndex === steps.length - 2 ? 'Explore the map' : 'Next chapter');
   }
   function viewport() {
     var visual = window.visualViewport;
@@ -672,8 +687,16 @@
     nav.appendChild(announcement);
     tools = document.createElement('div');
     tools.className = 'story-explore-tools';
-    section.querySelectorAll('.map-toolbar,.map-legend').forEach(function (node) { tools.appendChild(node); });
-    steps[steps.length - 1].appendChild(tools);
+    section.querySelectorAll('.map-toolbar').forEach(function (node) { tools.appendChild(node); });
+    section.querySelectorAll('.map-legend').forEach(function (node) { node.remove(); });
+    stage.appendChild(tools);
+    exitButton = document.createElement('button');
+    exitButton.type = 'button';
+    exitButton.className = 'map-exit-fullscreen';
+    exitButton.textContent = '✕ Exit full screen';
+    exitButton.addEventListener('click', function () { setFullscreen(false); });
+    stage.appendChild(exitButton);
+    window.addEventListener('keydown', function (event) { if (event.key === 'Escape' && fullscreen) setFullscreen(false); });
     anchors = steps.map(function (step) {
       var anchor = step.querySelector('time') || step.querySelector('h1,h2');
       anchor.setAttribute('data-story-anchor', '');
@@ -691,7 +714,7 @@
       goTo((pending ? pending.index : currentIndex) - 1);
     });
     navNext.addEventListener('click', function () {
-      if (!pending && currentIndex === steps.length - 1) return;
+      if (!pending && currentIndex === steps.length - 1) { setFullscreen(true); return; }
       goTo((pending ? pending.index : currentIndex) + 1);
     });
     window.addEventListener('scroll', queueFrame, { passive: true });

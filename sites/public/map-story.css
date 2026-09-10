@@ -116,24 +116,62 @@ html.has-story-navigation {
 .story-hybrid .story-step p { max-width: 42ch; font-size: 17px; line-height: 1.6; }
 .story-hybrid .story-step > a { min-height: 28px; padding-block: 4px; }
 .story-hybrid .story-image { width: 100%; max-height: none; aspect-ratio: 16 / 10; object-fit: cover; background: #e4e7e0; }
-.story-hybrid .story-explore-tools { width: 100%; }
-/* Reserve Explore's layout before activation. Revealing controls never changes
-   the map size or the document's scroll destination. */
-.story-hybrid:not(.is-explore) .story-explore-tools { visibility: hidden; }
+/* Explore tools sit on the map: small chips above the attribution line. */
+.story-hybrid .story-explore-tools {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 24px;
+  z-index: 650;
+  pointer-events: none;
+}
+.story-hybrid:not(.is-explore) .story-explore-tools { display: none; }
 .story-hybrid .story-explore-tools .map-toolbar {
   display: flex;
-  padding: 12px 0;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
   border: 0;
   background: transparent;
 }
 .story-hybrid .story-explore-tools .map-controls,
-.story-hybrid .story-explore-tools .map-toggles { flex-wrap: wrap; }
-.story-hybrid .story-explore-tools .map-legend {
-  display: flex;
-  padding: 12px 0;
-  background: transparent;
+.story-hybrid .story-explore-tools .map-toggles,
+.story-hybrid .story-explore-tools .map-basemap { display: flex; flex-wrap: wrap; gap: 6px; border: 0; }
+.story-hybrid .story-explore-tools button {
+  pointer-events: auto;
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 1px solid #c4ced4;
+  border-radius: 999px;
+  background: #fffffff0;
+  color: #111111;
+  font-size: 12px;
+  line-height: 1.2;
+  box-shadow: 0 1px 4px #0000001f;
 }
-.story-hybrid .story-explore-tools button { min-height: 44px; }
+.story-hybrid .story-explore-tools button[aria-pressed="true"] { background: #111111; border-color: #111111; color: #fff; }
+.story-hybrid .story-explore-tools .map-basemap button + button { border-left: 1px solid #c4ced4; }
+.map-exit-fullscreen {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 660;
+  display: none;
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid #c4ced4;
+  border-radius: 999px;
+  background: #fffffff0;
+  color: #111111;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 4px #0000001f;
+}
+.story-map.is-fullscreen { position: fixed !important; inset: 0 !important; z-index: 900; width: 100% !important; height: 100svh !important; min-height: 0; border: 0; }
+.story-map.is-fullscreen .map-exit-fullscreen { display: inline-flex; }
+html.story-fullscreen { overflow: hidden; }
+html.story-fullscreen .story-nav { display: none !important; }
 .story-hybrid .map-toolbar,
 .story-hybrid .map-legend { transition: none; }
 @media (max-width: 900px) {
@@ -187,7 +225,6 @@ html.has-story-navigation {
   .story-hybrid.story { display: block; }
   .story-hybrid .story-steps { padding: 0; }
   .story-hybrid .story-step { break-inside: avoid; padding: 20px 0; border: 0; }
-  .story-hybrid .story-explore-tools { display: none; }
 }
 .story-hybrid .leaflet-popup-content { margin: 12px 14px; font-size: 13px; line-height: 1.45; }
 .story-hybrid .leaflet-popup-content p { margin: 6px 0; color: #4a4a4a; }

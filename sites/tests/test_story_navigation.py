@@ -141,7 +141,7 @@ class StoryNavigation(unittest.TestCase):
     def test_07_explore_state(self):
         self.load();self.jump('explore')
         for name in ['parking','concept','renderings']:self.page.locator(f'[data-map-layer="{name}"]').click()
-        self.page.locator('[data-map-focus="upCanalYard"]').click()
+        self.page.locator('[data-map-basemap="satellite"]').click();self.page.evaluate("__map.panBy([80,40],{animate:false})")
         center=self.page.evaluate('JSON.stringify(__map.getCenter())')
         self.page.evaluate("window.scrollTo({top:scrollY+80,behavior:'auto'})");self.page.wait_for_timeout(150);self.active('explore')
         self.assertEqual(center,self.page.evaluate('JSON.stringify(__map.getCenter())'))
