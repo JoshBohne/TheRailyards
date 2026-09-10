@@ -421,15 +421,17 @@
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var bothYards = L.latLngBounds(sites.amtrakYard.concat(sites.upCanalYard));
   function fly(bounds, pad) { map.flyToBounds(bounds, { padding: [pad, pad], duration: reduceMotion ? 0 : 1.1 }); }
+  var yardNotes = L.layerGroup([
+    label('text', 'North end · train storage', 12, [41.8447, -87.6373]),
+    label('text', 'South end · shop building, 33rd–35th', 12, [41.8292, -87.6373])
+  ]);
   var storyViews = {
     intro: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); },
     the78first: function () { setBasemap('map'); showDetail(places.the78); fly(L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]), 40); },
     fire: function () { setBasemap('satellite'); showDetail(places.the78); map.flyTo([41.8625, -87.6325], 16, { duration: reduceMotion ? 0 : 1.1 }); },
     amtrakYard: function () { setBasemap('satellite'); focusPlace('amtrakYard', null, false, true); },
-    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); fly(bothYards, 30); },
+    swap: function () { showDetail(places.upCanalYard); setBasemap('satellite'); var yard = L.latLngBounds(sites.upCanalYard); map.flyTo(yard.getCenter(), map.getBoundsZoom(yard, false, [20, 20]) + 1, { duration: reduceMotion ? 0 : 1.1 }); },
     stadium: function () { setBasemap('map'); focusPlace('stadium'); },
-    protest: function () { showDetail(places.upCanalYard); setBasemap('satellite'); map.flyTo([41.8335, -87.6373], 16.5, { duration: reduceMotion ? 0 : 1.1 }); },
-    rateField: function () { setBasemap('map'); focusPlace('rateField'); },
     explore: function () { setBasemap('map'); fly(overview, 12); showDetail(places.stadium); }
   };
   var progress = document.querySelector('.story-progress');
@@ -446,6 +448,7 @@
     }
   });
   var section = root.closest('.story');
+  document.documentElement.classList.add('story-snap');
   var currentStep = '';
   /* What each chapter shows. Everything else on the map is hidden until Explore. */
   var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'rateField'];
@@ -456,8 +459,6 @@
     amtrakYard: ['amtrakYard', 'the78'],
     swap: ['upCanalYard'],
     stadium: ['stadium', 'amtrakYard', 'the78'],
-    protest: ['upCanalYard'],
-    rateField: ['rateField', 'upCanalYard'],
     explore: siteIds
   };
   function setChapterLayers(name) {
@@ -468,6 +469,8 @@
       if (on && !map.hasLayer(layer)) layer.addTo(map);
       if (!on && map.hasLayer(layer)) map.removeLayer(layer);
     });
+    if (name === 'swap' && !map.hasLayer(yardNotes)) yardNotes.addTo(map);
+    if (name !== 'swap' && map.hasLayer(yardNotes)) map.removeLayer(yardNotes);
     var transitOn = name === 'explore' || name === 'intro';
     if (transitOn && !map.hasLayer(transitLayer)) transitLayer.addTo(map);
     if (!transitOn && map.hasLayer(transitLayer)) map.removeLayer(transitLayer);
@@ -487,6 +490,22 @@
       progress.querySelectorAll('li').forEach(function (item, i) { item.classList.toggle('is-done', i < index); item.classList.toggle('is-current', i === index); });
     }
     storyViews[name]();
+    updateNav();
+  }
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.story-step'));
+  var navPrev = document.querySelector('[data-story-prev]'), navNext = document.querySelector('[data-story-next]'), navCount = document.querySelector('[data-story-count]');
+  function stepIndex() { return steps.findIndex(function (step) { return step.getAttribute('data-story') === currentStep; }); }
+  function goTo(index) {
+    var step = steps[Math.max(0, Math.min(steps.length - 1, index))];
+    if (step) step.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: window.innerWidth <= 900 ? 'start' : 'center' });
+  }
+  if (navPrev) navPrev.addEventListener('click', function () { goTo(stepIndex() - 1); });
+  if (navNext) navNext.addEventListener('click', function () { goTo(stepIndex() + 1); });
+  function updateNav() {
+    var index = stepIndex();
+    if (navCount) navCount.textContent = index <= 0 ? '' : (index) + ' / ' + (steps.length - 1);
+    if (navPrev) navPrev.disabled = index <= 0;
+    if (navNext) navNext.disabled = index >= steps.length - 1;
   }
   if ('IntersectionObserver' in window) {
     var observer = new IntersectionObserver(function (entries) {
