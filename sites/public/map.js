@@ -208,7 +208,7 @@
     position: [41.834, -87.6373], zoom: 15, basemap: 'satellite',
     layer: L.layerGroup([
       L.polygon(sites.upCanalYard, { renderer: renderer, color: '#c94a45', weight: 2, fillColor: 'url(#hatch-facility)', fillOpacity: 1, className: 'map-facility' }),
-      label('text', 'Amtrak’s new facility', 12, [41.8335, -87.6373])
+      label('text', 'Amtrak’s new facility', 12, [41.8390, -87.6373])
     ])
   });
 
@@ -220,7 +220,7 @@
     position: [41.8637, -87.6325], zoom: 15,
     layer: L.layerGroup([
       L.polygon(convexHull([].concat.apply([], sites.the78.map(function (ring) { return ring[0]; }))), { renderer: renderer, color: '#c48a1a', weight: 2, fillColor: 'url(#hatch-construction)', fillOpacity: 1, className: 'map-site-fill' }),
-      label('text', 'The 78', 14, [41.8608, -87.6335])
+      label('text', 'The 78', 13, [41.8628, L.latLngBounds(sites.the78[0][0]).extend(sites.the78[1][0]).getCenter().lng])
     ])
   });
 
@@ -234,7 +234,7 @@
     position: parkBounds.getCenter(), zoom: 16,
     layer: L.layerGroup([
       L.polygon(sites.mcdonaldsPark, { renderer: renderer, color: '#9a6a12', weight: 2, fillColor: '#d9a441', fillOpacity: 0.85, className: 'map-site-fill' }),
-      label('text', 'McDonald’s Park', 13, [parkBounds.getCenter().lat, parkBounds.getCenter().lng])
+      label('text', 'McDonald’s Park', 13, [parkBounds.getNorth() - 0.0003, parkBounds.getCenter().lng])
     ])
   });
 
@@ -382,6 +382,11 @@
     marker.addTo(conceptLayer);
   });
 
+  /* Street reference so the parcel reads against the city. */
+  var roosevelt = label('area', 'Roosevelt Rd', 13, [41.8681, -87.6352]);
+  roosevelt.options.icon.options.className += ' map-marker-street';
+  L.layerGroup([roosevelt]).addTo(map);
+
   var groups = { transit: transitLayer, parking: parkingLayer, concept: conceptLayer, renderings: renderLayer };
   function fitInstant(bounds, padding, maxZoom) {
     map.stop();
@@ -432,7 +437,7 @@
 
   function updateZoomClasses() {
     var zoom = map.getZoom();
-    [12, 13, 14, 15].forEach(function (level) { root.classList.toggle('zoom-lt-' + level, zoom < level); });
+    [12, 13, 14, 15, 16].forEach(function (level) { root.classList.toggle('zoom-lt-' + level, zoom < level); });
   }
   map.on('zoomend', updateZoomClasses);
   updateZoomClasses();
@@ -467,17 +472,19 @@
   var lastMapWidth = 0, lastMapHeight = 0;
   var lastViewportWidth = window.innerWidth;
   var HYSTERESIS = 12;
+  var compactHeight = 0;
+  var refitOnResize = false;
   var siteIds = ['amtrakYard', 'stadium', 'upCanalYard', 'the78', 'mcdonaldsPark', 'rateField'];
   var northBounds = L.latLngBounds(sites.amtrakYard);
   sites.the78.forEach(function (polygon) { northBounds.extend(L.latLngBounds(polygon[0])); });
   var yardNotes = L.layerGroup([
-    label('text', 'North end · train storage', 12, [41.8447, -87.6373]),
-    label('text', 'South end · shop building, 33rd–35th', 12, [41.8292, -87.6373])
+    label('text', 'North end · storage', 12, [41.8447, -87.6472]),
+    label('text', 'South end · shop', 12, [41.8283, -87.6472])
   ]);
   var chapters = {
     intro: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     the78first: { sites: ['the78'], bounds: northBounds, padding: 30 },
-    fire: { sites: ['the78', 'mcdonaldsPark'], bounds: parkBounds, padding: 50 },
+    fire: { sites: ['the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     amtrakYard: { sites: ['amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
     swap: { sites: ['upCanalYard', 'rateField'], bounds: L.latLngBounds(sites.upCanalYard).extend(sites.rateField), padding: 30 },
     stadium: { sites: ['stadium', 'amtrakYard', 'the78', 'mcdonaldsPark'], bounds: northBounds, padding: 30 },
@@ -523,9 +530,11 @@
     if (cover) cover.setAttribute('data-open', name === 'intro' ? 'true' : 'false');
     setInteractions(name === 'explore');
     fitInstant(chapter.bounds, chapter.padding, 16);
+    refitOnResize = name === 'explore';
     if (name !== 'explore') { map.closePopup(); if (fullscreen) setFullscreen(false); }
     steps.forEach(function (step, i) {
       step.classList.toggle('is-active', i === index);
+      step.classList.toggle('is-upcoming', i > index);
       if (i === index) step.setAttribute('aria-current', 'step');
       else step.removeAttribute('aria-current');
     });
@@ -560,7 +569,10 @@
     var view = viewport();
     if (!stacked.matches || getComputedStyle(pinned).position !== 'sticky') return view.top + view.height * 0.35;
     var rect = pinned.getBoundingClientRect();
-    var pinnedBottom = (parseFloat(getComputedStyle(pinned).top) || 0) + rect.height;
+    // Explore grows the map; chapter selection keeps using the compact height so it cannot flip back and forth.
+    if (!section.classList.contains('is-explore')) compactHeight = rect.height;
+    var height = section.classList.contains('is-explore') && compactHeight ? Math.min(compactHeight, rect.height) : rect.height;
+    var pinnedBottom = (parseFloat(getComputedStyle(pinned).top) || 0) + height;
     var bottom = destination ? pinnedBottom : Math.min(rect.bottom, pinnedBottom);
     bottom = Math.max(view.top, bottom);
     return bottom + Math.min(64, Math.max(0, view.top + view.height - bottom) * 0.18);
@@ -589,7 +601,8 @@
         lastMapHeight = height;
         map.invalidateSize({ animate: false, pan: false });
         // Resizing while exploring must not replace the user's chosen view.
-        if (currentStep && currentStep !== 'explore') fitInstant(chapters[currentStep].bounds, chapters[currentStep].padding, 16);
+        if (currentStep && (currentStep !== 'explore' || refitOnResize)) fitInstant(chapters[currentStep].bounds, chapters[currentStep].padding, 16);
+        refitOnResize = false;
       }
     }
     var tops = anchors.map(function (anchor) { return anchor.getBoundingClientRect().top; });

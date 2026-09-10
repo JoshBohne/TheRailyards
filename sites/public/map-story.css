@@ -109,9 +109,9 @@ html.has-story-navigation {
   gap: 10px;
 }
 .story-hybrid .story-step.is-active { border-left-color: #8e989e; }
-/* Until the reader presses Start (or scrolls into the story), the chapters below the intro stay blurred. */
+/* Chapters ahead of the reader stay blurred until they reach them. */
 .story-hybrid .story-step { transition: filter .5s var(--panel-ease), opacity .5s var(--panel-ease); }
-.story-hybrid[data-active-story="intro"] .story-step:not([data-story="intro"]) { filter: blur(5px); opacity: .45; pointer-events: none; }
+.story-hybrid .story-step.is-upcoming { filter: blur(5px); opacity: .45; }
 @media (prefers-reduced-motion: reduce) { .story-hybrid .story-step { transition: none; } }
 .story-hybrid .story-step p { max-width: 42ch; font-size: 17px; line-height: 1.6; }
 .story-hybrid .story-step > a { min-height: 28px; padding-block: 4px; }
@@ -183,6 +183,8 @@ html.story-fullscreen .story-nav { display: none !important; }
     width: 100%;
     height: clamp(160px, 30svh, 260px);
   }
+  /* Explore gets two thirds of the screen. */
+  .story-hybrid.is-explore .story-map { height: 66svh; }
   /* Previous / Next live at the bottom of the screen on phones, not between the map and the text. */
   .story-hybrid .story-nav,
   .story-hybrid.is-explore .story-nav {
@@ -231,3 +233,8 @@ html.story-fullscreen .story-nav { display: none !important; }
 .story-hybrid .leaflet-popup-content img { width: 100%; border-radius: 3px; margin: 8px 0 2px; }
 .story-hybrid .leaflet-popup-content a { color: #111111; font-size: 12px; }
 .story-hybrid .leaflet-popup-content .map-detail-status { margin-left: 4px; }
+/* Small markers hide below their zoom so the overview is not a pile of icons. */
+.zoom-lt-14 .label-min-14.map-marker-station, .zoom-lt-15 .label-min-15.map-marker-station, .zoom-lt-16 .label-min-16.map-marker-station,
+.zoom-lt-14 .label-min-14.map-marker-boat, .zoom-lt-15 .label-min-15.map-marker-camera, .zoom-lt-14 .label-min-14.map-marker-parking, .zoom-lt-15 .label-min-15.map-marker-parking,
+.zoom-lt-13 .label-min-13.map-marker-concept, .zoom-lt-15 .label-min-15.map-marker-concept, .zoom-lt-16 .label-min-16.map-marker-concept { display: none; }
+.is-focused .map-marker-street { display: block; }
